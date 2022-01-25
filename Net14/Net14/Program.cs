@@ -6,15 +6,16 @@ namespace Net14
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("What is your name?");
-
-            var name = Console.ReadLine();
-
-            Console.WriteLine($"Hi {name} nice to see you.");
-
+            // First player
+            int min = EnterNumber("Enter min");
+            int max = EnterNumber("Enter max");
             int number = EnterNumber("First player enter a number");
 
+            int attemptCountBeforeLoose = CalculateAttemptCount(min, max);
+
+            // Second player
             Console.Clear();
+            var attempt = 0;
 
             Console.WriteLine("Good day second player");
 
@@ -33,12 +34,42 @@ namespace Net14
                     Console.WriteLine("<");
                 }
 
-                secondNumber = EnterNumber("Second player enter...");
+                attempt++;
+
+                if (attempt >= attemptCountBeforeLoose)
+                {
+                    break;
+                }
+
+                secondNumber = 
+                    EnterNumber($"Attempt: {attempt}/{attemptCountBeforeLoose}. Enter you guess [{min}, {max}]: ");
             }
 
-            Console.WriteLine("Win");
+            if (secondNumber == number)
+            {
+                Console.WriteLine("Win");
+            }
+            else
+            {
+                Console.WriteLine($"Looser. You use more than {attemptCountBeforeLoose}");
+            }
 
+        }
 
+        private static int CalculateAttemptCount(int min, int max)
+        {
+            var lenght = max - min;
+
+            var attempt = 1;
+            var maxLength = 1;
+
+            while (maxLength < lenght)
+            {
+                attempt++;
+                maxLength = maxLength * 2;
+            }
+
+            return attempt;
         }
 
         private static int EnterNumber(string message)
