@@ -10,7 +10,7 @@ namespace Net14
         {
             //Add new comment
             //New line
-            //HOT FIX
+            //HOT FIX 2
             var game = new Game();
             game.FirstPlayer();
             game.SecondPlayer();
