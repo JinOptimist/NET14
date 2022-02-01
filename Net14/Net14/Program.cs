@@ -9,6 +9,8 @@ namespace Net14
         static void Main(string[] args)
         {
             //Add new comment
+            //New line
+            //HOT FIX
             var game = new Game();
             game.FirstPlayer();
             game.SecondPlayer();
