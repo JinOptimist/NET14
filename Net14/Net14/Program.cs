@@ -8,6 +8,7 @@ namespace Net14
     {
         static void Main(string[] args)
         {
+            // HOT FIX
             var game = new Game();
             game.FirstPlayer();
             game.SecondPlayer();
