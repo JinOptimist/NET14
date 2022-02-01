@@ -30,7 +30,7 @@ namespace Net14
         public void SecondPlayer()
         {
             Console.Clear();
-            Console.WriteLine("Good day second player");
+            Console.WriteLine("Good day second player!");
 
             do
             {
