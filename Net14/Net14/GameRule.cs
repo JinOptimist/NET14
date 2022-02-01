@@ -5,7 +5,7 @@ using System.Text;
 namespace Net14
 {
     /// <summary>
-    /// Cool class for store game rule
+    /// Cool class for store game rule 2
     /// </summary>
     class GameRule
     {
