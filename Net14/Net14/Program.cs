@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Net14.Maze;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,12 +9,12 @@ namespace Net14
     {
         static void Main(string[] args)
         {
-            //Add new comment
-            //New line
-            //HOT FIX 2
-            var game = new Game();
-            game.FirstPlayer();
-            game.SecondPlayer();
+            var builder = new MazeBuilder();
+            var drawer = new Drawer();
+
+
+            var maze = builder.BuildSmallStandrad();
+            drawer.DrawMaze(maze);
         }
     }
 }
