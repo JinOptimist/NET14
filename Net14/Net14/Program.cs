@@ -15,5 +15,11 @@ namespace Net14
             game.FirstPlayer();
             game.SecondPlayer();
         }
+
+        family n = new family();
+        
+      
+        
+
     }
 }
