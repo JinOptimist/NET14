@@ -9,5 +9,6 @@ namespace Net14
         public string PhoneColor { get; set; }
         public double XSize { get; set; }
         public double YSize { get; set; }
+        public string Model { get; set; }
     }
 }
