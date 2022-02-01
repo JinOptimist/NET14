@@ -29,8 +29,9 @@ namespace Net14
 
         public void SecondPlayer()
         {
+            //one more comments
             Console.Clear();
-            Console.WriteLine("Good day second player");
+            Console.WriteLine("Good day second player!?");
 
             do
             {
