@@ -8,7 +8,7 @@ namespace Net14
     {
         public string FunnyText { get; set; }  
         
-
+        public string FunnyText2 { get; set; }
 
     }
 }
