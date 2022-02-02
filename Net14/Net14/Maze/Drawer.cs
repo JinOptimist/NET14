@@ -18,9 +18,13 @@ namespace Net14.Maze
                         .First(cell => cell.X == xIndex && cell.Y == yIndex);
 
                     var oldColor = Console.ForegroundColor;
+                    var oldBackColor = Console.BackgroundColor;
                     Console.ForegroundColor = cell.Color;
+                    Console.BackgroundColor = cell.BackColor;
                     Console.Write(cell.Symbol);
                     Console.ForegroundColor = oldColor;
+                    Console.BackgroundColor = oldBackColor;
+                    
                 }
 
                 Console.WriteLine();
