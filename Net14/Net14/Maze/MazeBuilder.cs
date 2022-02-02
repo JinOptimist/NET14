@@ -67,6 +67,52 @@ namespace Net14.Maze
             return mazeLevel;
         }
 
+
+        public MazeLevel NewBuildSmallStandrad()
+        {
+            var mazeLevel = GetBaseMaze(8, 6);
+
+            for (int y = 0; y < mazeLevel.Height; y++)
+            {
+                for (int x = 0; x < mazeLevel.Width; x++)
+                {
+                    var cell = new Cell
+                    {
+                        X = x,
+                        Y = y,
+                        Symbol = '_',
+                        Color = ConsoleColor.DarkMagenta
+                    };
+
+                    mazeLevel.Cells.Add(cell);
+                }
+            }
+
+            var firstCell = mazeLevel.Cells
+                .First(cell => cell.X == 1 && cell.Y == 0);
+            firstCell.Symbol = '#';
+
+            var secondCell = mazeLevel.Cells
+                .First(cell => cell.X == 1 && cell.Y == 2);
+            secondCell.Symbol = '#';
+            
+            var thirdCell = mazeLevel.Cells
+                .First(cell => cell.X == 3 && cell.Y == 2);
+            thirdCell.Symbol = '#';
+
+
+
+            return mazeLevel;
+        }
+
+
+
+
+
+
+
+
+
         private MazeLevel GetBaseMaze(int width, int height)
         {
             var mazeLevel = new MazeLevel();
