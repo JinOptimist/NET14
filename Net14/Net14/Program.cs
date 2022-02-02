@@ -16,8 +16,8 @@ namespace Net14
             var maze = builder.NewBuildSmallStandrad();
             drawer.DrawMaze(maze);
         }
-
-        family n = new family();
+        //hi
+        
         
       
         
