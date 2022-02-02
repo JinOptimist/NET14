@@ -67,6 +67,32 @@ namespace Net14.Maze
             return mazeLevel;
         }
 
+        public MazeLevel GetMazeWithRandomLetters(int width, int height) 
+        {
+            Random generateRandomLetters = new Random();
+            var maze = GetBaseMaze(width, height);
+            for (int y = 0; y < maze.Height; y++)
+            {
+                for (int x = 0; x < maze.Width; x++)
+                {
+                    int num = generateRandomLetters.Next(0, 26);
+                    char letter = (char)('a' + num);
+                    var cell = new Cell
+                    {
+                        X = x,
+                        Y = y,
+                        Symbol = letter,
+                        Color = ConsoleColor.Red
+                    };
+
+                    maze.Cells.Add(cell);
+                }
+            }
+            return maze;
+
+
+        }
+
         private MazeLevel GetBaseMaze(int width, int height)
         {
             var mazeLevel = new MazeLevel();
