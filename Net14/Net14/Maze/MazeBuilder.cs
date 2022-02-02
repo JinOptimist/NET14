@@ -35,6 +35,7 @@ namespace Net14.Maze
 
             return mazeLevel;
         }
+        
 
         public MazeLevel BuildSmallStandrad()
         {

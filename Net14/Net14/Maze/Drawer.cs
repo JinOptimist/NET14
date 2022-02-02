@@ -9,6 +9,7 @@ namespace Net14.Maze
     {
         public void DrawMaze(MazeLevel mazeLevel)
         {
+            Weather();
             for (int yIndex = 0; yIndex < mazeLevel.Height; yIndex++)
             {
                 for (int xIndex = 0; xIndex < mazeLevel.Width; xIndex++)
@@ -25,6 +26,13 @@ namespace Net14.Maze
 
                 Console.WriteLine();
             }
+        }
+        public void Weather()
+        {
+            string[] weather = new string[4] { "Foggy", "Snowy", "Rainy", "Sunny" };
+            Console.WriteLine(weather[new Random().Next(0, weather.Length)]);
+            
+
         }
     }
 }
