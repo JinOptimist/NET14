@@ -9,7 +9,7 @@ namespace Net14.Maze
     {
         public MazeLevel Build(int width = 5, int hegith = 7)
         {
-            var mazeLevel = GetBaseMaze(width, hegith);
+            var mazeLevel = GetBaseMaze(AskForSize("Enter Width:"), AskForSize("Enter Heigth:"));
 
             for (int y = 0; y < mazeLevel.Height; y++)
             {
@@ -75,5 +75,12 @@ namespace Net14.Maze
             mazeLevel.Cells = new List<Cell>();
             return mazeLevel;
         }
+        private int AskForSize(string message)
+        {
+           Console.WriteLine(message);
+            int parameter = Int32.Parse(Console.ReadLine());
+            return parameter;
+        }
     }
+
 }

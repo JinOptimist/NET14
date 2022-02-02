@@ -8,12 +8,12 @@ namespace Net14
     class Program
     {
         static void Main(string[] args)
-        {
+        {          
             var builder = new MazeBuilder();
             var drawer = new Drawer();
 
 
-            var maze = builder.BuildSmallStandrad();
+            var maze = builder.Build();
             drawer.DrawMaze(maze);
         }
 
