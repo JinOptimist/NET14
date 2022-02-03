@@ -24,7 +24,8 @@ namespace Net14.Maze
                     Console.BackgroundColor = ConsoleColor.Blue;
                     Console.ForegroundColor = cell.Color;
                     Console.Write(cell.Symbol);
-                    Console.ForegroundColor = oldColor;
+                    Console.ForegroundColor = oldColor;                  
+                    
                 }
 
                 Console.WriteLine();
