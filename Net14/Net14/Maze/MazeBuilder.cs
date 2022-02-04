@@ -181,6 +181,16 @@ namespace Net14.Maze
 
             return mazeLevel;
         }
+        public MazeLevel BuildWithUserWidthHeigth()
+        {
+            mazeLevel = GetBaseMaze(AskForSize("Enter Width: "), AskForSize("Enter Heigth: "));
+
+            BuildWall();
+
+            BuildGround();
+
+            return mazeLevel;
+        }
 
         private MazeLevel GetBaseMaze(int width, int height)
         {
