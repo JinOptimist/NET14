@@ -9,6 +9,7 @@ namespace Net14.Maze
     {
         public void DrawMaze(MazeLevel mazeLevel)
         {
+            Console.Clear();
             for (int yIndex = 0; yIndex < mazeLevel.Height; yIndex++)
             {
                 for (int xIndex = 0; xIndex < mazeLevel.Width; xIndex++)

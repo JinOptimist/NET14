@@ -13,7 +13,7 @@ namespace Net14
             var drawer = new Drawer();
 
 
-            var maze = builder.BuildChessMaze();
+            var maze = builder.Build(12, 7);
             drawer.DrawMaze(maze);
         }
 
