@@ -10,6 +10,7 @@ namespace Net14.Maze
     {
         public const char Wall = '#';
         public const char Ground = '_';
+        public const char Cont = '@';
 
         public MazeLevel Build(int width = 5, int hegith = 7)
         {
@@ -75,7 +76,12 @@ namespace Net14.Maze
                     .Where(cell =>
                         GetNearCells(mazeLevel.Cells, cell, Ground).Count < 2
                     ).ToList();
+
+
+
+
             } while (blueWallCanBVreak.Any());
+
 
 
 
