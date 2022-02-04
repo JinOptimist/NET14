@@ -49,8 +49,8 @@ namespace Net14.Maze
 
             do
             {
-                drawer.DrawMaze(mazeLevel);
-                Thread.Sleep(200);
+                //drawer.DrawMaze(mazeLevel);
+                //Thread.Sleep(200);
                 var nearWalls = GetNearCells(
                     mazeLevel.Cells,
                     redMinerCell,
@@ -77,8 +77,12 @@ namespace Net14.Maze
                     ).ToList();
             } while (blueWallCanBVreak.Any());
 
+            foreach (Cell cell in mazeLevel.Cells.Where(cell => cell.Symbol == Wall)) 
+            {
+                RandomChageColorofWall(cell);
+            }
 
-
+  
             return mazeLevel;
         }
 
@@ -175,6 +179,18 @@ namespace Net14.Maze
                 .Where(cell => cell.Symbol == cellSymbol);
 
             return nearWalls.ToList();
+        }
+
+        private Cell RandomChageColorofWall(Cell cell) 
+        {
+            Random POfColor = new Random();
+            if (POfColor.Next(0, 10) == 5)
+            {
+                cell.Color = ConsoleColor.Blue;
+            }
+
+            return cell;
+           
         }
     }
 }
