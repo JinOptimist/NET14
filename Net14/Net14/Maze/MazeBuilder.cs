@@ -151,9 +151,11 @@ namespace Net14.Maze
             return mazeLevel;
         }
 
+
         public MazeLevel BuildChessMaze(int width = 32, int height = 32)
         {
             var mazeLevel = GetBaseMaze(width, height);
+
 
             for (int y = 0; y < mazeLevel.Height; y++)
             {
@@ -163,6 +165,7 @@ namespace Net14.Maze
                     {
                         X = x,
                         Y = y,
+
                         Color = ConsoleColor.White,
                         Symbol = '#',
                         BackColor = ConsoleColor.Black
@@ -175,12 +178,37 @@ namespace Net14.Maze
                         cell.BackColor = ConsoleColor.DarkRed;
                     }
 
+
                     mazeLevel.Cells.Add(cell);
                 }
             }
 
+
+            var firstCell = mazeLevel.Cells
+                .First(cell => cell.X == 1 && cell.Y == 0);
+            firstCell.Symbol = '#';
+
+            var secondCell = mazeLevel.Cells
+                .First(cell => cell.X == 1 && cell.Y == 2);
+            secondCell.Symbol = '#';
+            
+            var thirdCell = mazeLevel.Cells
+                .First(cell => cell.X == 3 && cell.Y == 2);
+            thirdCell.Symbol = '#';
+
+
+
             return mazeLevel;
         }
+
+
+
+
+
+
+
+
+
 
         private MazeLevel GetBaseMaze(int width, int height)
         {

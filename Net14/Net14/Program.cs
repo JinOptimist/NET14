@@ -13,11 +13,13 @@ namespace Net14
             var drawer = new Drawer();
 
 
-            var maze = builder.Build(12, 7);
+
+            var maze = builder.NewBuildSmallStandrad();
+
             drawer.DrawMaze(maze);
         }
-
-        family n = new family();
+        //hi
+        
         
       
         
