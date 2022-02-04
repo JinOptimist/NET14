@@ -184,7 +184,8 @@ namespace Net14.Maze
         private Cell RandomChageColorofWall(Cell cell) 
         {
             Random POfColor = new Random();
-            if (POfColor.Next(0, 10) == 5)
+            var per = 0.1;
+            if (POfColor.NextDouble() <+ per)
             {
                 cell.Color = ConsoleColor.Blue;
             }
