@@ -22,8 +22,26 @@ namespace Net14.Maze
 
             //Ломаем стены где положенно
             BuildGround();
+
+            BuildRandomBlueWall();
             
             return mazeLevel;
+        }
+
+        private void BuildRandomBlueWall()
+        {
+            Random POfBlueWall = new Random();
+            var per = 0.1;
+
+            foreach (Cell cell in mazeLevel.Cells.Where(cell => cell.Symbol == Wall)) 
+            {
+                if (POfBlueWall.NextDouble() <= per) 
+                {
+                    cell.Color = ConsoleColor.Blue;
+                }
+            }
+
+
         }
 
         private void BuildGround()
@@ -97,11 +115,9 @@ namespace Net14.Maze
                 //До тех пор пока есть стены которые можно ломать, продолжаем
             } while (blueWallCanBVreak.Any());
 
-            foreach (Cell cell in mazeLevel.Cells.Where(cell => cell.Symbol == Wall)) 
-            {
-                RandomChageColorofWall(cell);
-            }
 
+
+        }
         /// <summary>
         /// Создаём лабиринт полный стен
         /// </summary>
@@ -231,17 +247,5 @@ namespace Net14.Maze
             return nearWalls.ToList();
         }
 
-        private Cell RandomChageColorofWall(Cell cell) 
-        {
-            Random POfColor = new Random();
-            var per = 0.1;
-            if (POfColor.NextDouble() <+ per)
-            {
-                cell.Color = ConsoleColor.Blue;
-            }
-
-            return cell;
-           
-        }
     }
 }
