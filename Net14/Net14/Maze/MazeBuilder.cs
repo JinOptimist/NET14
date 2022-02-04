@@ -226,5 +226,11 @@ namespace Net14.Maze
 
             return nearWalls.ToList();
         }
+        private int AskForSize(string message)
+        {
+           Console.WriteLine(message);
+            int parameter = Int32.Parse(Console.ReadLine());
+            return parameter;
+        }
     }
 }
