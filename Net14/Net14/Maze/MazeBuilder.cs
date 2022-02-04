@@ -24,13 +24,7 @@ namespace Net14.Maze
 
             //Ломаем стены где положенно
             BuildGround();
-
-            //Отмечаем вход
-            EnterPoint();
-
-            // Отмечаем выход
-            ExitPoint();
-
+            
             return mazeLevel;
         }
 
@@ -284,5 +278,11 @@ namespace Net14.Maze
             enter.Color = ConsoleColor.Cyan;
         }
 
+        private int AskForSize(string message)
+        {
+           Console.WriteLine(message);
+            int parameter = Int32.Parse(Console.ReadLine());
+            return parameter;
+        }
     }
 }
