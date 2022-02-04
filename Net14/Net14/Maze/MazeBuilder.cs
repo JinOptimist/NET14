@@ -11,10 +11,102 @@ namespace Net14.Maze
         public const char Wall = '#';
         public const char Ground = '_';
 
+        private MazeLevel mazeLevel;
+
         public MazeLevel Build(int width = 5, int hegith = 7)
         {
-            var mazeLevel = GetBaseMaze(width, hegith);
+            mazeLevel = GetBaseMaze(width, hegith);
 
+            //Весь лабиринт только в стенах
+            BuildWall();
+
+            //Ломаем стены где положенно
+            BuildGround();
+            
+            return mazeLevel;
+        }
+
+        private void BuildGround()
+        {
+
+            //Создаём рисовальщик, что бы по ходу создания
+            //лабиринта, показывать промежуточные результаты
+            var drawer = new Drawer();
+
+            //Берём НЕ крайние значения
+            var coreCell = mazeLevel // весь лабиринт
+                .Cells //Все ячейки лабиринта
+                .Where(cell =>  //Запускаем фильтрацию
+                    cell.X != 0 // подходят ячейки у которых X не равен 0
+                    && cell.X != mazeLevel.Width - 1 //и т.д.
+                    && cell.Y != 0
+                    && cell.Y != mazeLevel.Height - 1)
+                .ToList();
+
+            //Берём случайную ячейку из центральных и ставим туда Красного Шахтёра
+            var redMinerCell = GetRandom(coreCell);
+
+            //Ломаем стену. Точней у ячейки шахтёра
+            //заменяем символ стены на символ земли
+            redMinerCell.Symbol = Ground;
+
+            //Список стен которые можно сломать. Пока он пустой и это нормально
+            var blueWallCanBVreak = new List<Cell>();
+
+            do
+            {
+                //Если хотим смотрим по шагово, как он ломает стены
+                //drawer.DrawMaze(mazeLevel);
+                //Thread.Sleep(200);
+
+                //Берём ближайшие стены к шахтёру
+                var nearWalls = GetNearCells(
+                    mazeLevel.Cells,
+                    redMinerCell,
+                    Wall);
+
+                //Добавляем к стенам который можно ломать,
+                //стены которые рядом с шахтёром
+                blueWallCanBVreak.AddRange(nearWalls);
+
+                //Перепроверяем, все стены которые можно ломать,
+                //нет ли среди них стены, рядом с которыми две ячейки земли
+                //Такие стены ломат нельзя, вычёркиваем их из списка
+                blueWallCanBVreak = blueWallCanBVreak
+                   .Where(cell =>
+                       GetNearCells(mazeLevel.Cells, cell, Ground).Count < 2
+                   ).ToList();
+
+                //Берём из доступных стен для ломание, одну случайную
+                var wallToBreak = GetRandom(blueWallCanBVreak);
+                //Ломаем ей
+                wallToBreak.Symbol = Ground;
+                //Удаляем из списка доступных для ломания, текущую стену
+                blueWallCanBVreak.Remove(wallToBreak);
+
+                //Переставляем шахтёра на текущую стену
+                redMinerCell = wallToBreak;
+
+                //Ещё разок перепроверяем все синие стены доступные для
+                //ломания. Точно ли их можно ломать
+                blueWallCanBVreak = blueWallCanBVreak
+                    .Where(cell =>
+                        GetNearCells(mazeLevel.Cells, cell, Ground).Count < 2
+                    ).ToList();
+
+                //До тех пор пока есть стены которые можно ломать, продолжаем
+            } while (blueWallCanBVreak.Any());
+
+            foreach (Cell cell in mazeLevel.Cells.Where(cell => cell.Symbol == Wall)) 
+            {
+                RandomChageColorofWall(cell);
+            }
+
+        /// <summary>
+        /// Создаём лабиринт полный стен
+        /// </summary>
+        private void BuildWall()
+        {
             for (int y = 0; y < mazeLevel.Height; y++)
             {
                 for (int x = 0; x < mazeLevel.Width; x++)
@@ -30,60 +122,6 @@ namespace Net14.Maze
                     mazeLevel.Cells.Add(cell);
                 }
             }
-
-            var drawer = new Drawer();
-
-            var coreCell = mazeLevel
-                .Cells
-                .Where(cell => cell.X != 0
-                    && cell.X != mazeLevel.Width - 1
-                    && cell.Y != 0
-                    && cell.Y != mazeLevel.Height - 1)
-                .ToList();
-
-            var redMinerCell = GetRandom(coreCell);
-
-            redMinerCell.Symbol = Ground;
-
-            var blueWallCanBVreak = new List<Cell>();
-
-            do
-            {
-                //drawer.DrawMaze(mazeLevel);
-                //Thread.Sleep(200);
-                var nearWalls = GetNearCells(
-                    mazeLevel.Cells,
-                    redMinerCell,
-                    Wall);
-
-                blueWallCanBVreak.AddRange(nearWalls);
-                //blueWallCanBVreak.ForEach(x => x.Color = ConsoleColor.Blue);
-
-                blueWallCanBVreak = blueWallCanBVreak
-                   .Where(cell =>
-                       GetNearCells(mazeLevel.Cells, cell, Ground).Count < 2
-                   ).ToList();
-
-                var wallToBreak = GetRandom(blueWallCanBVreak);
-                wallToBreak.Symbol = Ground;
-                blueWallCanBVreak.Remove(wallToBreak);
-
-
-                redMinerCell = wallToBreak;
-
-                blueWallCanBVreak = blueWallCanBVreak
-                    .Where(cell =>
-                        GetNearCells(mazeLevel.Cells, cell, Ground).Count < 2
-                    ).ToList();
-            } while (blueWallCanBVreak.Any());
-
-            foreach (Cell cell in mazeLevel.Cells.Where(cell => cell.Symbol == Wall)) 
-            {
-                RandomChageColorofWall(cell);
-            }
-
-  
-            return mazeLevel;
         }
 
         public MazeLevel BuildSmallStandrad()
@@ -157,6 +195,11 @@ namespace Net14.Maze
             return mazeLevel;
         }
 
+        /// <summary>
+        /// Возвращаем случайную ячейку из переднного списка
+        /// </summary>
+        /// <param name="cells"></param>
+        /// <returns></returns>
         private Cell GetRandom(List<Cell> cells)
         {
             var random = new Random();
@@ -164,6 +207,13 @@ namespace Net14.Maze
             return cells[randomIndex];
         }
 
+        /// <summary>
+        /// Ищем ближайшие ячейки к переданной
+        /// </summary>
+        /// <param name="allCells">Все стены</param>
+        /// <param name="currentCell">Текущая ячейка</param>
+        /// <param name="cellSymbol">Искомые типы ячеек например Wall</param>
+        /// <returns></returns>
         private List<Cell> GetNearCells(
             List<Cell> allCells,
             Cell currentCell,
@@ -172,7 +222,7 @@ namespace Net14.Maze
             var nearWalls = allCells
                 .Where(cell =>
                     cell.X == currentCell.X
-                    && Math.Abs(cell.Y - currentCell.Y) == 1
+                    && Math.Abs(cell.Y - currentCell.Y) == 1//Abs это модуль
                     ||
                     cell.Y == currentCell.Y
                     && Math.Abs(cell.X - currentCell.X) == 1)
