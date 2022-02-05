@@ -10,6 +10,8 @@ namespace Net14.Maze
     {
         public const char Wall = '#';
         public const char Ground = '_';
+        public const char Exit = '@';
+        public const char Enter = 'X';
 
         private MazeLevel mazeLevel;
 
@@ -22,7 +24,13 @@ namespace Net14.Maze
 
             //Ломаем стены где положенно
             BuildGround();
-            
+
+            //Отмечаем вход
+            EnterPoint();
+
+            // Отмечаем выход
+            ExitPoint();
+
             return mazeLevel;
         }
 
@@ -226,5 +234,55 @@ namespace Net14.Maze
 
             return nearWalls.ToList();
         }
+
+        private void ExitPoint()
+        {
+            // Выбираем крайние ячейки земли
+            var extremCell = mazeLevel.Cells.Where(cell => 
+                    cell.Symbol == Ground).Where(cell =>
+                    cell.X == 0 || cell.Y == 0
+                    || cell.X == mazeLevel.Width - 1
+                    || cell.Y == mazeLevel.Height - 1)
+                    .ToList();
+                
+            // Ищем крайние ячейки радом с которыми есть 1 земля
+            extremCell = extremCell
+                   .Where(cell =>
+                       GetNearCells(mazeLevel.Cells, cell, Ground).Count == 1
+                   ).ToList();
+            // Ищем крайние ячейки радом с которыми есть 1 стена (угловые)
+            extremCell = extremCell
+                   .Where(cell =>
+                       GetNearCells(mazeLevel.Cells, cell, Wall).Count == 1
+                   ).ToList();
+            // Выбираем из них выход
+            var exit = GetRandom(extremCell);
+           
+
+            exit.Symbol = Exit;
+            exit.Color = ConsoleColor.Red;
+
+        }
+        private void EnterPoint()
+        {
+            // Выбираем не крайние ячейки
+            var interiorCell = mazeLevel.Cells.Where(cell =>
+                    cell.Symbol == Ground).Where(cell => 
+                    cell.X != 0 
+                    && cell.Y != 0
+                    && cell.Y != mazeLevel.Height - 1)
+                .ToList();
+
+            interiorCell = interiorCell
+                   .Where(cell =>
+                       GetNearCells(mazeLevel.Cells, cell, Ground).Count >= 3
+                   ).ToList();
+
+           
+            var enter = GetRandom(interiorCell);
+            enter.Symbol = Enter;
+            enter.Color = ConsoleColor.Cyan;
+        }
+
     }
 }
