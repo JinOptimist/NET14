@@ -173,26 +173,29 @@ namespace Net14.Maze
         public MazeLevel BuildChessMaze(int width = 32, int height = 32)
         {
             var mazeLevel = GetBaseMaze(width, height);
-
+            //int i = 0;
             for (int y = 0; y < mazeLevel.Height; y++)
             {
                 for (int x = 0; x < mazeLevel.Width; x++)
                 {
+                    var colorNumber = x % 16;
                     var cell = new Cell
                     {
                         X = x,
                         Y = y,
-                        Color = ConsoleColor.White,
+                        Color = (ConsoleColor)colorNumber,
                         Symbol = '#',
                         BackColor = ConsoleColor.Black
                     };
-
-                    if ((x + y) % 2 == 1)
-                    {
+                    
+                    
+                        if ((x + y) % 2 == 1)
+                          {
                         cell.Symbol = '#';
-                        cell.Color = ConsoleColor.White;
-                        cell.BackColor = ConsoleColor.DarkRed;
-                    }
+                        cell.Color = (ConsoleColor)colorNumber; 
+                        cell.BackColor = ConsoleColor.Black;
+                          }
+                       
 
                     mazeLevel.Cells.Add(cell);
                 }
