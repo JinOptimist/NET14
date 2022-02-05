@@ -24,6 +24,12 @@ namespace Net14.Maze
 
             //Ломаем стены где положенно
             BuildGround();
+
+            // Добавляем точку входа Х
+            EnterPoint();
+
+            // добавляем точку выхода @
+            ExitPoint();
             
             return mazeLevel;
         }
