@@ -23,10 +23,34 @@ namespace Net14.Maze
 
             //Ломаем стены где положенно
             BuildGround();
+
+            //Устанавливаем монеты
+            BuildCoin();
             
             return mazeLevel;
         }
 
+        private void BuildCoin()
+        {
+            var drawer = new Drawer();
+
+            var coreCellforCoin = mazeLevel // весь лабиринт
+                .Cells //Все ячейки лабиринта
+                .Where(cell =>  //Запускаем фильтрацию
+                    cell.X != 0 // подходят ячейки у которых X не равен 0
+                    && cell.X != mazeLevel.Width - 1 //и т.д.
+                    && cell.Y != 0
+                    && cell.Y != mazeLevel.Height - 1)
+                .ToList();
+
+            var AddCoint = coreCellforCoin
+              .Where(cell =>  //Запускаем фильтрацию
+                  cell.Symbol == Wall // подходят ячейки у которых X не равен 0
+                                      //           && cell.X != mazeLevel.Width - 1 //и т.д.
+                                      //           && cell.Y != 0
+                                      //           && cell.Y != mazeLevel.Height - 1)
+              ).ToList();            
+        }
         private void BuildGround()
         {
 
@@ -97,6 +121,8 @@ namespace Net14.Maze
 
                 //До тех пор пока есть стены которые можно ломать, продолжаем
             } while (blueWallCanBVreak.Any());
+
+          
         }
 
         /// <summary>
@@ -226,6 +252,38 @@ namespace Net14.Maze
                 .Where(cell => cell.Symbol == cellSymbol);
 
             return nearWalls.ToList();
+        }
+
+        public MazeLevel Mybuild()
+        {
+            var mazeLevel = GetBaseMaze(10, 10);
+            string letters = "abcdefghijklmnopqrstuvwxyz";
+            int i = 0;
+
+            for (int y = 0; y < mazeLevel.Height; y++)
+            {
+
+                for (int x = 0; x < mazeLevel.Width; x++)
+                {
+                    var cell = new Cell
+                    {
+                        X = x,
+                        Y = y,
+                        Color = ConsoleColor.Green,
+                        Symbol = letters[i]
+                    };
+                    i++;
+                    if (i == 26)
+                    {
+                        i = 0;
+                    }
+                    mazeLevel.Cells.Add(cell);
+                }
+
+            }
+
+            return mazeLevel;
+
         }
     }
 }
