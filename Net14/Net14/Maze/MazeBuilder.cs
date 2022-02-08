@@ -22,7 +22,7 @@ namespace Net14.Maze
             BuildGround();
 
 
-            AddDoors();
+            //AddDoors();
 
             // Добавляем точку входа Х
             EnterPoint();
@@ -64,7 +64,7 @@ namespace Net14.Maze
 
             //Берём случайную ячейку из центральных и ставим туда Красного Шахтёра
             var redMinerCell = GetRandom(coreCell);
-            
+
             //Ломаем стену. Точней у ячейки шахтёра
             //заменяем символ стены на символ земли
             mazeLevel.ReplaceCell(new Ground
@@ -82,7 +82,7 @@ namespace Net14.Maze
                 //Если хотим смотрим по шагово, как он ломает стены
                 //drawer.DrawMaze(mazeLevel);
                 //Thread.Sleep(200);
-                
+
                 //Берём ближайшие стены к шахтёру
                 var nearWalls = GetNearCells<Wall>(
                     mazeLevel.Cells,
@@ -91,7 +91,7 @@ namespace Net14.Maze
                 //Добавляем к стенам который можно ломать,
                 //стены которые рядом с шахтёром
                 blueWallCanBVreak.AddRange(nearWalls);
-                
+
 
                 //Перепроверяем, все стены которые можно ломать,
                 //нет ли среди них стены, рядом с которыми две ячейки земли
@@ -123,7 +123,7 @@ namespace Net14.Maze
                     ).ToList();
 
                 //До тех пор пока есть стены которые можно ломать, продолжаем
-                
+
             } while (blueWallCanBVreak.Any());
         }
 
@@ -257,45 +257,46 @@ namespace Net14.Maze
         }
 
 
-        private List<Cell> Get2YWalls(List<Cell> allCells, Cell currentCell, char cellSymbol)
-        {
-            var YWalls = allCells
-                .Where(cell => cell.X == currentCell.X && Math.Abs(cell.Y - currentCell.Y) == 1)
-                .Where(cell => cell.Symbol == Wall);
-            return YWalls.ToList();
-        }
-        private List<Cell> Get2XWalls(List<Cell> allCells, Cell currentCell, char cellSymbol)
-        {
-            var YWalls = allCells
-                .Where(cell => cell.Y == currentCell.Y && Math.Abs(cell.X - currentCell.X) == 1)
-                .Where(cell => cell.Symbol == Wall);
-            return YWalls.ToList();
-        }
-        private void AddDoors()
-        {
-            
-                var XDoorsCells = mazeLevel.Cells
-                    .Where(cell => cell.Symbol == Ground)
-                    .Where(cell => Get2YWalls(mazeLevel.Cells, cell, Wall).Count == 2)
-                    .ToList();
-                do
-                {
-                var DoorsX = GetRandom(XDoorsCells);
-                DoorsX.Symbol = DoorX;
-                XDoorsCells.Remove(DoorsX);
-                } while (XDoorsCells.Any());
-                
-                var YDoorsCells = mazeLevel.Cells
-                    .Where(cell => cell.Symbol == Ground)
-                    .Where(cell => Get2XWalls(mazeLevel.Cells, cell, Wall).Count == 2)
-                    .ToList();
-                do
-                {
-                var DoorsY = GetRandom(YDoorsCells);
-                DoorsY.Symbol = DoorY;
-                YDoorsCells.Remove(DoorsY);
-                } while (YDoorsCells.Any());
-                
+        //private List<Cell> Get2YWalls(List<Cell> allCells, Cell currentCell, char cellSymbol)
+        //{
+        //    var YWalls = allCells
+        //        .Where(cell => cell.X == currentCell.X && Math.Abs(cell.Y - currentCell.Y) == 1)
+        //        .Where(cell => cell.Symbol == Wall);
+        //    return YWalls.ToList();
+        //}
+        //private List<Cell> Get2XWalls(List<Cell> allCells, Cell currentCell, char cellSymbol)
+        //{
+        //    var YWalls = allCells
+        //        .Where(cell => cell.Y == currentCell.Y && Math.Abs(cell.X - currentCell.X) == 1)
+        //        .Where(cell => cell.Symbol == Wall);
+        //    return YWalls.ToList();
+        //}
+        //private void AddDoors()
+        //{
+
+        //    var XDoorsCells = mazeLevel.Cells
+        //        .Where(cell => cell.Symbol == Ground)
+        //        .Where(cell => Get2YWalls(mazeLevel.Cells, cell, Wall).Count == 2)
+        //        .ToList();
+        //    do
+        //    {
+        //        var DoorsX = GetRandom(XDoorsCells);
+        //        DoorsX.Symbol = DoorX;
+        //        XDoorsCells.Remove(DoorsX);
+        //    } while (XDoorsCells.Any());
+
+        //    var YDoorsCells = mazeLevel.Cells
+        //        .Where(cell => cell.Symbol == Ground)
+        //        .Where(cell => Get2XWalls(mazeLevel.Cells, cell, Wall).Count == 2)
+        //        .ToList();
+        //    do
+        //    {
+        //        var DoorsY = GetRandom(YDoorsCells);
+        //        DoorsY.Symbol = DoorY;
+        //        YDoorsCells.Remove(DoorsY);
+        //    } while (YDoorsCells.Any());
+
+        //}
 
         private void ExitPoint()
         {
