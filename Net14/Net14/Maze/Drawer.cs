@@ -7,6 +7,9 @@ namespace Net14.Maze
 {
     public class Drawer
     {
+   
+
+
         public void DrawMaze(MazeLevel mazeLevel)
         {
             for (int yIndex = 0; yIndex < mazeLevel.Height; yIndex++)
@@ -28,3 +31,4 @@ namespace Net14.Maze
         }
     }
 }
+

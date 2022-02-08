@@ -17,7 +17,7 @@ namespace Net14
             drawer.DrawMaze(maze);
         }
 
-        family n = new family();
+       
         
       
         
