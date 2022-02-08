@@ -10,8 +10,13 @@ namespace Net14.Maze
     {
         public const char Wall = '#';
         public const char Ground = '_';
+
+        public const char DoorY = '-';
+        public const char DoorX = '|';
+
         public const char Exit = '@';
         public const char Enter = 'X';
+
 
         private MazeLevel mazeLevel;
 
@@ -25,12 +30,17 @@ namespace Net14.Maze
             //Ломаем стены где положенно
             BuildGround();
 
+
+            AddDoors();
+
             // Добавляем точку входа Х
             EnterPoint();
 
             // добавляем точку выхода @
             ExitPoint();
+
             
+
             return mazeLevel;
         }
 
@@ -53,39 +63,40 @@ namespace Net14.Maze
 
             //Берём случайную ячейку из центральных и ставим туда Красного Шахтёра
             var redMinerCell = GetRandom(coreCell);
-
+            
             //Ломаем стену. Точней у ячейки шахтёра
             //заменяем символ стены на символ земли
             redMinerCell.Symbol = Ground;
 
             //Список стен которые можно сломать. Пока он пустой и это нормально
             var blueWallCanBVreak = new List<Cell>();
-
+            
             do
             {
                 //Если хотим смотрим по шагово, как он ломает стены
                 //drawer.DrawMaze(mazeLevel);
                 //Thread.Sleep(200);
-
+                
                 //Берём ближайшие стены к шахтёру
                 var nearWalls = GetNearCells(
                     mazeLevel.Cells,
                     redMinerCell,
                     Wall);
-
+                
                 //Добавляем к стенам который можно ломать,
                 //стены которые рядом с шахтёром
                 blueWallCanBVreak.AddRange(nearWalls);
+                
 
                 //Перепроверяем, все стены которые можно ломать,
                 //нет ли среди них стены, рядом с которыми две ячейки земли
-                //Такие стены ломат нельзя, вычёркиваем их из списка
+                //Такие стены ломать нельзя, вычёркиваем их из списка
                 blueWallCanBVreak = blueWallCanBVreak
                    .Where(cell =>
                        GetNearCells(mazeLevel.Cells, cell, Ground).Count < 2
                    ).ToList();
 
-                //Берём из доступных стен для ломание, одну случайную
+                //Берём из доступных стен для ломания, одну случайную
                 var wallToBreak = GetRandom(blueWallCanBVreak);
                 //Ломаем ей
                 wallToBreak.Symbol = Ground;
@@ -103,6 +114,7 @@ namespace Net14.Maze
                     ).ToList();
 
                 //До тех пор пока есть стены которые можно ломать, продолжаем
+                
             } while (blueWallCanBVreak.Any());
         }
 
@@ -238,6 +250,47 @@ namespace Net14.Maze
             return nearWalls.ToList();
         }
 
+
+        private List<Cell> Get2YWalls(List<Cell> allCells, Cell currentCell, char cellSymbol)
+        {
+            var YWalls = allCells
+                .Where(cell => cell.X == currentCell.X && Math.Abs(cell.Y - currentCell.Y) == 1)
+                .Where(cell => cell.Symbol == Wall);
+            return YWalls.ToList();
+        }
+        private List<Cell> Get2XWalls(List<Cell> allCells, Cell currentCell, char cellSymbol)
+        {
+            var YWalls = allCells
+                .Where(cell => cell.Y == currentCell.Y && Math.Abs(cell.X - currentCell.X) == 1)
+                .Where(cell => cell.Symbol == Wall);
+            return YWalls.ToList();
+        }
+        private void AddDoors()
+        {
+            
+                var XDoorsCells = mazeLevel.Cells
+                    .Where(cell => cell.Symbol == Ground)
+                    .Where(cell => Get2YWalls(mazeLevel.Cells, cell, Wall).Count == 2)
+                    .ToList();
+                do
+                {
+                var DoorsX = GetRandom(XDoorsCells);
+                DoorsX.Symbol = DoorX;
+                XDoorsCells.Remove(DoorsX);
+                } while (XDoorsCells.Any());
+                
+                var YDoorsCells = mazeLevel.Cells
+                    .Where(cell => cell.Symbol == Ground)
+                    .Where(cell => Get2XWalls(mazeLevel.Cells, cell, Wall).Count == 2)
+                    .ToList();
+                do
+                {
+                var DoorsY = GetRandom(YDoorsCells);
+                DoorsY.Symbol = DoorY;
+                YDoorsCells.Remove(DoorsY);
+                } while (YDoorsCells.Any());
+                
+
         private void ExitPoint()
         {
             // Выбираем крайние ячейки земли
@@ -292,6 +345,7 @@ namespace Net14.Maze
            Console.WriteLine(message);
             int parameter = Int32.Parse(Console.ReadLine());
             return parameter;
+
         }
     }
 }
