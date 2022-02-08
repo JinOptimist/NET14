@@ -147,6 +147,7 @@ namespace Net14.Maze
                 }
             }
         }
+        
 
         public MazeLevel BuildSmallStandrad()
         {
