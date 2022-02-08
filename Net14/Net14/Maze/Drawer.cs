@@ -53,7 +53,7 @@ namespace Net14.Maze
         }
         public void Weather()
         {
-            string[] weather = new string[4] { "Foggy", "Snowy", "Rainy", "Sunny" };
+            string[] weather = new string[3] { "Foggy", "Snowy", "Rainy" };
             Console.WriteLine(weather[new Random().Next(0, weather.Length)]);
         }
     }
