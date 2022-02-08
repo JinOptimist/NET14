@@ -7,6 +7,9 @@ namespace Net14.Maze
 {
     public class Drawer
     {
+   
+
+
         public void DrawMaze(MazeLevel mazeLevel)
         {
             Console.Clear();
@@ -49,3 +52,4 @@ namespace Net14.Maze
         }
     }
 }
+
