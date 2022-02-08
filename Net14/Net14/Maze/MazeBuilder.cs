@@ -22,8 +22,84 @@ namespace Net14.Maze
 
             //Ломаем стены где положенно
             BuildGround();
+
+            BuildRedColorWall();
+
+            BuildRandomBlueWall();
+
+            BuildBlueGroundNearBlueWalls();
             
             return mazeLevel;
+        }
+
+        private void BuildRandomBlueWall()
+        {
+            Random POfBlueWall = new Random();
+            var per = 0.1;
+     
+
+
+            foreach (Cell cell in mazeLevel.Cells.Where(cell => cell.Symbol == Wall)) 
+            {
+                if (POfBlueWall.NextDouble() <= per) 
+                {
+                    cell.Color = ConsoleColor.Blue;
+
+                }
+            }
+
+
+        }
+        private void BuildBlueGroundNearBlueWalls()
+        {
+
+            foreach (Cell BlueWall in mazeLevel.Cells.Where(cell => cell.Symbol == Wall && cell.Color == ConsoleColor.Blue)) 
+            {
+                var GroundNearBlueWalls = mazeLevel.Cells
+                    .Where(cell =>
+                    (cell.X == BlueWall.X
+                    && Math.Abs(cell.Y - BlueWall.Y) == 1)
+                    ||
+                    (cell.Y == BlueWall.Y
+                    && Math.Abs(cell.X - BlueWall.X) == 1)).ToList().Where(cell => cell.Symbol == Ground).ToList();
+
+                foreach (Cell CellWithGroundNearBlueWalls in GroundNearBlueWalls) 
+                {
+                    var Hello = mazeLevel.Cells
+                    .Where(cells =>
+                    (cells.X == CellWithGroundNearBlueWalls.X
+                    && Math.Abs(cells.Y - CellWithGroundNearBlueWalls.Y) == 1)
+                    ||
+                    (cells.Y == CellWithGroundNearBlueWalls.Y
+                    && Math.Abs(cells.X - CellWithGroundNearBlueWalls.X) == 1)).ToList()
+                    .Where(cells =>
+                    (cells.Symbol == Wall
+                    && cells.Color == ConsoleColor.Red)).ToList();
+           /*         && (cells.X == BlueWall.X && cells.Y != BlueWall.Y
+                    || cells.Y == BlueWall.Y && cells.X != BlueWall.X)).ToList();*/
+                    if (Hello.Count == 0) 
+                    {
+                        CellWithGroundNearBlueWalls.BackColor = ConsoleColor.Blue;
+                    }
+
+
+                }
+
+            }
+
+        }
+        private void BuildRedColorWall()
+        {
+            Random POfBlueWall = new Random();
+            var per = 5;
+
+            foreach (Cell cell in mazeLevel.Cells.Where(cell => cell.Symbol == Wall))
+            {
+                if (POfBlueWall.Next(0, 100) <= per)
+                {
+                    cell.Color = ConsoleColor.Red;
+                }
+            }
         }
 
         private void BuildGround()
