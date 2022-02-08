@@ -8,5 +8,11 @@ namespace Net14.Maze
         public int Y { get; set; }
         public char Symbol { get; set; }
         public ConsoleColor Color { get; set; }
+        public ConsoleColor BackColor { get; set; }
+
+        public override string ToString()
+        {
+            return $"[{X}, {Y}, '{Symbol}']";
+        }
     }
 }
