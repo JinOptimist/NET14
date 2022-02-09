@@ -21,20 +21,20 @@ namespace Net14.Maze
             //Ломаем стены где положенно
             BuildGround();
 
-
-            //AddDoors();
-
             // Добавляем точку входа Х
             EnterPoint();
 
             // добавляем точку выхода @
             ExitPoint();
 
+            AddDoors();
+            
             AddHero();
 
             return mazeLevel;
         }
 
+        
         private void AddHero()
         {
             var enter = mazeLevel.Cells.OfType<Enter>().Single();
@@ -257,47 +257,56 @@ namespace Net14.Maze
                 .ToList();
         }
 
-
-        //private List<Cell> Get2YWalls(List<Cell> allCells, Cell currentCell, char cellSymbol)
-        //{
-        //    var YWalls = allCells
-        //        .Where(cell => cell.X == currentCell.X && Math.Abs(cell.Y - currentCell.Y) == 1)
-        //        .Where(cell => cell.Symbol == Wall);
-        //    return YWalls.ToList();
-        //}
-        //private List<Cell> Get2XWalls(List<Cell> allCells, Cell currentCell, char cellSymbol)
-        //{
-        //    var YWalls = allCells
-        //        .Where(cell => cell.Y == currentCell.Y && Math.Abs(cell.X - currentCell.X) == 1)
-        //        .Where(cell => cell.Symbol == Wall);
-        //    return YWalls.ToList();
-        //}
-        //private void AddDoors()
-        //{
-
-        //    var XDoorsCells = mazeLevel.Cells
-        //        .Where(cell => cell.Symbol == Ground)
-        //        .Where(cell => Get2YWalls(mazeLevel.Cells, cell, Wall).Count == 2)
-        //        .ToList();
-        //    do
-        //    {
-        //        var DoorsX = GetRandom(XDoorsCells);
-        //        DoorsX.Symbol = DoorX;
-        //        XDoorsCells.Remove(DoorsX);
-        //    } while (XDoorsCells.Any());
-
-        //    var YDoorsCells = mazeLevel.Cells
-        //        .Where(cell => cell.Symbol == Ground)
-        //        .Where(cell => Get2XWalls(mazeLevel.Cells, cell, Wall).Count == 2)
-        //        .ToList();
-        //    do
-        //    {
-        //        var DoorsY = GetRandom(YDoorsCells);
-        //        DoorsY.Symbol = DoorY;
-        //        YDoorsCells.Remove(DoorsY);
-        //    } while (YDoorsCells.Any());
-
-        //}
+        private List<Wall> Get2YWallsAroundGround<Wall>(List<BaseCell> allCells, BaseCell currentCell)
+        {
+            var YWallsAroundGround = allCells
+                .Where(cell => cell.X == currentCell.X && Math.Abs(cell.Y - currentCell.Y) == 1);
+            return YWallsAroundGround.OfType<Wall>().ToList();
+        }
+        private List<Wall> Get2XWallsAroundGround<Wall>(List<BaseCell> allCells, BaseCell currentCell)
+        {
+            var XWallsAroundGround = allCells
+                .Where(cell => cell.Y == currentCell.Y && Math.Abs(cell.X - currentCell.X) == 1);
+            return XWallsAroundGround.OfType<Wall>().ToList();
+        }
+        private void AddDoors()
+        {
+            var XDoorsCells = mazeLevel.Cells
+                .Where(cell => Get2XWallsAroundGround<Wall>(mazeLevel.Cells, cell).Count == 2)
+                .ToList();
+            var YDoorsCells = mazeLevel.Cells
+                .Where(cell => Get2YWallsAroundGround<Wall>(mazeLevel.Cells, cell).Count == 2)
+                .ToList();
+                
+                Random RandomDoorX = new Random();
+                foreach (var i in XDoorsCells)
+                {
+                var XDoorsSpawner = GetRandom(XDoorsCells);
+                int RandomX = RandomDoorX.Next(0, 100);
+                    if (RandomX < 30)
+                    {
+                        mazeLevel.ReplaceCell(new ClosedDoors()
+                        {
+                            X = XDoorsSpawner.X,
+                            Y = XDoorsSpawner.Y
+                        });
+                    }
+                }
+                Random RandomDoorY = new Random();
+                foreach (var j in XDoorsCells)
+                {
+                var YDoorsSpawner = GetRandom(YDoorsCells);
+                int RandomY = RandomDoorY.Next(0, 100);
+                    if (RandomY < 30)
+                    {
+                    mazeLevel.ReplaceCell(new ClosedDoors()
+                    {
+                        X = YDoorsSpawner.X,
+                        Y = YDoorsSpawner.Y
+                    });
+                    }
+                }
+        }
 
         private void ExitPoint()
         {
