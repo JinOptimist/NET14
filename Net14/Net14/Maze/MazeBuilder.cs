@@ -61,7 +61,7 @@ namespace Net14.Maze
             {
                 if (POfBlueWall.NextDouble() <= per) 
                 {
-                    cell.Color = ConsoleColor.Blue;
+                    cell.Color = ConsoleColor.DarkBlue;
 
                 }
             }
@@ -71,7 +71,7 @@ namespace Net14.Maze
         private void BuildBlueGroundNearBlueWalls()
         {
 
-            foreach (BaseCell BlueWall in mazeLevel.Cells.OfType<Wall>().ToList().Where(cell => cell.Color == ConsoleColor.Blue)) 
+            foreach (BaseCell BlueWall in mazeLevel.Cells.OfType<Wall>().ToList().Where(cell => cell.Color == ConsoleColor.DarkBlue)) 
             {
                 var GroundNearBlueWalls = mazeLevel.Cells
                     .Where(cell =>
@@ -99,7 +99,7 @@ namespace Net14.Maze
                     || cells.Y == BlueWall.Y && cells.X != BlueWall.X)).ToList();*/
                     if (Hello.Count == 0) 
                     {
-                        CellWithGroundNearBlueWalls.BackColor = ConsoleColor.Blue;
+                        CellWithGroundNearBlueWalls.BackColor = ConsoleColor.DarkBlue;
                     }
 
 
@@ -113,7 +113,7 @@ namespace Net14.Maze
             Random POfBlueWall = new Random();
             var per = 5;
 
-            foreach (BaseCell cell in mazeLevel.Cells.OfType<Wall>().Where(cell => cell.Color != ConsoleColor.Blue))
+            foreach (BaseCell cell in mazeLevel.Cells.OfType<Wall>().Where(cell => cell.Color != ConsoleColor.DarkBlue))
             {
                 if (POfBlueWall.Next(0, 100) <= per)
                 {
