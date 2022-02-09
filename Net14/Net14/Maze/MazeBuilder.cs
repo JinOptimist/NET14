@@ -46,7 +46,10 @@ namespace Net14.Maze
             mazeLevel.Hero = new Сharacter()
             {
                 X = enter.X,
-                Y = enter.Y
+                Y = enter.Y,
+                Hp = 10,
+                Stamina = 10,
+                Mood = Mood.Normal
             };
         }
 
@@ -307,7 +310,7 @@ namespace Net14.Maze
         {
             var list = cells.ToList();
             var random = new Random();
-            var randomIndex = random.Next(0, list.Count);
+            var randomIndex = random.Next(0, list.Count-1);
             return list[randomIndex];
         }
 
