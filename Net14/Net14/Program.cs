@@ -15,7 +15,7 @@ namespace Net14
             var drawer = new Drawer();
 
             //Создали лабиринт
-            var maze = builder.Build(22, 17);
+            var maze = builder.Build(12, 7);
 
             var wanaPlay = true;
             while (wanaPlay)
