@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Net14.Maze.Cells;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,6 @@ namespace Net14.Maze
 {
     public class MazeBuilder
     {
-        public const char Wall = '#';
-        public const char Ground = '_';
-
         private MazeLevel mazeLevel;
 
         public MazeLevel Build(int width = 5, int hegith = 7)
@@ -23,13 +21,28 @@ namespace Net14.Maze
             //Ломаем стены где положенно
             BuildGround();
 
-            BuildRedColorWall();
 
-            BuildRandomBlueWall();
+            //AddDoors();
 
-            BuildBlueGroundNearBlueWalls();
-            
+            // Добавляем точку входа Х
+            EnterPoint();
+
+            // добавляем точку выхода @
+            ExitPoint();
+
+            AddHero();
+
             return mazeLevel;
+        }
+
+        private void AddHero()
+        {
+            var enter = mazeLevel.Cells.OfType<Enter>().Single();
+            mazeLevel.Hero = new Сharacter()
+            {
+                X = enter.X,
+                Y = enter.Y
+            };
         }
 
         private void BuildRandomBlueWall()
@@ -124,10 +137,15 @@ namespace Net14.Maze
 
             //Ломаем стену. Точней у ячейки шахтёра
             //заменяем символ стены на символ земли
-            redMinerCell.Symbol = Ground;
+            mazeLevel.ReplaceCell(new Ground
+            {
+                X = redMinerCell.X,
+                Y = redMinerCell.Y
+            });
+
 
             //Список стен которые можно сломать. Пока он пустой и это нормально
-            var blueWallCanBVreak = new List<Cell>();
+            var blueWallCanBVreak = new List<BaseCell>();
 
             do
             {
@@ -136,27 +154,31 @@ namespace Net14.Maze
                 //Thread.Sleep(200);
 
                 //Берём ближайшие стены к шахтёру
-                var nearWalls = GetNearCells(
+                var nearWalls = GetNearCells<Wall>(
                     mazeLevel.Cells,
-                    redMinerCell,
-                    Wall);
+                    redMinerCell);
 
                 //Добавляем к стенам который можно ломать,
                 //стены которые рядом с шахтёром
                 blueWallCanBVreak.AddRange(nearWalls);
 
+
                 //Перепроверяем, все стены которые можно ломать,
                 //нет ли среди них стены, рядом с которыми две ячейки земли
-                //Такие стены ломат нельзя, вычёркиваем их из списка
+                //Такие стены ломать нельзя, вычёркиваем их из списка
                 blueWallCanBVreak = blueWallCanBVreak
                    .Where(cell =>
-                       GetNearCells(mazeLevel.Cells, cell, Ground).Count < 2
+                       GetNearCells<Ground>(mazeLevel.Cells, cell).Count < 2
                    ).ToList();
 
-                //Берём из доступных стен для ломание, одну случайную
+                //Берём из доступных стен для ломания, одну случайную
                 var wallToBreak = GetRandom(blueWallCanBVreak);
                 //Ломаем ей
-                wallToBreak.Symbol = Ground;
+                mazeLevel.ReplaceCell(new Ground()
+                {
+                    X = wallToBreak.X,
+                    Y = wallToBreak.Y
+                });
                 //Удаляем из списка доступных для ломания, текущую стену
                 blueWallCanBVreak.Remove(wallToBreak);
 
@@ -167,10 +189,11 @@ namespace Net14.Maze
                 //ломания. Точно ли их можно ломать
                 blueWallCanBVreak = blueWallCanBVreak
                     .Where(cell =>
-                        GetNearCells(mazeLevel.Cells, cell, Ground).Count < 2
+                        GetNearCells<Ground>(mazeLevel.Cells, cell).Count < 2
                     ).ToList();
 
                 //До тех пор пока есть стены которые можно ломать, продолжаем
+
             } while (blueWallCanBVreak.Any());
         }
 
@@ -183,12 +206,11 @@ namespace Net14.Maze
             {
                 for (int x = 0; x < mazeLevel.Width; x++)
                 {
-                    var cell = new Cell
+                    var cell = new Wall
                     {
                         X = x,
                         Y = y,
                         Color = ConsoleColor.Green,
-                        Symbol = Wall
                     };
 
                     mazeLevel.Cells.Add(cell);
@@ -204,11 +226,10 @@ namespace Net14.Maze
             {
                 for (int x = 0; x < mazeLevel.Width; x++)
                 {
-                    var cell = new Cell
+                    var cell = new Ground
                     {
                         X = x,
                         Y = y,
-                        Symbol = '_',
                         Color = ConsoleColor.Red
                     };
 
@@ -216,13 +237,17 @@ namespace Net14.Maze
                 }
             }
 
-            var firstCell = mazeLevel.Cells
-                .First(cell => cell.X == 1 && cell.Y == 0);
-            firstCell.Symbol = '#';
+            mazeLevel.ReplaceCell(new Wall()
+            {
+                X = 1,
+                Y = 0
+            });
 
-            var secondCell = mazeLevel.Cells
-                .First(cell => cell.X == 1 && cell.Y == 2);
-            secondCell.Symbol = '#';
+            mazeLevel.ReplaceCell(new Wall()
+            {
+                X = 1,
+                Y = 2
+            });
 
             return mazeLevel;
         }
@@ -236,24 +261,19 @@ namespace Net14.Maze
                 for (int x = 0; x < mazeLevel.Width; x++)
                 {
                     var colorNumber = x % 16;
-                    var cell = new Cell
+                    var cell = new Wall
                     {
                         X = x,
                         Y = y,
                         Color = (ConsoleColor)colorNumber,
-                        Symbol = '#',
                         BackColor = ConsoleColor.Black
                     };
-                    
-                    
-                        if ((x + y) % 2 == 1)
-                          {
-                        cell.Symbol = '#';
-                        cell.Color = (ConsoleColor)colorNumber; 
-                        cell.BackColor = ConsoleColor.Black;
-                          }
-                       
 
+                    if ((x + y) % 2 == 1)
+                    {
+                        cell.Color = (ConsoleColor)colorNumber;
+                        cell.BackColor = ConsoleColor.Black;
+                    }
                     mazeLevel.Cells.Add(cell);
                 }
             }
@@ -266,7 +286,7 @@ namespace Net14.Maze
             var mazeLevel = new MazeLevel();
             mazeLevel.Width = width;
             mazeLevel.Height = height;
-            mazeLevel.Cells = new List<Cell>();
+            mazeLevel.Cells = new List<BaseCell>();
             return mazeLevel;
         }
 
@@ -275,11 +295,12 @@ namespace Net14.Maze
         /// </summary>
         /// <param name="cells"></param>
         /// <returns></returns>
-        private Cell GetRandom(List<Cell> cells)
+        private BaseCell GetRandom(IEnumerable<BaseCell> cells)
         {
+            var list = cells.ToList();
             var random = new Random();
-            var randomIndex = random.Next(0, cells.Count);
-            return cells[randomIndex];
+            var randomIndex = random.Next(0, list.Count);
+            return list[randomIndex];
         }
 
         /// <summary>
@@ -289,27 +310,128 @@ namespace Net14.Maze
         /// <param name="currentCell">Текущая ячейка</param>
         /// <param name="cellSymbol">Искомые типы ячеек например Wall</param>
         /// <returns></returns>
-        private List<Cell> GetNearCells(
-            List<Cell> allCells,
-            Cell currentCell,
-            char cellSymbol)
+        private List<CellType> GetNearCells<CellType>(
+            List<BaseCell> allCells,
+            BaseCell currentCell)
         {
-            var nearWalls = allCells
+            var nearCells = allCells
                 .Where(cell =>
                     cell.X == currentCell.X
                     && Math.Abs(cell.Y - currentCell.Y) == 1//Abs это модуль
                     ||
                     cell.Y == currentCell.Y
-                    && Math.Abs(cell.X - currentCell.X) == 1)
-                .Where(cell => cell.Symbol == cellSymbol);
-
-            return nearWalls.ToList();
+                    && Math.Abs(cell.X - currentCell.X) == 1);
+            return nearCells
+                .OfType<CellType>()
+                .ToList();
         }
+
+
+        //private List<Cell> Get2YWalls(List<Cell> allCells, Cell currentCell, char cellSymbol)
+        //{
+        //    var YWalls = allCells
+        //        .Where(cell => cell.X == currentCell.X && Math.Abs(cell.Y - currentCell.Y) == 1)
+        //        .Where(cell => cell.Symbol == Wall);
+        //    return YWalls.ToList();
+        //}
+        //private List<Cell> Get2XWalls(List<Cell> allCells, Cell currentCell, char cellSymbol)
+        //{
+        //    var YWalls = allCells
+        //        .Where(cell => cell.Y == currentCell.Y && Math.Abs(cell.X - currentCell.X) == 1)
+        //        .Where(cell => cell.Symbol == Wall);
+        //    return YWalls.ToList();
+        //}
+        //private void AddDoors()
+        //{
+
+        //    var XDoorsCells = mazeLevel.Cells
+        //        .Where(cell => cell.Symbol == Ground)
+        //        .Where(cell => Get2YWalls(mazeLevel.Cells, cell, Wall).Count == 2)
+        //        .ToList();
+        //    do
+        //    {
+        //        var DoorsX = GetRandom(XDoorsCells);
+        //        DoorsX.Symbol = DoorX;
+        //        XDoorsCells.Remove(DoorsX);
+        //    } while (XDoorsCells.Any());
+
+        //    var YDoorsCells = mazeLevel.Cells
+        //        .Where(cell => cell.Symbol == Ground)
+        //        .Where(cell => Get2XWalls(mazeLevel.Cells, cell, Wall).Count == 2)
+        //        .ToList();
+        //    do
+        //    {
+        //        var DoorsY = GetRandom(YDoorsCells);
+        //        DoorsY.Symbol = DoorY;
+        //        YDoorsCells.Remove(DoorsY);
+        //    } while (YDoorsCells.Any());
+
+        //}
+
+        private void ExitPoint()
+        {
+            // Выбираем крайние ячейки земли
+            var extremCell = mazeLevel.Cells
+                .OfType<Ground>()
+                .Where(cell =>
+                    cell.X == 0 || cell.Y == 0
+                    || cell.X == mazeLevel.Width - 1
+                    || cell.Y == mazeLevel.Height - 1)
+                    .ToList();
+
+            // Ищем крайние ячейки радом с которыми есть 1 земля
+            extremCell = extremCell
+                   .Where(cell =>
+                       GetNearCells<Ground>(mazeLevel.Cells, cell).Count == 1
+                   ).ToList();
+            // Ищем крайние ячейки радом с которыми есть 1 стена (угловые)
+            extremCell = extremCell
+                   .Where(cell =>
+                       GetNearCells<Wall>(mazeLevel.Cells, cell).Count == 1
+                   ).ToList();
+            // Выбираем из них выход
+            var exit = GetRandom(extremCell);
+
+            mazeLevel.ReplaceCell(new Exit()
+            {
+                X = exit.X,
+                Y = exit.Y
+            });
+            exit.Color = ConsoleColor.Red;
+
+        }
+        private void EnterPoint()
+        {
+            // Выбираем не крайние ячейки
+            var interiorCell = mazeLevel.Cells
+                .OfType<Ground>()
+                .Where(cell =>
+                    cell.X != 0
+                    && cell.Y != 0
+                    && cell.Y != mazeLevel.Height - 1)
+                .ToList();
+
+            interiorCell = interiorCell
+                   .Where(cell =>
+                       GetNearCells<Ground>(mazeLevel.Cells, cell).Count >= 3
+                   ).ToList();
+
+
+            var enter = GetRandom(interiorCell);
+            mazeLevel.ReplaceCell(new Enter()
+            {
+                X = enter.X,
+                Y = enter.Y
+            });
+            enter.Color = ConsoleColor.Cyan;
+        }
+
         private int AskForSize(string message)
         {
-           Console.WriteLine(message);
+            Console.WriteLine(message);
             int parameter = Int32.Parse(Console.ReadLine());
             return parameter;
+
         }
     }
 }
