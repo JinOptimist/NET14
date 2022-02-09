@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
 
 namespace Net14.Maze
 {
@@ -31,6 +29,8 @@ namespace Net14.Maze
             ExitPoint();
 
             AddHero();
+
+            AddCoins();
 
             return mazeLevel;
         }
@@ -363,6 +363,31 @@ namespace Net14.Maze
             int parameter = Int32.Parse(Console.ReadLine());
             return parameter;
 
+        }
+
+        private void AddCoins()
+        {
+            var allDeadEnds = mazeLevel.Cells
+                .OfType<Ground>()
+                .Where(cell =>
+                    GetNearCells<Ground>(mazeLevel.Cells, cell).Count() == 1)
+                .ToList();
+            Random random = new Random();
+
+
+            foreach (var allDeadEnd in allDeadEnds)
+            {
+                int rnd = random.Next(0, 100);
+
+                if (rnd < 30)
+                {
+                    mazeLevel.ReplaceCell(new ChestCoin()
+                    {
+                        X = allDeadEnd.X,
+                        Y = allDeadEnd.Y
+                    });
+                }
+            }
         }
     }
 }
