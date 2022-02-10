@@ -10,6 +10,8 @@ namespace Net14.Maze.Cells
 
         public string MessageInMyHead { get; set; }
 
+        // public string Happiness { get; set; }
+
         public int Coins { get; set; }
         public int Hp { get; set; }
         public Mood Mood { get; set; }

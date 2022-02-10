@@ -30,12 +30,14 @@ namespace Net14.Maze
             // Добавляем точку входа Х
             EnterPoint();
 
-            // добавляем точку выхода @
+            // добавляем точку выхода e
             ExitPoint();
 
             AddHero();
 
             AddCoins();
+
+            AddClover();
 
             return mazeLevel;
         }
@@ -462,6 +464,27 @@ namespace Net14.Maze
                     {
                         X = allDeadEnd.X,
                         Y = allDeadEnd.Y
+                    });
+                }
+            }
+        }
+        private void AddClover()
+        {
+            var allGrounds = mazeLevel.Cells.OfType<Ground>().ToList();
+
+            Random random = new Random();
+
+            foreach (var allGround in allGrounds)
+            {
+                int rndm = random.Next(0, 100);
+
+                if (rndm < 5)
+                {
+                    mazeLevel.ReplaceCell(new Clover()
+                    {
+                        X = allGround.X,
+                        Y = allGround.Y
+
                     });
                 }
             }
