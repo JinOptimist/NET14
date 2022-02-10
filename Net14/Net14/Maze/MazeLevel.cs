@@ -66,6 +66,7 @@ namespace Net14.Maze
             }
             if(destinationCell.Symbol=='*')
             {
+                
                 var mood = (int)Hero.Mood;
                 if (mood < 5)
                 {

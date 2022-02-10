@@ -471,7 +471,7 @@ namespace Net14.Maze
                 }
             }
         }
-        private void AddClover()
+        public void AddClover()
         {
             var allGrounds = mazeLevel.Cells.OfType<Ground>().ToList();
 
