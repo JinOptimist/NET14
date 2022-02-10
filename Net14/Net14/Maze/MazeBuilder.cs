@@ -36,6 +36,7 @@ namespace Net14.Maze
             AddHero();
 
             AddCoins();
+            RandomTeleportation();
 
             return mazeLevel;
         }
@@ -469,5 +470,17 @@ namespace Net14.Maze
                 }
             }
         }
+
+        private void RandomTeleportation()
+        {
+            var PlaceForTeleport = mazeLevel.Cells.OfType<Ground>().ToList();
+            var SpawnTeleport = GetRandom(PlaceForTeleport);
+            mazeLevel.ReplaceCell(new RandomTeleport()
+            {
+                X = SpawnTeleport.X,
+                Y = SpawnTeleport.Y
+            });
+        }
+        
     }
 }
