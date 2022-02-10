@@ -17,20 +17,22 @@ namespace Net14
             new Tuple<string, Action<string>>("exit", Exit),
             new Tuple<string, Action<string>>("Maze", PlayMaze),
             new Tuple<string, Action<string>>("Numbers", PlayThatNumber),
-            new ("Description", ShowGameDescription)
+            new Tuple<string, Action<string>>("Description", ShowGameDescription)
         };
 
         private static readonly string[][] HelpMessages = new string[][]
         {
-            new string[] { "help", "prints the help screen", "The 'help' command prints the help screen." },
-            new string[] { "exit", "exits the application", "The 'exit' command exits the application." },
-            new string[] { "Maze", "starts the game \"Maze\"", "The 'Maze' command starts the game \"Maze\"." },
-            new string[] { "Numbers", "starts the game \"That Number\"", "The 'Numbers' command starts the game \"That Number\"." },
-            new string[] { "Description", "shows rules for each game", "The 'Description' command shows rules for each game." }
+            new string[] { "help", "prints the help screen" },
+            new string[] { "exit", "exits the application" },
+            new string[] { "maze", "starts the game \"Maze\"" },
+            new string[] { "numbers", "starts the game \"That Number\"" },
+            new string[] { "description", "shows rules for each game" }
         };
 
         public void ShowMenu()
         {
+            DisplayAvailableCommands();
+
             do
             {
                 Console.WriteLine(HintMessage);
@@ -167,6 +169,21 @@ namespace Net14
                               "\n\tThe character should find a way out of the maze." +
                               "\n\tThere are various barriers to his way.");
             Console.ResetColor();
+        }
+
+        private static void DisplayAvailableCommands()
+        {
+            for (int i = 0; i < HelpMessages.Length; i++)
+            {
+                for (int j = 0; j < HelpMessages[i].Length; j++)
+                {
+                    Console.Write($"\t * {HelpMessages[i][j],-10}");
+                }
+
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
         }
     }
 }
