@@ -66,7 +66,12 @@ namespace Net14.Maze
             }
             if(destinationCell.Symbol=='*')
             {
-                Hero.Mood++;
+                var mood = (int)Hero.Mood;
+                if (mood < 5)
+                {
+                    Hero.Mood++;
+                }
+                
                 ReplaceCell(new Ground()
                 {
                 X = destinationX,
