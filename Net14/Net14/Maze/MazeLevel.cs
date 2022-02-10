@@ -64,6 +64,16 @@ namespace Net14.Maze
                 Hero.X = destinationX;
                 Hero.Y = destinationY;
             }
+            if(destinationCell.Symbol=='*')
+            {
+                Hero.Mood++;
+                ReplaceCell(new Ground()
+                {
+                X = destinationX,
+                Y = destinationY
+               
+            }); 
+            }
         }
     }
 }
