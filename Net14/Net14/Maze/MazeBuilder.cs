@@ -37,6 +37,8 @@ namespace Net14.Maze
 
             AddCoins();
 
+            GreateSleepingBag();
+
             return mazeLevel;
         }
 
@@ -469,5 +471,27 @@ namespace Net14.Maze
                 }
             }
         }
+        
+        // Метод для создание спального места 
+        private void GreateSleepingBag()
+        {
+            // Выбираем все ячейки земли
+            var SleepCell = mazeLevel.Cells
+                .OfType<Ground>()
+                .Where(cell => GetNearCells<Ground>(mazeLevel.Cells, cell).Count == 1).ToList();
+
+            // Выбираем из них выход
+            var sleepingBag = GetRandom(SleepCell);
+                        
+                mazeLevel.ReplaceCell(new SleepingBag()
+                {
+                    X = sleepingBag.X,
+                    Y = sleepingBag.Y
+                });
+            sleepingBag.Color = ConsoleColor.Yellow;
+            
+            
+        }
+
     }
 }
