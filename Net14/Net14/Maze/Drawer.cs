@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Net14.Maze.Cells;
+
 
 namespace Net14.Maze
 {
@@ -38,6 +40,7 @@ namespace Net14.Maze
 
             Console.WriteLine();
             Console.WriteLine(mazeLevel.Hero.MessageInMyHead);
+            GetFeaturesOfHero(mazeLevel.Hero);
         }
 
         private void DrawCell(BaseCell cell)
@@ -55,6 +58,16 @@ namespace Net14.Maze
         {
             string[] weather = new string[3] { "Foggy", "Snowy", "Rainy" };
             Console.WriteLine(weather[new Random().Next(0, weather.Length)]);
+        }
+
+        private void GetFeaturesOfHero(Сharacter hero) 
+        {
+            Console.WriteLine("\nFeatures of character:\n" +
+                $"Health — {hero.Hp}\n" +
+                $"Stamina — {hero.Stamina}\n" +
+                $"Coins — {hero.Coins}\n" +
+                $"Mood — {hero.Mood}\n"
+                );
         }
     }
 }
