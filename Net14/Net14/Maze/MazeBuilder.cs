@@ -8,6 +8,7 @@ namespace Net14.Maze
     public class MazeBuilder
     {
         private MazeLevel mazeLevel;
+        private readonly Random _random = new();
 
         public MazeLevel Build(int width = 5, int hegith = 7)
         {
@@ -18,7 +19,6 @@ namespace Net14.Maze
 
             //Ломаем стены где положенно
             BuildGround();
-
 
             //AddDoors();
             BuildRandomBlueWall();
@@ -39,7 +39,21 @@ namespace Net14.Maze
 
             AddClover();
 
+            RandomTeleportation();
+
             return mazeLevel;
+        }
+
+        public void RandomTeleportation()
+        {
+            var placeForTeleport = mazeLevel.Cells.OfType<Ground>().ToList();
+            var spawnTeleport = GetRandom(placeForTeleport);
+
+            mazeLevel.ReplaceCell(new RandomTeleport()
+            {
+                X = spawnTeleport.X,
+                Y = spawnTeleport.Y
+            });
         }
 
         private void AddHero()
@@ -57,28 +71,23 @@ namespace Net14.Maze
 
         private void BuildRandomBlueWall()
         {
-            Random POfBlueWall = new Random();
+            Random pOfBlueWall = new Random();
             var per = 0.1;
-     
 
-
-            foreach (BaseCell cell in mazeLevel.Cells.OfType<Wall>().ToList()) 
+            foreach (BaseCell cell in mazeLevel.Cells.OfType<Wall>().ToList())
             {
-                if (POfBlueWall.NextDouble() <= per) 
+                if (pOfBlueWall.NextDouble() <= per)
                 {
                     cell.Color = ConsoleColor.DarkBlue;
-
                 }
             }
-
-
         }
+
         private void BuildBlueGroundNearBlueWalls()
         {
-
-            foreach (BaseCell BlueWall in mazeLevel.Cells.OfType<Wall>().ToList().Where(cell => cell.Color == ConsoleColor.DarkBlue)) 
+            foreach (BaseCell BlueWall in mazeLevel.Cells.OfType<Wall>().ToList().Where(cell => cell.Color == ConsoleColor.DarkBlue))
             {
-                var GroundNearBlueWalls = mazeLevel.Cells
+                var groundNearBlueWalls = mazeLevel.Cells
                     .Where(cell =>
                     (cell.X == BlueWall.X
                     && Math.Abs(cell.Y - BlueWall.Y) == 1)
@@ -86,7 +95,7 @@ namespace Net14.Maze
                     (cell.Y == BlueWall.Y
                     && Math.Abs(cell.X - BlueWall.X) == 1)).ToList().OfType<Ground>().ToList();
 
-                foreach (BaseCell CellWithGroundNearBlueWalls in GroundNearBlueWalls) 
+                foreach (BaseCell CellWithGroundNearBlueWalls in groundNearBlueWalls)
                 {
                     var Hello = mazeLevel.Cells
                     .Where(cells =>
@@ -100,19 +109,16 @@ namespace Net14.Maze
                     /*.Where(cells =>
                     (cells.Symbol == Wall
                     && cells.Color == ConsoleColor.Red)).ToList();*/
-           /*         && (cells.X == BlueWall.X && cells.Y != BlueWall.Y
-                    || cells.Y == BlueWall.Y && cells.X != BlueWall.X)).ToList();*/
-                    if (Hello.Count == 0) 
+                    /*         && (cells.X == BlueWall.X && cells.Y != BlueWall.Y
+                             || cells.Y == BlueWall.Y && cells.X != BlueWall.X)).ToList();*/
+                    if (Hello.Count == 0)
                     {
                         CellWithGroundNearBlueWalls.BackColor = ConsoleColor.DarkBlue;
                     }
-
-
                 }
-
             }
-
         }
+
         private void BuildRedColorWall()
         {
             Random POfBlueWall = new Random();
@@ -129,7 +135,6 @@ namespace Net14.Maze
 
         private void BuildGround()
         {
-
             //Создаём рисовальщик, что бы по ходу создания
             //лабиринта, показывать промежуточные результаты
             var drawer = new Drawer();
@@ -155,7 +160,6 @@ namespace Net14.Maze
                 Y = redMinerCell.Y
             });
 
-
             //Список стен которые можно сломать. Пока он пустой и это нормально
             var blueWallCanBVreak = new List<BaseCell>();
 
@@ -173,7 +177,6 @@ namespace Net14.Maze
                 //Добавляем к стенам который можно ломать,
                 //стены которые рядом с шахтёром
                 blueWallCanBVreak.AddRange(nearWalls);
-
 
                 //Перепроверяем, все стены которые можно ломать,
                 //нет ли среди них стены, рядом с которыми две ячейки земли
@@ -229,7 +232,6 @@ namespace Net14.Maze
                 }
             }
         }
-        
 
         public MazeLevel BuildSmallStandrad()
         {
@@ -312,7 +314,7 @@ namespace Net14.Maze
         {
             var list = cells.ToList();
             var random = new Random();
-            var randomIndex = random.Next(0, list.Count-1);
+            var randomIndex = random.Next(0, list.Count - 1);
             return list[randomIndex];
         }
 
@@ -338,7 +340,6 @@ namespace Net14.Maze
                 .OfType<CellType>()
                 .ToList();
         }
-
 
         //private List<Cell> Get2YWalls(List<Cell> allCells, Cell currentCell, char cellSymbol)
         //{
@@ -411,8 +412,8 @@ namespace Net14.Maze
                 Y = exit.Y
             });
             exit.Color = ConsoleColor.Red;
-
         }
+
         private void EnterPoint()
         {
             // Выбираем не крайние ячейки
@@ -428,7 +429,6 @@ namespace Net14.Maze
                    .Where(cell =>
                        GetNearCells<Ground>(mazeLevel.Cells, cell).Count >= 3
                    ).ToList();
-
 
             var enter = GetRandom(interiorCell);
             mazeLevel.ReplaceCell(new Enter()
@@ -454,14 +454,10 @@ namespace Net14.Maze
                 .Where(cell =>
                     GetNearCells<Ground>(mazeLevel.Cells, cell).Count() == 1)
                 .ToList();
-            Random random = new Random();
-
 
             foreach (var allDeadEnd in allDeadEnds)
             {
-                int rnd = random.Next(0, 100);
-
-                if (rnd < 30)
+                if (_random.Next(0, 100) <= 30)
                 {
                     mazeLevel.ReplaceCell(new ChestCoin()
                     {
@@ -471,23 +467,19 @@ namespace Net14.Maze
                 }
             }
         }
+
         public void AddClover()
         {
             var allGrounds = mazeLevel.Cells.OfType<Ground>().ToList();
 
-            Random random = new Random();
-
             foreach (var allGround in allGrounds)
             {
-                int rndm = random.Next(0, 100);
-
-                if (rndm < 5)
+                if (_random.Next(0, 100) < 5)
                 {
                     mazeLevel.ReplaceCell(new Clover()
                     {
                         X = allGround.X,
                         Y = allGround.Y
-
                     });
                 }
             }

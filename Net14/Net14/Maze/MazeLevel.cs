@@ -1,8 +1,6 @@
 ﻿using Net14.Maze.Cells;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Net14.Maze
 {
@@ -50,7 +48,7 @@ namespace Net14.Maze
             }
 
             var destinationCell = Cells
-                .SingleOrDefault(c => 
+                .SingleOrDefault(c =>
                     c.X == destinationX
                      && c.Y == destinationY);
 
@@ -64,21 +62,37 @@ namespace Net14.Maze
                 Hero.X = destinationX;
                 Hero.Y = destinationY;
             }
-            if(destinationCell.Symbol=='*')
+
+            if (destinationCell.Symbol == new ChestCoin().Symbol)
             {
-                
+                Hero.Coins++;
+
+                ReplaceCell(new Ground { X = destinationX, Y = destinationY });
+            }
+            
+            if (destinationCell.Symbol == '*')
+            {
                 var mood = (int)Hero.Mood;
                 if (mood < 5)
                 {
                     Hero.Mood++;
                 }
-                
+
                 ReplaceCell(new Ground()
                 {
-                X = destinationX,
-                Y = destinationY
-               
-            }); 
+                    X = destinationX,
+                    Y = destinationY
+                });
+            }
+
+            RandomTeleport teleport = new RandomTeleport();
+            if (destinationCell.Symbol == teleport.Symbol)
+            {
+                teleport.ReplaceHero(Hero);
+
+                ReplaceCell(new Ground { X = destinationX, Y = destinationY });
+
+                // тут (наверное) надо не только R превращать в землю, а переносить телепорт в новое место - но это мои предположения
             }
         }
     }

@@ -20,6 +20,5 @@ namespace Net14.Maze.Cells
             Coins += chapter.Coins;
             return false;
         }
-
     }
 }

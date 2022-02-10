@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Net14.Maze.Cells;
+using System;
 using System.Linq;
-using System.Text;
-using Net14.Maze.Cells;
 
 
 namespace Net14.Maze
 {
     public class Drawer
     {
-   
-
-
         public void DrawMaze(MazeLevel mazeLevel)
         {
             Console.Clear();
@@ -60,7 +55,7 @@ namespace Net14.Maze
             Console.WriteLine(weather[new Random().Next(0, weather.Length)]);
         }
 
-        private void GetFeaturesOfHero(Сharacter hero) 
+        private void GetFeaturesOfHero(Сharacter hero)
         {
             Console.WriteLine("\nFeatures of character:\n" +
                 $"Health — {hero.Hp}\n" +
