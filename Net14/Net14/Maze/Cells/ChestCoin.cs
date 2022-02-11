@@ -8,6 +8,8 @@ namespace Net14.Maze.Cells
     {
         public int CoinsCount { get; set; }
         public override char Symbol => '@';
+        public override ConsoleColor Color => ConsoleColor.Yellow;
+
         public override bool TryToStep(Сharacter hero)
         {
             hero.Coins += CoinsCount;

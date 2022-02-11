@@ -8,6 +8,7 @@ namespace Net14.Maze
     public class MazeBuilder
     {
         private MazeLevel mazeLevel;
+        private readonly Random _random = new();
 
         public MazeLevel Build(int width = 5, int hegith = 7)
         {
@@ -460,12 +461,10 @@ namespace Net14.Maze
                 .Where(cell =>
                     GetNearCells<Ground>(mazeLevel.Cells, cell).Count() == 1)
                 .ToList();
-            Random random = new Random();
-
 
             foreach (var allDeadEnd in allDeadEnds)
             {
-                int rnd = random.Next(0, 100);
+                int rnd = _random.Next(0, 100);
 
                 if (rnd < 30)
                 {

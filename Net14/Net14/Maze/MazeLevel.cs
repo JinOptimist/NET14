@@ -1,8 +1,7 @@
 ﻿using Net14.Maze.Cells;
-using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
 
 namespace Net14.Maze
 {
@@ -68,17 +67,14 @@ namespace Net14.Maze
             // СОздаем условие, если герой наступает на Спальник
             if (destinationCell.Symbol == 'D')
             {
-                
-                Hero.Stamina = Hero.Stamina+10;
+                Hero.Stamina = Hero.Stamina + 10;
                 Hero.Mood = Mood.Bad;
 
                 ReplaceCell(new Ground { X = destinationX, Y = destinationY });
             }
 
-
             if (destinationCell.Symbol == '*')
             {
-
                 var mood = (int)Hero.Mood;
                 if (mood < 5)
                 {
@@ -89,12 +85,11 @@ namespace Net14.Maze
                 {
                     X = destinationX,
                     Y = destinationY
-
                 });
             }
+
             if (destinationCell.Symbol == 'T')
             {
-
                 Hero.Hp--;
 
                 ReplaceCell(new Ground()
@@ -105,6 +100,11 @@ namespace Net14.Maze
                 });
             }
 
+            if (destinationCell.Symbol == new ChestCoin().Symbol)
+            {
+                Hero.Coins++;
+                ReplaceCell(new Ground { X = destinationX, Y = destinationY });
+            }
         }
     }
 }
