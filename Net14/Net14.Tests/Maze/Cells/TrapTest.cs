@@ -12,8 +12,9 @@ namespace Net14.Tests.Maze.Cells
         public void TryToStep_CanStep()
         {
             // Подготовка
-            var mazeLevel = new MazeLevel();
-            var trap = new Trap(mazeLevel);
+            var mazelevelMock = new Mock<MazeLevel>();
+            //var mazeLevel = new MazeLevel();
+            var trap = new Trap(mazelevelMock.Object);
             var heroMock = new Mock<Сharacter>();
 
             //Действие
