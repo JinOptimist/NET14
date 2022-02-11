@@ -1,4 +1,5 @@
 ﻿using Moq;
+using Net14.Maze;
 using Net14.Maze.Cells;
 using NUnit.Framework;
 using System;

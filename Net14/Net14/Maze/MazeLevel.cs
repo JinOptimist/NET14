@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Net14.Maze
 {
-    public class MazeLevel
+    public class MazeLevel : IMazeLevel
     {
         public int Width { get; set; }
         public int Height { get; set; }
