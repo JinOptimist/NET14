@@ -10,7 +10,7 @@ namespace Net14.Maze.Cells
         public override char Symbol => '@';
         public override ConsoleColor Color => ConsoleColor.Yellow;
 
-        public override bool TryToStep(Сharacter hero)
+        public override bool TryToStep(IСharacter hero)
         {
             hero.Coins += CoinsCount;
             return true;
