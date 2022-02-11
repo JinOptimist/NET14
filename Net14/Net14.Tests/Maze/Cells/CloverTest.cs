@@ -1,4 +1,5 @@
 ﻿using Moq;
+using Net14.Maze;
 using Net14.Maze.Cells;
 using NUnit.Framework;
 using System;
@@ -11,7 +12,8 @@ namespace Net14.Tests.Maze.Cells
         public void TryToStep_CanStep()
         {
             // Подготовка
-            var clover = new Clover();
+            var mazeMock = new Mock<IMazeLevel>();
+            var clover = new Clover(mazeMock.Object);
             var heroMock = new Mock<Сharacter>();
 
             //Действие
@@ -28,7 +30,8 @@ namespace Net14.Tests.Maze.Cells
         public void TryToStep_GetMoney(int cloverCount, int heroInitCoins, int finalCoins)
         {
             // Подготовка
-            var clover = new Clover();
+            var mazeMock = new Mock<IMazeLevel>();
+            var clover = new Clover(mazeMock.Object);
             clover.CloverCount = cloverCount;
 
             var heroMock = new Mock<IСharacter>();

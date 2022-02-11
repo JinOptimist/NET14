@@ -8,6 +8,11 @@ namespace Net14.Maze.Cells
     {
         public override char Symbol => 'e';
 
+        public Exit(MazeLevel mazeLevel) : base(mazeLevel)
+        {
+
+        }
+
         public override bool TryToStep(IСharacter hero)
         {
             return true;
