@@ -24,9 +24,9 @@ namespace Net14.Tests.Maze.Cells
         }
 
         [Test]
-        [TestCase(10, 5, 15)]
-        [TestCase(0, 1, 1)]
-        [TestCase(5, 7, 12)]
+        [TestCase(3, 7, 10)]
+        [TestCase(0, 5, 5)]
+        [TestCase(8, 3, 11)]
         public void TryToStep_GetMoney(int cloverCount, int heroInitCoins, int finalCoins)
         {
             // Подготовка
