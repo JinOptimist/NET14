@@ -14,7 +14,7 @@ namespace Net14.Tests.Maze.Cells
             // Подготовка
             var mazeMock = new Mock<IMazeLevel>();
             var clover = new Clover(mazeMock.Object);
-            var heroMock = new Mock<Сharacter>();
+            var heroMock = new Mock<IСharacter>();
 
             //Действие
             var answer = clover.TryToStep(heroMock.Object);
