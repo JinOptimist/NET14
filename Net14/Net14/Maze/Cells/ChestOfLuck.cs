@@ -9,7 +9,7 @@ namespace Net14.Maze.Cells
         public override char Symbol => '■';
         public override ConsoleColor Color => ConsoleColor.DarkYellow;
 
-        public override bool TryToStep(Сharacter hero)
+        public override bool TryToStep(IСharacter hero)
         {
             Random rand = new Random();
             int num = rand.Next(0, 41);
