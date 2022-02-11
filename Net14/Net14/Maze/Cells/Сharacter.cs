@@ -15,7 +15,7 @@ namespace Net14.Maze.Cells
         public Mood Mood { get; set; }
         public int Stamina { get; set; }
 
-        public Сharacter(MazeLevel mazeLevel) : base(mazeLevel)
+        public Сharacter(IMazeLevel mazeLevel) : base(mazeLevel)
         {
         }
 
