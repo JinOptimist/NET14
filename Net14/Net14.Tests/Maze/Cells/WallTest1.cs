@@ -4,6 +4,7 @@ using System.Text;
 using NUnit.Framework;
 using Moq;
 using Net14.Maze.Cells;
+using Net14.Maze;
 
 namespace Net14.Tests.Maze.Cells
 {
@@ -12,7 +13,8 @@ namespace Net14.Tests.Maze.Cells
         [Test]
         public void TryToStep_CanStep() 
         {
-            var wall = new Wall();
+            var mazeMok = new Mock<IMazeLevel>();
+            var wall = new Wall(mazeMok.Object);
             var hero = new Mock<IСharacter>();
             var answer = wall.TryToStep(hero.Object);
 
@@ -22,7 +24,8 @@ namespace Net14.Tests.Maze.Cells
         [Test]
         public void GetSymbol() 
         {
-            var wall = new Wall();
+            var mazeMok = new Mock<IMazeLevel>();
+            var wall = new Wall(mazeMok.Object);
             Assert.AreEqual('#', wall.Symbol);
         }
     }
