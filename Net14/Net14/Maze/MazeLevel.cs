@@ -50,7 +50,7 @@ namespace Net14.Maze
             }
 
             var destinationCell = Cells
-                .SingleOrDefault(c => 
+                .SingleOrDefault(c =>
                     c.X == destinationX
                      && c.Y == destinationY);
 
@@ -75,6 +75,35 @@ namespace Net14.Maze
                 ReplaceCell(new Ground { X = destinationX, Y = destinationY });
             }
 
+
+            if (destinationCell.Symbol == '*')
+            {
+
+                var mood = (int)Hero.Mood;
+                if (mood < 5)
+                {
+                    Hero.Mood++;
+                }
+
+                ReplaceCell(new Ground()
+                {
+                    X = destinationX,
+                    Y = destinationY
+
+                });
+            }
+            if (destinationCell.Symbol == 'T')
+            {
+
+                Hero.Hp--;
+
+                ReplaceCell(new Ground()
+                {
+                    X = destinationX,
+                    Y = destinationY
+
+                });
+            }
 
         }
     }
