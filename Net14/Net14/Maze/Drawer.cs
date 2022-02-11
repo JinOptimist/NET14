@@ -69,7 +69,7 @@ namespace Net14.Maze
                 $"Mood — {hero.Mood}\n"
                 );
         }
-        public void YouLose(Сharacter сharacter)
+        private void YouLose(Сharacter сharacter)
         {
             if (сharacter.Hp < 1)
             {
