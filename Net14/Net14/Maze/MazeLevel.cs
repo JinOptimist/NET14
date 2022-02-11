@@ -64,6 +64,18 @@ namespace Net14.Maze
                 Hero.X = destinationX;
                 Hero.Y = destinationY;
             }
+
+            // СОздаем условие, если герой наступает на Спальник
+            if (destinationCell.Symbol == 'D')
+            {
+                
+                Hero.Stamina = Hero.Stamina+10;
+                Hero.Mood = Mood.Bad;
+
+                ReplaceCell(new Ground { X = destinationX, Y = destinationY });
+            }
+
+
             if (destinationCell.Symbol == '*')
             {
 
@@ -92,6 +104,7 @@ namespace Net14.Maze
 
                 });
             }
+
         }
     }
 }

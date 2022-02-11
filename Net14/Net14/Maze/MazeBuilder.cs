@@ -37,6 +37,8 @@ namespace Net14.Maze
 
             AddCoins();
 
+            GreateSleepingBag();
+
             AddClover();
 
             AddTraps();
@@ -55,6 +57,8 @@ namespace Net14.Maze
                 Stamina = 10,
                 Mood = Mood.Normal
             };
+
+            
         }
 
         private void BuildRandomBlueWall()
@@ -473,6 +477,29 @@ namespace Net14.Maze
                 }
             }
         }
+        
+        // Метод для создание спального места 
+        public void GreateSleepingBag()
+        {
+            // Выбираем оставшиеся после методов выше ячейки земли
+            var SleepCell = mazeLevel.Cells
+                .OfType<Ground>()
+                .Where(cell => GetNearCells<Ground>(mazeLevel.Cells, cell).Count == 1).ToList();
+
+            // Рандомно ставим Спальник
+            var sleepingBag = GetRandom(SleepCell);
+
+            
+            // Меняем символ земли на символ спальника
+            mazeLevel.ReplaceCell(new SleepingBag()
+                {
+                    X = sleepingBag.X,
+                    Y = sleepingBag.Y,
+                    Color = ConsoleColor.Magenta
+        });
+                      
+        }
+
         public void AddClover()
         {
             var allGrounds = mazeLevel.Cells.OfType<Ground>().ToList();
