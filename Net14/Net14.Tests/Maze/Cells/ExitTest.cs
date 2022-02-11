@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Net14.Maze.Cells;
 using Moq;
+using Net14.Maze;
 
 namespace Net14.Tests.Maze.Cells
 {
@@ -13,8 +14,9 @@ namespace Net14.Tests.Maze.Cells
         public void TryToStep_CanStep()
         {
             // Подготовка
-            var exit = new IExit();
-            var heroMock = new Mock<Сharacter>();
+            var mazeMock = new Mock<IMazeLevel>();
+            var exit = new Exit(mazeMock.Object);
+            var heroMock = new Mock<IСharacter>();
 
             //Действие
             var answer = exit.TryToStep(heroMock.Object);
@@ -26,7 +28,8 @@ namespace Net14.Tests.Maze.Cells
         public void Symbol()
         {
             // Подготовка
-            var exit = new Exit();
+            var mazeMock = new Mock<IMazeLevel>();
+            var exit = new Exit(mazeMock.Object);
             
             
             //Проверка

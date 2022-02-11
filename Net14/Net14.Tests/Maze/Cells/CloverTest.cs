@@ -12,9 +12,9 @@ namespace Net14.Tests.Maze.Cells
         public void TryToStep_CanStep()
         {
             // Подготовка
-            var mazeMock = new Mock<>
-            var clover = new Clover(ImazeLevel);
-            var heroMock = new Mock<Сharacter>();
+            var mazeMock = new Mock<IMazeLevel>();
+            var clover = new Clover(mazeMock.Object);
+            var heroMock = new Mock<IСharacter>();
 
             //Действие
             var answer = clover.TryToStep(heroMock.Object);
@@ -30,7 +30,8 @@ namespace Net14.Tests.Maze.Cells
         public void TryToStep_GetMoney(int cloverCount, int heroInitCoins, int finalCoins)
         {
             // Подготовка
-            var clover = new IClover();
+            var mazeMock = new Mock<IMazeLevel>();
+            var clover = new Clover(mazeMock.Object);
             clover.CloverCount = cloverCount;
 
             var heroMock = new Mock<IСharacter>();
