@@ -12,8 +12,9 @@ namespace Net14.Maze
         public virtual ConsoleColor BackColor { get; set; }
         protected MazeLevel _mazeLevel;
 
-        public BaseCell(IMazeLevel mazeLevel)
+        public BaseCell(MazeLevel mazeLevel)
         {
+            _mazeLevel = mazeLevel;
         }
 
         public abstract bool TryToStep(IСharacter hero);

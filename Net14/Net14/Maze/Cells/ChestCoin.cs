@@ -10,7 +10,7 @@ namespace Net14.Maze.Cells
         public override char Symbol => '@';
         public override ConsoleColor Color => ConsoleColor.Yellow;
 
-        public ChestCoin(MazeLevel mazeLevel) : base(mazeLevel)
+        public ChestCoin(IMazeLevel mazeLevel) : base(mazeLevel)
         {
         }
 

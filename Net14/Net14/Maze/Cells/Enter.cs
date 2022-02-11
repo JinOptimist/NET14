@@ -8,7 +8,7 @@ namespace Net14.Maze.Cells
     {
         public override char Symbol => 'x';
 
-        public Enter(MazeLevel mazeLevel) : base(mazeLevel)
+        public Enter(IMazeLevel mazeLevel) : base(mazeLevel)
         {
 
         }

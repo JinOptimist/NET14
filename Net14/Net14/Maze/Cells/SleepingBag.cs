@@ -8,7 +8,7 @@ namespace Net14.Maze.Cells
     {
         public override char Symbol => 'D';
 
-        public SleepingBag(MazeLevel mazeLevel) : base(mazeLevel)
+        public SleepingBag(IMazeLevel mazeLevel) : base(mazeLevel)
         {
         }
 
