@@ -65,6 +65,7 @@ namespace Net14.Maze
                 Hero.Y = destinationY;
             }
 
+            // СОздаем условие, если герой наступает на Спальник
             if (destinationCell.Symbol == 'D')
             {
                 

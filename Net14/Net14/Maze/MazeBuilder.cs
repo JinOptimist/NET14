@@ -477,16 +477,16 @@ namespace Net14.Maze
         // Метод для создание спального места 
         public void GreateSleepingBag()
         {
-            // Выбираем все ячейки земли
+            // Выбираем оставшиеся после методов выше ячейки земли
             var SleepCell = mazeLevel.Cells
                 .OfType<Ground>()
                 .Where(cell => GetNearCells<Ground>(mazeLevel.Cells, cell).Count == 1).ToList();
 
-            // Выбираем из них выход
+            // Рандомно ставим Спальник
             var sleepingBag = GetRandom(SleepCell);
 
             
-
+            // Меняем символ земли на символ спальника
             mazeLevel.ReplaceCell(new SleepingBag()
                 {
                     X = sleepingBag.X,
