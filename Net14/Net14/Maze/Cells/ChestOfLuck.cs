@@ -9,7 +9,7 @@ namespace Net14.Maze.Cells
         public override char Symbol => '■';
         public override ConsoleColor Color => ConsoleColor.DarkYellow;
 
-        public ChestOfLuck(MazeLevel mazeLevel) : base(mazeLevel)
+        public ChestOfLuck(IMazeLevel mazeLevel) : base(mazeLevel)
         {
         }
         public override bool TryToStep(IСharacter hero)
