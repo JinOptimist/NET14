@@ -21,11 +21,7 @@ namespace Net14.Maze
 
 
             //AddDoors();
-            BuildRandomBlueWall();
 
-            BuildRedColorWall();
-
-            BuildBlueGroundNearBlueWalls();
 
             // Добавляем точку входа Х
             EnterPoint();
@@ -38,6 +34,12 @@ namespace Net14.Maze
             AddCoins();
 
             AddClover();
+
+            BuildRandomBlueWall();
+
+            BuildRedColorWall();
+
+            BuildBluePuddles();
 
             return mazeLevel;
         }
@@ -59,70 +61,60 @@ namespace Net14.Maze
         {
             Random POfBlueWall = new Random();
             var per = 0.1;
-     
-
 
             foreach (BaseCell cell in mazeLevel.Cells.OfType<Wall>().ToList()) 
             {
                 if (POfBlueWall.NextDouble() <= per) 
                 {
-                    cell.Color = ConsoleColor.DarkBlue;
+                    mazeLevel.ReplaceCell(new BlueWall()
+                    {
+                        X = cell.X,
+                        Y = cell.Y
+                    });
 
                 }
             }
 
 
         }
-        private void BuildBlueGroundNearBlueWalls()
+        private void BuildBluePuddles()
         {
-
-            foreach (BaseCell BlueWall in mazeLevel.Cells.OfType<Wall>().ToList().Where(cell => cell.Color == ConsoleColor.DarkBlue)) 
+            foreach (BaseCell BlueWall in mazeLevel.Cells.OfType<BlueWall>().ToList()) 
             {
-                var GroundNearBlueWalls = mazeLevel.Cells
-                    .Where(cell =>
-                    (cell.X == BlueWall.X
-                    && Math.Abs(cell.Y - BlueWall.Y) == 1)
-                    ||
-                    (cell.Y == BlueWall.Y
-                    && Math.Abs(cell.X - BlueWall.X) == 1)).ToList().OfType<Ground>().ToList();
+                var GroundNearBlueWalls = GetNearCells<Ground>(mazeLevel.Cells, BlueWall);
 
-                foreach (BaseCell CellWithGroundNearBlueWalls in GroundNearBlueWalls) 
+                foreach (Ground groundNearBlueWall in GroundNearBlueWalls) 
                 {
-                    var Hello = mazeLevel.Cells
-                    .Where(cells =>
-                    (cells.X == CellWithGroundNearBlueWalls.X
-                    && Math.Abs(cells.Y - CellWithGroundNearBlueWalls.Y) == 1)
-                    ||
-                    (cells.Y == CellWithGroundNearBlueWalls.Y
-                    && Math.Abs(cells.X - CellWithGroundNearBlueWalls.X) == 1)).ToList()
-                    .OfType<Wall>()
-                    .Where(cell => cell.Color == ConsoleColor.Red).ToList();
-                    /*.Where(cells =>
-                    (cells.Symbol == Wall
-                    && cells.Color == ConsoleColor.Red)).ToList();*/
-           /*         && (cells.X == BlueWall.X && cells.Y != BlueWall.Y
-                    || cells.Y == BlueWall.Y && cells.X != BlueWall.X)).ToList();*/
-                    if (Hello.Count == 0) 
+                    var IsRedWallNear = GetNearCells<RedWall>(mazeLevel.Cells, groundNearBlueWall).ToList();
+
+                    if (IsRedWallNear.Count == 0) 
                     {
-                        CellWithGroundNearBlueWalls.BackColor = ConsoleColor.DarkBlue;
+                        mazeLevel.ReplaceCell(new Puddles()
+                        {
+                            X = groundNearBlueWall.X,
+                            Y = groundNearBlueWall.Y
+                        });
                     }
-
-
                 }
 
             }
 
+            
         }
         private void BuildRedColorWall()
         {
             Random POfBlueWall = new Random();
             var per = 5;
 
-            foreach (BaseCell cell in mazeLevel.Cells.OfType<Wall>().Where(cell => cell.Color != ConsoleColor.DarkBlue))
+            foreach (BaseCell cell in mazeLevel.Cells.OfType<Wall>().Where(cell => cell.Color != ConsoleColor.DarkBlue).ToList())
             {
                 if (POfBlueWall.Next(0, 100) <= per)
                 {
-                    cell.Color = ConsoleColor.Red;
+                    mazeLevel.ReplaceCell(new RedWall()
+                    {
+                        X = cell.X,
+                        Y = cell.Y
+                    });
                 }
             }
         }
