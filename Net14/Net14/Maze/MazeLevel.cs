@@ -24,7 +24,7 @@ namespace Net14.Maze
             Cells.Add(cell);
         }
 
-        internal void Move(Direction left)
+        public void Move(Direction left)
         {
             Hero.MessageInMyHead = "";
 

@@ -11,7 +11,7 @@ namespace Net14.Maze
         public virtual ConsoleColor Color { get; set; } = ConsoleColor.White;
         public virtual ConsoleColor BackColor { get; set; }
 
-        public abstract bool TryToStep(Сharacter hero);
+        public abstract bool TryToStep(IСharacter hero);
 
         public override string ToString()
         {

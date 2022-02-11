@@ -331,7 +331,7 @@ namespace Net14.Maze
         /// <returns></returns>
         private List<CellType> GetNearCells<CellType>(
             List<BaseCell> allCells,
-            BaseCell currentCell)
+            BaseCell currentCell) where CellType : BaseCell
         {
             var nearCells = allCells
                 .Where(cell =>

@@ -9,7 +9,7 @@ namespace Net14.Maze.Cells
         public int HealthCount { get; set; }
         public override char Symbol => 'T';
 
-        public override bool TryToStep(Сharacter hero)
+        public override bool TryToStep(IСharacter hero)
         {
             hero.MessageInMyHead = "It's a Trap!!!";
             hero.Hp -= HealthCount;
