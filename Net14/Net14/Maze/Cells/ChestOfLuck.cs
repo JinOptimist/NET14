@@ -9,6 +9,9 @@ namespace Net14.Maze.Cells
         public override char Symbol => '■';
         public override ConsoleColor Color => ConsoleColor.DarkYellow;
 
+        public ChestOfLuck(MazeLevel mazeLevel) : base(mazeLevel)
+        {
+        }
         public override bool TryToStep(IСharacter hero)
         {
             Random rand = new Random();
@@ -35,6 +38,11 @@ namespace Net14.Maze.Cells
                 hero.Stamina++;
                 hero.MessageInMyHead = "Wow, it's a endurance potion!!";
             }
+            _mazeLevel.ReplaceCell(new Ground(_mazeLevel)
+            {
+                X = X,
+                Y = Y
+            });
             return true;
         }
     }
