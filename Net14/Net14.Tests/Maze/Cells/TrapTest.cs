@@ -1,4 +1,5 @@
 ﻿using Moq;
+using Net14.Maze;
 using Net14.Maze.Cells;
 using NUnit.Framework;
 using System;
@@ -11,7 +12,8 @@ namespace Net14.Tests.Maze.Cells
         public void TryToStep_CanStep()
         {
             // Подготовка
-            var trap = new Trap();
+            var mazeLevel = new MazeLevel();
+            var trap = new Trap(mazeLevel);
             var heroMock = new Mock<Сharacter>();
 
             //Действие
@@ -27,7 +29,8 @@ namespace Net14.Tests.Maze.Cells
         public void TryToStep_LoseHealth(int heroInitHealth, int finalHealth)
         {
             // Подготовка
-            var trap = new Trap();
+            var mazeLevel = new MazeLevel();
+            var trap = new Trap(mazeLevel);
             trap.HealthCount = heroInitHealth;
 
             var heroMock = new Mock<IСharacter>();
