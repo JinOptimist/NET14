@@ -9,7 +9,7 @@ namespace Net14.Maze.Cells
         public int CloverCount { get; set; }
         public override char Symbol => '*';
 
-        public Clover(MazeLevel mazeLevel) : base(mazeLevel)
+        public Clover(IMazeLevel mazeLevel) : base(mazeLevel)
         {
         }
 
