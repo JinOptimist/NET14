@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Net14.Maze.Cells
 {
-    public class Сharacter : BaseCell
+    public class Сharacter : BaseCell, IСharacter
     {
         public override char Symbol => 'H';
 
@@ -15,7 +15,11 @@ namespace Net14.Maze.Cells
         public Mood Mood { get; set; }
         public int Stamina { get; set; }
 
-        public override bool TryToStep(Сharacter chapter)
+        public Сharacter(IMazeLevel mazeLevel) : base(mazeLevel)
+        {
+        }
+
+        public override bool TryToStep(IСharacter chapter)
         {
             Coins += chapter.Coins;
             return false;

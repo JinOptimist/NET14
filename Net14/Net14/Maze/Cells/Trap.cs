@@ -4,24 +4,25 @@ using System.Text;
 
 namespace Net14.Maze.Cells
 {
-    public class ChestCoin : BaseCell
+    public class Trap : BaseCell
     {
-        public int CoinsCount { get; set; }
-        public override char Symbol => '@';
-        public override ConsoleColor Color => ConsoleColor.Yellow;
+        public int HealthCount { get; set; }
+        public override char Symbol => 'T';
 
-        public ChestCoin(IMazeLevel mazeLevel) : base(mazeLevel)
+        public Trap(IMazeLevel mazeLevel) : base(mazeLevel)
         {
         }
 
         public override bool TryToStep(IСharacter hero)
         {
-            hero.Coins += CoinsCount;
+            hero.MessageInMyHead = "It's a Trap!!!";
+            hero.Hp -= HealthCount;
             _mazeLevel.ReplaceCell(new Ground(_mazeLevel)
             {
                 X = X,
                 Y = Y
             });
+
             return true;
         }
     }

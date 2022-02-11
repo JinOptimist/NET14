@@ -4,25 +4,27 @@ using System.Text;
 
 namespace Net14.Maze.Cells
 {
-    public class ChestCoin : BaseCell
+    public class SleepingBag : BaseCell
     {
-        public int CoinsCount { get; set; }
-        public override char Symbol => '@';
-        public override ConsoleColor Color => ConsoleColor.Yellow;
+        public override char Symbol => 'D';
 
-        public ChestCoin(IMazeLevel mazeLevel) : base(mazeLevel)
+        public SleepingBag(IMazeLevel mazeLevel) : base(mazeLevel)
         {
         }
 
         public override bool TryToStep(IСharacter hero)
         {
-            hero.Coins += CoinsCount;
+            hero.Stamina = hero.Stamina + 10;
+            hero.Mood = Mood.Bad;
+
             _mazeLevel.ReplaceCell(new Ground(_mazeLevel)
             {
                 X = X,
                 Y = Y
             });
+
             return true;
         }
+
     }
 }

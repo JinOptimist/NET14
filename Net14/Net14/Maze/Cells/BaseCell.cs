@@ -10,8 +10,14 @@ namespace Net14.Maze
         public abstract char Symbol { get; }
         public virtual ConsoleColor Color { get; set; } = ConsoleColor.White;
         public virtual ConsoleColor BackColor { get; set; }
+        protected IMazeLevel _mazeLevel;
 
-        public abstract bool TryToStep(Сharacter hero);
+        public BaseCell(IMazeLevel mazeLevel)
+        {
+            _mazeLevel = mazeLevel;
+        }
+
+        public abstract bool TryToStep(IСharacter hero);
 
         public override string ToString()
         {

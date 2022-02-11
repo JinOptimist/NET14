@@ -4,8 +4,9 @@ using System.Text;
 
 namespace Net14.Maze.Cells
 {
-    public interface ICanStep
+    public enum AfterLoseAnswer
     {
-        bool TryToStep(IСharacter hero);
+        y = 0,
+        n = 1
     }
 }
