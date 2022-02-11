@@ -564,7 +564,7 @@ namespace Net14.Maze
 
                 if (rndm < 3)
                 {
-                    mazeLevel.ReplaceCell(new ChestOfLuck()
+                    mazeLevel.ReplaceCell(new ChestOfLuck(mazeLevel)
                     {
                         X = ground.X,
                         Y = ground.Y
