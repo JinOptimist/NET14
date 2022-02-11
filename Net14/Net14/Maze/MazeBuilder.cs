@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
 
 namespace Net14.Maze
 {
@@ -21,6 +19,120 @@ namespace Net14.Maze
 
             //Ломаем стены где положенно
             BuildGround();
+
+            //AddDoors();
+            BuildRandomBlueWall();
+
+            BuildRedColorWall();
+
+            BuildBlueGroundNearBlueWalls();
+
+            // Добавляем точку входа Х
+            EnterPoint();
+
+            // добавляем точку выхода e
+            ExitPoint();
+
+            AddHero();
+
+            AddCoins();
+
+            GreateSleepingBag();
+
+            AddClover();
+
+            AddTraps();
+
+            return mazeLevel;
+        }
+
+        private void AddHero()
+        {
+            var enter = mazeLevel.Cells.OfType<Enter>().Single();
+            mazeLevel.Hero = new Сharacter()
+            {
+                X = enter.X,
+                Y = enter.Y,
+                Hp = 2,
+                Stamina = 10,
+                Mood = Mood.Normal
+            };
+
+            
+        }
+
+        private void BuildRandomBlueWall()
+        {
+            Random POfBlueWall = new Random();
+            var per = 0.1;
+
+
+
+            foreach (BaseCell cell in mazeLevel.Cells.OfType<Wall>().ToList())
+            {
+                if (POfBlueWall.NextDouble() <= per)
+                {
+                    cell.Color = ConsoleColor.DarkBlue;
+
+                }
+            }
+
+
+        }
+        private void BuildBlueGroundNearBlueWalls()
+        {
+
+            foreach (BaseCell BlueWall in mazeLevel.Cells.OfType<Wall>().ToList().Where(cell => cell.Color == ConsoleColor.DarkBlue))
+            {
+                var GroundNearBlueWalls = mazeLevel.Cells
+                    .Where(cell =>
+                    (cell.X == BlueWall.X
+                    && Math.Abs(cell.Y - BlueWall.Y) == 1)
+                    ||
+                    (cell.Y == BlueWall.Y
+                    && Math.Abs(cell.X - BlueWall.X) == 1)).ToList().OfType<Ground>().ToList();
+
+                foreach (BaseCell CellWithGroundNearBlueWalls in GroundNearBlueWalls)
+                {
+                    var Hello = mazeLevel.Cells
+                    .Where(cells =>
+                    (cells.X == CellWithGroundNearBlueWalls.X
+                    && Math.Abs(cells.Y - CellWithGroundNearBlueWalls.Y) == 1)
+                    ||
+                    (cells.Y == CellWithGroundNearBlueWalls.Y
+                    && Math.Abs(cells.X - CellWithGroundNearBlueWalls.X) == 1)).ToList()
+                    .OfType<Wall>()
+                    .Where(cell => cell.Color == ConsoleColor.Red).ToList();
+                    /*.Where(cells =>
+                    (cells.Symbol == Wall
+                    && cells.Color == ConsoleColor.Red)).ToList();*/
+                    /*         && (cells.X == BlueWall.X && cells.Y != BlueWall.Y
+                             || cells.Y == BlueWall.Y && cells.X != BlueWall.X)).ToList();*/
+                    if (Hello.Count == 0)
+                    {
+                        CellWithGroundNearBlueWalls.BackColor = ConsoleColor.DarkBlue;
+                    }
+
+
+                }
+
+            }
+
+        }
+        private void BuildRedColorWall()
+        {
+            Random POfBlueWall = new Random();
+            var per = 5;
+
+            foreach (BaseCell cell in mazeLevel.Cells.OfType<Wall>().Where(cell => cell.Color != ConsoleColor.DarkBlue))
+            {
+                if (POfBlueWall.Next(0, 100) <= per)
+                {
+                    cell.Color = ConsoleColor.Red;
+                }
+            }
+        }
+
 
         private void BuildGround()
         {
@@ -126,7 +238,7 @@ namespace Net14.Maze
                 }
             }
         }
-        
+
 
         public MazeLevel BuildSmallStandrad()
         {
@@ -209,7 +321,7 @@ namespace Net14.Maze
         {
             var list = cells.ToList();
             var random = new Random();
-            var randomIndex = random.Next(0, list.Count);
+            var randomIndex = random.Next(0, list.Count - 1);
             return list[randomIndex];
         }
 
@@ -375,5 +487,101 @@ namespace Net14.Maze
             return mazeLevel;
 
         }
+
+        private void AddCoins()
+        {
+            var allDeadEnds = mazeLevel.Cells
+                .OfType<Ground>()
+                .Where(cell =>
+                    GetNearCells<Ground>(mazeLevel.Cells, cell).Count() == 1)
+                .ToList();
+            Random random = new Random();
+
+
+            foreach (var allDeadEnd in allDeadEnds)
+            {
+                int rnd = random.Next(0, 100);
+
+                if (rnd < 30)
+                {
+                    mazeLevel.ReplaceCell(new ChestCoin()
+                    {
+                        X = allDeadEnd.X,
+                        Y = allDeadEnd.Y
+                    });
+                }
+            }
+        }
+        
+        // Метод для создание спального места 
+        public void GreateSleepingBag()
+        {
+            // Выбираем оставшиеся после методов выше ячейки земли
+            var SleepCell = mazeLevel.Cells
+                .OfType<Ground>()
+                .Where(cell => GetNearCells<Ground>(mazeLevel.Cells, cell).Count == 1).ToList();
+
+            // Рандомно ставим Спальник
+            var sleepingBag = GetRandom(SleepCell);
+
+            
+            // Меняем символ земли на символ спальника
+            mazeLevel.ReplaceCell(new SleepingBag()
+                {
+                    X = sleepingBag.X,
+                    Y = sleepingBag.Y,
+                    Color = ConsoleColor.Magenta
+        });
+                      
+        }
+
+        public void AddClover()
+        {
+            var allGrounds = mazeLevel.Cells.OfType<Ground>().ToList();
+
+            Random random = new Random();
+
+            foreach (var allGround in allGrounds)
+            {
+                int rndm = random.Next(0, 100);
+
+                if (rndm < 5)
+                {
+                    mazeLevel.ReplaceCell(new Clover()
+                    {
+                        X = allGround.X,
+                        Y = allGround.Y
+
+                    });
+                }
+            }
+        }
+        public void AddTraps()
+        {
+            var allGroundNearCoins = mazeLevel.Cells
+                .OfType<Ground>()
+                .Where(cell =>
+                    GetNearCells<ChestCoin>(mazeLevel.Cells, cell).Count() == 1)
+                .ToList();
+
+            Random random = new Random();
+
+            foreach (var SuitableGround in allGroundNearCoins)
+            {
+                int FiftyFifty = random.Next(0, 2);
+
+                if (FiftyFifty == 0)
+                {
+                    mazeLevel.ReplaceCell(new Trap()
+                    {
+                        X = SuitableGround.X,
+                        Y = SuitableGround.Y
+
+                    });
+                }
+            }
+        }
+        
+
     }
 }
