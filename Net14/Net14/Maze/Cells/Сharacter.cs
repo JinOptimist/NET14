@@ -15,6 +15,10 @@ namespace Net14.Maze.Cells
         public Mood Mood { get; set; }
         public int Stamina { get; set; }
 
+        public Сharacter(IMazeLevel mazeLevel) : base(mazeLevel)
+        {
+        }
+
         public override bool TryToStep(IСharacter chapter)
         {
             Coins += chapter.Coins;
