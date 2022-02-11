@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Net14.Maze.Cells
 {
-    internal class Trap : BaseCell
+    public class Trap : BaseCell
     {
         public int HealthCount { get; set; }
         public override char Symbol => 'T';
@@ -12,7 +12,7 @@ namespace Net14.Maze.Cells
         public override bool TryToStep(IСharacter hero)
         {
             hero.MessageInMyHead = "It's a Trap!!!";
-            hero.Hp -= HealthCount;
+            hero.Hp --;
             return true;
         }
     }
