@@ -8,6 +8,7 @@ namespace Net14.Maze
     public class MazeBuilder
     {
         private MazeLevel mazeLevel;
+        private readonly Random _random = new();
 
         public MazeLevel Build(int width = 5, int hegith = 7)
         {
@@ -49,7 +50,7 @@ namespace Net14.Maze
         private void AddHero()
         {
             var enter = mazeLevel.Cells.OfType<Enter>().Single();
-            mazeLevel.Hero = new Сharacter()
+            mazeLevel.Hero = new Сharacter(mazeLevel)
             {
                 X = enter.X,
                 Y = enter.Y,
@@ -58,7 +59,7 @@ namespace Net14.Maze
                 Mood = Mood.Normal
             };
 
-            
+
         }
 
         private void BuildRandomBlueWall()
@@ -155,7 +156,7 @@ namespace Net14.Maze
 
             //Ломаем стену. Точней у ячейки шахтёра
             //заменяем символ стены на символ земли
-            mazeLevel.ReplaceCell(new Ground
+            mazeLevel.ReplaceCell(new Ground(mazeLevel)
             {
                 X = redMinerCell.X,
                 Y = redMinerCell.Y
@@ -192,7 +193,7 @@ namespace Net14.Maze
                 //Берём из доступных стен для ломания, одну случайную
                 var wallToBreak = GetRandom(blueWallCanBVreak);
                 //Ломаем ей
-                mazeLevel.ReplaceCell(new Ground()
+                mazeLevel.ReplaceCell(new Ground(mazeLevel)
                 {
                     X = wallToBreak.X,
                     Y = wallToBreak.Y
@@ -224,7 +225,7 @@ namespace Net14.Maze
             {
                 for (int x = 0; x < mazeLevel.Width; x++)
                 {
-                    var cell = new Wall
+                    var cell = new Wall(mazeLevel)
                     {
                         X = x,
                         Y = y,
@@ -245,7 +246,7 @@ namespace Net14.Maze
             {
                 for (int x = 0; x < mazeLevel.Width; x++)
                 {
-                    var cell = new Ground
+                    var cell = new Ground(mazeLevel)
                     {
                         X = x,
                         Y = y,
@@ -256,13 +257,13 @@ namespace Net14.Maze
                 }
             }
 
-            mazeLevel.ReplaceCell(new Wall()
+            mazeLevel.ReplaceCell(new Wall(mazeLevel)
             {
                 X = 1,
                 Y = 0
             });
 
-            mazeLevel.ReplaceCell(new Wall()
+            mazeLevel.ReplaceCell(new Wall(mazeLevel)
             {
                 X = 1,
                 Y = 2
@@ -280,7 +281,7 @@ namespace Net14.Maze
                 for (int x = 0; x < mazeLevel.Width; x++)
                 {
                     var colorNumber = x % 16;
-                    var cell = new Wall
+                    var cell = new Wall(mazeLevel)
                     {
                         X = x,
                         Y = y,
@@ -411,7 +412,7 @@ namespace Net14.Maze
             // Выбираем из них выход
             var exit = GetRandom(extremCell);
 
-            mazeLevel.ReplaceCell(new Exit()
+            mazeLevel.ReplaceCell(new Exit(mazeLevel)
             {
                 X = exit.X,
                 Y = exit.Y
@@ -437,7 +438,7 @@ namespace Net14.Maze
 
 
             var enter = GetRandom(interiorCell);
-            mazeLevel.ReplaceCell(new Enter()
+            mazeLevel.ReplaceCell(new Enter(mazeLevel)
             {
                 X = enter.X,
                 Y = enter.Y
@@ -460,24 +461,24 @@ namespace Net14.Maze
                 .Where(cell =>
                     GetNearCells<Ground>(mazeLevel.Cells, cell).Count() == 1)
                 .ToList();
-            Random random = new Random();
-
 
             foreach (var allDeadEnd in allDeadEnds)
             {
-                int rnd = random.Next(0, 100);
+                var rnd = _random.Next(0, 100);
+                var coinsCount = _random.Next(1, 10);
 
                 if (rnd < 30)
                 {
-                    mazeLevel.ReplaceCell(new ChestCoin()
+                    mazeLevel.ReplaceCell(new ChestCoin(mazeLevel)
                     {
                         X = allDeadEnd.X,
-                        Y = allDeadEnd.Y
+                        Y = allDeadEnd.Y,
+                        CoinsCount = coinsCount
                     });
                 }
             }
         }
-        
+
         // Метод для создание спального места 
         public void GreateSleepingBag()
         {
@@ -489,15 +490,15 @@ namespace Net14.Maze
             // Рандомно ставим Спальник
             var sleepingBag = GetRandom(SleepCell);
 
-            
+
             // Меняем символ земли на символ спальника
-            mazeLevel.ReplaceCell(new SleepingBag()
-                {
-                    X = sleepingBag.X,
-                    Y = sleepingBag.Y,
-                    Color = ConsoleColor.Magenta
-        });
-                      
+            mazeLevel.ReplaceCell(new SleepingBag(mazeLevel)
+            {
+                X = sleepingBag.X,
+                Y = sleepingBag.Y,
+                Color = ConsoleColor.Magenta
+            });
+
         }
 
         public void AddClover()
@@ -512,7 +513,7 @@ namespace Net14.Maze
 
                 if (rndm < 5)
                 {
-                    mazeLevel.ReplaceCell(new Clover()
+                    mazeLevel.ReplaceCell(new Clover(mazeLevel)
                     {
                         X = allGround.X,
                         Y = allGround.Y
@@ -537,7 +538,7 @@ namespace Net14.Maze
 
                 if (FiftyFifty == 0)
                 {
-                    mazeLevel.ReplaceCell(new Trap()
+                    mazeLevel.ReplaceCell(new Trap(mazeLevel)
                     {
                         X = SuitableGround.X,
                         Y = SuitableGround.Y
@@ -546,7 +547,7 @@ namespace Net14.Maze
                 }
             }
         }
-        
+
 
     }
 }
