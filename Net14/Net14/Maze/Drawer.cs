@@ -37,7 +37,7 @@ namespace Net14.Maze
 
                 Console.WriteLine();
             }
-
+            YouLose(mazeLevel.Hero);
             Console.WriteLine();
             Console.WriteLine(mazeLevel.Hero.MessageInMyHead);
             GetFeaturesOfHero(mazeLevel.Hero);
@@ -68,6 +68,28 @@ namespace Net14.Maze
                 $"Coins — {hero.Coins}\n" +
                 $"Mood — {hero.Mood}\n"
                 );
+        }
+        private void YouLose(Сharacter сharacter)
+        {
+            if (сharacter.Hp < 1)
+            {
+                Console.Clear();
+                Console.WriteLine("You died! End of the Game. Wanna play again? \n Type Y/N for answer");
+                Console.ReadKey();
+                var answer = new AfterLoseAnswer();
+                switch (answer)
+                {
+                    case AfterLoseAnswer.y:
+                        var menu = new Menu();
+                        Console.Clear();
+                        menu.ShowMenu();
+                        break;
+                    case AfterLoseAnswer.n:
+                        Environment.Exit(0); //почему-то не выходит
+                        break;
+                }
+
+            }
         }
     }
 }
