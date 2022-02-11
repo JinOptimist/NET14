@@ -39,6 +39,8 @@ namespace Net14.Maze
 
             AddClover();
 
+            AddChestOfLuck();
+
             return mazeLevel;
         }
 
@@ -487,6 +489,28 @@ namespace Net14.Maze
                     {
                         X = allGround.X,
                         Y = allGround.Y
+
+                    });
+                }
+            }
+        }
+
+        public void AddChestOfLuck()
+        {
+            var allGrounds = mazeLevel.Cells.OfType<Ground>().ToList();
+
+            Random random = new Random();
+
+            foreach (var ground in allGrounds)
+            {
+                int rndm = random.Next(0, 100);
+
+                if (rndm < 3)
+                {
+                    mazeLevel.ReplaceCell(new ChestOfLuck()
+                    {
+                        X = ground.X,
+                        Y = ground.Y
 
                     });
                 }

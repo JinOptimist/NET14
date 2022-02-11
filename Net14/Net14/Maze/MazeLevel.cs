@@ -80,6 +80,14 @@ namespace Net14.Maze
                
             }); 
             }
+            if(destinationCell.Symbol == '■') 
+            {
+                ReplaceCell(new Ground()
+                {
+                    X = destinationX,
+                    Y = destinationY
+                });
+            }
         }
     }
 }
