@@ -53,6 +53,8 @@ namespace Net14.Maze
                 Stamina = 10,
                 Mood = Mood.Normal
             };
+
+            
         }
 
         private void BuildRandomBlueWall()
@@ -473,7 +475,7 @@ namespace Net14.Maze
         }
         
         // Метод для создание спального места 
-        private void GreateSleepingBag()
+        public void GreateSleepingBag()
         {
             // Выбираем все ячейки земли
             var SleepCell = mazeLevel.Cells
@@ -482,15 +484,16 @@ namespace Net14.Maze
 
             // Выбираем из них выход
             var sleepingBag = GetRandom(SleepCell);
-                        
-                mazeLevel.ReplaceCell(new SleepingBag()
+
+            
+
+            mazeLevel.ReplaceCell(new SleepingBag()
                 {
                     X = sleepingBag.X,
-                    Y = sleepingBag.Y
-                });
-            sleepingBag.Color = ConsoleColor.Yellow;
-            
-            
+                    Y = sleepingBag.Y,
+                    Color = ConsoleColor.Magenta
+        });
+                      
         }
 
     }
