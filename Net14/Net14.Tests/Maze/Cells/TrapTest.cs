@@ -32,7 +32,7 @@ namespace Net14.Tests.Maze.Cells
             // Подготовка
             var mazeLevel = new MazeLevel();
             var trap = new Trap(mazeLevel);
-            trap.HealthCount = heroInitHealth;
+            //trap.HealthCount = heroInitHealth;
 
             var heroMock = new Mock<IСharacter>();
             heroMock.SetupProperty(x => x.Hp);

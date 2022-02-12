@@ -6,8 +6,7 @@ namespace Net14.Maze.Cells
 {
     public class Trap : BaseCell
     {
-        public int HealthCount { get; set; }
-        public override char Symbol => 'T';
+       public override char Symbol => 'T';
 
         public Trap(IMazeLevel mazeLevel) : base(mazeLevel)
         {
