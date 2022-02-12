@@ -4,10 +4,14 @@ using System.Text;
 
 namespace Net14.Maze.Cells
 {
-    class ChestOfLuck : BaseCell
+    public class ChestOfLuck : BaseCell
     {
+        public int Num { set; get; }
         public override char Symbol => '■';
         public override ConsoleColor Color => ConsoleColor.DarkYellow;
+
+        public int CountFeaturesOfCharacter { get; set; } = 4;
+        
 
         public ChestOfLuck(IMazeLevel mazeLevel) : base(mazeLevel)
         {
@@ -15,25 +19,29 @@ namespace Net14.Maze.Cells
         public override bool TryToStep(IСharacter hero)
         {
             Random rand = new Random();
-            int num = rand.Next(0, 41);
+            if (Num == 0) 
+            {
+                Num = rand.Next(0, CountFeaturesOfCharacter+1);
 
-            if (num <= 10)
+            }
+
+            if (Num <= 10)
             {
                 hero.Coins++;
                 hero.MessageInMyHead = "Wow, it's a coin!!";
             }
-            else if (num > 10 && num <= 20)
+            else if (Num > 10 && Num <= 20)
             {
                 hero.Hp++;
                 hero.MessageInMyHead = "Wow, it's a medicine!!";
 
             }
-            else if (num > 20 && num <= 30)
+            else if (Num > 20 && Num <= 30)
             {
                 hero.Mood++;
                 hero.MessageInMyHead = "Wow, it's a good mood!!";
             }
-            else 
+            else if(Num > 30 && Num <= 41) 
             {
                 hero.Stamina++;
                 hero.MessageInMyHead = "Wow, it's a endurance potion!!";
