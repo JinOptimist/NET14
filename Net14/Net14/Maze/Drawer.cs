@@ -85,8 +85,6 @@ namespace Net14.Maze
                         break;
                     case ConsoleKey.N:
                         Environment.Exit(0);
-                    default:
-                        Environment.Exit(0);
                         break;
                 }
 
