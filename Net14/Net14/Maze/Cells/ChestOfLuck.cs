@@ -6,7 +6,7 @@ namespace Net14.Maze.Cells
 {
     public class ChestOfLuck : BaseCell
     {
-        public int Num { set; get; }
+        public int Num { set; get; } = 0;
         public override char Symbol => '■';
         public override ConsoleColor Color => ConsoleColor.DarkYellow;
 
@@ -21,7 +21,7 @@ namespace Net14.Maze.Cells
             Random rand = new Random();
             if (Num == 0) 
             {
-                Num = rand.Next(0, CountFeaturesOfCharacter+1);
+                Num = rand.Next(0, (CountFeaturesOfCharacter*10) + 1);
 
             }
 
