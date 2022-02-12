@@ -1,7 +1,4 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Net14.Maze.Cells;
 using Moq;
 using Net14.Maze;
@@ -14,8 +11,8 @@ namespace Net14.Tests.Maze.Cells
         public void TryToStep_CanStep()
         {
             // Подготовка
-            var mazeMock = new Mock<IMazeLevel>();
-            var enter = new Enter(mazeMock.Object);
+            var mazelevelMock = new Mock<IMazeLevel>();
+            var enter = new Enter(mazelevelMock.Object);
             var heroMock = new Mock<IСharacter>();
 
             //Действие
@@ -28,9 +25,8 @@ namespace Net14.Tests.Maze.Cells
         public void Symbol()
         {
             // Подготовка
-            var mazeMock = new Mock<IMazeLevel>();
-            var enter = new Enter(mazeMock.Object);
-
+            var mazelevelMock = new Mock<IMazeLevel>();
+            var enter = new Enter(mazelevelMock.Object);
 
             //Проверка
             Assert.AreEqual('x', enter.Symbol);
