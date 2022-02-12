@@ -39,9 +39,7 @@ namespace Net14.Tests.Maze.Cells
 
             //Действие
             trap.TryToStep(heroMock.Object);
-            Assert.AreEqual(secondHealth, heroMock.Object.Hp);
-        }
-
+            
             //Проверка
             Assert.AreEqual(finalHealth, heroMock.Object.Hp);
         }
