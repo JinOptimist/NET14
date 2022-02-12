@@ -9,7 +9,7 @@ namespace Net14.Maze.Cells
         public int HealthCount { get; set; }
         public override char Symbol => 'T';
 
-        public Trap(MazeLevel mazeLevel) : base(mazeLevel)
+        public Trap(IMazeLevel mazeLevel) : base(mazeLevel)
         {
         }
 
