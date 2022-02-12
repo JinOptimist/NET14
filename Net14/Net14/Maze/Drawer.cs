@@ -14,6 +14,7 @@ namespace Net14.Maze
 
         public void DrawMaze(MazeLevel mazeLevel)
         {
+            
             Console.Clear();
             Weather();
             for (int yIndex = 0; yIndex < mazeLevel.Height; yIndex++)
