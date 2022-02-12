@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using System;
+using Moq;
 using Net14.Maze;
 using Net14.Maze.Cells;
 using NUnit.Framework;
@@ -38,7 +39,7 @@ namespace Net14.Tests.Maze.Cells
 
             //Действие
             trap.TryToStep(heroMock.Object);
-
+            
             //Проверка
             Assert.AreEqual(finalHealth, heroMock.Object.Hp);
         }
