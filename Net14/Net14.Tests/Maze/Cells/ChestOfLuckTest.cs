@@ -87,9 +87,9 @@ namespace Net14.Tests.Maze.Cells
                 Assert.AreEqual(heroMock.Object.MessageInMyHead, "Wow, it's a good mood!!",
                      @"MessageInMyHead must be: Wow, it's a good mood!!");
             }
-            else if (chestOfLuck.Num < 0 || chestOfLuck.Num > 41)//Если число вышло за установленные границы
+            else if (chestOfLuck.Num < 0 || chestOfLuck.Num > (chestOfLuck.CountFeaturesOfCharacter*10) + 1)//Если число вышло за установленные границы
             {
-                Assert.Fail($"ChestOfLuck.Num not in range [0, 41], Num was {chestOfLuck.Num}");
+                Assert.Fail($"ChestOfLuck.Num not in range [0, {((chestOfLuck.CountFeaturesOfCharacter * 10) + 1)}], Num was {chestOfLuck.Num}");
             }
             else
             {
