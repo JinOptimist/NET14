@@ -12,10 +12,9 @@ namespace Net14.Tests.Maze.Cells
         public void TryToStep_CanStep()
         {
             // Подготовка
-            var mazelevelMock = new Mock<MazeLevel>();
-            //var mazeLevel = new MazeLevel();
+            var mazelevelMock = new Mock<IMazeLevel>();
             var trap = new Trap(mazelevelMock.Object);
-            var heroMock = new Mock<Сharacter>();
+            var heroMock = new Mock<IСharacter>();
 
             //Действие
             var answer = trap.TryToStep(heroMock.Object);
@@ -27,16 +26,15 @@ namespace Net14.Tests.Maze.Cells
         [TestCase(2, 1)]
         [TestCase(7, 6)]
         [TestCase(545, 544)]
-        public void TryToStep_LoseHealth(int heroInitHealth, int finalHealth)
+        public void TryToStep_LoseHealth(int starterHealth, int finalHealth)
         {
             // Подготовка
-            var mazeLevel = new MazeLevel();
-            var trap = new Trap(mazeLevel);
-            //trap.HealthCount = heroInitHealth;
+            var mazelevelMock = new Mock<IMazeLevel>();
+            var trap = new Trap(mazelevelMock.Object);
 
             var heroMock = new Mock<IСharacter>();
             heroMock.SetupProperty(x => x.Hp);
-            heroMock.Object.Hp = heroInitHealth;
+            heroMock.Object.Hp = starterHealth;
 
             //Действие
             trap.TryToStep(heroMock.Object);
