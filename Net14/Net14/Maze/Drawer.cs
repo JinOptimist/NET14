@@ -9,7 +9,7 @@ namespace Net14.Maze
 {
     public class Drawer
     {
-   
+
 
 
         public void DrawMaze(MazeLevel mazeLevel)
@@ -61,7 +61,7 @@ namespace Net14.Maze
             Console.WriteLine(weather[new Random().Next(0, weather.Length)]);
         }
 
-        private void GetFeaturesOfHero(Сharacter hero) 
+        private void GetFeaturesOfHero(Сharacter hero)
         {
             Console.WriteLine("\nFeatures of character:\n" +
                 $"Health — {hero.Hp}\n" +
@@ -76,17 +76,16 @@ namespace Net14.Maze
             {
                 Console.Clear();
                 Console.WriteLine("You died! End of the Game. Wanna play again? \n Type Y/N for answer");
-                Console.ReadKey();
-                var answer = new AfterLoseAnswer();
-                switch (answer)
+                var answer = Console.ReadKey();
+                switch (answer.Key)
                 {
-                    case AfterLoseAnswer.y:
+                    case ConsoleKey.Y:
                         var menu = new Menu();
                         Console.Clear();
                         menu.ShowMenu();
                         break;
-                    case AfterLoseAnswer.n:
-                        Environment.Exit(0); //почему-то не выходит
+                    case ConsoleKey.N:
+                        Environment.Exit(0);
                         break;
                 }
 

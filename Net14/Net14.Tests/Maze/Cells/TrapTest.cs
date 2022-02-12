@@ -3,6 +3,7 @@ using Moq;
 using Net14.Maze;
 using Net14.Maze.Cells;
 using NUnit.Framework;
+using System;
 
 namespace Net14.Tests.Maze.Cells
 {
@@ -12,29 +13,37 @@ namespace Net14.Tests.Maze.Cells
         public void TryToStep_CanStep()
         {
             // Подготовка
-
-            var mazeMock = new Mock<IMazeLevel>();
-            var trap = new Trap(mazeMock.Object);
+            var mazelevelMock = new Mock<IMazeLevel>();
+            var trap = new Trap(mazelevelMock.Object);
             var heroMock = new Mock<IСharacter>();
 
             //Действие
             var answer = trap.TryToStep(heroMock.Object);
 
             //Проверка
-            Assert.AreEqual(true, answer, "На ловушку МОЖНО наступить");
+            Assert.AreEqual(true, answer, "На ловушку МОЖНО наступить (но не стоит)");
         }
         [Test]
         [TestCase(2, 1)]
-        public void TryToStep_Health(int firstHealth, int secondHealth)
+        [TestCase(7, 6)]
+        [TestCase(545, 544)]
+        public void TryToStep_LoseHealth(int starterHealth, int finalHealth)
         {
-            var mazeMock = new Mock<IMazeLevel>();
-            var trap = new Trap(mazeMock.Object);
+            // Подготовка
+            var mazelevelMock = new Mock<IMazeLevel>();
+            var trap = new Trap(mazelevelMock.Object);
+
             var heroMock = new Mock<IСharacter>();
             heroMock.SetupProperty(x => x.Hp);
-            heroMock.Object.Hp = firstHealth;
+            heroMock.Object.Hp = starterHealth;
+
+            //Действие
             trap.TryToStep(heroMock.Object);
             Assert.AreEqual(secondHealth, heroMock.Object.Hp);
         }
 
+            //Проверка
+            Assert.AreEqual(finalHealth, heroMock.Object.Hp);
+        }
     }
 }
