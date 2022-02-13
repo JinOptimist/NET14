@@ -587,7 +587,7 @@ namespace Net14.Maze
         {
             var PlaceForTeleport = mazeLevel.Cells.OfType<Ground>().ToList();
             var SpawnTeleport = GetRandom(PlaceForTeleport);
-            mazeLevel.ReplaceCell(new RandomTeleport()
+            mazeLevel.ReplaceCell(new RandomTeleport(mazeLevel)
             {
                 X = SpawnTeleport.X,
                 Y = SpawnTeleport.Y

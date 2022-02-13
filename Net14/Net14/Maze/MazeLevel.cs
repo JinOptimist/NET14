@@ -64,16 +64,6 @@ namespace Net14.Maze
                 Hero.Y = destinationY;
             }
 
-            if (destinationCell.Symbol == 'R')
-            {
-                Random randomX = new Random();
-                Random randomY = new Random();
-                var randomXTelep = randomX.Next(0, Width);
-                var randomYTelep = randomY.Next(0, Height);
-                Hero.X = randomXTelep;
-                Hero.Y = randomYTelep;
-            }
-
         }
     }
 }
