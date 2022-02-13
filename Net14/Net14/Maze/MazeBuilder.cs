@@ -22,11 +22,7 @@ namespace Net14.Maze
 
 
             //AddDoors();
-            BuildRandomBlueWall();
 
-            BuildRedColorWall();
-
-            BuildBlueGroundNearBlueWalls();
 
             // Добавляем точку входа Х
             EnterPoint();
@@ -37,6 +33,7 @@ namespace Net14.Maze
             AddHero();
 
             AddCoins();
+            RandomTeleportation();
 
             GreateSleepingBag();
 
@@ -45,6 +42,14 @@ namespace Net14.Maze
             AddTraps();
 
             AddChestOfLuck();
+
+            AddDoors();
+
+            BuildRandomBlueWall();
+
+            BuildRedColorWall();
+
+            BuildBluePuddles();
 
             return mazeLevel;
         }
@@ -69,69 +74,59 @@ namespace Net14.Maze
             Random POfBlueWall = new Random();
             var per = 0.1;
 
-
-
-            foreach (BaseCell cell in mazeLevel.Cells.OfType<Wall>().ToList())
+            foreach (BaseCell cell in mazeLevel.Cells.OfType<Wall>().ToList()) 
             {
-                if (POfBlueWall.NextDouble() <= per)
+                if (POfBlueWall.NextDouble() <= per) 
                 {
-                    cell.Color = ConsoleColor.DarkBlue;
+                    mazeLevel.ReplaceCell(new BlueWall(mazeLevel)
+                    {
+                        X = cell.X,
+                        Y = cell.Y
+                    });
 
                 }
             }
 
 
         }
-        private void BuildBlueGroundNearBlueWalls()
+        private void BuildBluePuddles()
         {
-
-            foreach (BaseCell BlueWall in mazeLevel.Cells.OfType<Wall>().ToList().Where(cell => cell.Color == ConsoleColor.DarkBlue))
+            foreach (BaseCell BlueWall in mazeLevel.Cells.OfType<BlueWall>().ToList()) 
             {
-                var GroundNearBlueWalls = mazeLevel.Cells
-                    .Where(cell =>
-                    (cell.X == BlueWall.X
-                    && Math.Abs(cell.Y - BlueWall.Y) == 1)
-                    ||
-                    (cell.Y == BlueWall.Y
-                    && Math.Abs(cell.X - BlueWall.X) == 1)).ToList().OfType<Ground>().ToList();
+                var GroundNearBlueWalls = GetNearCells<Ground>(mazeLevel.Cells, BlueWall);
 
-                foreach (BaseCell CellWithGroundNearBlueWalls in GroundNearBlueWalls)
+                foreach (Ground groundNearBlueWall in GroundNearBlueWalls) 
                 {
-                    var Hello = mazeLevel.Cells
-                    .Where(cells =>
-                    (cells.X == CellWithGroundNearBlueWalls.X
-                    && Math.Abs(cells.Y - CellWithGroundNearBlueWalls.Y) == 1)
-                    ||
-                    (cells.Y == CellWithGroundNearBlueWalls.Y
-                    && Math.Abs(cells.X - CellWithGroundNearBlueWalls.X) == 1)).ToList()
-                    .OfType<Wall>()
-                    .Where(cell => cell.Color == ConsoleColor.Red).ToList();
-                    /*.Where(cells =>
-                    (cells.Symbol == Wall
-                    && cells.Color == ConsoleColor.Red)).ToList();*/
-                    /*         && (cells.X == BlueWall.X && cells.Y != BlueWall.Y
-                             || cells.Y == BlueWall.Y && cells.X != BlueWall.X)).ToList();*/
-                    if (Hello.Count == 0)
+                    var IsRedWallNear = GetNearCells<RedWall>(mazeLevel.Cells, groundNearBlueWall).ToList();
+
+                    if (IsRedWallNear.Count == 0) 
                     {
-                        CellWithGroundNearBlueWalls.BackColor = ConsoleColor.DarkBlue;
+                        mazeLevel.ReplaceCell(new Puddles(mazeLevel)
+                        {
+                            X = groundNearBlueWall.X,
+                            Y = groundNearBlueWall.Y
+                        });
                     }
-
-
                 }
 
             }
 
+            
         }
         private void BuildRedColorWall()
         {
             Random POfBlueWall = new Random();
             var per = 5;
 
-            foreach (BaseCell cell in mazeLevel.Cells.OfType<Wall>().Where(cell => cell.Color != ConsoleColor.DarkBlue))
+            foreach (BaseCell cell in mazeLevel.Cells.OfType<Wall>().Where(cell => cell.Color != ConsoleColor.DarkBlue).ToList())
             {
                 if (POfBlueWall.Next(0, 100) <= per)
                 {
-                    cell.Color = ConsoleColor.Red;
+                    mazeLevel.ReplaceCell(new RedWall(mazeLevel)
+                    {
+                        X = cell.X,
+                        Y = cell.Y
+                    });
                 }
             }
         }
@@ -349,46 +344,52 @@ namespace Net14.Maze
         }
 
 
-        //private List<Cell> Get2YWalls(List<Cell> allCells, Cell currentCell, char cellSymbol)
-        //{
-        //    var YWalls = allCells
-        //        .Where(cell => cell.X == currentCell.X && Math.Abs(cell.Y - currentCell.Y) == 1)
-        //        .Where(cell => cell.Symbol == Wall);
-        //    return YWalls.ToList();
-        //}
-        //private List<Cell> Get2XWalls(List<Cell> allCells, Cell currentCell, char cellSymbol)
-        //{
-        //    var YWalls = allCells
-        //        .Where(cell => cell.Y == currentCell.Y && Math.Abs(cell.X - currentCell.X) == 1)
-        //        .Where(cell => cell.Symbol == Wall);
-        //    return YWalls.ToList();
-        //}
-        //private void AddDoors()
-        //{
+      
+        private List<BaseCell> GroundForSpawnDoors2Y(List<BaseCell> allCells, BaseCell currentCell)
+        {
+            var GroundForSpawn = allCells
+                .Where(cell => cell.X == currentCell.X && Math.Abs(cell.Y - currentCell.Y) == 1 && cell is Wall);
+                return GroundForSpawn.OfType<BaseCell>().ToList();
+        }
+        private List<BaseCell> GroundForSpawnDoors2X(List<BaseCell> allCells, BaseCell currentCell)
+        {
+            var GroundForSpawn = allCells
+                .Where(cell => cell.Y == currentCell.Y && Math.Abs(cell.X - currentCell.X) == 1 && cell is Wall);
+            return GroundForSpawn.OfType<BaseCell>().ToList();
+        }
+        private void AddDoors()
+        {
+            var GroundForDoors2Y = mazeLevel.Cells
+                .Where(cell => cell is Ground)
+                .Where(cell => GroundForSpawnDoors2Y(mazeLevel.Cells, cell).Count == 2)
+                .ToList();
+            do
+            {
+                var DoorSpawner = GetRandom(GroundForDoors2Y);
+                mazeLevel.ReplaceCell(new ClosedDoors(mazeLevel)
+                {
+                    X = DoorSpawner.X,
+                    Y = DoorSpawner.Y
+                });
+                GroundForDoors2Y.Remove(DoorSpawner);
+            } while (GroundForDoors2Y.Any());
 
-        //    var XDoorsCells = mazeLevel.Cells
-        //        .Where(cell => cell.Symbol == Ground)
-        //        .Where(cell => Get2YWalls(mazeLevel.Cells, cell, Wall).Count == 2)
-        //        .ToList();
-        //    do
-        //    {
-        //        var DoorsX = GetRandom(XDoorsCells);
-        //        DoorsX.Symbol = DoorX;
-        //        XDoorsCells.Remove(DoorsX);
-        //    } while (XDoorsCells.Any());
+            var GroundForDoors2X = mazeLevel.Cells
+                .Where(cell => cell is Ground)
+                .Where(cell => GroundForSpawnDoors2X(mazeLevel.Cells, cell).Count == 2)
+                .ToList();
+            do
+            {
+                var DoorSpawner = GetRandom(GroundForDoors2X);
+                mazeLevel.ReplaceCell(new ClosedDoors(mazeLevel)
+                {
+                    X = DoorSpawner.X,
+                    Y = DoorSpawner.Y
+                });
+                GroundForDoors2X.Remove(DoorSpawner);
+            } while (GroundForDoors2X.Any());
 
-        //    var YDoorsCells = mazeLevel.Cells
-        //        .Where(cell => cell.Symbol == Ground)
-        //        .Where(cell => Get2XWalls(mazeLevel.Cells, cell, Wall).Count == 2)
-        //        .ToList();
-        //    do
-        //    {
-        //        var DoorsY = GetRandom(YDoorsCells);
-        //        DoorsY.Symbol = DoorY;
-        //        YDoorsCells.Remove(DoorsY);
-        //    } while (YDoorsCells.Any());
-
-        //}
+        }
 
         private void ExitPoint()
         {
@@ -573,5 +574,17 @@ namespace Net14.Maze
                 }
             }
         }
+
+        private void RandomTeleportation()
+        {
+            var PlaceForTeleport = mazeLevel.Cells.OfType<Ground>().ToList();
+            var SpawnTeleport = GetRandom(PlaceForTeleport);
+            mazeLevel.ReplaceCell(new RandomTeleport(mazeLevel)
+            {
+                X = SpawnTeleport.X,
+                Y = SpawnTeleport.Y
+            });
+        }
+        
     }
 }
