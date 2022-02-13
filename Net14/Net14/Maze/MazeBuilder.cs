@@ -78,7 +78,7 @@ namespace Net14.Maze
             {
                 if (POfBlueWall.NextDouble() <= per) 
                 {
-                    mazeLevel.ReplaceCell(new BlueWall()
+                    mazeLevel.ReplaceCell(new BlueWall(mazeLevel)
                     {
                         X = cell.X,
                         Y = cell.Y
@@ -101,7 +101,7 @@ namespace Net14.Maze
 
                     if (IsRedWallNear.Count == 0) 
                     {
-                        mazeLevel.ReplaceCell(new Puddles()
+                        mazeLevel.ReplaceCell(new Puddles(mazeLevel)
                         {
                             X = groundNearBlueWall.X,
                             Y = groundNearBlueWall.Y
@@ -122,7 +122,7 @@ namespace Net14.Maze
             {
                 if (POfBlueWall.Next(0, 100) <= per)
                 {
-                    mazeLevel.ReplaceCell(new RedWall()
+                    mazeLevel.ReplaceCell(new RedWall(mazeLevel)
                     {
                         X = cell.X,
                         Y = cell.Y

@@ -8,8 +8,11 @@ namespace Net14.Maze.Cells
     {
         public override char Symbol => '#';
         public override ConsoleColor Color => ConsoleColor.DarkBlue;
+        public BlueWall(IMazeLevel mazeLevel):base(mazeLevel)
+        {
 
-        public override bool TryToStep(Сharacter hero)
+        }
+        public override bool TryToStep(IСharacter hero)
         {
             hero.MessageInMyHead = "Boom";
             return false;
