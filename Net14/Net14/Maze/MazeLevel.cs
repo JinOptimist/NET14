@@ -52,7 +52,7 @@ namespace Net14.Maze
                 .SingleOrDefault(c =>
                     c.X == destinationX
                      && c.Y == destinationY);
-
+            
             if (destinationCell == null)
             {
                 return;
@@ -63,6 +63,7 @@ namespace Net14.Maze
                 Hero.X = destinationX;
                 Hero.Y = destinationY;
             }
+
         }
     }
 }
