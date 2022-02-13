@@ -1,12 +1,11 @@
 ﻿using Net14.Maze.Cells;
-using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
 
 namespace Net14.Maze
 {
-    public class MazeLevel
+    public class MazeLevel : IMazeLevel
     {
         public int Width { get; set; }
         public int Height { get; set; }
@@ -23,7 +22,8 @@ namespace Net14.Maze
 
             Cells.Add(cell);
         }
-        internal void Move(Direction left)
+
+        public void Move(Direction left)
         {
             Hero.MessageInMyHead = "";
 
@@ -49,7 +49,7 @@ namespace Net14.Maze
             }
 
             var destinationCell = Cells
-                .SingleOrDefault(c => 
+                .SingleOrDefault(c =>
                     c.X == destinationX
                      && c.Y == destinationY);
             

@@ -6,6 +6,6 @@ namespace Net14.Maze.Cells
 {
     public interface ICanStep
     {
-        bool TryToStep(Сharacter hero);
+        bool TryToStep(IСharacter hero);
     }
 }
