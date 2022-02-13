@@ -76,7 +76,7 @@ namespace Net14.Maze.Cells
             {
                 if (cell.GetType() != typeof(Wall))
                 {
-
+                    Console.CursorVisible = false;
                     Console.SetCursorPosition(cell.X, cell.Y + 1);
                     Console.ForegroundColor = colorOfFire;
                     Console.Write(direction);
