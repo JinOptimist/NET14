@@ -25,6 +25,7 @@ namespace Net14.Maze
 
         public void Move(Direction left)
         {
+            Hero.lastDirection = left;
             Hero.MessageInMyHead = "";
 
             var destinationX = Hero.X;

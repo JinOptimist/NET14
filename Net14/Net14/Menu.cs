@@ -83,7 +83,7 @@ namespace Net14
             var drawer = new Drawer();
 
             //Создали лабиринт
-            var maze = builder.Build(12, 7);
+            var maze = builder.Build(27, 15);
 
             var wanaPlay = true;
             while (wanaPlay)
@@ -108,6 +108,9 @@ namespace Net14
                     case ConsoleKey.W:
                     case ConsoleKey.UpArrow:
                         maze.Move(Direction.Up);
+                        break;
+                    case ConsoleKey.Spacebar:
+                        maze.Hero.Fire();
                         break;
                     case ConsoleKey.Escape:
                         wanaPlay = false;
