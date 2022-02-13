@@ -74,7 +74,8 @@ namespace Net14.Maze.Cells
         {
             foreach (BaseCell cell in array)
             {
-                if (cell.GetType() != typeof(Wall))
+                if (cell.GetType() != typeof(Wall) && cell.GetType() != typeof(RedWall) 
+                    && cell.GetType() != typeof(BlueWall) && cell.GetType() != typeof(ClosedDoors))
                 {
                     Console.CursorVisible = false;
                     Console.SetCursorPosition(cell.X, cell.Y + 1);
@@ -82,9 +83,11 @@ namespace Net14.Maze.Cells
                     Console.Write(direction);
                     Thread.Sleep(100);
                     Console.ForegroundColor = cell.Color;
+                    Console.BackgroundColor = cell.BackColor;
                     Console.SetCursorPosition(cell.X, cell.Y + 1);
                     Console.Write(cell.Symbol);
                     Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
 
                 }
                 else

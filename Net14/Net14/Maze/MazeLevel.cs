@@ -64,7 +64,6 @@ namespace Net14.Maze
                 Hero.X = destinationX;
                 Hero.Y = destinationY;
             }
-
         }
     }
 }
