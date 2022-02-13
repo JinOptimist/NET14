@@ -34,10 +34,6 @@ namespace Net14.Maze
             // добавляем точку выхода e
             ExitPoint();
 
-            AddDoors();
-            
-            AddHero();
-
             AddCoins();
 
             GreateSleepingBag();
