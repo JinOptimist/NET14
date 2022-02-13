@@ -4,24 +4,31 @@ using System.Text;
 
 namespace Net14.Maze.Cells
 {
-    public class ChestCoin : BaseCell
+    public class Clover : BaseCell
     {
-        public int CoinsCount { get; set; }
-        public override char Symbol => '@';
-        public override ConsoleColor Color => ConsoleColor.Yellow;
+        public int CloverCount { get; set; }
+        public override char Symbol => '*';
 
-        public ChestCoin(IMazeLevel mazeLevel) : base(mazeLevel)
+        public Clover(IMazeLevel mazeLevel) : base(mazeLevel)
         {
         }
 
         public override bool TryToStep(IСharacter hero)
         {
-            hero.Coins += CoinsCount;
+            var mood = (int)hero.Mood;
+            if (mood < 5)
+            {
+                hero.Mood++;
+            }
+
+            hero.Coins += CloverCount;
+
             _mazeLevel.ReplaceCell(new Ground(_mazeLevel)
             {
                 X = X,
                 Y = Y
             });
+
             return true;
         }
     }
