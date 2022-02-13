@@ -1,12 +1,11 @@
 ﻿using Net14.Maze.Cells;
-using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
 
 namespace Net14.Maze
 {
-    public class MazeLevel
+    public class MazeLevel : IMazeLevel
     {
         public int Width { get; set; }
         public int Height { get; set; }
@@ -24,7 +23,7 @@ namespace Net14.Maze
             Cells.Add(cell);
         }
 
-        internal void Move(Direction left)
+        public void Move(Direction left)
         {
             Hero.MessageInMyHead = "";
 
@@ -50,10 +49,10 @@ namespace Net14.Maze
             }
 
             var destinationCell = Cells
-                .SingleOrDefault(c => 
+                .SingleOrDefault(c =>
                     c.X == destinationX
                      && c.Y == destinationY);
-
+            
             if (destinationCell == null)
             {
                 return;
@@ -64,22 +63,7 @@ namespace Net14.Maze
                 Hero.X = destinationX;
                 Hero.Y = destinationY;
             }
-            if(destinationCell.Symbol=='*')
-            {
-                
-                var mood = (int)Hero.Mood;
-                if (mood < 5)
-                {
-                    Hero.Mood++;
-                }
-                
-                ReplaceCell(new Ground()
-                {
-                X = destinationX,
-                Y = destinationY
-               
-            }); 
-            }
+
         }
     }
 }

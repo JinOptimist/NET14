@@ -4,15 +4,14 @@ using System.Text;
 
 namespace Net14.Maze.Cells
 {
-    public class Exit : BaseCell
+    public class OpenDoors: BaseCell
+
     {
-        public override char Symbol => 'e';
-
-        public Exit(IMazeLevel mazeLevel) : base(mazeLevel)
+        public OpenDoors(IMazeLevel mazeLevel) : base(mazeLevel)
         {
-
         }
 
+        public override char Symbol => '/';
         public override bool TryToStep(IСharacter hero)
         {
             return true;
