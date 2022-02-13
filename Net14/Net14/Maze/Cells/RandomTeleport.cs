@@ -17,11 +17,12 @@ namespace Net14.Maze.Cells
         {
             hero.MessageInMyHead = "Teleportation in random plase";
             var GroundForTeleport = _mazeLevel.Cells
+                .Where(cell => cell != hero)
                 .OfType<Ground>()
                 .ToList();
             var RandomTeleportation = new Random();
             var FreeGround = RandomTeleportation.Next(0, GroundForTeleport.Count - 1);
-
+            
             _mazeLevel.Hero.X = GroundForTeleport[FreeGround].X;
             _mazeLevel.Hero.Y = GroundForTeleport[FreeGround].Y;
             
