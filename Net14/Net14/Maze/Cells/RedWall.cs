@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Net14.Maze.Cells
 {
-    class RedWall : BaseCell
+    public class RedWall : BaseCell
     {
         public override char Symbol => '#';
         public override ConsoleColor Color => ConsoleColor.Red;
