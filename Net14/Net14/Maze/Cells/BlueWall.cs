@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Net14.Maze.Cells
 {
-    class BlueWall : BaseCell
+    public class BlueWall : BaseCell
     {
         public override char Symbol => '#';
         public override ConsoleColor Color => ConsoleColor.DarkBlue;
@@ -17,5 +17,6 @@ namespace Net14.Maze.Cells
             hero.MessageInMyHead = "Boom";
             return false;
         }
+
     }
 }
