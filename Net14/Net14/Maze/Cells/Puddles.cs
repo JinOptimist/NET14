@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Net14.Maze.Cells
 {
-    class Puddles : BaseCell
+    public class Puddles : BaseCell
     {
         public override char Symbol => '.';
         public override ConsoleColor BackColor => ConsoleColor.DarkBlue;
