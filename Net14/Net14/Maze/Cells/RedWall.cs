@@ -14,6 +14,7 @@ namespace Net14.Maze.Cells
         }
         public override bool TryToStep(IСharacter hero)
         {
+            hero.MessageInMyHead = "Ouch!!";
             hero.Hp--;
             return false;
         }
