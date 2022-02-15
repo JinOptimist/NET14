@@ -1,5 +1,6 @@
 ﻿using Net14.Maze;
 using System;
+using Calendar;
 
 namespace Net14
 {
@@ -17,7 +18,9 @@ namespace Net14
             new Tuple<string, Action<string>>("exit", Exit),
             new Tuple<string, Action<string>>("Maze", PlayMaze),
             new Tuple<string, Action<string>>("Numbers", PlayThatNumber),
-            new Tuple<string, Action<string>>("Description", ShowGameDescription)
+            new Tuple<string, Action<string>>("Description", ShowGameDescription),
+            new Tuple<string, Action<string>>("Calendar", CreateCalendar),
+            new Tuple<string, Action<string>>("ca", CreateCalendar),
         };
 
         private static readonly string[][] HelpMessages = new string[][]
@@ -26,7 +29,8 @@ namespace Net14
             new string[] { "exit", "exits the application" },
             new string[] { "maze", "starts the game \"Maze\"" },
             new string[] { "numbers", "starts the game \"That Number\"" },
-            new string[] { "description", "shows rules for each game" }
+            new string[] { "description", "shows rules for each game" },
+            new string[] { "Calendar", "show calendar" },
         };
 
         public void ShowMenu()
@@ -73,6 +77,14 @@ namespace Net14
             Game game = new();
             game.FirstPlayer();
             game.SecondPlayer();
+        }
+
+        private static void CreateCalendar(string command)
+        {
+            Console.Clear();
+            var CreaterCalendar = new Calendar.CreateCalendar();
+            CreaterCalendar.Actual();
+
         }
 
         private static void PlayMaze(string command)
