@@ -7,6 +7,6 @@ namespace Team_Store.Category
     public class Products : GoodsCategory
 
     {
-        //public override string Name = "Продукты питания";
+        public override string CategoryName { get => "Продукты"; }
     }
 }

@@ -8,7 +8,6 @@ namespace Team_Store
         {
             var menu = new Menu();
             menu.Draw();
-            Console.WriteLine("Hello World!");
         }
     }
 }

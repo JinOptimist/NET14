@@ -7,11 +7,6 @@ namespace Team_Store.Category
     public class Electronics : GoodsCategory
 
     {
-       public const string CategoryName = "Электроника";
-
-        /*public string WriteName()
-        {
-            return CategoryName;
-        }*/
+        public override string CategoryName { get => "Электроника"; }
     }
 }

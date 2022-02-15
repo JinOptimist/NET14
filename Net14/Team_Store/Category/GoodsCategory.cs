@@ -4,17 +4,12 @@ using System.Text;
 
 namespace Team_Store
 {
-    public class GoodsCategory
+    public abstract class GoodsCategory
     {
-        public string CategoryName { get; set; }
+        public abstract string CategoryName { get; }
         public string Name { get; set; }
         public int Price { get; set; }
         public int Quantity { get; set; }
         public DateTime ManufactoringDate { get; set; }
-
-        public string WriteName()
-        {
-            return CategoryName;
-        }
     }
 }
