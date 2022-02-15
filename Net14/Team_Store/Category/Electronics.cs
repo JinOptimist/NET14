@@ -7,7 +7,7 @@ namespace Team_Store.Category
     public class Electronics : GoodsCategory
 
     {
-        const string CategoryName = "Электроника";
+       public const string CategoryName = "Электроника";
 
         /*public string WriteName()
         {

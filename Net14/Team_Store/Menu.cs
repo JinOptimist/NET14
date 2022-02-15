@@ -9,18 +9,29 @@ namespace Team_Store
     {
         public void Draw()
         {
-            var electronics = new Electronics();
-            var categorymanes = new List<string>();
+            var CategoryNames = new List<string>();
 
-            var categoryName = electronics.WriteName()
-            categorymanes.Add(electronics.WriteName());
+            var electronics = new Electronics();
+            GetName(electronics, CategoryNames);
+
+            var products = new Products();
+            GetName(products, CategoryNames);
+
+            foreach (var item in CategoryNames)
+            {
+                Console.WriteLine(item);
+            }
+            //var categoryName = electronics.WriteName();
+             // var a = Electronics.CategoryName;
+           // categorymanes.Add(electronics.WriteName());
             //categorymanes.Add(products.CategoryName);
 
             Console.WriteLine();
         }
-        private void iewytgyu(GoodsCategory goodscategory)
+        private void GetName(GoodsCategory goodscategory, List<string> list)
         {
-            var categoryName = goodscategory.WriteName()
+            var categoryName = goodscategory.CategoryName;
+            list.Add(categoryName);
         }
     }
 }
