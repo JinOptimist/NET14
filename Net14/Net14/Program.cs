@@ -11,6 +11,7 @@ namespace Net14
     {
         static void Main(string[] args)
         {
+            //Fun
             Menu menu = new Menu();
             menu.ShowMenu();
         }
