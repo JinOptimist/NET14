@@ -9,15 +9,15 @@ namespace Team_Store
     {
         public void Draw()
         {
-            var CategoryNames = new List<GoodsCategory>();
+            var CategoryNameList = new List<GoodsCategory>();
 
             var electronics = new Electronics();
-            CategoryNames.Add(electronics);
+            CategoryNameList.Add(electronics);
 
             var products = new Products();
-            CategoryNames.Add(products);
+            CategoryNameList.Add(products);
 
-            foreach (var cat in CategoryNames)
+            foreach (var cat in CategoryNameList)
             {
                 Console.WriteLine(cat.CategoryName);
             }
