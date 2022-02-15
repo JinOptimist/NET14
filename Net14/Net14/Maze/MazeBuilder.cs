@@ -7,6 +7,7 @@ namespace Net14.Maze
 {
     public class MazeBuilder
     {
+
         private MazeLevel mazeLevel;
         private readonly Random _random = new();
 
@@ -19,7 +20,6 @@ namespace Net14.Maze
 
             //Ломаем стены где положенно
             BuildGround();
-
 
             //AddDoors();
 
@@ -131,6 +131,7 @@ namespace Net14.Maze
             }
         }
 
+
         private void BuildGround()
         {
 
@@ -211,6 +212,8 @@ namespace Net14.Maze
                 //До тех пор пока есть стены которые можно ломать, продолжаем
 
             } while (blueWallCanBVreak.Any());
+
+          
         }
 
         /// <summary>
@@ -454,6 +457,38 @@ namespace Net14.Maze
             Console.WriteLine(message);
             int parameter = Int32.Parse(Console.ReadLine());
             return parameter;
+
+        }
+
+        public MazeLevel Mybuild()
+        {
+            var mazeLevel = GetBaseMaze(10, 10);
+            string letters = "abcdefghijklmnopqrstuvwxyz";
+            int i = 0;
+
+            for (int y = 0; y < mazeLevel.Height; y++)
+            {
+
+                for (int x = 0; x < mazeLevel.Width; x++)
+                {
+                    var cell = new Cell
+                    {
+                        X = x,
+                        Y = y,
+                        Color = ConsoleColor.Green,
+                        Symbol = letters[i]
+                    };
+                    i++;
+                    if (i == 26)
+                    {
+                        i = 0;
+                    }
+                    mazeLevel.Cells.Add(cell);
+                }
+
+            }
+
+            return mazeLevel;
 
         }
 
