@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Text;
 
-namespace Net14.Maze.Cells
+namespace MazeCool.Cells
 {
     public class RandomTeleport : BaseCell
     {

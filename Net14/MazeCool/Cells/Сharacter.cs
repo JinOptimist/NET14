@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Threading;
-namespace Net14.Maze.Cells
+namespace MazeCool.Cells
 {
     public class Сharacter : BaseCell, IСharacter
     {
