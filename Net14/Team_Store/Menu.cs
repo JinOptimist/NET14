@@ -21,13 +21,7 @@ namespace Team_Store
             {
                 Console.WriteLine(item);
             }
-            //var categoryName = electronics.WriteName();
-             // var a = Electronics.CategoryName;
-           // categorymanes.Add(electronics.WriteName());
-            //categorymanes.Add(products.CategoryName);
-
-            Console.WriteLine();
-        }
+         }
         private void GetName(GoodsCategory goodscategory, List<string> list)
         {
             var categoryName = goodscategory.CategoryName;
