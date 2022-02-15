@@ -6,6 +6,8 @@ namespace Team_Store
     {
         static void Main(string[] args)
         {
+            vara menu = new Menu();
+            menu.Draw();
             Console.WriteLine("Hello World!");
         }
     }
