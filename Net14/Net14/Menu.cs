@@ -1,4 +1,5 @@
-﻿using Net14.Maze;
+﻿using MazeCool;
+using MazeCool.Cells;
 using System;
 
 namespace Net14
@@ -80,7 +81,7 @@ namespace Net14
             Console.Clear();
 
             var builder = new MazeBuilder();
-            var drawer = new Drawer();
+            var drawer = new DrawerMaze();
 
             //Создали лабиринт
             var maze = builder.Build(27, 15);

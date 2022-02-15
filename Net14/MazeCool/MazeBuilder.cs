@@ -1,14 +1,14 @@
-﻿using Net14.Maze.Cells;
+﻿using MazeCool.Cells;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Net14.Maze
+namespace MazeCool
 {
     public class MazeBuilder
     {
         private MazeLevel mazeLevel;
-        private readonly Random _random = new();
+        private readonly Random _random = new Random();
 
         public MazeLevel Build(int width = 5, int hegith = 7)
         {
@@ -136,7 +136,7 @@ namespace Net14.Maze
 
             //Создаём рисовальщик, что бы по ходу создания
             //лабиринта, показывать промежуточные результаты
-            var drawer = new Drawer();
+            //var drawer = new DrawerMaze();
 
             //Берём НЕ крайние значения
             var coreCell = mazeLevel // весь лабиринт

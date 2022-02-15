@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Net14.Maze.Cells
+namespace MazeCool.Cells
 {
-    public class OpenDoors: BaseCell
-
+    public class Ground : BaseCell
     {
-        public OpenDoors(IMazeLevel mazeLevel) : base(mazeLevel)
+        public override char Symbol => '.';
+
+        public Ground(IMazeLevel mazeLevel) : base(mazeLevel)
         {
+
         }
 
-        public override char Symbol => '/';
         public override bool TryToStep(IСharacter hero)
         {
             return true;
