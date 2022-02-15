@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TeamSocial
 {
-    class SocialBuilder
+    public class SocialBuilder
     {
         public Social BuildSocial() 
         {
@@ -14,7 +14,7 @@ namespace TeamSocial
             {
                 var emptyUser = new User()
                 {
-                    FirstName = "Empty",
+                    FirstName = "Empty"
                 };
                 social.users.Add(emptyUser);
                 
