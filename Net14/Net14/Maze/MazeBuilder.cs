@@ -557,13 +557,15 @@ namespace Net14.Maze
         {
             var allGrounds = mazeLevel.Cells.OfType<Ground>().ToList();
 
+            const int percentageOfApperance = 3;
+
             Random random = new Random();
 
             foreach (var ground in allGrounds)
             {
                 int rndm = random.Next(0, 100);
 
-                if (rndm < 3)
+                if (rndm < percentageOfApperance)
                 {
                     mazeLevel.ReplaceCell(new ChestOfLuck(mazeLevel)
                     {
