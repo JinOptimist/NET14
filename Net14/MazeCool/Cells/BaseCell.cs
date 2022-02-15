@@ -1,7 +1,7 @@
-﻿using Net14.Maze.Cells;
+﻿using MazeCool.Cells;
 using System;
 
-namespace Net14.Maze
+namespace MazeCool.Cells
 {
     public abstract class BaseCell : ICanStep
     {

@@ -6,4 +6,8 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MazeCool\MazeCool.csproj" />
+  </ItemGroup>
+
 </Project>
