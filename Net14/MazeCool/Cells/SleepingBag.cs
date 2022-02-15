@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Net14.Maze.Cells
+namespace MazeCool.Cells
 {
-    public class Trap : BaseCell
+    public class SleepingBag : BaseCell
     {
-       public override char Symbol => 'T';
+        public override char Symbol => 'D';
 
-        public Trap(IMazeLevel mazeLevel) : base(mazeLevel)
+        public SleepingBag(IMazeLevel mazeLevel) : base(mazeLevel)
         {
         }
 
         public override bool TryToStep(IСharacter hero)
         {
-            hero.MessageInMyHead = "It's a Trap!!!";
-            hero.Hp --;
+            hero.Stamina = hero.Stamina + 10;
+            hero.Mood = Mood.Bad;
+
             _mazeLevel.ReplaceCell(new Ground(_mazeLevel)
             {
                 X = X,
@@ -24,5 +25,6 @@ namespace Net14.Maze.Cells
 
             return true;
         }
+
     }
 }

@@ -1,7 +1,7 @@
-﻿using Net14.Maze.Cells;
+﻿using MazeCool.Cells;
 using System.Collections.Generic;
 
-namespace Net14.Maze
+namespace MazeCool
 {
     public interface IMazeLevel
     {

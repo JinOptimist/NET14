@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Net14.Maze.Cells;
+using MazeCool;
+using MazeCool.Cells;
 
 
-namespace Net14.Maze
+namespace Net14
 {
-    public class Drawer
+    public class DrawerMaze
     {
-
-
-
         public void DrawMaze(MazeLevel mazeLevel)
         {
             

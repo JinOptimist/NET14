@@ -1,4 +1,4 @@
-﻿namespace Net14.Maze.Cells
+﻿namespace MazeCool.Cells
 {
     public interface IСharacter
     {
