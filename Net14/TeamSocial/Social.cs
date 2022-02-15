@@ -32,16 +32,7 @@ namespace TeamSocial
             };
         }
 
-        public void DataOutput()
-        {
-            var FirstName = Console.ReadLine();
-            var LastName = Console.ReadLine();
-            var Email = Console.ReadLine();
-            var Age = Int32.Parse(Console.ReadLine());
-            var Password = Console.ReadLine();
-            Registration(FirstName, LastName, Email, Age, Password);
-
-        }
+        
 
 
 
