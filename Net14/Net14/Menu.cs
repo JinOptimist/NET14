@@ -1,6 +1,7 @@
 ﻿using MazeCool;
 using MazeCool.Cells;
 using System;
+using TeamSocial;
 
 namespace Net14
 {
@@ -71,9 +72,17 @@ namespace Net14
 
         private static void SocialBuilder(string command)
         {
-            Console.Clear();
+            
+            var socialBuilder = new SocialBuilder();
+            var social = socialBuilder.BuildSocial();
+            
+            var FirstName = Console.ReadLine();
+            var LastName = Console.ReadLine();
+            var Email = Console.ReadLine();
+            var Age = Int32.Parse(Console.ReadLine());
+            var Password = Console.ReadLine();
+            social.Registration(FirstName, LastName, Email, Age, Password);
 
-            Console.WriteLine("This is social WEB Project!!");
         }
 
         private static void PlayThatNumber(string command)

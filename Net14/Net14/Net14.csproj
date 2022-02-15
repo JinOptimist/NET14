@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MazeCool\MazeCool.csproj" />
+    <ProjectReference Include="..\TeamSocial\TeamSocial.csproj" />
   </ItemGroup>
 
 </Project>
