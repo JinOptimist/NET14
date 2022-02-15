@@ -7,7 +7,8 @@ namespace TeamSocial
 {
     public class Social
     {
-        new public List<User> users { get; set; }
+        public List<User> users { get; set; } = new List<User>();
+
         public void Autorization()
         {
 

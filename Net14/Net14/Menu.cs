@@ -73,15 +73,16 @@ namespace Net14
         private static void SocialBuilder(string command)
         {
             
+            var socialBuilder = new SocialBuilder();
+            var social = socialBuilder.BuildSocial();
             
-                var FirstName = Console.ReadLine();
-                var LastName = Console.ReadLine();
-                var Email = Console.ReadLine();
-                var Age = Int32.Parse(Console.ReadLine());
-                var Password = Console.ReadLine();
-                Registration(FirstName, LastName, Email, Age, Password);
+            var FirstName = Console.ReadLine();
+            var LastName = Console.ReadLine();
+            var Email = Console.ReadLine();
+            var Age = Int32.Parse(Console.ReadLine());
+            var Password = Console.ReadLine();
+            social.Registration(FirstName, LastName, Email, Age, Password);
 
-            
         }
 
         private static void PlayThatNumber(string command)
