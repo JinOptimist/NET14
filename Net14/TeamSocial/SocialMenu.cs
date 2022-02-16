@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using SocialWeb;
+using System.Linq;
 
 namespace TeamSocial
 {
@@ -89,7 +90,13 @@ namespace TeamSocial
             Console.WriteLine();
 
             social.Autorization(email, password);
-            ShowCommands();
+            Console.WriteLine();
+            var drawer = new SocialDrawer();
+            drawer.DrawAProfile(social.users.SingleOrDefault(user =>
+            user.Email == email
+            &&
+            user.Password == password));
+
         }
     
         private static void MenuRegistration(Social social, string message) 
@@ -123,8 +130,13 @@ namespace TeamSocial
             Console.WriteLine();
 
             social.Registration(FirstName, LastName, Email, Age, Password);
-            Console.WriteLine();
-            ShowCommands();
+            var drawer = new SocialDrawer();
+            drawer.DrawAProfile(social.users.Single(user =>
+            user.Email == Email
+            &&
+            user.Password == Password));
+
+
         }
 
         private static void ShowCommands()

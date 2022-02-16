@@ -38,6 +38,7 @@ namespace TeamSocial
                 Password = Password
 
             };
+            users.Add(user);
             Console.WriteLine($"User {firstName} {lastName} was registered");
             return;
         }
