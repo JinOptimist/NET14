@@ -1,10 +1,10 @@
 ﻿using NUnit.Framework;
-using Net14.Maze.Cells;
 using Moq;
-using Net14.Maze;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MazeCool;
+using MazeCool.Cells;
 
 namespace Net14.Tests.Maze.Cells
 {
