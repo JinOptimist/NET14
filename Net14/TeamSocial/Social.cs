@@ -39,7 +39,6 @@ namespace TeamSocial
 
             };
             Console.WriteLine($"User {firstName} {lastName} was registered");
-            return;
         }
     }
 }

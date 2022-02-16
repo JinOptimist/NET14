@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TeamSocial
 {
-    class Post
+    public class Post
     {
         public string NameOfUserWhoPosted { get; set; }
         public string Image { get; set; } = "Image";
