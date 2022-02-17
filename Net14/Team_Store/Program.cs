@@ -7,7 +7,8 @@ namespace Team_Store
         static void Main(string[] args)
         {
             var menu = new Menu();
-            menu.Draw();
+            menu.Start();
+            menu.DrawCategories();
         }
     }
 }

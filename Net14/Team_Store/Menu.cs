@@ -7,8 +7,20 @@ namespace Team_Store
 {
     public class Menu
     {
-        public void Draw()
+        public void Start()
         {
+            var starterMessge =
+                "\n  WebStore Veishnoria:\n" +
+                "    Use keyboard arrows to navigate\n" +
+                "    Enter - select category\n" +
+                "    Esc - leave current category\n";
+            Console.WriteLine(starterMessge);
+            Console.WriteLine("Press any button to continue...");
+            Console.ReadKey();
+        }
+        public void DrawCategories()
+        {
+            Console.Clear();
             var CategoryNameList = new List<GoodsCategory>();
 
             var electronics = new Electronics();
@@ -29,10 +41,15 @@ namespace Team_Store
             var sport = new Sport();
             CategoryNameList.Add(sport);
 
-            foreach (var cat in CategoryNameList)
+            for (int i = 0; i < CategoryNameList.Count; i++)
             {
-                Console.WriteLine(cat.CategoryName);
+                Console.WriteLine($"  {i+1}. " + CategoryNameList[i].CategoryName);
             }
+
+            var GoodsStorage = new GoodsStorage();
+            var GoodsList = new List<GoodsCategory>();
+            GoodsStorage.DefaultGoods(GoodsList);
+            GoodsStorage.AddUserGoods(GoodsList);
         }
     }
 }
