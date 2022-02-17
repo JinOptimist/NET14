@@ -83,7 +83,7 @@ namespace Net14
         {
             Console.Clear();
             var CreaterCalendar = new Calendar.CreateCalendar();
-            CreaterCalendar.Actual();
+            CreaterCalendar.Spawn();
 
         }
 
