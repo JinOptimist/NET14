@@ -33,6 +33,6 @@ namespace Team_Store
             {
                 Console.WriteLine(cat.CategoryName);
             }
-         }
+        }
     }
 }

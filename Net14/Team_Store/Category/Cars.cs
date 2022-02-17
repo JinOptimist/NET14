@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Team_Store.Category
 {
-    internal class Cars : GoodsCategory
+    public class Cars : GoodsCategory
     {
         public override string CategoryName { get => "Машины"; }
     }
