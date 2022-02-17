@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Team_Store.Category
 {
-    public class Clothes : GoodsCategory
+    public class Clothes : BaseCategory
     {
-        public override string CategoryName { get => "Одежда"; }
+        public override string CategoryName { get => "Clothes"; }
     }
 }

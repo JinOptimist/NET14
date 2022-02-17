@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Team_Store
 {
-    public abstract class GoodsCategory
+    public abstract class BaseCategory
     {
         public abstract string CategoryName { get; }
         public string Name { get; set; }
