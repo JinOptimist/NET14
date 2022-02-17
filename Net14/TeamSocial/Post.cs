@@ -7,7 +7,7 @@ namespace TeamSocial
     public class Post
     {
         public string NameOfUserWhoPosted { get; set; }
-        public string Image { get; set; } = "Image";
+        public string ImageUrl { get; set; } = "ImageUrl";
         public string AdditionalInformation { get; set; }
         public int Likes { get; set; }
         public DateTime DateOfPosting { get; set; } = DateTime.Now.ToLocalTime();
