@@ -17,10 +17,22 @@ namespace Team_Store
             var products = new Products();
             CategoryNameList.Add(products);
 
+            var cars = new Cars();
+            CategoryNameList.Add(cars);
+
+            var clothes = new Clothes();
+            CategoryNameList.Add(clothes);
+
+            var furniture = new Furniture();
+            CategoryNameList.Add(furniture);
+
+            var sport = new Sport();
+            CategoryNameList.Add(sport);
+
             foreach (var cat in CategoryNameList)
             {
                 Console.WriteLine(cat.CategoryName);
             }
-         }
+        }
     }
 }
