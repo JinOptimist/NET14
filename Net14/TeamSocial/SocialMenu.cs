@@ -16,15 +16,17 @@ namespace TeamSocial
         {
             new string[] { "reg", "Registration in SocialWeb" },
             new string[] { "sing", "Autorization in SocialWeb" },
-            new string[] { "exit", "Exit from SocialWeb"}
-            
+            new string[] { "exit", "Exit from SocialWeb"},
+            new string[] { "users", "All users in SocialWeb"}
+
         };
 
         private static readonly Tuple<string, Action<Social, string>>[] _commands = new Tuple<string, Action<Social, string>>[]
         {
             new Tuple<string, Action<Social,string>>("reg", MenuRegistration),
             new Tuple<string, Action<Social,string>>("sing", MenuAutorization),
-            new Tuple<string, Action<Social, string>>("exit", ExitFromSocialWeb)
+            new Tuple<string, Action<Social, string>>("exit", ExitFromSocialWeb),
+            new Tuple<string, Action<Social, string>>("users", AllUsers)
         };
 
 
@@ -97,6 +99,8 @@ namespace TeamSocial
             &&
             user.Password == password));
 
+            
+
         }
     
         private static void MenuRegistration(Social social, string message) 
@@ -138,6 +142,16 @@ namespace TeamSocial
 
 
         }
+
+        private static void AllUsers(Social social, string message)
+        {
+            Console.Clear();
+            Console.WriteLine("\t All users\n");
+            var drawer = new SocialDrawer();
+            drawer.DrawAllUsers(social);
+            
+        }
+
 
         private static void ShowCommands()
         {

@@ -16,5 +16,13 @@ namespace TeamSocial
             Console.WriteLine();
 
         }
+
+        public void DrawAllUsers(Social social)
+        {
+            foreach (var allUsers in social.users)
+                Console.WriteLine("\t" + allUsers.FirstName + " " + allUsers.LastName);
+                
+            
+        }
     }
 }
