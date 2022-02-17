@@ -21,7 +21,7 @@ namespace Team_Store
         public void DrawCategories()
         {
             Console.Clear();
-            var CategoryNameList = new List<GoodsCategory>();
+            var CategoryNameList = new List<BaseCategory>();
 
             var electronics = new Electronics();
             CategoryNameList.Add(electronics);
@@ -47,7 +47,7 @@ namespace Team_Store
             }
 
             var GoodsStorage = new GoodsStorage();
-            var GoodsList = new List<GoodsCategory>();
+            var GoodsList = new List<BaseCategory>();
             GoodsStorage.DefaultGoods(GoodsList);
             GoodsStorage.AddUserGoods(GoodsList);
         }

@@ -7,7 +7,7 @@ namespace Team_Store
 {
     public class GoodsStorage
     {
-        public void DefaultGoods(List<GoodsCategory> GoodsList)
+        public void DefaultGoods(List<BaseCategory> GoodsList)
         {
             var car1 = new Cars()
             {
@@ -33,13 +33,13 @@ namespace Team_Store
             };
             GoodsList.Add(car3);
         }
-        public void AddUserGoods(List<GoodsCategory> GoodsList)
+        public void AddUserGoods(List<BaseCategory> GoodsList)
         {
             Console.WriteLine("Enter Category...");
             var answer = Console.ReadLine();
             switch (answer)
             {
-                case "Машины":
+                case "Cars":
                     Console.WriteLine("Enter Name...");
                     var Name = Console.ReadLine();
                     foreach (var item in GoodsList)
