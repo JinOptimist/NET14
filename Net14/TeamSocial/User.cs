@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TeamSocial;
 
 namespace SocialWeb
@@ -14,6 +15,7 @@ namespace SocialWeb
         public DateTime DateOfRegistration { get; } = DateTime.Now.ToLocalTime();
 
         public Wall wallOfUser = new Wall();
+        public List<User> friends { get; set; } = new List<User>();
 
     }
 }
