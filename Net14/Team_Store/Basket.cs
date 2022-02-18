@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Team_Store
 {
@@ -48,15 +49,11 @@ namespace Team_Store
         }
         public void Clear()
         {
-            for (int i = Goods_in_Basket.Count - 1; i >= 0; i--)
-            {
-                Goods_in_Basket[i].Amount_in_Basket = 0;
-                Goods_in_Basket.Remove(Goods_in_Basket[i]);
-            }
+            
         }
         public void Buy()
         {
-            //Show();
+            
         }
     }
 }
