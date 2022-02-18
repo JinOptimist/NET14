@@ -9,10 +9,15 @@ namespace MazeCool
     {
         private MazeLevel mazeLevel;
         private readonly Random _random = new Random();
+        private Action<MazeLevel> _additionlStep;
 
-        public MazeLevel Build(int width = 5, int hegith = 7)
+        public MazeLevel Build(int width = 5, int hegith = 7, 
+            Action<MazeLevel> additionlStep = null)
         {
+            _additionlStep = additionlStep;
             mazeLevel = GetBaseMaze(width, hegith);
+
+            mazeLevel.Hero = new Сharacter(mazeLevel) { Hp = 10};
 
             //Весь лабиринт только в стенах
             BuildWall();
@@ -128,10 +133,6 @@ namespace MazeCool
 
         private void BuildGround()
         {
-            //Создаём рисовальщик, что бы по ходу создания
-            //лабиринта, показывать промежуточные результаты
-            //var drawer = new DrawerMaze();
-
             //Берём НЕ крайние значения
             var coreCell = mazeLevel // весь лабиринт
                 .Cells //Все ячейки лабиринта
@@ -160,8 +161,10 @@ namespace MazeCool
             do
             {
                 //Если хотим смотрим по шагово, как он ломает стены
-                //drawer.DrawMaze(mazeLevel);
-                //Thread.Sleep(200);
+                if (_additionlStep != null)
+                {
+                    _additionlStep(mazeLevel);
+                }
 
                 //Берём ближайшие стены к шахтёру
                 var nearWalls = GetNearCells<Wall>(
