@@ -91,13 +91,16 @@ namespace TeamSocial
             }
             Console.WriteLine();
 
-            social.Autorization(email, password);
-            Console.WriteLine();
+            var user = social.Autorization(email, password);//метод авторизации вернет найденного пользователя. Однако, этот метод может не найти пользователя и вернуть null. Поэтому:
+            if (user == null) 
+            {
+                Console.WriteLine("Wrong password or Email");
+                Console.ReadKey();
+                MenuAutorization(social, message);
+            }
             var drawer = new SocialDrawer();
-            drawer.DrawAProfile(social.users.SingleOrDefault(user =>
-            user.Email == email
-            &&
-            user.Password == password));
+            drawer.DrawAProfile(user); // рисуем профиль
+            drawer.AddPostDrawer(user); // запускаем метод добавления нового поста. Это временное решение
 
             
 
@@ -133,12 +136,11 @@ namespace TeamSocial
             }
             Console.WriteLine();
 
-            social.Registration(FirstName, LastName, Email, Age, Password);
+            var user =  social.Registration(FirstName, LastName, Email, Age, Password); // метод регистарции вернет зарегистрированного пользователя 
             var drawer = new SocialDrawer();
-            drawer.DrawAProfile(social.users.Single(user =>
-            user.Email == Email
-            &&
-            user.Password == Password));
+            drawer.DrawAProfile(user); // После регистрации отрисовывается профиль
+            drawer.AddPostDrawer(user);// Потом запускается метод добавления поста. Это временное решение
+
 
 
         }

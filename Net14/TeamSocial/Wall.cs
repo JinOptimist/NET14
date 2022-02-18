@@ -6,6 +6,6 @@ namespace TeamSocial
 {
     public class Wall
     {
-        public List<Post> wall { get; set; }
+        public List<Post> wall { get; set; } = new List<Post>();
     }
 }
