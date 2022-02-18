@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Team_Store
 {
@@ -40,7 +41,7 @@ namespace Team_Store
                     Console.WriteLine(goodsList);
             
                     cumulativePrice += good.Price * good.Amount_in_Basket;
-                }
+        }
                 var message =
                     $"\nCumulative price: {cumulativePrice}";
                 Console.WriteLine(message);
