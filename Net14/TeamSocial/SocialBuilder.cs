@@ -1,7 +1,9 @@
-﻿using SocialWeb;
+﻿using RandomNameGeneratorLibrary;
+using SocialWeb;
 using System;
 using System.Collections.Generic;
 using System.Text;
+
 
 namespace TeamSocial
 {
@@ -12,14 +14,30 @@ namespace TeamSocial
             var social = new Social();
             for (int i = 0; i < 3; i++) 
             {
+                var name = RandomName();
                 var emptyUser = new User()
                 {
-                    FirstName = "Empty"
+                    FirstName = name[0],
+                    LastName = name[1]
                 };
                 social.users.Add(emptyUser);
                 
             }
             return social;
+        }
+
+        public string[]  RandomName()
+        {
+            var name = new string[2];
+            var personGenerator = new PersonNameGenerator();
+
+            var FirstName = personGenerator.GenerateRandomFirstName();
+            var LastName = personGenerator.GenerateRandomLastName();
+
+            name[0] = FirstName;
+            name[1] = LastName;
+            return name;
+           
         }
     }
 }
