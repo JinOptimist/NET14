@@ -6,6 +6,27 @@ namespace Team_Store
 {
     class Goods
     {
+        public string Name { get; set; }
+        public int Amount { get; set; }
+        public string Category { get; set; }
+        public int Price { get; set; }
+
+        public Goods(string name, int amount, string category, int price)
+        {
+            Name = name;
+            Amount = amount;
+            Category = category;
+            Price = price;
+
+        }
+
+        public Goods()
+        {
+
+        }
+
+        public void product_description()
+        {
             Console.WriteLine("Enter Goods:\n\t 1) Name\n\t 2) Amount\n\t 3) Category\n\t 4) Price ");
 
 
