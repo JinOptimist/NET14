@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Team_Store.Category;
+
 
 namespace Team_Store
 {
@@ -9,47 +9,37 @@ namespace Team_Store
     {
         public void Start()
         {
+            var stock = new Stock();
             var starterMessge =
                 "\n  WebStore Veishnoria:\n" +
                 "    Use keyboard arrows to navigate\n" +
                 "    Enter - select category\n" +
                 "    Esc - leave current category\n";
             Console.WriteLine(starterMessge);
-            Console.WriteLine("Press any button to continue...");
-            Console.ReadKey();
-        }
-        public void DrawCategories()
-        {
-            Console.Clear();
-            var CategoryNameList = new List<BaseCategory>();
-
-            var electronics = new Electronics();
-            CategoryNameList.Add(electronics);
-
-            var products = new Products();
-            CategoryNameList.Add(products);
-
-            var cars = new Cars();
-            CategoryNameList.Add(cars);
-
-            var clothes = new Clothes();
-            CategoryNameList.Add(clothes);
-
-            var furniture = new Furniture();
-            CategoryNameList.Add(furniture);
-
-            var sport = new Sport();
-            CategoryNameList.Add(sport);
-
-            for (int i = 0; i < CategoryNameList.Count; i++)
+           
+            while (true)
             {
-                Console.WriteLine($"  {i+1}. " + CategoryNameList[i].CategoryName);
-            }
+                Console.Clear();
+                Console.WriteLine("1. Add Goods, 2. Show Stock 3. Exit");
+                var key = Console.ReadKey();
+                switch (key.Key)
+                {
+                    case ConsoleKey.D1:
 
-            var GoodsStorage = new GoodsStorage();
-            var GoodsList = new List<BaseCategory>();
-            GoodsStorage.DefaultGoods(GoodsList);
-            GoodsStorage.AddUserGoods(GoodsList);
+                        stock.Add_Good();
+
+                        break;
+                    case ConsoleKey.D2:
+
+                        stock.Show_Stock();
+                        Console.ReadKey();
+                        break;
+                    default:
+
+                        return;
+                }
+            }
         }
+
     }
 }
