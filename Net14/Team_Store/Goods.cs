@@ -34,13 +34,14 @@ namespace Team_Store
         public string Category { get; set; }
         public int Price { get; set; }
 
+
         public Goods(string name, int amount, string category, int price)
         {
             Name = name;
             Amount = amount;
             Category = category;
             Price = price;
-
+            Amount_in_Basket = 0;
         }
 
         public Goods()
