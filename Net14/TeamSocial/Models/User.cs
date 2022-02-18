@@ -17,7 +17,13 @@ namespace SocialWeb
         public Wall wallOfUser = new Wall();
         public List<User> friends { get; set; } = new List<User>();
 
+        public FriendsWall wallOffriends;
+        public User() 
+        {
+            wallOffriends = new FriendsWall(this);
+        }
 
+        
     }
 
 

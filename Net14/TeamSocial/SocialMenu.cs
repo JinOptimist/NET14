@@ -138,6 +138,23 @@ namespace TeamSocial
             var user =  social.Registration(FirstName, LastName, Email, Age, Password); // метод регистарции вернет зарегистрированного пользователя 
             var drawer = new SocialDrawer();
             drawer.DrawAProfile(user); // После регистрации отрисовывается профиль
+            user.wallOffriends.social = social;
+            var usertest = social.users.Single(user => user.Email == "user1@mail.ru");
+            if (user.wallOffriends.AddFriend(usertest)) 
+            {
+                foreach (User use1r in user.friends) 
+                {
+                    Console.WriteLine("Friends of user");
+                    Console.WriteLine(use1r.Email);
+                }
+                foreach (User i in usertest.friends) 
+                {
+                    Console.WriteLine("Friend of Test user: ");
+                    Console.WriteLine(i.Email);
+                }
+
+            }
+
 
 
 
