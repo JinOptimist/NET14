@@ -50,7 +50,7 @@ namespace Team_Store
         }
 
         public void product_description()
-        {
+    {
             Console.WriteLine("Enter Goods:\n\t 1) Name\n\t 2) Amount\n\t 3) Category\n\t 4) Price ");
 
 
