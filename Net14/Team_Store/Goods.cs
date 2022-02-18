@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Team_Store
 {
-    class Goods
+    public class Goods
     {
         public string Name { get; set; }
         public int Amount { get; set; }
