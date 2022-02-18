@@ -17,19 +17,6 @@ namespace SocialWeb
         public Wall wallOfUser = new Wall();
         public List<User> friends { get; set; } = new List<User>();
 
-        public void AddPost(string imageUrl, string additionalInformation) // method which add new post to user's wall
-        {
-            var post = new Post() // make new post object
-            {
-                NameOfUserWhoPosted = FirstName + " " + LastName,
-                ImageUrl = imageUrl,
-                AdditionalInformation = additionalInformation,
-
-            };
-
-            wallOfUser.wall.Add(post); // add to wall
-
-        }
 
     }
 

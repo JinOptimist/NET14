@@ -100,7 +100,6 @@ namespace TeamSocial
             }
             var drawer = new SocialDrawer();
             drawer.DrawAProfile(user); // рисуем профиль
-            drawer.AddPostDrawer(user); // запускаем метод добавления нового поста. Это временное решение
 
             
 
@@ -139,7 +138,6 @@ namespace TeamSocial
             var user =  social.Registration(FirstName, LastName, Email, Age, Password); // метод регистарции вернет зарегистрированного пользователя 
             var drawer = new SocialDrawer();
             drawer.DrawAProfile(user); // После регистрации отрисовывается профиль
-            drawer.AddPostDrawer(user);// Потом запускается метод добавления поста. Это временное решение
 
 
 
