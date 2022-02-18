@@ -20,10 +20,6 @@ namespace MazeCool
             //Ломаем стены где положенно
             BuildGround();
 
-
-            //AddDoors();
-
-
             // Добавляем точку входа Х
             EnterPoint();
 
@@ -33,6 +29,7 @@ namespace MazeCool
             AddHero();
 
             AddCoins();
+
             RandomTeleportation();
 
             GreateSleepingBag();
@@ -65,8 +62,6 @@ namespace MazeCool
                 Stamina = 10,
                 Mood = Mood.Normal
             };
-
-
         }
 
         private void BuildRandomBlueWall()
@@ -133,7 +128,6 @@ namespace MazeCool
 
         private void BuildGround()
         {
-
             //Создаём рисовальщик, что бы по ходу создания
             //лабиринта, показывать промежуточные результаты
             //var drawer = new DrawerMaze();
@@ -233,7 +227,6 @@ namespace MazeCool
                 }
             }
         }
-
 
         public MazeLevel BuildSmallStandrad()
         {
@@ -342,8 +335,6 @@ namespace MazeCool
                 .OfType<CellType>()
                 .ToList();
         }
-
-
       
         private List<BaseCell> GroundForSpawnDoors2Y(List<BaseCell> allCells, BaseCell currentCell)
         {
