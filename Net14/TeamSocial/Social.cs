@@ -8,6 +8,7 @@ namespace TeamSocial
     public class Social
     {
         public List<User> users { get; set; } = new List<User>();
+        public  User _currentUser; 
 
         public void Autorization(string email, string password)
         {
@@ -17,7 +18,7 @@ namespace TeamSocial
 
             if (user != null) 
             {
-                //Тут запускаем какой-то метод, который покажет нам профиль юзера, которого мы нашли
+                _currentUser = user;
             }
         }
 
@@ -39,7 +40,9 @@ namespace TeamSocial
 
             };
             users.Add(user);
-            Console.WriteLine($"User {firstName} {lastName} was registered");
+
+            _currentUser = user;
         }
+
     }
 }
