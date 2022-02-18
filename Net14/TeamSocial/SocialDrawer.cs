@@ -24,5 +24,15 @@ namespace TeamSocial
                 
             
         }
+
+        public void AddPostDrawer(User user) 
+        {
+            Console.WriteLine("Enter iamgeUrl");
+            var imageUrl = Console.ReadLine();
+            Console.WriteLine("Enter additional inforamtion of post");
+            var additionalInformation = Console.ReadLine();
+            user.AddPost(imageUrl, additionalInformation);
+            Console.WriteLine("Post was posted");
+        }
     }
 }
