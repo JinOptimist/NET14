@@ -8,7 +8,7 @@ namespace Team_Store
         {
             var menu = new Menu();
             menu.Start();
-            menu.DrawCategories();
+           
         }
     }
 }
