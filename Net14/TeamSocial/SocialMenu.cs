@@ -31,7 +31,8 @@ namespace TeamSocial
             new Tuple<string , Action<Social, string>>("fw", ShowFriendsWall)
         };
 
-        private static void ShowFriendsWall(Social social, string arg2)
+        private static void ShowFriendsWall(Social social, string arg2) //На эту функцию можно не обращать внимание, она всего лишь подтверждает то,
+                                                                        //что добавление и удаление друзей работает  
         {
             var drawer = new SocialDrawer();
             var admin = social.Registration("Admin", "Admin", "Admin@mail.ru", 20, "12345");
@@ -59,7 +60,7 @@ namespace TeamSocial
                 }
                 Console.WriteLine("\nTo add to friends press 'a' or press 'd' to delete friend or 'x' to exit");
                 ConsoleKeyInfo key = Console.ReadKey(true);
-                if (key.KeyChar == 'a')
+                if (key.KeyChar == 'a')//Добавляем друзей
                 {
                     Console.WriteLine("Available users:\n");
                     foreach (User user in social.users.Where(user => user.Email != admin.Email && !admin.friends.Contains(user)))
@@ -81,7 +82,7 @@ namespace TeamSocial
                     }
 
                 }
-                else if (key.KeyChar == 'd') 
+                else if (key.KeyChar == 'd')//Удаляем друзей
                 {
                     Console.WriteLine("Friends available to delete:");
                     foreach (User user in admin.wallOffriends.GetFriends()) 
@@ -103,10 +104,9 @@ namespace TeamSocial
                     }
                     continue;
                 }
-                else if (key.KeyChar == 'x')
+                else if (key.KeyChar == 'x')//Выход в SocialMenu
                 {
                     Start();
-                    return;
                 }
 
             }
@@ -223,25 +223,6 @@ namespace TeamSocial
             var user =  social.Registration(FirstName, LastName, Email, Age, Password); // метод регистарции вернет зарегистрированного пользователя 
             var drawer = new SocialDrawer();
             drawer.DrawAProfile(user); // После регистрации отрисовывается профиль
-            user.wallOffriends.social = social;
-            var usertest = social.users.Single(user => user.Email == "user1@mail.ru");
-            if (user.wallOffriends.AddFriend(usertest)) 
-            {
-                foreach (User use1r in user.friends) 
-                {
-                    Console.WriteLine("Friends of user");
-                    Console.WriteLine(use1r.Email);
-                }
-                foreach (User i in usertest.friends) 
-                {
-                    Console.WriteLine("Friend of Test user: ");
-                    Console.WriteLine(i.Email);
-                }
-
-            }
-
-
-
 
         }
 
