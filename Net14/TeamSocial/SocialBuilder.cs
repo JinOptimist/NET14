@@ -18,9 +18,12 @@ namespace TeamSocial
                 var emptyUser = new User()
                 {
                     //    FirstName = "Empty"
+                    FirstName = $"Empty{i}",
                     Email = $"user{i}@mail.ru",
                     Password = "12345678",
+                  
                 };
+                emptyUser.wallOffriends.social = social;
                 social.users.Add(emptyUser);
 
             }

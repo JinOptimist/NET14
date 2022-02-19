@@ -17,7 +17,8 @@ namespace TeamSocial
             new string[] { "reg", "Registration in SocialWeb" },
             new string[] { "sing", "Autorization in SocialWeb" },
             new string[] { "exit", "Exit from SocialWeb"},
-            new string[] { "users", "All users in SocialWeb"}
+            new string[] { "users", "All users in SocialWeb"},
+            new string[] { "fw", "Friends wall" }
 
         };
 
@@ -26,9 +27,93 @@ namespace TeamSocial
             new Tuple<string, Action<Social,string>>("reg", MenuRegistration),
             new Tuple<string, Action<Social,string>>("sing", MenuAutorization),
             new Tuple<string, Action<Social, string>>("exit", ExitFromSocialWeb),
-            new Tuple<string, Action<Social, string>>("users", AllUsers)
+            new Tuple<string, Action<Social, string>>("users", AllUsers),
+            new Tuple<string , Action<Social, string>>("fw", ShowFriendsWall)
         };
 
+        private static void ShowFriendsWall(Social social, string arg2)
+        {
+            var drawer = new SocialDrawer();
+            var admin = social.Registration("Admin", "Admin", "Admin@mail.ru", 20, "12345");
+            admin.wallOffriends.social = social;
+            while (true)
+            {
+                drawer.DrawAProfile(admin);
+                Console.WriteLine($"Friends of {admin.FirstName}\n");
+                if (admin.friends.Count == 0)
+                {
+                    Console.WriteLine("\tThere's no friend yet");
+                }
+                else
+                {
+                    foreach (User friend in admin.wallOffriends.GetFriends())// Если у админа есть друзья, то показать их
+                    {
+                        Console.WriteLine("\t" + friend.FirstName + " ---- " + friend.Email);
+                        Console.WriteLine($"\t\tFriends of {friend.FirstName}");
+                        foreach (User friendsOffriend in friend.friends)
+                        {
+                            Console.WriteLine($"\t\t\t{friendsOffriend.FirstName} ---- {friendsOffriend.Email}");
+                        }
+                        //Показать друзей у друзей админа, чтобы удостверится что операция двусторонняя 
+                    }
+                }
+                Console.WriteLine("\nTo add to friends press 'a' or press 'd' to delete friend or 'x' to exit");
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                if (key.KeyChar == 'a')
+                {
+                    Console.WriteLine("Available users:\n");
+                    foreach (User user in social.users.Where(user => user.Email != admin.Email && !admin.friends.Contains(user)))
+                    {
+                        Console.WriteLine($"{user.FirstName} ---- {user.Email}");
+                    }
+                    Console.WriteLine("For adding user to frineds enter his e-mail");
+                    var a = Console.ReadLine();
+                    var potentionalFriend = social.users.SingleOrDefault(user => user.Email == a);
+                    if (potentionalFriend != null)
+                    {
+                        admin.wallOffriends.AddFriendByEmail(a);
+                        Console.WriteLine($"\nUser {potentionalFriend.FirstName} with email {potentionalFriend.Email} was found and added to friens");
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nUser was't found");
+                    }
+
+                }
+                else if (key.KeyChar == 'd') 
+                {
+                    Console.WriteLine("Friends available to delete:");
+                    foreach (User user in admin.wallOffriends.GetFriends()) 
+                    {
+                        Console.WriteLine($"\t{user.FirstName} ---- {user.Email}");
+                    }
+                    Console.WriteLine("For deleting friend enter his email:");
+                    var emailToDelete = Console.ReadLine();
+                    var userToDel = admin.friends.SingleOrDefault(user =>
+                    user.Email == emailToDelete);
+                    if (userToDel == null)
+                    {
+                        Console.WriteLine("There's no such friend in admins frined");
+                    }
+                    else 
+                    {
+                        admin.wallOffriends.DeleteFromFriendsByEmail(emailToDelete);
+                        Console.WriteLine($"User {userToDel.FirstName} was deleted from friends");
+                    }
+                    continue;
+                }
+                else if (key.KeyChar == 'x')
+                {
+                    Start();
+                    return;
+                }
+
+            }
+
+
+        }
+    
 
         public static void Start() 
         {

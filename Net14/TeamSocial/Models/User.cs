@@ -18,6 +18,7 @@ namespace SocialWeb
         public List<User> friends { get; set; } = new List<User>();
 
         public FriendsWall wallOffriends;
+        public Social social { get; set; } //Теперь каждый user знает в какой soical он находится 
         public User() 
         {
             wallOffriends = new FriendsWall(this);
