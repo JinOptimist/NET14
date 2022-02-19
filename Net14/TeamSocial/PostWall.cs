@@ -13,9 +13,18 @@ namespace TeamSocial
 
             for (int i = 0; i < wall.Count; i++)
             {
-              public string post.
+                string ImageUrl = post.ImageUrl;
+                int Likes = post.Likes;
+                post.Comments = "Very Good News!";
+                post.TypePost = "News";
+                DateTime DateOfPosting = post.DateOfPosting;
+                Console.WriteLine(ImageUrl + " " + post.TypePost + " " + post.Comments + " " + post.Likes);
+                wall.Add(post);
+
             }
-        }    
+        }
+        
+        public void 
     }   
   
 }

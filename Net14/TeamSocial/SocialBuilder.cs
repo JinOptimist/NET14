@@ -11,7 +11,21 @@ namespace TeamSocial
     {
         public Social BuildSocial() 
         {
+
             var social = new Social();
+            for (int i = 1; i < 4; i++)
+            {
+                var emptyUser = new User()
+                {
+                    //    FirstName = "Empty"
+                    Email = $"user{i}@mail.ru",
+                    Password = "12345678",
+                };
+                social.users.Add(emptyUser);
+
+            }
+            return social;
+            /*var social = new Social();
             for (int i = 0; i < 3; i++) 
             {
                 var name = RandomName();
@@ -23,10 +37,10 @@ namespace TeamSocial
                 social.users.Add(emptyUser);
                 
             }
-            return social;
+            return social;*/
         }
 
-        public string[]  RandomName()
+        /*public string[]  RandomName()
         {
             var name = new string[2];
             var personGenerator = new PersonNameGenerator();
@@ -38,6 +52,6 @@ namespace TeamSocial
             name[1] = LastName;
             return name;
            
-        }
+        }*/
     }
 }
