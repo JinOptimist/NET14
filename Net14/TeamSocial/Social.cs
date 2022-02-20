@@ -39,9 +39,10 @@ namespace TeamSocial
                 LastName = LastName,
                 Email = Email,
                 Age = Age,
-                Password = Password
+                Password = Password,
 
             };
+            user.wallOffriends.social = this;
             users.Add(user);
 
             _currentUser = user;
