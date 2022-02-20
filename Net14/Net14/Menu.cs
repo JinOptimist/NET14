@@ -86,6 +86,8 @@ namespace Net14
             var CalDrawer = new CalendarDrawer();
             var Calendar = CreaterCalendar.Create(7,4);
             bool StilWatch = true;
+            
+             
             while (StilWatch)
             {
                 CalDrawer.Draw(Calendar);
@@ -109,6 +111,8 @@ namespace Net14
                 {
                     CalDrawer.Month = 12;
                 }
+                var checkDate = new Calendar.EnterDate();
+                checkDate.Date();
             }
 
 
