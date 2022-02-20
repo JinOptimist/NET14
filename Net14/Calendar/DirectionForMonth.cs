@@ -4,8 +4,11 @@ using System.Text;
 
 namespace Calendar
 {
-    internal class CalenarToDo
+    public enum DirectionForMonth
     {
-        
+        Left = 1,
+        Right = 2,
+        Up = 3,
+        Down = 4
     }
 }

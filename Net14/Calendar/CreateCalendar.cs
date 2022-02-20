@@ -1,70 +1,92 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Channels;
+using Calendar.Days;
 using Microsoft.VisualBasic;
 
 namespace Calendar
 {
     public class CreateCalendar
     {
+        private MonthLevel monthLevel;
         
-        public void Spawn()
+        public MonthLevel Create(int daysInWeek = 7, int weeksInMonth = 5, int dayNumber = 1, string emptyDays = " ")
         {
-            int Month = 0;
-            int Year = 0;
-            Month = DateTime.Now.Month;
-            Year = DateTime.Now.Year;
-            var EmptyDay = 0;
-            List<string> DayOfWeek = new List<string>() {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
-            foreach (var DayW in DayOfWeek)
-            {
-                Console.Write($"{DayW}\t");
-            }
-            List<string> DaysOfMonth = new List<string>();
-            var FirstDayOfMonth = new DateTime(Year, Month, 1).DayOfWeek;
+            monthLevel = CreateCurrentMonth(daysInWeek, weeksInMonth, dayNumber, emptyDays);
             
-            switch (FirstDayOfMonth.ToString())
+            CurrentCal();
+            
+
+            return monthLevel;
+        }
+
+        
+        public MonthLevel CreateCurrentMonth(int daysInWeek, int weeksInMonth, int dayNumber, string emptyDays)
+        {
+            var monthLevel = new MonthLevel();
+            monthLevel.DaysInWeek = daysInWeek;
+            monthLevel.WeeksInMonth = weeksInMonth;
+            monthLevel.DayNumber = dayNumber;
+            monthLevel.EmptyDays = emptyDays;
+            monthLevel.Month = new List<BaseDays>();
+            return monthLevel;
+        }
+
+        private void CurrentCal()
+        {
+            int count = 0;
+            int EmptyDay = 0;
+            var emptyDay = new EmptyDay(monthLevel)
             {
+                Symbol = " "
+            };
+            int daysCount = DateTime.DaysInMonth(DateTime.Now.Year,DateTime.Now.Month );
+            var firstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).DayOfWeek;
+            switch (firstDayOfMonth.ToString())
+            {
+                
                 case "Monday":
                     break;
                 case "Tuesday":
-                    DaysOfMonth.Add(" ");
+                    monthLevel.Month.Add(emptyDay);
                     EmptyDay = 1;
                     break;
                 case "Wednesday":
-                    DaysOfMonth.Add(" ");
-                    DaysOfMonth.Add(" ");
+                    monthLevel.Month.Add(emptyDay);
+                    monthLevel.Month.Add(emptyDay);
                     EmptyDay = 2;
                     break;
                 case "Thursday":
-                    DaysOfMonth.Add(" ");
-                    DaysOfMonth.Add(" ");
-                    DaysOfMonth.Add(" ");
+                    monthLevel.Month.Add(emptyDay);
+                    monthLevel.Month.Add(emptyDay);
+                    monthLevel.Month.Add(emptyDay);
                     EmptyDay = 3;
                     break;
                 case "Friday":
-                    DaysOfMonth.Add(" ");
-                    DaysOfMonth.Add(" ");
-                    DaysOfMonth.Add(" ");
-                    DaysOfMonth.Add(" ");
+                    monthLevel.Month.Add(emptyDay);
+                    monthLevel.Month.Add(emptyDay);
+                    monthLevel.Month.Add(emptyDay);
+                    monthLevel.Month.Add(emptyDay);
                     EmptyDay = 4;
                     break;
                 case "Saturday":
-                    DaysOfMonth.Add(" ");
-                    DaysOfMonth.Add(" ");
-                    DaysOfMonth.Add(" ");
-                    DaysOfMonth.Add(" ");
-                    DaysOfMonth.Add(" ");
+                    monthLevel.Month.Add(emptyDay);
+                    monthLevel.Month.Add(emptyDay);
+                    monthLevel.Month.Add(emptyDay);
+                    monthLevel.Month.Add(emptyDay);
+                    monthLevel.Month.Add(emptyDay);
                     EmptyDay = 5;
                     break;
                 case "Sunday":
-                    DaysOfMonth.Add(" ");
-                    DaysOfMonth.Add(" ");
-                    DaysOfMonth.Add(" ");
-                    DaysOfMonth.Add(" ");
-                    DaysOfMonth.Add(" ");
-                    DaysOfMonth.Add(" ");
+                    monthLevel.Month.Add(emptyDay);
+                    monthLevel.Month.Add(emptyDay);
+                    monthLevel.Month.Add(emptyDay);
+                    monthLevel.Month.Add(emptyDay);
+                    monthLevel.Month.Add(emptyDay);
+                    monthLevel.Month.Add(emptyDay);
                     EmptyDay = 6;
                     break;
                 default:
@@ -72,31 +94,29 @@ namespace Calendar
                     break;
             }
 
-
-            Console.WriteLine();
-            int Index = 0;
-            int Day = 1;
-            int DaysCount = DateTime.DaysInMonth(Year, Month);
-            while (Index <= DaysCount+EmptyDay)
+            
+            for (int y = 0; y < (daysCount+EmptyDay)/7+1; y++)
             {
-                DaysOfMonth.Add(Day.ToString());
-                Index++;
-                Day++;
-            }
-            int count = 0;
-            for (double i = 0; i <= (DaysCount+EmptyDay) / 7; i++)
-            {
-                for (int j = 0; j < 7; j++)
+                for (int x = 0; x < monthLevel.DaysInWeek; x++)
                 {
-                    if (count == (DaysCount+EmptyDay))
-                    { break; }
-                    Console.Write($"{DaysOfMonth[count]}\t");
+                    if (count == daysCount+EmptyDay)
+                    {break;}
+                    
+                    var date = new Day(monthLevel)
+                    {
+                        X = x,
+                        Y = y,
+                        Symbol =  monthLevel.DayNumber.ToString()
+                    };
+                    if (EmptyDay <= count)
+                    {
+                        monthLevel.DayNumber++;
+                    }
                     count++;
+
+                    monthLevel.Month.Add(date);
                 }
-
-                Console.WriteLine();
             }
-
         }
 
     }

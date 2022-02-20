@@ -83,7 +83,34 @@ namespace Net14
         {
             Console.Clear();
             var CreaterCalendar = new Calendar.CreateCalendar();
-            CreaterCalendar.Spawn();
+            var CalDrawer = new CalendarDrawer();
+            var Calendar = CreaterCalendar.Create(7,4);
+            bool StilWatch = true;
+            while (StilWatch)
+            {
+                CalDrawer.Draw(Calendar);
+                var key = Console.ReadKey();
+                switch (key.Key)
+                {
+                    
+                    case ConsoleKey.A:
+                    case ConsoleKey.LeftArrow:
+                        CalDrawer.Month--;
+                        break;
+                    case ConsoleKey.D:
+                    case ConsoleKey.RightArrow:
+                        CalDrawer.Month++;
+                        break;
+                    case ConsoleKey.Escape:
+                        StilWatch = false;
+                        break;
+                }
+                if (CalDrawer.Month <= 0)
+                {
+                    CalDrawer.Month = 12;
+                }
+            }
+
 
         }
 
