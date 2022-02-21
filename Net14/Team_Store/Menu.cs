@@ -10,32 +10,44 @@ namespace Team_Store
         public void Start()
         {
             var stock = new Stock();
-            var starterMessge =
-                "\n  WebStore Veishnoria:\n" +
-                "    Use keyboard arrows to navigate\n" +
-                "    Enter - select category\n" +
-                "    Esc - leave current category\n";
-            Console.WriteLine(starterMessge);
+            
            
+
             while (true)
             {
-                Console.Clear();
-                Console.WriteLine("1. Add Goods, 2. Show Stock 3. Exit");
+                //Console.ReadKey();
+                var starterMessge =
+               "\n  WebStore Veishnoria:\n" +
+               "    Use keyboard arrows to navigate\n" +
+               "    Enter - select category\n" +
+               "    Esc - leave current category\n";
+                Console.WriteLine(starterMessge);
+                Console.WriteLine("1. Add Goods, 2. Show Stock 3. SortByCategory 9.Exit");
+
+
                 var key = Console.ReadKey();
                 switch (key.Key)
                 {
                     case ConsoleKey.D1:
 
+                        Console.WriteLine();
                         stock.Add_Good();
+                        Console.Clear();
 
                         break;
                     case ConsoleKey.D2:
 
+                        Console.WriteLine();
                         stock.Show_Stock();
                         Console.ReadKey();
+                        Console.Clear();
                         break;
-                    default:
+                   
+                    case ConsoleKey.D9:
 
+                        Console.WriteLine();
+                        
+                        
                         return;
                 }
             }
