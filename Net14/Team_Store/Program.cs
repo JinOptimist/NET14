@@ -1,5 +1,6 @@
 ﻿using System;
 
+
 namespace Team_Store
 {
     class Program
@@ -24,8 +25,13 @@ namespace Team_Store
             //basket.Show();
             //Console.ReadKey();
               
-            //var menu = new Menu();
-            //menu.Start();           
+            var menu = new Menu();
+            
+            while (true)
+            {
+                menu.ShowMenu();
+                Console.Clear();
+            }
         }
     }
 }
