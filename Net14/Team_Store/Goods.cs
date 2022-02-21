@@ -4,12 +4,14 @@ using System.Text;
 
 namespace Team_Store
 {
-    class Goods
+    public class Goods
     {
         public string Name { get; set; }
         public int Amount { get; set; }
         public string Category { get; set; }
         public int Price { get; set; }
+        public int Amount_in_Basket { get; set; }
+
 
         public Goods(string name, int amount, string category, int price)
         {
@@ -17,7 +19,7 @@ namespace Team_Store
             Amount = amount;
             Category = category;
             Price = price;
-
+            Amount_in_Basket = 0;
         }
 
         public Goods()
