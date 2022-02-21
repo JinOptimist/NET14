@@ -25,12 +25,14 @@ namespace TeamSocial
             return null;
         }
 
-        public User Registration(string firstName, string lastName, string email, int age, string password)
+        public User Registration(string firstName, string lastName, string email, int age, string password, string city = null, string country = null)
         {
             var FirstName = firstName;
             var LastName = lastName;
             var Email = email;
             var Age = age;
+            var City = city;
+            var Country = country;
             var Password = password;
 
             var user = new User()
@@ -39,6 +41,8 @@ namespace TeamSocial
                 LastName = LastName,
                 Email = Email,
                 Age = Age,
+                City = city,
+                Country = country,
                 Password = Password,
 
             };

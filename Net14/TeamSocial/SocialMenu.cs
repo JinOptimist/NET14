@@ -35,7 +35,7 @@ namespace TeamSocial
                                                                         //что добавление и удаление друзей работает  
         {
             var drawer = new SocialDrawer();
-            var admin = social.Registration("Admin", "Admin", "Admin@mail.ru", 20, "12345");
+            var admin = social.Registration("Admin", "Admin", "Admin@mail.ru", 50, "12345", "Moscow", "Russia");
             admin.wallOffriends.social = social;
             while (true)
             {
@@ -58,7 +58,7 @@ namespace TeamSocial
                         //Показать друзей у друзей админа, чтобы удостверится что операция двусторонняя 
                     }
                 }
-                Console.WriteLine("\nTo add to friends press 'a' or press 'd' to delete friend or 'x' to exit");
+                Console.WriteLine("\nTo add to friends press 'a' or press 'd' to delete friend or 'r' to see recomendation or 'x' to exit");
                 ConsoleKeyInfo key = Console.ReadKey(true);
                 if (key.KeyChar == 'a')//Добавляем друзей
                 {
@@ -82,10 +82,20 @@ namespace TeamSocial
                     }
 
                 }
+                else if (key.KeyChar == 'r') //Рекомендации
+                {
+                    var rec = admin.wallOffriends.RecomendationOfFriends();
+                    Console.WriteLine("Your recomendation: ");
+                    foreach (User user in rec) 
+                    {
+                        Console.WriteLine($"\t{user.FirstName}, {user.Email}, {user.Country}, {user.City}, {user.Age}");
+                    }
+                    Console.ReadKey(true);
+                }
                 else if (key.KeyChar == 'd')//Удаляем друзей
                 {
                     Console.WriteLine("Friends available to delete:");
-                    foreach (User user in admin.wallOffriends.GetFriends()) 
+                    foreach (User user in admin.wallOffriends.GetFriends())
                     {
                         Console.WriteLine($"\t{user.FirstName} ---- {user.Email}");
                     }
@@ -97,7 +107,7 @@ namespace TeamSocial
                     {
                         Console.WriteLine("There's no such friend in admins frined");
                     }
-                    else 
+                    else
                     {
                         admin.wallOffriends.DeleteFromFriendsByEmail(emailToDelete);
                         Console.WriteLine($"User {userToDel.FirstName} was deleted from friends");
