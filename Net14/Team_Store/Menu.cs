@@ -10,8 +10,8 @@ namespace Team_Store
         public void Start()
         {
             var stock = new Stock();
-            
-           
+
+
 
             while (true)
             {
@@ -42,12 +42,18 @@ namespace Team_Store
                         Console.ReadKey();
                         Console.Clear();
                         break;
-                   
+                    case ConsoleKey.D3:
+
+                        Console.WriteLine();
+                        stock.SortByCategory();
+                        Console.ReadKey();
+                        Console.Clear();
+                        break;
                     case ConsoleKey.D9:
 
                         Console.WriteLine();
-                        
-                        
+
+
                         return;
                 }
             }

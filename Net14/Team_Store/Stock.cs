@@ -10,13 +10,13 @@ namespace Team_Store
 
         public List<Goods> goods { get; set; } = new List<Goods>();
 
-        
+
         public void Add_Good()
         {
             var thing_to_stock = new Goods();
             thing_to_stock.product_description();
             goods.Add(thing_to_stock);
-            
+
 
         }
 
@@ -33,7 +33,23 @@ namespace Team_Store
             }
         }
 
-        
+        public void SortByCategory()
+        {
+            Console.WriteLine("Enter name of category for search: ");
+            var input = Console.ReadLine();
+
+            foreach (var item in goods)
+            {
+                if (item.Category == input)
+                {
+
+                    Console.WriteLine($"Name:{item.Name}");
+                    Console.WriteLine($"Price:{item.Price}");
+                    Console.WriteLine($"Amount:{item.Amount}");
+                    Console.WriteLine($"Category:{item.Category}");
+
+                }
+            }
+        }
     }
 }
-
