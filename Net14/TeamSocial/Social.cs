@@ -3,10 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Security.Cryptography;
+
 namespace TeamSocial
 {
     public class Social
     {
+        private static int _saltLengthLimit = 32;
         public List<User> users { get; set; } = new List<User>();
         public  User _currentUser; 
 
@@ -14,7 +17,7 @@ namespace TeamSocial
         {
             var user = users.FirstOrDefault(user =>
             user.Email == email
-            && user.Password == password);
+            && user.Password == GetHashOfPassword(password, user.Salt));
 
             if (user != null) 
             {
@@ -35,6 +38,10 @@ namespace TeamSocial
             var Country = country;
             var Password = password;
 
+            var Salt = GetSalt();
+            var Password = GetHashOfPassword(password, Salt);
+            
+
             var user = new User()
             {
                 FirstName = FirstName,
@@ -43,6 +50,7 @@ namespace TeamSocial
                 Age = Age,
                 City = city,
                 Country = country,
+                Salt = Salt,
                 Password = Password,
 
             };
@@ -51,6 +59,28 @@ namespace TeamSocial
 
             _currentUser = user;
             return user;
+        }
+
+        private string GetHashOfPassword(string password, byte[] salt) //This method return hash of password
+        {
+            var md5 = MD5.Create();
+            var hashPassword = md5.ComputeHash(Encoding.UTF8.GetBytes(password).Concat(salt).ToArray()); //Compute password and salt
+            return Convert.ToBase64String(hashPassword);
+        }
+
+        private byte[] GetSalt() // This method return unique salt (byte[])
+        {
+            return GetSalt(_saltLengthLimit);
+        }
+        private byte[] GetSalt(int maximumSaltLength) //This method makes salt
+        {
+            var salt = new byte[maximumSaltLength];
+            using (var random = new RNGCryptoServiceProvider())
+            {
+                random.GetNonZeroBytes(salt);
+            }
+
+            return salt;
         }
 
     }
