@@ -13,6 +13,6 @@ namespace Calendar.Days
         public override int Year => DateTime.Now.Year;
         public override int Month => DateTime.Now.Month;
         public override int Date => DateTime.Now.Day;
-        
+
     }
 }

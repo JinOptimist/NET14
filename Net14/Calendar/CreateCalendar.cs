@@ -13,11 +13,11 @@ namespace Calendar
     {
         private MonthLevel monthLevel;
         
-        public MonthLevel Create(int daysInWeek = 7, int weeksInMonth = 5, int dayNumber = 1, string emptyDays = " ")
+        public MonthLevel Create(int year, int month, int daysInWeek = 7, int weeksInMonth = 5, int dayNumber = 1, string emptyDays = " " )
         {
             monthLevel = CreateCurrentMonth(daysInWeek, weeksInMonth, dayNumber, emptyDays);
             
-            CurrentCal();
+            CurrentCal(year, month);
             
 
             return monthLevel;
@@ -35,7 +35,7 @@ namespace Calendar
             return monthLevel;
         }
 
-        private void CurrentCal()
+        private void CurrentCal(int year, int month)
         {
             int count = 0;
             int EmptyDay = 0;
@@ -43,8 +43,8 @@ namespace Calendar
             {
                 Symbol = " "
             };
-            int daysCount = DateTime.DaysInMonth(DateTime.Now.Year,DateTime.Now.Month );
-            var firstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).DayOfWeek;
+            int daysCount = DateTime.DaysInMonth(year, month);
+            var firstDayOfMonth = new DateTime(year, month, 1).DayOfWeek;
             switch (firstDayOfMonth.ToString())
             {
                 
@@ -106,7 +106,8 @@ namespace Calendar
                     {
                         X = x,
                         Y = y,
-                        Symbol =  monthLevel.DayNumber.ToString()
+                        Symbol = monthLevel.DayNumber.ToString(),
+                        
                     };
                     if (EmptyDay <= count)
                     {

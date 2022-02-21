@@ -84,7 +84,7 @@ namespace Net14
             Console.Clear();
             var CreaterCalendar = new Calendar.CreateCalendar();
             var CalDrawer = new CalendarDrawer();
-            var Calendar = CreaterCalendar.Create(7,4);
+            var Calendar = CreaterCalendar.Create(DateTime.Now.Year, DateTime.Now.Month, 7, 4);
             bool StilWatch = true;
             
              
@@ -103,18 +103,44 @@ namespace Net14
                     case ConsoleKey.RightArrow:
                         CalDrawer.Month++;
                         break;
+                    case ConsoleKey.Spacebar:
+
+                        var checkDate = new Calendar.EnterDate();
+                        var Day = checkDate.Note("\nEnter the date in format dd.mm.yyyy:");
+
+                        Console.Clear();
+
+                        string checkDate2 = "You choosed: " + Day[0] + "\n" + Day[1];
+                        
+
+                        Console.WriteLine(checkDate2);
+                        Console.WriteLine("\nAdd note for today?\n");
+                        var key2 = Console.ReadKey();
+
+                            switch (key2.Key)
+                            {
+                                case ConsoleKey.Y:
+                                    Console.WriteLine(AddNoteInDay(DateTime.Parse(Day[0])));
+                                    break;
+                                case ConsoleKey.N:
+                                    break;
+
+                            }
+                        
+                        StilWatch = false;
+                        break;
                     case ConsoleKey.Escape:
                         StilWatch = false;
                         break;
+                    
                 }
                 if (CalDrawer.Month <= 0)
                 {
                     CalDrawer.Month = 12;
                 }
-                var checkDate = new Calendar.EnterDate();
-                checkDate.Date();
-            }
 
+            }
+            
 
         }
 
@@ -231,5 +257,16 @@ namespace Net14
 
             Console.WriteLine();
         }
+       
+        private static string AddNoteInDay(DateTime date)
+        {
+            var checkDate = new Calendar.EnterDate();
+            Console.Clear();
+            string x = checkDate.AddNote("Enter your note:", date);
+            
+            
+            return x;
+        }
+
     }
 }

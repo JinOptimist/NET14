@@ -10,6 +10,8 @@ namespace Calendar.Days
         public abstract int Month { get; }
         public abstract int Date { get; }
         public string Symbol { get; set; }
+
+        
         public int X { get; set; }
         public int Y { get; set; }
         public virtual ConsoleColor Color { get; set; } = ConsoleColor.White;
@@ -19,6 +21,9 @@ namespace Calendar.Days
         {
             _monthLevel = monthLevel;
         }
+
+        public string Note { get; set; } = "No notes for today. ";
+        
 
     }
 }
