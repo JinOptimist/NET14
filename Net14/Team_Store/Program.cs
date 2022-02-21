@@ -6,7 +6,9 @@ namespace Team_Store
     {
         static void Main(string[] args)
         {
+            
             var menu = new Menu();
+            menu.StartUser();
             menu.Start();
            
         }
