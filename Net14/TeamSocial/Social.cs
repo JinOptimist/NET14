@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Security.Cryptography;
+
 namespace TeamSocial
 {
     public class Social
@@ -14,7 +16,7 @@ namespace TeamSocial
         {
             var user = users.FirstOrDefault(user =>
             user.Email == email
-            && user.Password == password);
+            && user.Password == GetHashOfPassword(password));
 
             if (user != null) 
             {
@@ -31,7 +33,8 @@ namespace TeamSocial
             var LastName = lastName;
             var Email = email;
             var Age = age;
-            var Password = password;
+            var Password = GetHashOfPassword(password);
+            Console.WriteLine(Password);
 
             var user = new User()
             {
@@ -48,6 +51,13 @@ namespace TeamSocial
             _currentUser = user;
             return user;
         }
+
+        private string GetHashOfPassword(string password) 
+        {
+            var md5 = MD5.Create();
+            var hashPassword = md5.ComputeHash(Encoding.UTF8.GetBytes(password));
+            return Convert.ToBase64String(hashPassword);
+;        }
 
     }
 }
