@@ -36,8 +36,6 @@ namespace TeamSocial
             var Age = age;
             var City = city;
             var Country = country;
-            var Password = password;
-
             var Salt = GetSalt();
             var Password = GetHashOfPassword(password, Salt);
             
