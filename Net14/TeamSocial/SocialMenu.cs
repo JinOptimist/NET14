@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using SocialWeb;
 using System.Linq;
+using TeamSocial.Games;
 
 namespace TeamSocial
 {
@@ -18,7 +19,8 @@ namespace TeamSocial
             new string[] { "sing", "Autorization in SocialWeb" },
             new string[] { "exit", "Exit from SocialWeb"},
             new string[] { "users", "All users in SocialWeb"},
-            new string[] { "fw", "Friends wall" }
+            new string[] { "fw", "Friends wall" },
+            new string[] { "game", "Game" }
 
         };
 
@@ -28,7 +30,8 @@ namespace TeamSocial
             new Tuple<string, Action<Social,string>>("sing", MenuAutorization),
             new Tuple<string, Action<Social, string>>("exit", ExitFromSocialWeb),
             new Tuple<string, Action<Social, string>>("users", AllUsers),
-            new Tuple<string , Action<Social, string>>("fw", ShowFriendsWall)
+            new Tuple<string , Action<Social, string>>("fw", ShowFriendsWall),
+            new Tuple<string , Action<Social, string>>("game", PlayGame)
         };
 
         private static void ShowFriendsWall(Social social, string arg2) //На эту функцию можно не обращать внимание, она всего лишь подтверждает то,
@@ -114,7 +117,6 @@ namespace TeamSocial
 
         }
     
-
         public static void Start() 
         {
             Console.Clear();
@@ -233,6 +235,16 @@ namespace TeamSocial
             var drawer = new SocialDrawer();
             drawer.DrawAllUsers(social);
             
+        }
+        private static void PlayGame(Social social, string message)
+        {
+            var game = new Game1();
+            game.Game_Math1();
+            game.Game_Math2();
+            game.Game_Math3();
+            game.Game_Math4();
+            game.Game_Math5();
+            game.PrintResult();
         }
 
 
