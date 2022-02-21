@@ -16,6 +16,7 @@ namespace TeamSocial
         {
             new string[] { "reg", "Registration in SocialWeb" },
             new string[] { "sing", "Autorization in SocialWeb" },
+            new string[] { "myProfile", "Open my profile" },
             new string[] { "exit", "Exit from SocialWeb"},
             new string[] { "users", "All users in SocialWeb"},
             new string[] { "fw", "Friends wall" }
@@ -26,20 +27,25 @@ namespace TeamSocial
         {
             new Tuple<string, Action<Social,string>>("reg", MenuRegistration),
             new Tuple<string, Action<Social,string>>("sing", MenuAutorization),
+            new Tuple<string , Action<Social, string>>("myProfile", MyProfile),
             new Tuple<string, Action<Social, string>>("exit", ExitFromSocialWeb),
             new Tuple<string, Action<Social, string>>("users", AllUsers),
             new Tuple<string , Action<Social, string>>("fw", ShowFriendsWall)
+            
+
+
+            
         };
 
         private static void ShowFriendsWall(Social social, string arg2) //На эту функцию можно не обращать внимание, она всего лишь подтверждает то,
                                                                         //что добавление и удаление друзей работает  
         {
-            var drawer = new SocialDrawer();
+            var myProfile = new MyProfile();
             var admin = social.Registration("Admin", "Admin", "Admin@mail.ru", 20, "12345");
             admin.wallOffriends.social = social;
             while (true)
             {
-                drawer.DrawAProfile(admin);
+                myProfile.ShowProfile(admin);
                 Console.WriteLine($"Friends of {admin.FirstName}\n");
                 if (admin.friends.Count == 0)
                 {
@@ -183,8 +189,8 @@ namespace TeamSocial
                 Console.ReadKey();
                 MenuAutorization(social, message);
             }
-            var drawer = new SocialDrawer();
-            drawer.DrawAProfile(user); // рисуем профиль
+            var myProfile = new MyProfile();
+            myProfile.ShowProfile(user); // рисуем профиль
 
             
 
@@ -221,8 +227,8 @@ namespace TeamSocial
             Console.WriteLine();
 
             var user =  social.Registration(FirstName, LastName, Email, Age, Password); // метод регистарции вернет зарегистрированного пользователя 
-            var drawer = new SocialDrawer();
-            drawer.DrawAProfile(user); // После регистрации отрисовывается профиль
+            var myProfile = new MyProfile();
+            myProfile.ShowProfile(user); // После регистрации отрисовывается профиль
 
         }
 
@@ -235,7 +241,13 @@ namespace TeamSocial
             
         }
 
+        private static void MyProfile(Social social, string message)
+        {
+            var myProfile = new MyProfile();
+            User user = new User();
+            myProfile.ShowProfile(user);
 
+        }
         private static void ShowCommands()
         {
             for (int i = 0; i < HelpMessages.Length; i++)
