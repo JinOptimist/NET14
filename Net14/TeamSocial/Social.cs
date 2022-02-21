@@ -34,7 +34,6 @@ namespace TeamSocial
             var Email = email;
             var Age = age;
             var Password = GetHashOfPassword(password);
-            Console.WriteLine(Password);
 
             var user = new User()
             {
