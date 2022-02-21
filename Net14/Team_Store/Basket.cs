@@ -12,22 +12,23 @@ namespace Team_Store
             {
                 Goods_in_Basket.Add(good);
             }
-                good.Amount_in_Basket++;
+            good.Amount_in_Basket++;
         }
         public void Remove(Goods good)
         {
-            Goods_in_Basket.Remove(good);
             good.Amount_in_Basket = 0;
+            Goods_in_Basket.Remove(good);
+            
         }
         public void Show()
-        {
-            //Нужно с табуляциями что-то придумать
+        {            
             if (Goods_in_Basket.Count == 0)
             {
                 Console.WriteLine("Your basket is empty.");
             }
             else
             {
+                //Нужно с табуляциями что-то придумать
                 Console.WriteLine("Your basket contains:");
                 var cumulativePrice = 0;
                 foreach (var good in Goods_in_Basket)
@@ -45,10 +46,10 @@ namespace Team_Store
         }
         public void Clear()
         {
-            foreach (var good in Goods_in_Basket)
+            for (int i = Goods_in_Basket.Count - 1; i >= 0; i--)
             {
-                Goods_in_Basket.Remove(good);
-                good.Amount_in_Basket = 0;
+                Goods_in_Basket[i].Amount_in_Basket = 0;
+                Goods_in_Basket.Remove(Goods_in_Basket[i]);
             }
         }
         public void Buy()
