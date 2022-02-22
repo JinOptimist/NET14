@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using SocialWeb;
 using System.Linq;
+using TeamSocial.Games;
 
 namespace TeamSocial
 {
@@ -18,7 +19,8 @@ namespace TeamSocial
             new string[] { "sing", "Autorization in SocialWeb" },
             new string[] { "exit", "Exit from SocialWeb"},
             new string[] { "users", "All users in SocialWeb"},
-            new string[] { "fw", "Friends wall" }
+            new string[] { "fw", "Friends wall" },
+            new string[] { "game", "Game Math" }
 
         };
 
@@ -28,7 +30,8 @@ namespace TeamSocial
             new Tuple<string, Action<Social,string>>("sing", MenuAutorization),
             new Tuple<string, Action<Social, string>>("exit", ExitFromSocialWeb),
             new Tuple<string, Action<Social, string>>("users", AllUsers),
-            new Tuple<string , Action<Social, string>>("fw", ShowFriendsWall)
+            new Tuple<string , Action<Social, string>>("fw", ShowFriendsWall),
+            new Tuple<string , Action<Social, string>>("game", GameMath)
         };
 
         private static void ShowFriendsWall(Social social, string arg2) //На эту функцию можно не обращать внимание, она всего лишь подтверждает то,
@@ -244,8 +247,53 @@ namespace TeamSocial
             drawer.DrawAllUsers(social);
             
         }
+        private static void GameMath(Social social, string message)
+        {
+            var a = 1;
+            var y = 6;
+            var game = new GameMath();
+            game.SayHello();
 
 
+            Random random = new Random();
+            for (int i = 0; i < 5; i++)
+            {
+                List<int> numberMethod = new List<int>();
+                int method = random.Next(a, y);
+                switch (method)
+                {
+                case 1:
+                       
+                       game.Game_Math1();
+                    break;
+                case 2:
+                        
+                        
+                            game.Game_Math2();
+                        
+                        break;
+                case 3:
+                       
+                        
+                            game.Game_Math2();
+                        
+                        break;
+                case 4:
+                        
+                        
+                            game.Game_Math4();
+                        
+                        break;
+                case 5:
+                      game.Game_Math5();
+                        break;
+                }
+
+                numberMethod.Add(method);
+
+            }
+
+        }
         private static void ShowCommands()
         {
             for (int i = 0; i < HelpMessages.Length; i++)
