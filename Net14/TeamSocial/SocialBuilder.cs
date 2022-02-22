@@ -9,7 +9,8 @@ namespace TeamSocial
 {
     public class SocialBuilder
     {
-        public Social BuildSocial() 
+        
+        public Social BuildSocial()
         {
 
             var social = new Social();
@@ -18,29 +19,19 @@ namespace TeamSocial
                 var emptyUser = new User()
                 {
                     //    FirstName = "Empty"
+                    FirstName = $"Empty{i}",
                     Email = $"user{i}@mail.ru",
                     Password = "12345678",
+                  
                 };
+                emptyUser.wallOffriends.social = social;
                 social.users.Add(emptyUser);
 
-            }
-            return social;
-            /*var social = new Social();
-            for (int i = 0; i < 3; i++) 
-            {
-                var name = RandomName();
-                var emptyUser = new User()
-                {
-                    FirstName = name[0],
-                    LastName = name[1]
-                };
-                social.users.Add(emptyUser);
-                
             }
             return social;*/
         }
 
-        /*public string[]  RandomName()
+        public string[]  RandomName()
         {
             var name = new string[2];
             var personGenerator = new PersonNameGenerator();
@@ -52,6 +43,6 @@ namespace TeamSocial
             name[1] = LastName;
             return name;
            
-        }*/
+        }
     }
 }
