@@ -13,7 +13,7 @@ namespace TeamSocial
             List<Post> wall = new List<Post>();
             Social social = new Social();
             Post onepost = new Post();
-
+            social.Registration(); //edit component form registration;
             string userone = "WallEmpty";//social._currentUser.FirstName;
             onepost.NameOfUserWhoPosted = userone;
             onepost.Comments = "Create Userrs";//social._currentUser.Age.ToString();
