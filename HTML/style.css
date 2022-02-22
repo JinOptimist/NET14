@@ -1,0 +1,8 @@
+.nice-dog{
+    width: 120px;
+    border-radius: 10px;
+}
+
+.dog-block{
+    display: flex;
+}
