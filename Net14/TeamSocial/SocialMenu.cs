@@ -18,7 +18,8 @@ namespace TeamSocial
             new string[] { "sing", "Autorization in SocialWeb" },
             new string[] { "exit", "Exit from SocialWeb"},
             new string[] { "users", "All users in SocialWeb"},
-            new string[] { "fw", "Friends wall" }
+            new string[] { "fw", "Friends wall" },
+            new string[] { "pwall", "Post wall" },
 
         };
 
@@ -28,7 +29,8 @@ namespace TeamSocial
             new Tuple<string, Action<Social,string>>("sing", MenuAutorization),
             new Tuple<string, Action<Social, string>>("exit", ExitFromSocialWeb),
             new Tuple<string, Action<Social, string>>("users", AllUsers),
-            new Tuple<string , Action<Social, string>>("fw", ShowFriendsWall)
+            new Tuple<string , Action<Social, string>>("fw", ShowFriendsWall),
+            new Tuple<string , Action<Social, string>>("pwall", ShowWall)
         };
 
         private static void ShowFriendsWall(Social social, string arg2) //На эту функцию можно не обращать внимание, она всего лишь подтверждает то,
@@ -123,7 +125,32 @@ namespace TeamSocial
 
 
         }
-    
+
+        private static void ShowWall(Social social, string arg2)
+        {
+            var drawer = new SocialDrawer();
+            var empty = social.Registration("WallEmpty", "WallEmpty", "WallEmpty@mail.ru", 25, "12345", "Minsk", "Belarus");
+ //           drawer.DrawAProfile(empty);
+            Console.WriteLine($"{empty.FirstName}\n");
+
+
+            while (true)
+            {
+                Console.WriteLine();
+                Console.WriteLine($"PostWall of TeamSocial\n");
+                PostWall PostWall = new PostWall();
+//                PostWall.CreatePostWall();
+
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                if (key.KeyChar == 'x')//Выход в SocialMenu
+                {
+                    Start();
+                }
+
+            }
+
+        }
+
 
         public static void Start() 
         {

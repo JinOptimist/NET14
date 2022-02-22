@@ -28,7 +28,7 @@ namespace TeamSocial
                 social.users.Add(emptyUser);
 
             }
-            return social;*/
+            return social;
         }
 
         public string[]  RandomName()
