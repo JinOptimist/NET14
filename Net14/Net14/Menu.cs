@@ -82,33 +82,45 @@ namespace Net14
         private static void CreateCalendar(string command)
         {
             Console.Clear();
-            var CreaterCalendar = new Calendar.CreateCalendar();
-            var CalDrawer = new CalendarDrawer();
-            var Calendar = CreaterCalendar.Create(7,4);
-            bool StilWatch = true;
-            while (StilWatch)
+            var monthLevel = new MonthLevel();
+            var createCalendar = new CreateCalendar();
+            var calendarDrawer = new CalendarDrawer();
+            bool stillWatch = true;
+            while (stillWatch)
             {
-                CalDrawer.Draw(Calendar);
+                
+                calendarDrawer.Draw(createCalendar.Create(monthLevel.DaysInWeek, monthLevel.WeeksInMonth, monthLevel.DayNumber,
+                    monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year));
                 var key = Console.ReadKey();
                 switch (key.Key)
                 {
                     
                     case ConsoleKey.A:
                     case ConsoleKey.LeftArrow:
-                        CalDrawer.Month--;
+                        Console.Clear();
+                        monthLevel.MonthNumber--;
+                        if (monthLevel.MonthNumber <= 1)
+                        {
+                            monthLevel.MonthNumber = 12;
+                            monthLevel.Year--;
+                        }
                         break;
                     case ConsoleKey.D:
                     case ConsoleKey.RightArrow:
-                        CalDrawer.Month++;
+                        Console.Clear();
+                        monthLevel.MonthNumber++;
+                        if (monthLevel.MonthNumber >= 12)
+                        {
+                            monthLevel.MonthNumber = 1;
+                            monthLevel.Year++;
+                        }
                         break;
                     case ConsoleKey.Escape:
-                        StilWatch = false;
+                        stillWatch = false;
                         break;
+
                 }
-                if (CalDrawer.Month <= 0)
-                {
-                    CalDrawer.Month = 12;
-                }
+                //условие не выхода месяца за границы от 1 до 12
             }
 
 

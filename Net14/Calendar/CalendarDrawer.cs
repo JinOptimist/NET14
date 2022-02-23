@@ -9,22 +9,21 @@ namespace Calendar
 {
     public class CalendarDrawer 
     {
-        public int Month = DateTime.Now.Month;
+        
         public void Draw(MonthLevel monthLevel)
         {
             Console.Clear();
-            Console.WriteLine(AddCurrentMonthUp());
-            AddCurrentMonthUp();
+            Console.WriteLine($"{AddCurrentMonthUp(monthLevel)}, {monthLevel.Year}");
             AddDaysOfWeek();
             Console.WriteLine();
-            var emptyDay = AddEmptyDays();
+            var emptyDay = AddEmptyDays(monthLevel);
 
             int count = 0;
             for (int yIndex = 0; yIndex < monthLevel.WeeksInMonth+1; yIndex++)
             {
                 for (int xIndex = 0; xIndex < monthLevel.DaysInWeek; xIndex++)
                 {
-                    if (count >= DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)+emptyDay)
+                    if (count >= DateTime.DaysInMonth(monthLevel.Year, monthLevel.MonthNumber)+emptyDay)
                     {break;}
                     var date = monthLevel.Month
                         .First(date => date.X == xIndex && date.Y == yIndex);
@@ -55,7 +54,7 @@ namespace Calendar
             }
         }
 
-        private string AddCurrentMonthUp()
+        private string AddCurrentMonthUp(MonthLevel monthLevel)
         {
             var Monthes = new Dictionary<int, string>()
             {
@@ -72,14 +71,12 @@ namespace Calendar
                 {11, "November"},
                 {12, "December"}
             };
-            return Monthes[Month];
+            return Monthes[monthLevel.MonthNumber];
         }
 
-        private int AddEmptyDays()
+        private int AddEmptyDays(MonthLevel monthLevel)
         {
-            int Month = DateTime.Now.Month;
-            int Year = DateTime.Now.Year;
-            string DayOfWeek = new DateTime(Year, Month, 1).DayOfWeek.ToString();
+            string DayOfWeek = new DateTime(monthLevel.Year, monthLevel.MonthNumber, 1).DayOfWeek.ToString();
             var emptyDays = new Dictionary<string, int>()
             {
                 {"Monday", 0},

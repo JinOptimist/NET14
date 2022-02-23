@@ -10,6 +10,8 @@ namespace Calendar
         int DaysInWeek { get; set; }
         int WeeksInMonth { get; set; }
         int DayNumber { get; set; }
+        int MonthNumber { get; set; }
+        int Year { get; set; }
         string EmptyDays { get; set; }
         List<BaseDays> Month { get; set; }
         public void Scroll(DirectionForMonth left);
