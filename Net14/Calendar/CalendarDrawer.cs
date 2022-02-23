@@ -32,6 +32,9 @@ namespace Calendar
                 }
                 Console.WriteLine();
             }
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("use arrowLeft or arrowRight to scrolling monthes");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         private void DrawDate(BaseDays date)
