@@ -113,8 +113,8 @@ namespace Calendar
                     {
                         X = x,
                         Y = y,
-                        Symbol =  monthLevel.DayNumber.ToString()
-                        
+                        Symbol =  monthLevel.DayNumber.ToString(),
+                        Color = ConsoleColor.White
                     };
                     if (emptyDayCount > count)
                         date = new Day(monthLevel)
@@ -123,11 +123,20 @@ namespace Calendar
                             Y = y,
                             Symbol = " "
                         };
-
+                    if (x > 4)
+                        date = new Day(monthLevel)
+                        {
+                            X = x,
+                            Y = y,
+                            Symbol = monthLevel.DayNumber.ToString(),
+                            Color = ConsoleColor.Red
+                        };
                     if (emptyDayCount <= count)
                     {
                         monthLevel.DayNumber++;
                     }
+
+                    
                     count++;
 
                     monthLevel.Month.Add(date);
