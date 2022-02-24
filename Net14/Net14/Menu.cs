@@ -1,4 +1,5 @@
-﻿using Net14.Maze;
+﻿using Calendar;
+using Net14.Maze;
 using System;
 using Calendar;
 
@@ -19,8 +20,10 @@ namespace Net14
             new Tuple<string, Action<string>>("Maze", PlayMaze),
             new Tuple<string, Action<string>>("Numbers", PlayThatNumber),
             new Tuple<string, Action<string>>("Description", ShowGameDescription),
+
             new Tuple<string, Action<string>>("Calendar", CreateCalendar),
             new Tuple<string, Action<string>>("ca", CreateCalendar),
+
         };
 
         private static readonly string[][] HelpMessages = new string[][]
@@ -30,7 +33,9 @@ namespace Net14
             new string[] { "maze", "starts the game \"Maze\"" },
             new string[] { "numbers", "starts the game \"That Number\"" },
             new string[] { "description", "shows rules for each game" },
+
             new string[] { "Calendar", "show calendar" },
+
         };
 
         public void ShowMenu()
@@ -224,6 +229,63 @@ namespace Net14
                               "\n\tThere are various barriers to his way.");
             Console.ResetColor();
         }
+
+        private static void Calendar(string command)
+        {
+            /*Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("This is CALENDAR");
+                            
+            Console.ResetColor();*/
+
+            var calendar = new CalendarToDo();
+
+            Console.Clear();
+            Console.WriteLine("Enter a data in format <day>.<monght>.<year>");
+            calendar.ask();
+
+
+            /*var wanaPlay = true;
+            while (wanaPlay)
+            {
+                //Нарисовали лабиринт
+                drawer.DrawMaze(maze);
+                var key = Console.ReadKey();
+                switch (key.Key)
+                {
+                    case ConsoleKey.A:
+                    case ConsoleKey.LeftArrow:
+                        maze.Move(Direction.Left);
+                        break;
+                    case ConsoleKey.S:
+                    case ConsoleKey.DownArrow:
+                        maze.Move(Direction.Down);
+                        break;
+                    case ConsoleKey.D:
+                    case ConsoleKey.RightArrow:
+                        maze.Move(Direction.Right);
+                        break;
+                    case ConsoleKey.W:
+                    case ConsoleKey.UpArrow:
+                        maze.Move(Direction.Up);
+                        break;
+                    case ConsoleKey.Spacebar:
+                        maze.Hero.Fire();
+                        break;
+                    case ConsoleKey.Escape:
+                        wanaPlay = false;
+                        break;
+                }
+            }*/
+
+
+
+
+        }
+        
+
+
+
+
 
         private static void DisplayAvailableCommands()
         {
