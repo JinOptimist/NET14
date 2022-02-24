@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Calendar.Days;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -7,7 +8,7 @@ namespace Calendar
 {
     public class EnterDate
     {
-        public List<DateTime> SpecialList { get; set; }
+        
         
         public DateTime Date(string mess)
         {
@@ -24,23 +25,20 @@ namespace Calendar
             return checkDate;
         }
         
-        public List<string> Note(string mess)
+        
+        
+        public MonthLevel AddNote(MonthLevel addnote, string add, int day)
         {
-            DateTime seeNote = Date(mess);
-            MonthLevel newCalentdar = new CreateCalendar().Create(seeNote.Year, seeNote.Month, 7, 4);
-            var noteCell = newCalentdar.Month.FindAll(x => x.Symbol == seeNote.Day.ToString());
-            var textNote = noteCell[0].Note;
-            List<string> fullDay = new List<string> { seeNote.ToString("dd/MM/yyyy"), textNote};
+            MonthLevel newCalentdar = addnote;
+            var noteCell = newCalentdar.Month.FindAll(x => x.Symbol == day.ToString());
+            /*var textNote = noteCell[0].Note;
+            var date = new Day(newCalentdar)*/
+            noteCell[0].Note = add;
+            noteCell[0].Color = ConsoleColor.Green;
 
-            
-            return fullDay;
-        }
-        public string AddNote(string add, DateTime date)
-        {
-            var day = add;
-            var specialDay = date;
 
-            return "В процессе разработки\n\n";
+
+            return newCalentdar;
         }
 
 
