@@ -99,7 +99,7 @@ namespace Net14
                     case ConsoleKey.LeftArrow:
                         Console.Clear();
                         monthLevel.MonthNumber--;
-                        if (monthLevel.MonthNumber <= 1)
+                        if (monthLevel.MonthNumber < 1)
                         {
                             monthLevel.MonthNumber = 12;
                             monthLevel.Year--;
@@ -109,7 +109,7 @@ namespace Net14
                     case ConsoleKey.RightArrow:
                         Console.Clear();
                         monthLevel.MonthNumber++;
-                        if (monthLevel.MonthNumber >= 12)
+                        if (monthLevel.MonthNumber > 12)
                         {
                             monthLevel.MonthNumber = 1;
                             monthLevel.Year++;
