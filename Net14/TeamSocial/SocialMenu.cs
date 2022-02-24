@@ -129,17 +129,15 @@ namespace TeamSocial
         private static void ShowWall(Social social, string arg2)
         {
             var drawer = new SocialDrawer();
-            var empty = social.Registration("WallEmpty", "WallEmpty", "WallEmpty@mail.ru", 25, "12345", "Minsk", "Belarus");
- //           drawer.DrawAProfile(empty);
-            Console.WriteLine($"{empty.FirstName}\n");
-
+            //Load User's for create PostWall
+            var empty = social.Registration("Andrew", "Jacobson", "AndJac@mail.ru", 25, "12345", "Minsk", "Belarus");
 
             while (true)
             {
                 Console.WriteLine();
                 Console.WriteLine($"PostWall of TeamSocial\n");
                 PostWall PostWall = new PostWall();
-//                PostWall.CreatePostWall();
+                PostWall.CreatePostWall(empty);
 
                 ConsoleKeyInfo key = Console.ReadKey(true);
                 if (key.KeyChar == 'x')//Выход в SocialMenu

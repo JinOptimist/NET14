@@ -25,5 +25,14 @@ namespace TeamSocial
             
         }
 
+        public void DrawPost(User user)
+        {
+            Console.WriteLine($"################################################");
+            Console.WriteLine($"User {user.FirstName} {user.LastName} profile:\n\n");
+            Console.WriteLine($"\tEmail: {user.Email}");
+            Console.WriteLine($"\tAge: {user.Age}");
+            Console.WriteLine($"\tDate of registration: {user.DateOfRegistration}");
+            Console.WriteLine();
+        }
     }
 }
