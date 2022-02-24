@@ -1,6 +1,7 @@
 ﻿using Calendar;
 using Net14.Maze;
 using System;
+using Calendar;
 
 namespace Net14
 {
@@ -19,7 +20,10 @@ namespace Net14
             new Tuple<string, Action<string>>("Maze", PlayMaze),
             new Tuple<string, Action<string>>("Numbers", PlayThatNumber),
             new Tuple<string, Action<string>>("Description", ShowGameDescription),
-            new Tuple<string, Action<string>>("cal", Calendar)
+
+            new Tuple<string, Action<string>>("Calendar", CreateCalendar),
+            new Tuple<string, Action<string>>("ca", CreateCalendar),
+
         };
 
         private static readonly string[][] HelpMessages = new string[][]
@@ -29,8 +33,8 @@ namespace Net14
             new string[] { "maze", "starts the game \"Maze\"" },
             new string[] { "numbers", "starts the game \"That Number\"" },
             new string[] { "description", "shows rules for each game" },
-            new string[] { "cal", "shows callendar" }
 
+            new string[] { "Calendar", "show calendar" },
 
         };
 
@@ -78,6 +82,53 @@ namespace Net14
             Game game = new();
             game.FirstPlayer();
             game.SecondPlayer();
+        }
+
+        private static void CreateCalendar(string command)
+        {
+            Console.Clear();
+            var monthLevel = new MonthLevel();
+            var createCalendar = new CreateCalendar();
+            var calendarDrawer = new CalendarDrawer();
+            bool stillWatch = true;
+            while (stillWatch)
+            {
+                
+                calendarDrawer.Draw(createCalendar.Create(monthLevel.DaysInWeek, monthLevel.WeeksInMonth, monthLevel.DayNumber,
+                    monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year));
+                var key = Console.ReadKey();
+                switch (key.Key)
+                {
+                    
+                    case ConsoleKey.A:
+                    case ConsoleKey.LeftArrow:
+                        Console.Clear();
+                        monthLevel.MonthNumber--;
+                        if (monthLevel.MonthNumber < 1)
+                        {
+                            monthLevel.MonthNumber = 12;
+                            monthLevel.Year--;
+                        }
+                        break;
+                    case ConsoleKey.D:
+                    case ConsoleKey.RightArrow:
+                        Console.Clear();
+                        monthLevel.MonthNumber++;
+                        if (monthLevel.MonthNumber > 12)
+                        {
+                            monthLevel.MonthNumber = 1;
+                            monthLevel.Year++;
+                        }
+                        break;
+                    case ConsoleKey.Escape:
+                        stillWatch = false;
+                        break;
+
+                }
+                //условие не выхода месяца за границы от 1 до 12
+            }
+
+
         }
 
         private static void PlayMaze(string command)
