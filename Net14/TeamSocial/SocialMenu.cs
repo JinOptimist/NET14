@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using SocialWeb;
 using System.Linq;
+using TeamSocial.Exceptions;
 
 namespace TeamSocial
 {
@@ -18,7 +19,8 @@ namespace TeamSocial
             new string[] { "sing", "Autorization in SocialWeb" },
             new string[] { "exit", "Exit from SocialWeb"},
             new string[] { "users", "All users in SocialWeb"},
-            new string[] { "fw", "Friends wall" }
+            new string[] { "fw", "Friends wall" },
+            new string[] {"sett", "Settings of user"}
 
         };
 
@@ -28,8 +30,25 @@ namespace TeamSocial
             new Tuple<string, Action<Social,string>>("sing", MenuAutorization),
             new Tuple<string, Action<Social, string>>("exit", ExitFromSocialWeb),
             new Tuple<string, Action<Social, string>>("users", AllUsers),
-            new Tuple<string , Action<Social, string>>("fw", ShowFriendsWall)
+            new Tuple<string , Action<Social, string>>("fw", ShowFriendsWall),
+            new Tuple<string, Action<Social, string>>("sett", ShowSettingsOfUser)
         };
+
+        private static void ShowSettingsOfUser(Social social, string arg2)
+        {
+            var drawer = new SocialDrawer();
+            var operation = "";
+            var admin = social.Registration("Leonardo", "DiCaprio", "leo@mail.com", 50, "password", "Los Angelels", "US");
+            while (true) 
+            {
+                operation = drawer.ShowSettingsOfUser(admin);
+                if (operation == "x") 
+                {
+                    Start();
+                }
+            }
+
+        }
 
         private static void ShowFriendsWall(Social social, string arg2) //На эту функцию можно не обращать внимание, она всего лишь подтверждает то,
                                                                         //что добавление и удаление друзей работает  
@@ -202,7 +221,7 @@ namespace TeamSocial
     
         private static void MenuRegistration(Social social, string message) 
         {
-            
+            User user = null; 
             Console.WriteLine("Sign up for Social\n");
 
             Console.Write("Your first name: ");
@@ -229,8 +248,21 @@ namespace TeamSocial
                 Password += key.KeyChar;
             }
             Console.WriteLine();
+            try
+            {
+                user = social.Registration(FirstName, LastName, Email, Age, Password); // метод регистарции вернет зарегистрированного пользователя 
 
-            var user =  social.Registration(FirstName, LastName, Email, Age, Password); // метод регистарции вернет зарегистрированного пользователя 
+            }
+            catch (EmailIsAlreadyExistsException ex)
+            {
+                Console.WriteLine(ex.Message);
+                MenuRegistration(social, message);
+            }
+            catch (InvalidEmailException ex) 
+            {
+                Console.WriteLine(ex.Message);
+                MenuRegistration(social, message);
+            }
             var drawer = new SocialDrawer();
             drawer.DrawAProfile(user); // После регистрации отрисовывается профиль
 

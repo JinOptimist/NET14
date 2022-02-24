@@ -23,9 +23,13 @@ namespace SocialWeb
 
         public FriendsWall wallOffriends;
         public Social social { get; set; } //Теперь каждый user знает в какой soical он находится 
+
+        public UserSettings settings { get; set; }
         public User() 
         {
+            settings = new UserSettings(this);
             wallOffriends = new FriendsWall(this);
+
         }
 
         
