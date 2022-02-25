@@ -102,6 +102,7 @@ namespace Net14
             var monthLevel = new MonthLevel();
             var createCalendar = new CreateCalendar();
             var calendarDrawer = new CalendarDrawer();
+            var specialList = new ListForNotes();
             bool stillWatch = true;
             while (stillWatch)
             {
@@ -111,7 +112,6 @@ namespace Net14
                 var key = Console.ReadKey();
                 switch (key.Key)
                 {
-                    
                     case ConsoleKey.A:
                     case ConsoleKey.LeftArrow:
                         Console.Clear();
@@ -134,7 +134,22 @@ namespace Net14
                         break;
                     case ConsoleKey.Spacebar:
                         var mess = "Enter date in format dd.mm.yyyy:\n";
-                        EnterDate(mess);
+                        var userDate = EnterDate(mess);
+                        Console.Clear();
+                        monthLevel.MonthNumber = userDate.Month;
+                        monthLevel.Year = userDate.Year;
+                        var monthLevelForNote = createCalendar.Create(monthLevel.DaysInWeek, monthLevel.WeeksInMonth, monthLevel.DayNumber,
+                        monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year);
+                        var noteDay = monthLevelForNote.Month.FindAll(x => x.Symbol == userDate.Day.ToString());
+                        Console.Clear();
+                        Console.Write($"Your choosed: {userDate}.  \n");
+                        Console.Write("Add note for this day?  \nPress \"Y\" or \"N\".");
+                        var key2 = Console.ReadKey();
+                        switch (key2.Key)
+                        {
+
+
+                        }
                         break;
                     case ConsoleKey.Escape:
                         stillWatch = false;
@@ -149,17 +164,21 @@ namespace Net14
 
         private static DateTime EnterDate(string mess)
         {
-            DateTime date; // date of birth
+            DateTime date; 
             string input;
-
             do
             {
-                Console.WriteLine(mess);
-                input = Console.ReadLine();
-            }
-            while (!DateTime.TryParseExact(input, "dd.MM.yyyy", null, DateTimeStyles.None, out date));
+                do
+                {
+                    Console.WriteLine(mess);
+                    input = Console.ReadLine();
+                }
+                while (!DateTime.TryParseExact(input, "dd.MM.yyyy", null, DateTimeStyles.None, out date));
+            } while (date.Year < DateTime.Now.Year || date.Month < DateTime.Now.Month);
 
-            return date;
+
+
+                return date;
         }
 
         private static void PlayMaze(string command)
