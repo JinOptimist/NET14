@@ -29,8 +29,8 @@ namespace TeamSocial
             new Tuple<string, Action<Social,string>>("sing", MenuAutorization),
             new Tuple<string, Action<Social, string>>("exit", ExitFromSocialWeb),
             new Tuple<string, Action<Social, string>>("users", AllUsers),
-            new Tuple<string , Action<Social, string>>("fw", ShowFriendsWall),
-            new Tuple<string , Action<Social, string>>("pwall", ShowWall)
+            new Tuple<string, Action<Social, string>>("fw", ShowFriendsWall),
+            new Tuple<string, Action<Social, string>>("pwall", ShowWall)
         };
 
         private static void ShowFriendsWall(Social social, string arg2) //На эту функцию можно не обращать внимание, она всего лишь подтверждает то,
