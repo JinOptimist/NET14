@@ -33,7 +33,7 @@ namespace Calendar
                 Console.WriteLine();
             }
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("use arrowLeft or arrowRight to scrolling monthes");
+            Console.WriteLine("use arrowLeft or arrowRight to scrolling monthes \nUse \"Space\" for enter date.");
             Console.ForegroundColor = ConsoleColor.White;
         }
 

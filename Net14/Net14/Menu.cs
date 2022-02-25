@@ -2,9 +2,8 @@ using MazeCool;
 using Calendar;
 using MazeCool.Cells;
 using System;
-using TeamSocial;
-using System.Threading;
-
+using Calendar;
+using System.Globalization;
 
 namespace Net14
 {
@@ -133,6 +132,10 @@ namespace Net14
                             monthLevel.Year++;
                         }
                         break;
+                    case ConsoleKey.Spacebar:
+                        var mess = "Enter date in format dd.mm.yyyy:\n";
+                        EnterDate(mess);
+                        break;
                     case ConsoleKey.Escape:
                         stillWatch = false;
                         break;
@@ -142,6 +145,21 @@ namespace Net14
             }
 
 
+        }
+
+        private static DateTime EnterDate(string mess)
+        {
+            DateTime date; // date of birth
+            string input;
+
+            do
+            {
+                Console.WriteLine(mess);
+                input = Console.ReadLine();
+            }
+            while (!DateTime.TryParseExact(input, "dd.MM.yyyy", null, DateTimeStyles.None, out date));
+
+            return date;
         }
 
         private static void PlayMaze(string command)
