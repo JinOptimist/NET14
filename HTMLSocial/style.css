@@ -1,0 +1,45 @@
+body
+{
+    margin: 0;
+    background: linear-gradient(45deg, #EECFBA, #C5DDE8);    
+
+}
+.header
+{
+    display: flex;
+    margin: 0 auto;
+    height: 100px;
+    justify-content: right;
+    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+}
+
+.navigation-element
+{
+    color: white;
+    margin: auto;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.navigation
+{
+    display: flex;
+    width: 300px;
+    list-style-type: none;
+    margin-right: 170px;
+}
+.menu
+{
+    width: 400px;
+    border-right: 2px solid grey;
+
+}
+
+.maincontent
+{
+    display: flex;
+}
+.footer
+{
+    height: 40px;
+    border-top: 2px solid grey;
+}
