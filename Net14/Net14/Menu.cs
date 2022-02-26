@@ -2,6 +2,7 @@
 using MazeCool.Cells;
 using System;
 using TeamSocial;
+using System.Threading;
 
 namespace Net14
 {
@@ -95,7 +96,12 @@ namespace Net14
             var drawer = new DrawerMaze();
 
             //Создали лабиринт
-            var maze = builder.Build(27, 15);
+            Action<MazeLevel> drawMazeFunc = maze =>
+            {
+                drawer.DrawMaze(maze);
+                Thread.Sleep(200);
+            };
+            var maze = builder.Build(27, 15, drawMazeFunc);
 
             var wanaPlay = true;
             while (wanaPlay)
