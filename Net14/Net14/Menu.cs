@@ -200,38 +200,6 @@ namespace Net14
                     }
                 }
             }
-
-
-            /* for (int i = 0; i < specialList.UserDay.Count; i++)
-             {
-                 List<SpecialDay> count = specialList.UserDay.FindAll(cell => cell.Year == creater.Year && cell.Month == creater.MonthNumber);
-                 if (creater.Year == specialList.UserDay[i].Year && creater.MonthNumber == specialList.UserDay[i].Month)
-                 {
-
-                 }
-             }*/
-
-
-
-            /*for (int i = 0; i < specialList.UserDay.Count; i++)
-            {
-                while (create.Year == specialList.UserDay[i].Year && create.MonthNumber == specialList.UserDay[i].Month)
-                {
-                    for (int y = 0; y < specialList.UserDay.Count; y++)
-                    {
-                        for (int x = 0; x < create.Month.Count; x++)
-                        {
-                            if (create.Month[x].Symbol == specialList.UserDay[y].Day.ToString())
-                            {
-                                create.Month[x].Note = specialList.UserDay[y].Note;
-                                create.Month[x].Color = specialList.UserDay[y].Color;
-                            }
-                        }
-                    }
-
-                }
-                        
-            }*/
             return creater;
         }
 
@@ -352,63 +320,6 @@ namespace Net14
                               "\n\tThere are various barriers to his way.");
             Console.ResetColor();
         }
-
-        private static void Calendar(string command)
-        {
-            /*Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("This is CALENDAR");
-                            
-            Console.ResetColor();*/
-
-            var calendar = new CalendarToDo();
-
-            Console.Clear();
-            Console.WriteLine("Enter a data in format <day>.<monght>.<year>");
-            calendar.ask();
-
-
-            /*var wanaPlay = true;
-            while (wanaPlay)
-            {
-                //Нарисовали лабиринт
-                drawer.DrawMaze(maze);
-                var key = Console.ReadKey();
-                switch (key.Key)
-                {
-                    case ConsoleKey.A:
-                    case ConsoleKey.LeftArrow:
-                        maze.Move(Direction.Left);
-                        break;
-                    case ConsoleKey.S:
-                    case ConsoleKey.DownArrow:
-                        maze.Move(Direction.Down);
-                        break;
-                    case ConsoleKey.D:
-                    case ConsoleKey.RightArrow:
-                        maze.Move(Direction.Right);
-                        break;
-                    case ConsoleKey.W:
-                    case ConsoleKey.UpArrow:
-                        maze.Move(Direction.Up);
-                        break;
-                    case ConsoleKey.Spacebar:
-                        maze.Hero.Fire();
-                        break;
-                    case ConsoleKey.Escape:
-                        wanaPlay = false;
-                        break;
-                }
-            }*/
-
-
-
-
-        }
-        
-
-
-
-
 
         private static void DisplayAvailableCommands()
         {
