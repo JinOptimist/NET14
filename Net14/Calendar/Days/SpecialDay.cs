@@ -5,14 +5,15 @@ using System.Text;
 namespace Calendar.Days
 {
     
-    public abstract class SpecialDay
+    public class SpecialDay
     {
-        public abstract int Year { get; }
-        public abstract int Month { get; }
-        public abstract int Date { get; }
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public int Day { get; set; }
         public string Note { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
-        public virtual ConsoleColor Color { get; set; } = ConsoleColor.Green;
+        
+        public ConsoleColor Color { get; set; } = ConsoleColor.Green;
+
+        
     }
 }

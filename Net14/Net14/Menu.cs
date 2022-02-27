@@ -2,8 +2,9 @@ using MazeCool;
 using Calendar;
 using MazeCool.Cells;
 using System;
-using Calendar;
 using System.Globalization;
+using Calendar.Days;
+using System.Collections.Generic;
 
 namespace Net14
 {
@@ -103,12 +104,19 @@ namespace Net14
             var createCalendar = new CreateCalendar();
             var calendarDrawer = new CalendarDrawer();
             var specialList = new ListForNotes();
+            specialList.UserDay = new List<SpecialDay>();
+            var cheker = new MonthLevel();
             bool stillWatch = true;
             while (stillWatch)
             {
-                
-                calendarDrawer.Draw(createCalendar.Create(monthLevel.DaysInWeek, monthLevel.WeeksInMonth, monthLevel.DayNumber,
-                    monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year));
+                var creater = createCalendar.Create(monthLevel.DaysInWeek, monthLevel.WeeksInMonth, monthLevel.DayNumber,
+                    monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year);
+                List<SpecialDay> count = specialList.UserDay.FindAll(cell => cell.Year == creater.Year && cell.Month == creater.MonthNumber);
+                if (count.Count != 0)
+                {
+                    creater = CheckCalendar(specialList, creater, count);
+                } 
+                calendarDrawer.Draw(creater);
                 var key = Console.ReadKey();
                 switch (key.Key)
                 {
@@ -133,21 +141,43 @@ namespace Net14
                         }
                         break;
                     case ConsoleKey.Spacebar:
-                        var mess = "Enter date in format dd.mm.yyyy:\n";
+                        var mess = "\nEnter date in format dd.mm.yyyy:\n";
                         var userDate = EnterDate(mess);
                         Console.Clear();
                         monthLevel.MonthNumber = userDate.Month;
                         monthLevel.Year = userDate.Year;
                         var monthLevelForNote = createCalendar.Create(monthLevel.DaysInWeek, monthLevel.WeeksInMonth, monthLevel.DayNumber,
                         monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year);
+
+                        if (count.Count != 0)
+                        {
+                            monthLevelForNote = CheckCalendar(specialList, creater, count);
+                        }
+
                         var noteDay = monthLevelForNote.Month.FindAll(x => x.Symbol == userDate.Day.ToString());
                         Console.Clear();
-                        Console.Write($"Your choosed: {userDate}.  \n");
-                        Console.Write("Add note for this day?  \nPress \"Y\" or \"N\".");
+                        Console.Write($"Your choosed: {userDate.ToShortDateString()}.  \n{noteDay[0].Note}\n\n");
+                        Console.Write("Add note for this day?  \nPress \"Y\" or \"N\".\n");
                         var key2 = Console.ReadKey();
                         switch (key2.Key)
                         {
-
+                            case ConsoleKey.Y:
+                                Console.Clear();
+                                Console.Write("Enter your note: \n");
+                                var note = Console.ReadLine();
+                                var datee = new SpecialDay()
+                                {
+                                    Day = userDate.Day,
+                                    Month = userDate.Month,
+                                    Year = userDate.Year,
+                                    Note = note
+                                };
+                                specialList.UserDay.Add(datee);
+                                monthLevel.MonthNumber = DateTime.Now.Month;
+                                monthLevel.Year = DateTime.Now.Year;
+                                break;
+                            case ConsoleKey.N:
+                                break;
 
                         }
                         break;
@@ -160,6 +190,60 @@ namespace Net14
             }
 
 
+        }
+
+        public static MonthLevel CheckCalendar(ListForNotes list, MonthLevel create, List<SpecialDay> count1)
+        {
+            var creater = create;
+            var specialList = list;
+            List<SpecialDay> count = count1;
+            if (count.Count != 0)
+            {
+                for (int x = 0; x < count.Count; x++)
+                {
+                    for (int y = 0; y < creater.Month.Count; y++)
+                    {
+                        if ( count[x].Day.ToString() == create.Month[y].Symbol)
+                        {
+                            create.Month[y].Note = count[x].Note;
+                            create.Month[y].Color = count[x].Color;
+                        }
+                    }
+                }
+            }
+
+
+            /* for (int i = 0; i < specialList.UserDay.Count; i++)
+             {
+                 List<SpecialDay> count = specialList.UserDay.FindAll(cell => cell.Year == creater.Year && cell.Month == creater.MonthNumber);
+                 if (creater.Year == specialList.UserDay[i].Year && creater.MonthNumber == specialList.UserDay[i].Month)
+                 {
+
+                 }
+             }*/
+
+
+
+            /*for (int i = 0; i < specialList.UserDay.Count; i++)
+            {
+                while (create.Year == specialList.UserDay[i].Year && create.MonthNumber == specialList.UserDay[i].Month)
+                {
+                    for (int y = 0; y < specialList.UserDay.Count; y++)
+                    {
+                        for (int x = 0; x < create.Month.Count; x++)
+                        {
+                            if (create.Month[x].Symbol == specialList.UserDay[y].Day.ToString())
+                            {
+                                create.Month[x].Note = specialList.UserDay[y].Note;
+                                create.Month[x].Color = specialList.UserDay[y].Color;
+                            }
+                        }
+                    }
+
+                }
+                        
+            }*/
+            return creater;
         }
 
         private static DateTime EnterDate(string mess)

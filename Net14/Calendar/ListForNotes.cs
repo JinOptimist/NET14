@@ -7,6 +7,6 @@ namespace Calendar
 {
     public class ListForNotes
     {
-        public List<SpecialDay> Note { get; set; }
+        public List<SpecialDay> UserDay { get; set; }
     }
 }
