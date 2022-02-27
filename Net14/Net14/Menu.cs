@@ -1,7 +1,6 @@
 ﻿using Calendar;
 using Net14.Maze;
 using System;
-using Calendar;
 
 namespace Net14
 {
@@ -90,18 +89,25 @@ namespace Net14
             var monthLevel = new MonthLevel();
             var createCalendar = new CreateCalendar();
             var calendarDrawer = new CalendarDrawer();
+            var allMonthes = new AddYear();
+            var oldMonth = monthLevel.MonthNumber;
             bool stillWatch = true;
             while (stillWatch)
             {
-                
                 calendarDrawer.Draw(createCalendar.Create(monthLevel.DaysInWeek, monthLevel.WeeksInMonth, monthLevel.DayNumber,
-                    monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year));
+                    monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year, monthLevel.WeekendsCount));
+                
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("use 'Q' or 'E' to scrolling monthes");
+                Console.WriteLine("use 'A' or 'D' to scrolling years");
+                Console.WriteLine("use 'DownArrow' to watch all monthes in current Year");
+                Console.ForegroundColor = ConsoleColor.White;
                 var key = Console.ReadKey();
                 switch (key.Key)
                 {
                     
-                    case ConsoleKey.A:
-                    case ConsoleKey.LeftArrow:
+                    case ConsoleKey.Q:
                         Console.Clear();
                         monthLevel.MonthNumber--;
                         if (monthLevel.MonthNumber < 1)
@@ -110,8 +116,7 @@ namespace Net14
                             monthLevel.Year--;
                         }
                         break;
-                    case ConsoleKey.D:
-                    case ConsoleKey.RightArrow:
+                    case ConsoleKey.E:
                         Console.Clear();
                         monthLevel.MonthNumber++;
                         if (monthLevel.MonthNumber > 12)
@@ -120,12 +125,34 @@ namespace Net14
                             monthLevel.Year++;
                         }
                         break;
+                    case ConsoleKey.A:
+                        Console.Clear();
+                        monthLevel.Year--;
+                        if (monthLevel.Year <= 0)
+                        {
+                            Console.WriteLine("I can't show u calendar for -1 Year");
+                        }
+                        break;
+                    case ConsoleKey.D:
+                        Console.Clear();
+                        monthLevel.Year++;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        Console.Clear();
+                        oldMonth = monthLevel.MonthNumber;
+                        allMonthes.DrawYear(monthLevel);
+                        Console.WriteLine();
+                        break;
+                    case ConsoleKey.UpArrow:
+                        Console.Clear();
+                        monthLevel.MonthNumber = oldMonth;
+                        break;
+
                     case ConsoleKey.Escape:
                         stillWatch = false;
                         break;
 
                 }
-                //условие не выхода месяца за границы от 1 до 12
             }
 
 
@@ -230,62 +257,7 @@ namespace Net14
             Console.ResetColor();
         }
 
-        private static void Calendar(string command)
-        {
-            /*Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("This is CALENDAR");
-                            
-            Console.ResetColor();*/
-
-            var calendar = new CalendarToDo();
-
-            Console.Clear();
-            Console.WriteLine("Enter a data in format <day>.<monght>.<year>");
-            calendar.ask();
-
-
-            /*var wanaPlay = true;
-            while (wanaPlay)
-            {
-                //Нарисовали лабиринт
-                drawer.DrawMaze(maze);
-                var key = Console.ReadKey();
-                switch (key.Key)
-                {
-                    case ConsoleKey.A:
-                    case ConsoleKey.LeftArrow:
-                        maze.Move(Direction.Left);
-                        break;
-                    case ConsoleKey.S:
-                    case ConsoleKey.DownArrow:
-                        maze.Move(Direction.Down);
-                        break;
-                    case ConsoleKey.D:
-                    case ConsoleKey.RightArrow:
-                        maze.Move(Direction.Right);
-                        break;
-                    case ConsoleKey.W:
-                    case ConsoleKey.UpArrow:
-                        maze.Move(Direction.Up);
-                        break;
-                    case ConsoleKey.Spacebar:
-                        maze.Hero.Fire();
-                        break;
-                    case ConsoleKey.Escape:
-                        wanaPlay = false;
-                        break;
-                }
-            }*/
-
-
-
-
-        }
-        
-
-
-
-
+       
 
         private static void DisplayAvailableCommands()
         {
