@@ -1,14 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.32112.339
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net14", "Net14\Net14.csproj", "{7B3094C1-3ABD-4528-A2B4-643073C4408B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net14.Tests", "Net14.Tests\Net14.Tests.csproj", "{C951C890-8B4B-4A06-A9BA-9EBC1B326436}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeCool", "MazeCool\MazeCool.csproj", "{F4D576D1-8D98-45FD-AD66-3051B201583A}"
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamSocial", "TeamSocial\TeamSocial.csproj", "{8DCE8D7C-AFF8-4586-9940-F637F790D45B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeCool", "MazeCool\MazeCool.csproj", "{F4D576D1-8D98-45FD-AD66-3051B201583A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeamSocial", "TeamSocial\TeamSocial.csproj", "{8DCE8D7C-AFF8-4586-9940-F637F790D45B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -9,20 +9,21 @@ namespace MazeCool
     {
         private MazeLevel mazeLevel;
         private readonly Random _random = new Random();
+        private Action<MazeLevel> _additionlStep;
 
-        public MazeLevel Build(int width = 5, int hegith = 7)
+        public MazeLevel Build(int width = 5, int hegith = 7, 
+            Action<MazeLevel> additionlStep = null)
         {
+            _additionlStep = additionlStep;
             mazeLevel = GetBaseMaze(width, hegith);
+
+            mazeLevel.Hero = new Сharacter(mazeLevel) { Hp = 10};
 
             //Весь лабиринт только в стенах
             BuildWall();
 
             //Ломаем стены где положенно
             BuildGround();
-
-
-            //AddDoors();
-
 
             // Добавляем точку входа Х
             EnterPoint();
@@ -33,6 +34,7 @@ namespace MazeCool
             AddHero();
 
             AddCoins();
+
             RandomTeleportation();
 
             GreateSleepingBag();
@@ -65,8 +67,6 @@ namespace MazeCool
                 Stamina = 10,
                 Mood = Mood.Normal
             };
-
-
         }
 
         private void BuildRandomBlueWall()
@@ -133,11 +133,6 @@ namespace MazeCool
 
         private void BuildGround()
         {
-
-            //Создаём рисовальщик, что бы по ходу создания
-            //лабиринта, показывать промежуточные результаты
-            //var drawer = new DrawerMaze();
-
             //Берём НЕ крайние значения
             var coreCell = mazeLevel // весь лабиринт
                 .Cells //Все ячейки лабиринта
@@ -166,8 +161,10 @@ namespace MazeCool
             do
             {
                 //Если хотим смотрим по шагово, как он ломает стены
-                //drawer.DrawMaze(mazeLevel);
-                //Thread.Sleep(200);
+                if (_additionlStep != null)
+                {
+                    _additionlStep(mazeLevel);
+                }
 
                 //Берём ближайшие стены к шахтёру
                 var nearWalls = GetNearCells<Wall>(
@@ -233,7 +230,6 @@ namespace MazeCool
                 }
             }
         }
-
 
         public MazeLevel BuildSmallStandrad()
         {
@@ -342,8 +338,6 @@ namespace MazeCool
                 .OfType<CellType>()
                 .ToList();
         }
-
-
       
         private List<BaseCell> GroundForSpawnDoors2Y(List<BaseCell> allCells, BaseCell currentCell)
         {

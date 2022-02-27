@@ -21,6 +21,8 @@ namespace TeamSocial
             new string[] { "users", "All users in SocialWeb"},
             new string[] { "fw", "Friends wall" },
             new string[] {"sett", "Settings of user"}
+            new string[] { "fw", "Friends wall" },
+            new string[] { "pwall", "Post wall" },
 
         };
 
@@ -30,6 +32,8 @@ namespace TeamSocial
             new Tuple<string, Action<Social,string>>("sing", MenuAutorization),
             new Tuple<string, Action<Social, string>>("exit", ExitFromSocialWeb),
             new Tuple<string, Action<Social, string>>("users", AllUsers),
+            new Tuple<string, Action<Social, string>>("fw", ShowFriendsWall),
+            new Tuple<string, Action<Social, string>>("pwall", ShowWall)
             new Tuple<string , Action<Social, string>>("fw", ShowFriendsWall),
             new Tuple<string, Action<Social, string>>("sett", ShowSettingsOfUser)
         };
@@ -142,7 +146,30 @@ namespace TeamSocial
 
 
         }
-    
+
+        private static void ShowWall(Social social, string arg2)
+        {
+            var drawer = new SocialDrawer();
+            //Load User's for create PostWall
+            var empty = social.Registration("Andrew", "Jacobson", "AndJac@mail.ru", 25, "12345", "Minsk", "Belarus");
+
+            while (true)
+            {
+                Console.WriteLine();
+                Console.WriteLine($"PostWall of TeamSocial\n");
+                PostWall PostWall = new PostWall();
+                PostWall.CreatePostWall(empty);
+
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                if (key.KeyChar == 'x')//Выход в SocialMenu
+                {
+                    Start();
+                }
+
+            }
+
+        }
+
 
         public static void Start() 
         {

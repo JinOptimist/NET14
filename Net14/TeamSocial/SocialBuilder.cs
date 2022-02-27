@@ -12,6 +12,7 @@ namespace TeamSocial
         
         public Social BuildSocial()
         {
+
             var social = new Social();
             for (int i = 1; i < 4; i++)
             {
@@ -28,6 +29,20 @@ namespace TeamSocial
 
             }
             return social;
+        }
+
+        public string[]  RandomName()
+        {
+            var name = new string[2];
+            var personGenerator = new PersonNameGenerator();
+
+            var FirstName = personGenerator.GenerateRandomFirstName();
+            var LastName = personGenerator.GenerateRandomLastName();
+
+            name[0] = FirstName;
+            name[1] = LastName;
+            return name;
+           
         }
     }
 }
