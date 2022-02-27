@@ -19,8 +19,7 @@ namespace TeamSocial
             new string[] { "sing", "Autorization in SocialWeb" },
             new string[] { "exit", "Exit from SocialWeb"},
             new string[] { "users", "All users in SocialWeb"},
-            new string[] { "fw", "Friends wall" },
-            new string[] {"sett", "Settings of user"}
+            new string[] {"sett", "Settings of user"},
             new string[] { "fw", "Friends wall" },
             new string[] { "pwall", "Post wall" },
 
@@ -32,8 +31,7 @@ namespace TeamSocial
             new Tuple<string, Action<Social,string>>("sing", MenuAutorization),
             new Tuple<string, Action<Social, string>>("exit", ExitFromSocialWeb),
             new Tuple<string, Action<Social, string>>("users", AllUsers),
-            new Tuple<string, Action<Social, string>>("fw", ShowFriendsWall),
-            new Tuple<string, Action<Social, string>>("pwall", ShowWall)
+            new Tuple<string, Action<Social, string>>("pwall", ShowWall),
             new Tuple<string , Action<Social, string>>("fw", ShowFriendsWall),
             new Tuple<string, Action<Social, string>>("sett", ShowSettingsOfUser)
         };

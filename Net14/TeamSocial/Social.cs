@@ -91,7 +91,7 @@ namespace TeamSocial
             return salt;
         }
 
-        public static bool Validate(string emailAddress) //Этот метод проверяет правильность введенного Email
+        public bool Validate(string emailAddress) //Этот метод проверяет правильность введенного Email
         {
             var regex = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
             bool isValid = Regex.IsMatch(emailAddress, regex, RegexOptions.IgnoreCase);
