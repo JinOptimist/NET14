@@ -12,6 +12,8 @@ namespace Calendar
         int DayNumber { get; set; }
         int MonthNumber { get; set; }
         int Year { get; set; }
+        int WeekendsCount { get; set; }
+        int WorkDaysCount { get; set; }
         string EmptyDays { get; set; }
         List<BaseDays> Month { get; set; }
         public void Scroll(DirectionForMonth left);

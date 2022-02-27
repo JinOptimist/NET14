@@ -2,9 +2,6 @@ using MazeCool;
 using Calendar;
 using MazeCool.Cells;
 using System;
-using System.Globalization;
-using Calendar.Days;
-using System.Collections.Generic;
 
 namespace Net14
 {
@@ -103,22 +100,26 @@ namespace Net14
             var monthLevel = new MonthLevel();
             var createCalendar = new CreateCalendar();
             var calendarDrawer = new CalendarDrawer();
-            var specialList = new ListForNotes();
-            specialList.UserDay = new List<SpecialDay>();
-            var cheker = new MonthLevel();
+            var allMonthes = new AddYear();
+            var oldMonth = monthLevel.MonthNumber;
             bool stillWatch = true;
             var noNotes = "No notes for today.";
             while (stillWatch)
             {
-                var creater = createCalendar.Create(monthLevel.DaysInWeek, monthLevel.WeeksInMonth, monthLevel.DayNumber,
-                    monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year);
-                creater = CheckCalendar(specialList, creater, noNotes);
-                calendarDrawer.Draw(creater);
+                calendarDrawer.Draw(createCalendar.Create(monthLevel.DaysInWeek, monthLevel.WeeksInMonth, monthLevel.DayNumber,
+                    monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year, monthLevel.WeekendsCount));
+                
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("use 'Q' or 'E' to scrolling monthes");
+                Console.WriteLine("use 'A' or 'D' to scrolling years");
+                Console.WriteLine("use 'DownArrow' to watch all monthes in current Year");
+                Console.ForegroundColor = ConsoleColor.White;
                 var key = Console.ReadKey();
                 switch (key.Key)
                 {
-                    case ConsoleKey.A:
-                    case ConsoleKey.LeftArrow:
+                    
+                    case ConsoleKey.Q:
                         Console.Clear();
                         monthLevel.MonthNumber--;
                         if (monthLevel.MonthNumber < 1)
@@ -127,8 +128,7 @@ namespace Net14
                             monthLevel.Year--;
                         }
                         break;
-                    case ConsoleKey.D:
-                    case ConsoleKey.RightArrow:
+                    case ConsoleKey.E:
                         Console.Clear();
                         monthLevel.MonthNumber++;
                         if (monthLevel.MonthNumber > 12)
@@ -137,64 +137,34 @@ namespace Net14
                             monthLevel.Year++;
                         }
                         break;
-                    case ConsoleKey.Spacebar:
-                        bool boolForNote1 = true;
-                        bool boolForNote2 = true;
-                        var mess = "\nEnter date in format dd.mm.yyyy:\n";
-                        var userDate = EnterDate(mess);
+                    case ConsoleKey.A:
                         Console.Clear();
-                        monthLevel.MonthNumber = userDate.Month;
-                        monthLevel.Year = userDate.Year;
-                        var monthLevelForNote = createCalendar.Create(monthLevel.DaysInWeek, monthLevel.WeeksInMonth, monthLevel.DayNumber,
-                        monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year);
-                        while (boolForNote1)
+                        monthLevel.Year--;
+                        if (monthLevel.Year <= 0)
                         {
-                            monthLevelForNote = CheckCalendar(specialList, monthLevelForNote, noNotes);
-                            var noteDay = monthLevelForNote.Month.Find(x => x.Symbol == userDate.Day.ToString());
-                            Console.Clear();
-                            Console.Write($"Your choosed: {userDate.ToShortDateString()}.  \n{noteDay.Note}\n\n");
-                            Console.Write("Add note for this day?  \nPress \"Y\" .... \"N\"....\"X\".\n");
-                            boolForNote2 = true;
-                            while (boolForNote2)
-                            {
-                                var key2 = Console.ReadKey();
-                                switch (key2.Key)
-                                {
-                                    case ConsoleKey.Y:
-                                        Console.Clear();
-                                        Console.Write("Enter your note: \n");
-                                        var note = Console.ReadLine();
-                                        specialList = AddNotes(specialList, userDate, note, noNotes);
-                                        monthLevel.MonthNumber = DateTime.Now.Month;
-                                        monthLevel.Year = DateTime.Now.Year;
-                                        boolForNote1 = false;
-                                        boolForNote2 = false;
-                                        break;
-                                    case ConsoleKey.N:
-                                        monthLevel.MonthNumber = DateTime.Now.Month;
-                                        monthLevel.Year = DateTime.Now.Year;
-                                        boolForNote1 = false;
-                                        boolForNote2 = false;
-                                        break;
-                                    case ConsoleKey.X:
-                                        specialList.UserDay.RemoveAll(x => x.Day == userDate.Day &&
-                                        x.Month == userDate.Month && x.Year == userDate.Year);
-                                        boolForNote2 = false;
-                                        break;
-
-                                }
-
-                            }
+                            Console.WriteLine("I can't show u calendar for -1 Year");
                         }
-                        
                         break;
-                        
+                    case ConsoleKey.D:
+                        Console.Clear();
+                        monthLevel.Year++;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        Console.Clear();
+                        oldMonth = monthLevel.MonthNumber;
+                        allMonthes.DrawYear(monthLevel);
+                        Console.WriteLine();
+                        break;
+                    case ConsoleKey.UpArrow:
+                        Console.Clear();
+                        monthLevel.MonthNumber = oldMonth;
+                        break;
+
                     case ConsoleKey.Escape:
                         stillWatch = false;
                         break;
 
                 }
-                //условие не выхода месяца за границы от 1 до 12
             }
 
 
@@ -374,6 +344,8 @@ namespace Net14
                               "\n\tThere are various barriers to his way.");
             Console.ResetColor();
         }
+
+       
 
         private static void DisplayAvailableCommands()
         {
