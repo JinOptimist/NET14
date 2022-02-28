@@ -12,6 +12,10 @@ body
     background: white;
     justify-content: space-between;
     box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+    position: fixed;
+    width: 100%;
+    top: 0px;
+
 }
 
 .navigation-element
@@ -30,14 +34,14 @@ body
 }
 .menu
 {
-    width: 300px;
-
+    position: fixed;
+    flex: 1;
 }
 
 .maincontent
 {
     display: flex;
-    margin: 0 200px;
+    margin: 200px 200px;
 
 }
 .footer
@@ -54,6 +58,7 @@ body
     height: 40px;
     padding: 10px;
     align-items: center;
+    transition: background 0.3s ease;
 
 }
 
@@ -81,19 +86,20 @@ body
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    min-width: 450px;
+    flex: 6;
 }
-.content-element
+.content-element-card
 {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 450px;
-    height: 700px;
+    min-height: 770px;
     border-radius: 10px;
     background: white;
     box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
-    margin: 100px auto;
+    max-height: 1200px;
 }
 .user-name
 {
@@ -101,12 +107,16 @@ body
     align-items: center;
     color: black;
     font-size: 20px;
+    height: 100%;
+    margin-right: 20px;
 }
 .user-info
 {
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 100px;
+    width: 100%;
 }
 
 
@@ -116,13 +126,20 @@ body
     overflow: hidden;
     width: 40px;
     height: 40px;
+    margin-right: 15px;
 }
 
 .user-photo img{
     width:100%;
     height:100%;
     object-fit: cover;
-  }
+    transition: opacity 0.2s ease;
+
+}
+.user-photo img:hover
+{
+    opacity: 0.5;
+}
 .block-post-image
 {
     display: flex;
@@ -147,8 +164,10 @@ footer
 
 .footer-of-post
 {
-    height: 100px;
+    min-height: 100px;
+    max-height: 1000px;
     padding: 20px;
+    padding-bottom: 50px;
 }
 
 .menu-recomendations-user
@@ -156,6 +175,7 @@ footer
     display: flex;
     flex-direction: column;
     margin-top: 50px;
+
 
 }
 .recomendation-element-menu
@@ -175,12 +195,18 @@ footer
 
 .logo
 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
     height: 100%;
+
+
 }
 
 .logo img
 {
-    height: 100%;
+    height: 70%;
 
 }
 
@@ -189,13 +215,100 @@ footer
     display: flex;
     align-items: center;
     width: 250px;
+    
 }
 
 .header input
 {
-    height: 40px;
+    height: 30px;
     width: 100%;
     border-radius: 92px;
     background: rgba(122,122,122,0.1);
     border: 1px solid grey;
+    padding: 7px;
 }
+
+.recomendation-name-menu:hover
+{
+    font-size: 18px;
+}
+.recomendation-name-menu
+{
+    height: 100%;
+    transition: font-size 0.1s ease;
+
+}
+
+.user-name p.name:hover
+{
+    text-decoration: underline grey;
+}
+
+.name
+{
+    margin-right: 5px;
+}
+
+.content-element
+{
+    display: flex;
+    width: 600px;
+    height: 770px;
+    align-items: flex-end;
+    margin: 80px auto 10px;
+    justify-content: space-around;
+    flex-direction: row-reverse;
+
+}
+.post-operations
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100px;
+    height: 250px;
+}
+
+.operations
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+    
+}
+
+.operations img
+{
+    display: inline-block;
+    overflow: hidden;
+    width: 25px;
+    height: 25px;
+    padding: 10px;
+    transition: height 0.2s ease;
+    transition: width 0.2s ease;
+
+}
+
+.operations img:hover
+{
+    width: 30px;
+    height: 30px;
+}
+
+.operations:hover
+{
+    background: rgba(122,122,122,0.1);
+    
+
+}
+.operations:first-child:hover
+{
+    background: rgba(245, 19, 19, 0.2);
+    
+}
+
