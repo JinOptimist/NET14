@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using Net14.Maze.Cells;
+using MazeCool.Cells;
 using Moq;
-using Net14.Maze;
+using MazeCool;
 
 namespace Net14.Tests.Maze.Cells
 {
