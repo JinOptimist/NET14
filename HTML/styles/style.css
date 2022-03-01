@@ -1,3 +1,8 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
 .dog-nice{
     border: 1px red solid;
     border-radius: 17px;
@@ -36,6 +41,7 @@
 
 .main-block{
     display: flex;
+    margin-top: 40px;
 }
 .menu{
     background: aqua;
@@ -45,6 +51,7 @@
 .menu a{
     display: inline-block;
     width: 100%;
+    text-decoration: none;
 }
 
 .menu .button {
@@ -86,4 +93,13 @@
 
 .buttons .button:last-child{
     border-bottom-right-radius: 16px;
+}
+
+.top-menu{
+    top: 0;
+    left: 0;
+    height: 40px;
+    width: 100%;
+    position: fixed;
+    background: #24dada;
 }
