@@ -162,7 +162,7 @@ namespace Net14
                         monthLevel.MonthNumber = userDate.Month;
                         monthLevel.Year = userDate.Year;
                         var monthLevelForNote = createCalendar.Create(monthLevel.DaysInWeek, monthLevel.WeeksInMonth, monthLevel.DayNumber,
-                        monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year);
+                        monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year, monthLevel.WeekendsCount);
                         while (boolForNote1)
                         {
                             monthLevelForNote = CheckCalendar(specialList, monthLevelForNote, noNotes);
