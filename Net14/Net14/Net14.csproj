@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="RandomNameGeneratorLibrary" Version="1.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MazeCool\MazeCool.csproj" />
+    <ProjectReference Include="..\TeamSocial\TeamSocial.csproj" />
   </ItemGroup>
 
 </Project>
