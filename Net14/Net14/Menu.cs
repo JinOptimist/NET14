@@ -137,6 +137,60 @@ namespace Net14
                             monthLevel.Year++;
                         }
                         break;
+
+                    case ConsoleKey.Spacebar:
+                        bool boolForNote1 = true;
+                        bool boolForNote2 = true;
+                        var mess = "\nEnter date in format dd.mm.yyyy:\n";
+                        var userDate = EnterDate(mess);
+                        Console.Clear();
+                        monthLevel.MonthNumber = userDate.Month;
+                        monthLevel.Year = userDate.Year;
+                        var monthLevelForNote = createCalendar.Create(monthLevel.DaysInWeek, monthLevel.WeeksInMonth, monthLevel.DayNumber,
+                        monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year, monthLevel.WeekendsCount);
+                        while (boolForNote1)
+                        {
+                            monthLevelForNote = CheckCalendar(specialList, monthLevelForNote, noNotes);
+                            var noteDay = monthLevelForNote.Month.Find(x => x.Symbol == userDate.Day.ToString());
+                            Console.Clear();
+                            Console.Write($"Your choosed: {userDate.ToShortDateString()}.  \n{noteDay.Note}\n\n");
+                            Console.Write("Add note for this day?  \nPress \"Y\" .... \"N\"....\"X\".\n");
+                            boolForNote2 = true;
+                            while (boolForNote2)
+                            {
+                                var key2 = Console.ReadKey();
+                                switch (key2.Key)
+                                {
+                                    case ConsoleKey.Y:
+                                        Console.Clear();
+                                        Console.Write("Enter your note: \n");
+                                        var note = Console.ReadLine();
+                                        specialList = AddNotes(specialList, userDate, note, noNotes);
+                                        monthLevel.MonthNumber = DateTime.Now.Month;
+                                        monthLevel.Year = DateTime.Now.Year;
+                                        boolForNote1 = false;
+                                        boolForNote2 = false;
+                                        break;
+                                    case ConsoleKey.N:
+                                        monthLevel.MonthNumber = DateTime.Now.Month;
+                                        monthLevel.Year = DateTime.Now.Year;
+                                        boolForNote1 = false;
+                                        boolForNote2 = false;
+                                        break;
+                                    case ConsoleKey.X:
+                                        specialList.UserDay.RemoveAll(x => x.Day == userDate.Day &&
+                                        x.Month == userDate.Month && x.Year == userDate.Year);
+                                        boolForNote2 = false;
+                                        break;
+
+                                }
+
+                            }
+                        }
+                        
+                        break;
+                        
+
                     case ConsoleKey.A:
                         Console.Clear();
                         monthLevel.Year--;

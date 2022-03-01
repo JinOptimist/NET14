@@ -1,15 +1,14 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Net14.Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css?v=3" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/Calendar.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js"></script>
-    @RenderSection("Scripts", required: false)
 </head>
 <body>
     <div>
@@ -18,17 +17,9 @@
         <a href="/Calendar/Index">Calendar</a>
     </div>
     <div class="container">
-        @if (User.Identity.IsAuthenticated)
-        {
-            <div>Мы рады тебя снова видеть</div>
-        }
-        else
-        {
-            <div>Ты кто?</div>
-        }
-
-
         @RenderBody()
     </div>
+   
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
