@@ -1,9 +1,13 @@
-﻿using Calendar;
-using Net14.Maze;
+using MazeCool;
+using Calendar;
+using MazeCool.Cells;
 using System;
+using TeamSocial;
+using System.Threading;
 using System.Globalization;
 using Calendar.Days;
 using System.Collections.Generic;
+
 
 namespace Net14
 {
@@ -20,6 +24,7 @@ namespace Net14
             new Tuple<string, Action<string>>("help", PrintHelp),
             new Tuple<string, Action<string>>("exit", Exit),
             new Tuple<string, Action<string>>("Maze", PlayMaze),
+            new Tuple<string, Action<string>>("Social", SocialBuilder),
             new Tuple<string, Action<string>>("Numbers", PlayThatNumber),
             new Tuple<string, Action<string>>("Description", ShowGameDescription),
 
@@ -33,6 +38,7 @@ namespace Net14
             new string[] { "help", "prints the help screen" },
             new string[] { "exit", "exits the application" },
             new string[] { "maze", "starts the game \"Maze\"" },
+            new string[] { "social", "starts the game \"Social\"" },
             new string[] { "numbers", "starts the game \"That Number\"" },
             new string[] { "description", "shows rules for each game" },
 
@@ -77,6 +83,14 @@ namespace Net14
             Console.WriteLine();
         }
 
+        private static void SocialBuilder(string command)
+        {
+
+            var socialMenu = new SocialMenu();
+            SocialMenu.Start();
+            DisplayAvailableCommands();
+        }
+
         private static void PlayThatNumber(string command)
         {
             Console.Clear();
@@ -92,22 +106,35 @@ namespace Net14
             var monthLevel = new MonthLevel();
             var createCalendar = new CreateCalendar();
             var calendarDrawer = new CalendarDrawer();
+
             var specialList = new ListForNotes();
             specialList.UserDay = new List<SpecialDay>();
             var cheker = new MonthLevel();
+
+            var allMonthes = new AddYear();
+            var oldMonth = monthLevel.MonthNumber;
+
             bool stillWatch = true;
             var noNotes = "No notes for today.";
             while (stillWatch)
             {
-                var creater = createCalendar.Create(monthLevel.DaysInWeek, monthLevel.WeeksInMonth, monthLevel.DayNumber,
-                    monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year);
-                creater = CheckCalendar(specialList, creater, noNotes);
-                calendarDrawer.Draw(creater);
+
+
+                calendarDrawer.Draw(createCalendar.Create(monthLevel.DaysInWeek, monthLevel.WeeksInMonth, monthLevel.DayNumber,
+                    monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year, monthLevel.WeekendsCount));
+                
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("use 'Q' or 'E' to scrolling monthes");
+                Console.WriteLine("use 'A' or 'D' to scrolling years");
+                Console.WriteLine("use 'DownArrow' to watch all monthes in current Year");
+                Console.ForegroundColor = ConsoleColor.White;
                 var key = Console.ReadKey();
                 switch (key.Key)
                 {
-                    case ConsoleKey.A:
-                    case ConsoleKey.LeftArrow:
+                    
+                    case ConsoleKey.Q:
+
                         Console.Clear();
                         monthLevel.MonthNumber--;
                         if (monthLevel.MonthNumber < 1)
@@ -116,8 +143,7 @@ namespace Net14
                             monthLevel.Year--;
                         }
                         break;
-                    case ConsoleKey.D:
-                    case ConsoleKey.RightArrow:
+                    case ConsoleKey.E:
                         Console.Clear();
                         monthLevel.MonthNumber++;
                         if (monthLevel.MonthNumber > 12)
@@ -126,6 +152,7 @@ namespace Net14
                             monthLevel.Year++;
                         }
                         break;
+
                     case ConsoleKey.Spacebar:
                         bool boolForNote1 = true;
                         bool boolForNote2 = true;
@@ -178,12 +205,36 @@ namespace Net14
                         
                         break;
                         
+
+                    case ConsoleKey.A:
+                        Console.Clear();
+                        monthLevel.Year--;
+                        if (monthLevel.Year <= 0)
+                        {
+                            Console.WriteLine("I can't show u calendar for -1 Year");
+                        }
+                        break;
+                    case ConsoleKey.D:
+                        Console.Clear();
+                        monthLevel.Year++;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        Console.Clear();
+                        oldMonth = monthLevel.MonthNumber;
+                        allMonthes.DrawYear(monthLevel);
+                        Console.WriteLine();
+                        break;
+                    case ConsoleKey.UpArrow:
+                        Console.Clear();
+                        monthLevel.MonthNumber = oldMonth;
+                        break;
+
+
                     case ConsoleKey.Escape:
                         stillWatch = false;
                         break;
 
                 }
-                //условие не выхода месяца за границы от 1 до 12
             }
 
 
@@ -265,10 +316,15 @@ namespace Net14
             Console.Clear();
 
             var builder = new MazeBuilder();
-            var drawer = new Drawer();
+            var drawer = new DrawerMaze();
 
             //Создали лабиринт
-            var maze = builder.Build(27, 15);
+            Action<MazeLevel> drawMazeFunc = maze =>
+            {
+                drawer.DrawMaze(maze);
+                Thread.Sleep(200);
+            };
+            var maze = builder.Build(27, 15, drawMazeFunc);
 
             var wanaPlay = true;
             while (wanaPlay)
@@ -358,6 +414,7 @@ namespace Net14
                               "\n\tThere are various barriers to his way.");
             Console.ResetColor();
         }
+
 
         private static void DisplayAvailableCommands()
         {

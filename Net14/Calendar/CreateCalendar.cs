@@ -15,9 +15,9 @@ namespace Calendar
         
         
         public MonthLevel Create(int daysInWeek, int weeksInMonth, int dayNumber,
-            string emptyDays, int monthNumber, int year)
+            string emptyDays, int monthNumber, int year, int weekendsCount)
         {
-            monthLevel = CreateCurrentMonth(daysInWeek, weeksInMonth, dayNumber, emptyDays, monthNumber, year);
+            monthLevel = CreateCurrentMonth(daysInWeek, weeksInMonth, dayNumber, emptyDays, monthNumber, year, weekendsCount);
             
             CurrentCal(monthLevel);
             
@@ -25,8 +25,8 @@ namespace Calendar
         }
 
         
-        public MonthLevel CreateCurrentMonth(int daysInWeek, int weeksInMonth, int dayNumber,
-            string emptyDays, int monthNumber, int year)
+        private MonthLevel CreateCurrentMonth(int daysInWeek, int weeksInMonth, int dayNumber,
+            string emptyDays, int monthNumber, int year, int weekendsCount)
         {
             var monthLevel = new MonthLevel();
             monthLevel.DaysInWeek = daysInWeek;
@@ -35,6 +35,7 @@ namespace Calendar
             monthLevel.EmptyDays = emptyDays;
             monthLevel.MonthNumber = monthNumber;
             monthLevel.Year = year;
+            monthLevel.WeekendsCount = weekendsCount;
             monthLevel.Month = new List<BaseDays>();
             return monthLevel;
         }
@@ -116,8 +117,9 @@ namespace Calendar
                         Symbol =  monthLevel.DayNumber.ToString(),
                         Color = ConsoleColor.White
                     };
-                    
+
                     if (x > 4)
+                    {
                         date = new Day(monthLevel)
                         {
                             X = x,
@@ -125,13 +127,23 @@ namespace Calendar
                             Symbol = monthLevel.DayNumber.ToString(),
                             Color = ConsoleColor.Red
                         };
+                        monthLevel.WeekendsCount++;
+                    }
+
                     if (emptyDayCount > count)
+                    {
+                        if (date.Color == ConsoleColor.Red)
+                        { monthLevel.WeekendsCount--; };
                         date = new Day(monthLevel)
                         {
                             X = x,
                             Y = y,
                             Symbol = " "
                         };
+                        
+                    }
+                        
+                    
                     if (emptyDayCount <= count)
                     {
                         monthLevel.DayNumber++;
