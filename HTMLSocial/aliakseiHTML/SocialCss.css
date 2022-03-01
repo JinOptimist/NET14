@@ -226,6 +226,7 @@ footer
     background: rgba(122,122,122,0.1);
     border: 1px solid grey;
     padding: 7px;
+    font-size: 20px;
 }
 
 .recomendation-name-menu:hover
