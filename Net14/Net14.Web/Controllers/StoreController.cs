@@ -9,17 +9,22 @@ using System.Threading.Tasks;
 
 namespace Net14.Web.Controllers
 {
-    public class TeamStoreController : Controller
+    public class StoreController : Controller
     {
         public IActionResult Index()
         {
-            
+
+            return View();
+        }
+        public IActionResult Basket()
+        {
+
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        //public IActionResult Privacy()
+        //{
+        //    return View();
+        //}
     }
 }
