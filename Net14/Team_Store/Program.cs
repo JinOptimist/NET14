@@ -25,7 +25,10 @@ namespace Team_Store
             //Console.ReadKey();
               
             //var menu = new Menu();
-            //menu.Start();           
+            //menu.Start();  
+            var menu = new Menu();
+            menu.Start();
+            menu.DrawCategories();
         }
     }
 }

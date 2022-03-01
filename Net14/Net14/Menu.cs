@@ -1,6 +1,10 @@
-﻿using MazeCool;
+using MazeCool;
+using Calendar;
 using MazeCool.Cells;
 using System;
+using TeamSocial;
+using System.Threading;
+
 
 namespace Net14
 {
@@ -17,8 +21,13 @@ namespace Net14
             new Tuple<string, Action<string>>("help", PrintHelp),
             new Tuple<string, Action<string>>("exit", Exit),
             new Tuple<string, Action<string>>("Maze", PlayMaze),
+            new Tuple<string, Action<string>>("Social", SocialBuilder),
             new Tuple<string, Action<string>>("Numbers", PlayThatNumber),
-            new Tuple<string, Action<string>>("Description", ShowGameDescription)
+            new Tuple<string, Action<string>>("Description", ShowGameDescription),
+
+            new Tuple<string, Action<string>>("Calendar", CreateCalendar),
+            new Tuple<string, Action<string>>("ca", CreateCalendar),
+
         };
 
         private static readonly string[][] HelpMessages = new string[][]
@@ -26,8 +35,12 @@ namespace Net14
             new string[] { "help", "prints the help screen" },
             new string[] { "exit", "exits the application" },
             new string[] { "maze", "starts the game \"Maze\"" },
+            new string[] { "social", "starts the game \"Social\"" },
             new string[] { "numbers", "starts the game \"That Number\"" },
-            new string[] { "description", "shows rules for each game" }
+            new string[] { "description", "shows rules for each game" },
+
+            new string[] { "Calendar", "show calendar" },
+
         };
 
         public void ShowMenu()
@@ -67,6 +80,14 @@ namespace Net14
             Console.WriteLine();
         }
 
+        private static void SocialBuilder(string command)
+        {
+
+            var socialMenu = new SocialMenu();
+            SocialMenu.Start();
+            DisplayAvailableCommands();
+        }
+
         private static void PlayThatNumber(string command)
         {
             Console.Clear();
@@ -74,6 +95,53 @@ namespace Net14
             Game game = new();
             game.FirstPlayer();
             game.SecondPlayer();
+        }
+
+        private static void CreateCalendar(string command)
+        {
+            Console.Clear();
+            var monthLevel = new MonthLevel();
+            var createCalendar = new CreateCalendar();
+            var calendarDrawer = new CalendarDrawer();
+            bool stillWatch = true;
+            while (stillWatch)
+            {
+                
+                calendarDrawer.Draw(createCalendar.Create(monthLevel.DaysInWeek, monthLevel.WeeksInMonth, monthLevel.DayNumber,
+                    monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year));
+                var key = Console.ReadKey();
+                switch (key.Key)
+                {
+                    
+                    case ConsoleKey.A:
+                    case ConsoleKey.LeftArrow:
+                        Console.Clear();
+                        monthLevel.MonthNumber--;
+                        if (monthLevel.MonthNumber < 1)
+                        {
+                            monthLevel.MonthNumber = 12;
+                            monthLevel.Year--;
+                        }
+                        break;
+                    case ConsoleKey.D:
+                    case ConsoleKey.RightArrow:
+                        Console.Clear();
+                        monthLevel.MonthNumber++;
+                        if (monthLevel.MonthNumber > 12)
+                        {
+                            monthLevel.MonthNumber = 1;
+                            monthLevel.Year++;
+                        }
+                        break;
+                    case ConsoleKey.Escape:
+                        stillWatch = false;
+                        break;
+
+                }
+                //условие не выхода месяца за границы от 1 до 12
+            }
+
+
         }
 
         private static void PlayMaze(string command)
@@ -84,7 +152,12 @@ namespace Net14
             var drawer = new DrawerMaze();
 
             //Создали лабиринт
-            var maze = builder.Build(27, 15);
+            Action<MazeLevel> drawMazeFunc = maze =>
+            {
+                drawer.DrawMaze(maze);
+                Thread.Sleep(200);
+            };
+            var maze = builder.Build(27, 15, drawMazeFunc);
 
             var wanaPlay = true;
             while (wanaPlay)
@@ -174,6 +247,63 @@ namespace Net14
                               "\n\tThere are various barriers to his way.");
             Console.ResetColor();
         }
+
+        private static void Calendar(string command)
+        {
+            /*Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("This is CALENDAR");
+                            
+            Console.ResetColor();*/
+
+            var calendar = new CalendarToDo();
+
+            Console.Clear();
+            Console.WriteLine("Enter a data in format <day>.<monght>.<year>");
+            calendar.ask();
+
+
+            /*var wanaPlay = true;
+            while (wanaPlay)
+            {
+                //Нарисовали лабиринт
+                drawer.DrawMaze(maze);
+                var key = Console.ReadKey();
+                switch (key.Key)
+                {
+                    case ConsoleKey.A:
+                    case ConsoleKey.LeftArrow:
+                        maze.Move(Direction.Left);
+                        break;
+                    case ConsoleKey.S:
+                    case ConsoleKey.DownArrow:
+                        maze.Move(Direction.Down);
+                        break;
+                    case ConsoleKey.D:
+                    case ConsoleKey.RightArrow:
+                        maze.Move(Direction.Right);
+                        break;
+                    case ConsoleKey.W:
+                    case ConsoleKey.UpArrow:
+                        maze.Move(Direction.Up);
+                        break;
+                    case ConsoleKey.Spacebar:
+                        maze.Hero.Fire();
+                        break;
+                    case ConsoleKey.Escape:
+                        wanaPlay = false;
+                        break;
+                }
+            }*/
+
+
+
+
+        }
+        
+
+
+
+
 
         private static void DisplayAvailableCommands()
         {
