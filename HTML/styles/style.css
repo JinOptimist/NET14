@@ -1,0 +1,105 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.dog-nice{
+    border: 1px red solid;
+    border-radius: 17px;
+    margin: 5px
+}
+
+.dog-nice .name{
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.dog-image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 400px;
+    height: 200px;
+}
+
+.dog-image img{
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 10px;
+}
+
+.dog-block{
+    display: flex;
+    /* border: 3px blue solid; */
+    flex: 1;
+    justify-content: space-between   ;
+    background: blanchedalmond;
+    flex-wrap: wrap;
+}
+
+.main-block{
+    display: flex;
+    margin-top: 40px;
+}
+.menu{
+    background: aqua;
+    width: 150px;
+}
+
+.menu a{
+    display: inline-block;
+    width: 100%;
+    text-decoration: none;
+}
+
+.menu .button {
+    width: calc(100% - 23px - 23px - 2px);
+}
+
+.buttons{
+    display: flex;
+}
+
+.button{
+    box-shadow:inset 0px 1px 3px 0px #91b8b3;
+	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
+	background-color:#768d87;
+	border-radius:5px;
+	border:1px solid #566963;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:11px 23px;
+	text-decoration:none;
+	text-shadow:0px -1px 0px #2b665e;
+}
+
+.button:hover{
+    background: black;
+}
+
+.buttons .button{
+    flex: 1;
+}
+
+.buttons .button:first-child{
+    border-bottom-left-radius: 16px;
+}
+
+.buttons .button:last-child{
+    border-bottom-right-radius: 16px;
+}
+
+.top-menu{
+    top: 0;
+    left: 0;
+    height: 40px;
+    width: 100%;
+    position: fixed;
+    background: #24dada;
+}
