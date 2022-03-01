@@ -24,8 +24,8 @@ namespace Team_Store
             //basket.Show();
             //Console.ReadKey();
               
-            //var menu = new Menu();
-            //menu.Start();           
+            var menu = new Menu();
+            menu.Start();           
         }
     }
 }
