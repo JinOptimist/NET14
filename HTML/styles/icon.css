@@ -1,0 +1,24 @@
+.icon{
+    display: flex;
+}
+.icon::before{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-size: cover;
+    content: ' ';
+}
+
+.icon.home::before{
+    background-image: url('../images/icons/outline_home_black_24dp.png');
+}
+.icon.home:hover::before{
+    background-image: url('../images/icons/outline_home_white_24dp.png');
+}
+
+.icon.settings::before{
+    background-image: url('../images/icons/outline_settings_black_24dp.png');
+}
+.icon.settings:hover::before{
+    background-image: url('../images/icons/outline_settings_white_24dp.png');
+}

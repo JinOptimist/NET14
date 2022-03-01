@@ -1,6 +1,12 @@
-﻿using Calendar;
-using Net14.Maze;
+
+using MazeCool;
+using Calendar;
+using MazeCool.Cells;
 using System;
+using TeamSocial;
+using System.Threading;
+
+
 
 namespace Net14
 {
@@ -17,6 +23,7 @@ namespace Net14
             new Tuple<string, Action<string>>("help", PrintHelp),
             new Tuple<string, Action<string>>("exit", Exit),
             new Tuple<string, Action<string>>("Maze", PlayMaze),
+            new Tuple<string, Action<string>>("Social", SocialBuilder),
             new Tuple<string, Action<string>>("Numbers", PlayThatNumber),
             new Tuple<string, Action<string>>("Description", ShowGameDescription),
 
@@ -30,6 +37,7 @@ namespace Net14
             new string[] { "help", "prints the help screen" },
             new string[] { "exit", "exits the application" },
             new string[] { "maze", "starts the game \"Maze\"" },
+            new string[] { "social", "starts the game \"Social\"" },
             new string[] { "numbers", "starts the game \"That Number\"" },
             new string[] { "description", "shows rules for each game" },
 
@@ -72,6 +80,14 @@ namespace Net14
 
             Console.WriteLine(HintMessage);
             Console.WriteLine();
+        }
+
+        private static void SocialBuilder(string command)
+        {
+
+            var socialMenu = new SocialMenu();
+            SocialMenu.Start();
+            DisplayAvailableCommands();
         }
 
         private static void PlayThatNumber(string command)
@@ -163,10 +179,15 @@ namespace Net14
             Console.Clear();
 
             var builder = new MazeBuilder();
-            var drawer = new Drawer();
+            var drawer = new DrawerMaze();
 
             //Создали лабиринт
-            var maze = builder.Build(27, 15);
+            Action<MazeLevel> drawMazeFunc = maze =>
+            {
+                drawer.DrawMaze(maze);
+                Thread.Sleep(200);
+            };
+            var maze = builder.Build(27, 15, drawMazeFunc);
 
             var wanaPlay = true;
             while (wanaPlay)
