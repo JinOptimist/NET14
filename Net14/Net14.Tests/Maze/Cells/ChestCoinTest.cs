@@ -1,6 +1,6 @@
-﻿using Moq;
-using Net14.Maze;
-using Net14.Maze.Cells;
+﻿using MazeCool;
+using MazeCool.Cells;
+using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

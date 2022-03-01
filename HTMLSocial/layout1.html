@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+        
+        <script>
+        function openForm() {
+          document.getElementById("myForm").style.display = "block";
+        }
+        
+        function closeForm() {
+          document.getElementById("myForm").style.display = "none";
+        }
+        </script>
+    
+    <header class="header">
+        <ul class="navigation">
+            <li class="navigation-element"><a href="">Home</a></li>
+            <li class="navigation-element" onclick="openForm()">Sign in</li>
+                        
+        </ul>
+    </header>
+    <div class="maincontent">
+        <div class="menu">
+            Я меню
+        </div>
+        <div class="content">
+            <div class="form-popup" id="myForm">
+                <form action="" class="form-container">
+                  <h1>Вход</h1>
+              
+                  <label for="email"><b>Почта</b></label>
+                  <input type="text" placeholder="Ваша почта" name="email" required>
+              
+                  <label for="psw"><b>Пароль</b></label>
+                  <input type="password" placeholder="Ваш пароль" name="psw" required>
+              
+                  <button type="submit" class="btn">Вход</button>
+                  <button type="button" class="btn cancel" onclick="closeForm()">Закрыть</button>
+                </form>
+              </div>
+            Я контент
+        </div>
+    </div>
+    <footer class="footer">
+        Я футер
+    </footer>
+</body>
+</html>
