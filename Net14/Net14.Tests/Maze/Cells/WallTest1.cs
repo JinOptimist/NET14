@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 using Moq;
-using Net14.Maze.Cells;
-using Net14.Maze;
+using MazeCool.Cells;
+using MazeCool;
 
 namespace Net14.Tests.Maze.Cells
 {

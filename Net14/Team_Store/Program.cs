@@ -16,16 +16,19 @@ namespace Team_Store
             //Goods good7 = new Goods("Cake", 2, "Products", 10);
             //Goods good8 = new Goods("Sausage", 10, "Products", 5);
             //Goods good9 = new Goods("Cucumber", 23, "Products", 3);
-                               
+
             //basket.Add(good8);
             //basket.Add(good8);
             //basket.Add(good3);
             //basket.Clear();
             //basket.Show();
             //Console.ReadKey();
-              
+
             var menu = new Menu();
-            menu.Start();           
+            menu.Start();
+            //var menu = new Menu();
+            //menu.Start();
+            //menu.DrawCategories();
         }
     }
 }
