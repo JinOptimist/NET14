@@ -14,6 +14,6 @@ namespace Calendar.Days
         public override int Month => DateTime.Now.Month;
         public override int Date => DateTime.Now.Day;
 
-        public override string Note { get; set; } = "No notes for today.";
+        public override string Note { get; set; }
     }
 }

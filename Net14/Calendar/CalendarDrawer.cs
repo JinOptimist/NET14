@@ -31,6 +31,7 @@ namespace Calendar
                 }
                 Console.WriteLine();
             }
+
             Console.WriteLine($"{monthLevel.WeekendsCount} " +
 $"weekends and {DateTime.DaysInMonth(monthLevel.Year, monthLevel.MonthNumber) - monthLevel.WeekendsCount} working days ");
 
