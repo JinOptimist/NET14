@@ -193,15 +193,13 @@ footer
     font-weight: 700;
 }
 
-.logo
-{
+.logo {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 50px;
     height: 100%;
-
-
+    margin-left: 50px;
 }
 
 .logo img
@@ -313,3 +311,10 @@ footer
     
 }
 
+.time-of-posting 
+{
+    display: flex;
+    width: 400px;
+    padding: 10px;
+    justify-content: flex-start;
+}
