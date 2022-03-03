@@ -1,4 +1,6 @@
-﻿namespace Net14
+﻿using System;
+
+namespace Net14
 {
     class Program
     {

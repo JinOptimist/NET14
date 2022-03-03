@@ -1,7 +1,7 @@
 ﻿using System;
 using Moq;
-using Net14.Maze;
-using Net14.Maze.Cells;
+using MazeCool;
+using MazeCool.Cells;
 using NUnit.Framework;
 using System;
 

@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MazeCool\MazeCool.csproj" />
     <ProjectReference Include="..\Net14\Net14.csproj" />
   </ItemGroup>
 
