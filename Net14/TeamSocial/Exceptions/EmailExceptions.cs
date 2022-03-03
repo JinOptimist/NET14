@@ -4,14 +4,6 @@ using System.Text;
 
 namespace TeamSocial.Exceptions
 {
-    [Serializable]
-    public class NullDataException : Exception
-    {
-        public NullDataException() : base() { }
-        public NullDataException(string message) : base(message) { }
-        public NullDataException(string message, Exception inner) : base(message, inner) { }
-
-    }
 
     [Serializable]
     public class EmailIsAlreadyExistsException : Exception 
