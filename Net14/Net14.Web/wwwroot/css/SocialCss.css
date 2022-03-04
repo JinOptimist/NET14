@@ -95,7 +95,7 @@ body
     flex-direction: column;
     align-items: center;
     width: 450px;
-    min-height: 770px;
+    min-height: 100%;
     border-radius: 10px;
     background: white;
     box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
@@ -193,15 +193,13 @@ footer
     font-weight: 700;
 }
 
-.logo
-{
+.logo {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 50px;
     height: 100%;
-
-
+    margin-left: 50px;
 }
 
 .logo img
@@ -254,9 +252,10 @@ footer
 {
     display: flex;
     width: 600px;
-    height: 770px;
+    min-height: 800px;
     align-items: flex-end;
     margin: 80px auto 10px;
+    margin-left: 500px;
     justify-content: space-around;
     flex-direction: row-reverse;
 
@@ -313,3 +312,10 @@ footer
     
 }
 
+.time-of-posting 
+{
+    display: flex;
+    width: 400px;
+    padding: 10px;
+    justify-content: flex-start;
+}
