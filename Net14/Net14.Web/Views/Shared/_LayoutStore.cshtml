@@ -5,20 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Net14.Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/store.css" />
+    <link rel="stylesheet" href="~/css/Store.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js"></script>
 </head>
 <body>
     <div>
-        STORE
+        <a href="/Home/Index">home</a>
+        <a href="/Gallery/Index">gallery</a>
         <a href="/Store/Index">store</a>
     </div>
-    <div class="container">
-        @RenderBody()
-    </div>
+    <div>
+        <div class="header">
+            <div class="name">
+                <img src="/images/Store/logo.png" class="logo">
+            </div>
+            <div class="search">
+                <div class="search-field">
+                    search string
+                </div>
+                <div class="search-icon">
+                    <img src="/images/Store/search.png" class="basket-icon">
+                </div>
+            </div>
+            <div class="account">
+                <div>
+                    account
+                </div>
+            </div>
+            <div class="basket">
+                <a href="/Store/Basket">
+                    <img src="/images/Store/basket.png" class="basket-icon">
+                </a>
+            </div>
+        </div>
+        <div class="container">
+            @RenderBody()
+        </div>
+        <footer class="pagefooter">
 
-   
+            <div class="leftfooter">
+                <div>
+                    <div>© 2022 TMSNET14 </div>
+                    <div>Artem,Mark,Anton,Andrey </div>
+                </div>
+                <div class="adress">
+                    г.Минск ул.Тимирязева 67 оф.601
+                </div>
+                <div class="iconfoot">
+
+                </div>
+
+
+        </footer>
+    </div>
+ 
+
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>
