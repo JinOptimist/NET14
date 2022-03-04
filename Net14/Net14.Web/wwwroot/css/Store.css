@@ -4,7 +4,7 @@
 }
 
 .logo {
-    width: 138px;
+    width: 42px;
     height: 42px;
     border-radius: 10px;
 }
@@ -21,17 +21,24 @@
     align-items: center;
     width: 128px;
     height: 32px;
-    background: #5A6169;
+    border: 2px solid #212322;
     padding: 5px;
     border-radius: 10px;
     margin: 5px;
+}
+.shopox {
+    font-family: impact, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    font-variant: small-caps;
+    padding-left: 10px;
 }
 
 .search {
     justify-content: center;
     display: flex;
     flex: 1;
-    border: 1px solid #5A6169;
+    border: 2px solid #212322;
     border-radius: 10px;
     background: #E9ECEF;
     padding: 3px;
@@ -44,7 +51,8 @@
 }
 
 .search-icon {
-    border-left: 1px solid #5A6169;
+    border-left: 2px solid #212322;
+    height: 32px;
 }
 
 .account {
@@ -57,6 +65,7 @@
     padding: 5px;
     border-radius: 10px;
     margin: 5px;
+    border: 2px solid #212322;
 }
 
 .basket {
@@ -68,10 +77,13 @@
     padding: 5px;
     border-radius: 16px;
     margin: 5px;
+  
+    border: 2px solid #212322;
 }
 
 .basket-icon {
     width: 32px;
+
 }
 
 .text {
@@ -184,11 +196,7 @@
 }
 
 
-.logo {
-    width: 138px;
-    height: 42px;
-    border-radius: 10px;
-}
+
 
 
 .icon {
