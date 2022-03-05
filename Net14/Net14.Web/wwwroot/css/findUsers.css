@@ -13,8 +13,8 @@
     display: inline-block;
     border-radius: 50%;
     overflow: hidden;
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
 }
 
 .size-for-user {
@@ -49,6 +49,8 @@
     height: 40px;
     border-radius: 92px;
     border: 1px solid grey;
+    padding: 5px;
+    font-size: 20px;
 }
 
 .AllUsersSearchContecher {
