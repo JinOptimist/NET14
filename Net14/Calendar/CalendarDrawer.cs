@@ -31,10 +31,6 @@ namespace Calendar
                 }
                 Console.WriteLine();
             }
-
-            Console.WriteLine($"{monthLevel.WeekendsCount} " +
-$"weekends and {DateTime.DaysInMonth(monthLevel.Year, monthLevel.MonthNumber) - monthLevel.WeekendsCount} working days ");
-
         }
 
         private void DrawDate(BaseDays date)
@@ -91,6 +87,20 @@ $"weekends and {DateTime.DaysInMonth(monthLevel.Year, monthLevel.MonthNumber) - 
                 {"Sunday",6}
             };
             return emptyDays[DayOfWeek];
+        }
+        public void AddCountOfWeekendsAndWorkDays(MonthLevel monthLevel)
+        {
+            int daysInMonth = DateTime.DaysInMonth(monthLevel.Year, monthLevel.MonthNumber);
+            int weekendsCount = 0;
+            for (int i = 1; i <= daysInMonth; i++)
+            {
+                DateTime dt = new DateTime(monthLevel.Year, monthLevel.MonthNumber, i);
+                if (dt.DayOfWeek.ToString() == "Saturday" || dt.DayOfWeek.ToString() == "Sunday")
+                {
+                    weekendsCount++;
+                }
+            };
+            Console.WriteLine($"In this month {weekendsCount} weekends and {daysInMonth-weekendsCount} work days");
         }
     }
 }

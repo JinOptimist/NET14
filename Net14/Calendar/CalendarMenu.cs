@@ -27,18 +27,18 @@ namespace Calendar
             while (stillWatch)
             {
                 var creater = createCalendar.Create(monthLevel.DaysInWeek, monthLevel.WeeksInMonth, monthLevel.DayNumber,
-                    monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year, monthLevel.WeekendsCount);
+                    monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year);
                 List<SpecialDay> count = specialList.UserDay.FindAll(cell => cell.Year == creater.Year && cell.Month == creater.MonthNumber);
                 if (count.Count != 0)
                 {
                     creater = CheckCalendar(specialList, creater, noNotes);
                 }
                 calendarDrawer.Draw(creater);
-
+                calendarDrawer.AddCountOfWeekendsAndWorkDays(monthLevel);
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("use 'Q' or 'E' to scrolling monthes");
                 Console.WriteLine("use 'A' or 'D' to scrolling years");
-                Console.WriteLine("nUse 'Space' for enter date.");
+                Console.WriteLine("Use 'Space' for enter date.");
                 Console.WriteLine("use 'DownArrow' to watch all monthes in current Year");
                 Console.ForegroundColor = ConsoleColor.White;
                 var key = Console.ReadKey();
@@ -74,7 +74,7 @@ namespace Calendar
                         monthLevel.MonthNumber = userDate.Month;
                         monthLevel.Year = userDate.Year;
                         var monthLevelForNote = createCalendar.Create(monthLevel.DaysInWeek, monthLevel.WeeksInMonth, monthLevel.DayNumber,
-                        monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year, monthLevel.WeekendsCount);
+                        monthLevel.EmptyDays, monthLevel.MonthNumber, monthLevel.Year);
                         while (boolForNote1)
                         {
                             monthLevelForNote = CheckCalendar(specialList, monthLevelForNote, noNotes);
@@ -126,6 +126,7 @@ namespace Calendar
                         if (monthLevel.Year <= 0)
                         {
                             Console.WriteLine("I can't show u calendar for -1 Year");
+                            monthLevel.Year++;
                         }
                         break;
                     case ConsoleKey.D:
@@ -134,15 +135,41 @@ namespace Calendar
                         break;
                     case ConsoleKey.DownArrow:
                         Console.Clear();
-                        oldMonth = monthLevel.MonthNumber;
-                        allMonthes.DrawYear(monthLevel);
-                        Console.WriteLine();
+                        bool stillWatchYear = true;
+                        while (stillWatchYear == true)
+                        {
+                            oldMonth = monthLevel.MonthNumber;
+                            allMonthes.DrawYear(monthLevel);
+                            allMonthes.AddCountForWeekendsAndWorkDaysInYear(monthLevel);
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("use 'UpArrow' for back to watching month");
+                            Console.WriteLine("use 'A' or 'D' to scrolling years");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            var key3 = Console.ReadKey();
+                            switch (key3.Key)
+                            {
+                                case ConsoleKey.UpArrow:
+                                    Console.Clear();
+                                    monthLevel.MonthNumber = oldMonth;
+                                    stillWatchYear = false;
+                                    break;
+                                case ConsoleKey.A:
+                                    Console.Clear();
+                                    monthLevel.Year--;
+                                    if (monthLevel.Year <= 0)
+                                    {
+                                        Console.WriteLine("I can't show u calendar for -1 Year");
+                                        monthLevel.Year++;
+                                    }
+                                    break;
+                                case ConsoleKey.D:
+                                    Console.Clear();
+                                    monthLevel.Year++;
+                                    break;
+                            }
+                        }
                         break;
-                    case ConsoleKey.UpArrow:
-                        Console.Clear();
-                        monthLevel.MonthNumber = oldMonth;
-                        break;
-
+                    
 
                     case ConsoleKey.Escape:
                         stillWatch = false;
