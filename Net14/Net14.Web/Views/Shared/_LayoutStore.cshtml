@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Net14.Web</title>
+    <link rel="stylesheet" href="~/css/Store.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js"></script>
+    @RenderSection("Scripts", required: false)
+</head>
+<body>
+    <div>
+        <a href="/Home/Index">home</a>
+        <a href="/Gallery/Index">gallery</a>
+        <a href="/Store/Index">store</a>
+    </div>
+    <div>
+        <div class="header">
+            <div class="name">
+                <img src="/images/Store/LogoGray.png" class="logo">
+                <span class=shopox>ShopOx </span>
+            </div>
+            <div class="search">
+                <div class="search-field">
+                    search string
+                </div>
+                <div class="search-icon">
+                    <img src="/images/Store/search.png" class="basket-icon">
+                </div>
+            </div>
+            <div class="account">
+                <div>
+                    account
+                </div>
+            </div>
+            <div class="basket">
+                <a href="/Store/Basket">
+                    <img src="/images/Store/basket.png" class="basket-icon">
+                </a>
+            </div>
+        </div>
+        <div class="container">
+            @RenderBody()
+        </div>
+        <footer class="pagefooter">
+
+            <div class="leftfooter">
+                <div>
+                    <div>© 2022 TMSNET14 </div>
+                    <div>Artem,Mark,Anton,Andrey </div>
+                </div>
+                <div class="adress">
+                    г.Минск ул.Тимирязева 67 оф.601
+                </div>
+                <div class="iconfoot">
+
+                </div>
+            </div>
+
+        </footer>
+    </div>
+ 
+
+</body>
+</html>

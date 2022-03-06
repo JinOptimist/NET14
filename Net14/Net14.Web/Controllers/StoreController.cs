@@ -9,19 +9,28 @@ using System.Threading.Tasks;
 
 namespace Net14.Web.Controllers
 {
-    public class HomeController : Controller
+    public class StoreController : Controller
     {
         public IActionResult Index()
         {
-            var model = 1;
-            model++;
-            return View(model);
-        }
 
-        public IActionResult Privacy()
+            return View();
+        }
+        public IActionResult Basket()
         {
+
+            return View();
+        }
+        public IActionResult Shoes()
+        {
+
             return View();
         }
 
+        public IActionResult Shoes2()
+        {
+
+            return View();
+        }
     }
 }
