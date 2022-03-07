@@ -13,8 +13,8 @@
     display: inline-block;
     border-radius: 50%;
     overflow: hidden;
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
 }
 
 .size-for-user {
@@ -29,7 +29,7 @@
     display: flex;
     align-items: center;
 }
-}
+
 
 .usersCenter {
     display: flex;
