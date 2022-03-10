@@ -1,7 +1,8 @@
-body {
+body
+{
     margin: 0;
     background: rgb(245, 244, 244);
-    font-family: Arial, Helvetica, sans-serif;
+
 }
 .header
 {
@@ -66,20 +67,7 @@ body {
     background: rgba(122,122,122,0.1);
 }
 
-.menu-element:last-child
-{
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-    border: 2px solid red;
-    color: red;
-    border-radius: 5px;
-}
 
-.menu-element:last-child:hover
-{
-    background: rgba(255, 64, 64, 0.2);
-}
 .content
 {
     display: flex;
@@ -177,11 +165,12 @@ footer
 
 
 }
-.recomendation-element-menu
-{
+
+.recomendation-element-menu {
     display: flex;
     align-items: center;
     margin-top: 30px;
+    padding: 0px 5px;
 }
 
 .menu-recomendation-title
@@ -190,6 +179,7 @@ footer
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     font-weight: 700;
+    padding: 5px;
 }
 
 .logo {
@@ -318,43 +308,3 @@ footer
     padding: 10px;
     justify-content: flex-start;
 }
-
-.navigation-element:last-child {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 20px;
-    background: url(../images/Social/settings.png);
-    width: 30px;
-    height: 30px;
-    background-size: cover;
-}
-.settings-div {
-    justify-content: space-evenly;
-    border-radius: 10px;
-    position: absolute;
-    flex-direction: column;
-    height: 250px;
-    width: 200px;
-    top: 110px;
-    right: 97px;
-    background: white;
-    font-size: 25px;
-    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
-    align-items: center;
-}
-#header-settings {
-
-    display: none;
-}
-
-.elements-from-hidden {
-    padding: 10px;
-    transition: background 0.2s ease;
-}
-
-.elements-from-hidden:hover {
-    background: rgba(122,122,122,0.1);
-}
-
