@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Security.Cryptography;
+using TeamSocial.Exceptions;
+using System.Text.RegularExpressions;
 
 namespace TeamSocial
 {
@@ -33,12 +35,20 @@ namespace TeamSocial
             var FirstName = firstName;
             var LastName = lastName;
             var Email = email;
+            if (users.Exists(user => user.Email == Email)) //Если такой Email уже есть
+            {
+                throw new EmailIsAlreadyExistsException($"Email {Email} is already exists");//То говорим, что EmailIsAlredyExists
+            }
+            if (!Validate(Email)) //Если такого Email нету, но он введен неправильно, то говорим, что InvalidEmailException
+            {
+                throw new InvalidEmailException($"Email {Email} is invalid");
+            }
             var Age = age;
             var City = city;
             var Country = country;
             var Salt = GetSalt();
             var Password = GetHashOfPassword(password, Salt);
-            
+
 
             var user = new User()
             {
@@ -79,6 +89,13 @@ namespace TeamSocial
             }
 
             return salt;
+        }
+
+        public bool Validate(string emailAddress) //Этот метод проверяет правильность введенного Email
+        {
+            var regex = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+            bool isValid = Regex.IsMatch(emailAddress, regex, RegexOptions.IgnoreCase);
+            return isValid;
         }
 
     }
