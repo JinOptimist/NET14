@@ -1,0 +1,83 @@
+.find-recomendation-element-menu {
+    align-items: center;
+    margin-top: 100px;
+    border-radius: 15px;
+    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
+    background: white;
+    padding: 40px;
+    transition: background 0.5s ease;
+}
+
+
+.find-user-photo {
+    display: inline-block;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 70px;
+    height: 70px;
+}
+
+.size-for-user {
+    font-size: 45px;
+}
+
+.text-indent {
+    text-indent: 20px;
+    max-width: 700px;
+    text-indent: 20px;
+    max-width: 700px;
+    display: flex;
+    align-items: center;
+}
+
+
+.usersCenter {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+}
+
+.findUsers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.AllUsersSearch {
+    width: 250px;
+    height: 40px;
+    border-radius: 92px;
+    border: 1px solid grey;
+    padding: 5px;
+    font-size: 20px;
+}
+
+.AllUsersSearchContecher {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.Conteyner {
+    width: 100%;
+}
+
+.user-name-and-photo {
+    display: flex
+
+}
+.place-of-user {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.place-of-user div {
+    padding: 5px;
+}
+
+.find-recomendation-element-menu:hover {
+    background: rgba(122,122,122,0.1);
+}
+
