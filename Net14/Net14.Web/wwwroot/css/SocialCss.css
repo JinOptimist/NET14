@@ -1,8 +1,7 @@
-body
-{
+body {
     margin: 0;
     background: rgb(245, 244, 244);
-
+    font-family: Arial, Helvetica, sans-serif;
 }
 .header
 {
@@ -319,3 +318,43 @@ footer
     padding: 10px;
     justify-content: flex-start;
 }
+
+.navigation-element:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 20px;
+    background: url(../images/Social/settings.png);
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+}
+.settings-div {
+    justify-content: space-evenly;
+    border-radius: 10px;
+    position: absolute;
+    flex-direction: column;
+    height: 250px;
+    width: 200px;
+    top: 110px;
+    right: 97px;
+    background: white;
+    font-size: 25px;
+    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+    align-items: center;
+}
+#header-settings {
+
+    display: none;
+}
+
+.elements-from-hidden {
+    padding: 10px;
+    transition: background 0.2s ease;
+}
+
+.elements-from-hidden:hover {
+    background: rgba(122,122,122,0.1);
+}
+

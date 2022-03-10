@@ -1,0 +1,48 @@
+﻿
+@{
+    Layout = "/Views/Shared/_LayoutSocial.cshtml";
+}
+<link rel="stylesheet" href="~/css/SettingsSocialCss.css" />
+
+<h1>Account settings</h1>
+<div class=settings-form>
+    <div class="element">
+        <div class="form-element">
+            <div class="change-name">Name: Алексей Журавлев</div>
+            <div class="form-container" id="form-container-name">
+                <form class="hidden-form">
+                    <input type="text" placeholder="Enter firstname">
+                    <input type="text" placeholder="Enter lastname">
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+        <div class="change-button" id="change-name-button" onmousedown="ViewClosedForm(this)">Change</div>
+    </div>
+    <div class="element">
+        <div class="form-element">
+            <div class="change-name">Location: Belarus, Minsk</div>
+            <div class="form-container" id="form-container-place">
+                <form class="hidden-form">
+                    <input type="text" placeholder="Enter city">
+                    <input type="text" placeholder="Enter country">
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+        <div class="change-button" id="change-place-button" onmousedown="ViewClosedForm(this)">Change</div>
+    </div>
+    <div class="element">
+        <div class="form-element">
+            <div class="change-name">Email: aliakseizhurauliou@gmail.com</div>
+            <div class="form-container" id="form-container-email">
+                <form class="hidden-form">
+                    <input type="email" placeholder="Enter email">
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+        <div class="change-button" id="change-email-button" onmousedown="ViewClosedForm(this)">Change</div>
+    </div>
+</div>
+

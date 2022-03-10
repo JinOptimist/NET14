@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Social</title>
     <link rel="stylesheet" href="~/css/SocialCss.css" />
-
+    <script src="~/js/SocialJS.js"></script>
 </head>
 <body>
     <header class="header">
@@ -19,7 +19,13 @@
         <ul class="navigation">
             <li class="navigation-element"><a>Home</a></li>
             <li class="navigation-element">Sign in</li>
+            <li class="navigation-element" id="settings-icon" onmousedown="ViewDiv()">
+            </li>
         </ul>
+        <div class="settings-div" id="header-settings" onclick="location.href='/Social/Settings'">
+            <div class="elements-from-hidden">User settings</div>
+            <div class="elements-from-hidden">About us</div>
+        </div>
     </header>
     <div class="maincontent">
         <div class="menu">
