@@ -324,13 +324,18 @@ footer
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50px;
-    height: 20px;
-    background: url(../images/Social/settings.png);
+    background: url(../../images/Social/settings.png);
     width: 30px;
     height: 30px;
     background-size: cover;
 }
+
+.navigation-element:last-child:hover {
+    background: url(../../images/Social/settings-black.png);
+    background-size: cover;
+}
+
+
 .settings-div {
     justify-content: space-evenly;
     border-radius: 10px;

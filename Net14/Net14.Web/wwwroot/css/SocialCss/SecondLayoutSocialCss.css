@@ -1,8 +1,7 @@
-body
-{
+body {
     margin: 0;
     background: rgb(245, 244, 244);
-
+    font-family: Arial, Helvetica, sans-serif;
 }
 .header
 {

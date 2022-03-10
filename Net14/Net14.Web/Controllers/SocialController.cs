@@ -16,16 +16,21 @@ namespace Net14.Web.Controllers
             return View();
         }
 
-        public IActionResult ShowSecnodIndex() 
+        public IActionResult ShowSecnodIndex()
         {
             return View();
         }
 
-        public IActionResult Settings() 
+        public IActionResult Settings()
         {
             return View();
         }
-        public IActionResult ShowAllUsers() 
+        public IActionResult ShowAllUsers()
+        {
+            return View();
+        }
+
+        public IActionResult AboutUs() 
         {
             return View();
         }
