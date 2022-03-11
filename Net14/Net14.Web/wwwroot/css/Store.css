@@ -305,13 +305,14 @@ body {
 }
 
 .title {
+    text-align: center;
     font-size: 50px;
-    font-weight:700;
-    margin:50px;
+    font-weight: 700;
+    margin: 50px;
 }
 .title_mini {
     font-size: 22px;
-    margin: 0px 0 0px 20px;
+    margin: 0px 0 0px 50px;
     width: 260px;
     height: 42px;
 }
@@ -335,4 +336,38 @@ body {
     justify-content: right;
     text-align: left;
     margin: 0 50px 0 0;
+}
+.button_checkout {
+    margin : 25px 0 0 55px;
+    box-shadow: inset 0px 1px 0px 0px #5A6169;
+    background: linear-gradient(to bottom, #5A6169 5%, #5A6169 100%);
+    background-color: #5A6169;
+    border-radius: 3px;
+    border: 1px solid #5A6169;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Courier New, monospace;
+    font-size: 15px;
+    padding: 6px 90px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #2b665e;
+}
+.checkout_radio {
+    margin: 30px 0 10px 50px;
+    box-shadow: inset 0px 1px 0px 0px #5A6169;
+    background: linear-gradient(to bottom, #5A6169 5%, #5A6169 100%);
+    background-color: #5A6169;
+    border-radius: 3px;
+    border: 1px solid #5A6169;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Courier New, monospace;
+    font-size: 15px;
+    padding: 6px 25px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #2b665e;
+    width: 270px;
+    text-align: center;
 }
