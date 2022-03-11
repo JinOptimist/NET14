@@ -15,5 +15,25 @@ namespace Net14.Web.Controllers
         {
             return View();
         }
+
+        public IActionResult ShowSecnodIndex()
+        {
+            return View();
+        }
+
+        public IActionResult Settings()
+        {
+            return View();
+        }
+        public IActionResult ShowAllUsers()
+        {
+            return View();
+        }
+
+        public IActionResult AboutUs() 
+        {
+            return View();
+        }
+
     }
 }
