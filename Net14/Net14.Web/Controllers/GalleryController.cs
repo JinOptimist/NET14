@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Net14.Web.EfStuff;
+using Net14.Web.EfStuff.DbModel;
 using Net14.Web.Models;
 using Net14.Web.Models.gallery;
 using System;
@@ -10,36 +12,63 @@ namespace Net14.Web.Controllers
 {
     public class GalleryController : Controller
     {
-        public IActionResult Index()
+        private WebContext _webContext;
+
+        public GalleryController(WebContext webContext)
         {
-            var models = new List<ImageViewModel>() { 
-                new ImageViewModel()
-                {
-                    Id = 1,
-                    Name = "nice"
-                },
-                 new ImageViewModel()
-                {
-                    Id = 2,
-                    Name = "dark"
-                },
-            };
-            return View(models);
+            _webContext = webContext;
         }
 
-        public IActionResult AddImage(int id)
+        public IActionResult Index()
         {
-            var model = new ImageUrlVewModel();
-            switch (id)
+            var dbImages = _webContext.Images.ToList();
+
+            var viewModels = dbImages
+                .Select(dbImage => new ImageViewModel()
+                {
+                    Id = dbImage.Id,
+                    Name = dbImage.Name
+                })
+                .ToList();
+
+            return View(viewModels);
+        }
+
+        public IActionResult ShowImage(int id)
+        {
+            var dbImage = _webContext
+                .Images
+                .First(x => x.Id == id);
+
+            var model = new ImageUrlVewModel()
             {
-                case 1:
-                    model.Url = "/images/gallery/girl1.webp";
-                    break;
-                case 2:
-                    model.Url = "/images/gallery/girl2.jpg";
-                    break;
-            }
+                Url = dbImage.Url,
+            };
+
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult AddImage()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddImage(AddImageVewModel viewModel)
+        {
+            var dbImage = new Image()
+            {
+                Name = viewModel.Name,
+                Rate = viewModel.Rate,
+                Url = viewModel.Url
+            };
+
+            _webContext.Images.Add(dbImage);
+
+            _webContext.SaveChanges();
+
+            return View();
         }
     }
 }
