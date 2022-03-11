@@ -89,29 +89,29 @@
 .text {
     margin-left: 80px;
     margin-right: 80px;
-    font-size: 60px;
+    font-size: 43px;
 }
 
 .instock {
-    margin-top: 25px;
+    margin-top: 15px;
     font-size: 25px;
     color: forestgreen;
     font-weight: bold;
 }
 
 .star {
-    margin-top: 20px;
+    margin-top: 10px;
     width: 20px;
     height: 20px;
 }
 
 .category {
-    margin-top: 30px;
+    margin-top: 22px;
     font-size: 15px;
 }
 
 .toBasket {
-    margin-top: 30px;
+    margin-top: 25px;
     box-shadow: inset 0px 1px 0px 0px #5A6169;
     background: linear-gradient(to bottom, #5A6169 5%, #5A6169 100%);
     background-color: #5A6169;
@@ -122,7 +122,7 @@
     color: #ffffff;
     font-family: Courier New, monospace;
     font-size: 15px;
-    padding: 6px 150px;
+    padding: 6px 200px;
     text-decoration: none;
     text-shadow: 0px 1px 0px #2b665e;
 }
@@ -195,10 +195,6 @@
     min-height: 450px;
 }
 
-
-
-
-
 .icon {
     border: 1px solid #5A6169;
     width: 140px;
@@ -236,7 +232,7 @@
 }
 
 .buttonssize {
-    margin-top: 30px;
+    margin-top: 25px;
     display: flex;
 }
 
@@ -297,4 +293,46 @@
 body {
     font-family: Courier New, monospace;
     margin: 0;
+}
+.iconshoes {
+    width: 152px;
+    height: 152px;
+    
+}
+.cost{
+    margin:5px 0 0 0;
+    
+}
+
+.title {
+    font-size: 50px;
+    font-weight:700;
+    margin:50px;
+}
+.title_mini {
+    font-size: 22px;
+    margin: 0px 0 0px 20px;
+    width: 260px;
+    height: 42px;
+}
+.checkout_field{
+    display:flex;
+    
+}
+
+.cheсkout_block1 {
+    margin:0 0 40px 0;
+    padding:0 0 40px 0;
+    border-bottom: 1px solid #e8e8e8
+}
+.checkout_block2 {
+    margin: 0 0 40px 0;
+    padding: 0 0 40px 0;
+    border-bottom: 1px solid #e8e8e8
+}
+.checkout_block3 {
+    display: flex;
+    justify-content: right;
+    text-align: left;
+    margin: 0 50px 0 0;
 }
