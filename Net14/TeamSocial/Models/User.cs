@@ -15,7 +15,7 @@ namespace SocialWeb
         public string City { get; set; }
 
         public byte[] Salt { get; set; }
-        public DateTime DateOfRegistration { get; } = DateTime.Now.ToLocalTime();
+        public DateTime DateOfRegistration { get; set; } = DateTime.Now.ToLocalTime();
 
         public Wall wallOfUser = new Wall();
         public List<User> friends { get; set; } = new List<User>();
