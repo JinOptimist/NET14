@@ -5,6 +5,7 @@
 
 .main-block {
     display: flex;
+    width: 100%;
 }
 
 .menu-block {
@@ -36,6 +37,9 @@
 .headtitle {
     background-color: #0067F4;
     border: 2px solid black;
+    font-family:'Brush Script MT';
+    letter-spacing: 105px;
+    margin-bottom: 0px;
 }
 
 .buttons {
@@ -101,7 +105,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 30vh;
+    height: 50vh;
     background: red;
 }
 
