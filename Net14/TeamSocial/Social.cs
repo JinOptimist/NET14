@@ -13,7 +13,13 @@ namespace TeamSocial
     {
         private static int _saltLengthLimit = 32;
         public List<User> users { get; set; } = new List<User>();
-        public  User _currentUser; 
+        public  User _currentUser;
+        public int Id { get; set; }
+
+        public Social() 
+        {
+
+        }
 
         public User Autorization(string email, string password)
         {
