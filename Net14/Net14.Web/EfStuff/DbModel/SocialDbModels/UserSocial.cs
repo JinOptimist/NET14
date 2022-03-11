@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using TeamSocial;
 
-namespace SocialWeb
+namespace Net14.Web.EfStuff.DbModel.SocialDbModels
 {
-    public class User
+    public class UserSocial
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -19,22 +21,12 @@ namespace SocialWeb
         public DateTime DateOfRegistration { get; } = DateTime.Now.ToLocalTime();
 
         public Wall wallOfUser = new Wall();
-        public List<User> friends { get; set; } = new List<User>();
+        public List<UserSocial> friends { get; set; } = new List<UserSocial>();
 
         public FriendsWall wallOffriends;
-     //   public PostWall wallpost;
+        //   public PostWall wallpost;
         public Social social { get; set; } //Теперь каждый user знает в какой soical он находится 
 
         public UserSettings settings { get; set; }
-        public User() 
-        {
-            settings = new UserSettings(this);
-            wallOffriends = new FriendsWall(this);
-
-        }
-
-        
     }
-
-
 }

@@ -9,6 +9,11 @@ namespace TeamSocial
     public class UserSettings
     {
         private User _currentUser { get; set; }
+        public int Id { get; set; }
+        public UserSettings() 
+        {
+
+        }
 
         public UserSettings(User user) 
         {

@@ -21,16 +21,10 @@ namespace Net14.Web.Controllers
 
             return View();
         }
-        public IActionResult Shoes()
-        {
 
-            return View();
-        }
-
-        public IActionResult Shoes2()
-        {
-
-            return View();
-        }
+        //public IActionResult Privacy()
+        //{
+        //    return View();
+        //}
     }
 }

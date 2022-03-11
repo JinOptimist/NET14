@@ -3,7 +3,6 @@ using Moq;
 using MazeCool;
 using MazeCool.Cells;
 using NUnit.Framework;
-using System;
 
 namespace Net14.Tests.Maze.Cells
 {
