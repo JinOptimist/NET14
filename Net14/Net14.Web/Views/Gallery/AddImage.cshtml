@@ -1,10 +1,21 @@
 ﻿@using Net14.Web.Models.gallery
-@model ImageUrlVewModel
+@model AddImageVewModel
 
 @{
     Layout = "/Views/Shared/_LayoutGallery.cshtml";
 }
 
-<div>
-   <img src="@Model.Url" />
-</div>
+<form action="/Gallery/AddImage" method="post">
+    <div>
+        Name: @Html.TextBoxFor(x => x.Name)
+    </div>
+    <div>
+        Url : @Html.TextBoxFor(x => x.Url)
+    </div>
+    <div>
+        Rate: @Html.TextBoxFor(x => x.Rate)
+    </div>
+    <div>
+        <input type="submit" value="Создать" />
+    </div>
+</form>
