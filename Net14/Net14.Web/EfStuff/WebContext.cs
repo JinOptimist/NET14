@@ -11,6 +11,7 @@ namespace Net14.Web.EfStuff
     public class WebContext : DbContext
     {
         public DbSet<Image> Images { get; set; }
+        public DbSet<PostSocial> Posts { get; set; }
         public DbSet<UserSocial> Users { get; set; }
         public WebContext(DbContextOptions options) : base(options)
         {

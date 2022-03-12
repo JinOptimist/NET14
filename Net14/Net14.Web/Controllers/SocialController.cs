@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Net14.Web.EfStuff;
 using Net14.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,17 @@ using System.Threading.Tasks;
 namespace Net14.Web.Controllers
 {
     public class SocialController : Controller
+
     {
+        private WebContext _webContext;
+        public SocialController(WebContext webContext) 
+        {
+            _webContext = webContext;
+        }
+        
         public IActionResult Index()
         {
+
             return View();
         }
 
