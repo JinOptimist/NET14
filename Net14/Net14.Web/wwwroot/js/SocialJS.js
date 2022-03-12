@@ -1,23 +1,48 @@
-﻿function ViewDiv()
-{
-
-    document.getElementById('header-settings').style.display = (document.getElementById('header-settings').style.display != 'flex') ? 'flex' : 'none';    
-}
+﻿
 
 function ViewClosedForm(el)
 {
     if (el.id == "change-name-button") {
-        document.getElementById('form-container-name').style.display = (document.getElementById('form-container-name').style.display != 'flex') ? 'flex' : 'none';
+        if ($("#form-container-name").css("display") == "flex") {
+            $("#form-container-name").fadeOut(200);
+        }
+        else
+        {
+            $("#form-container-name").css("display", "flex").hide().fadeIn(200);
 
+        }
     }
     else if (el.id == "change-place-button") {
-        document.getElementById('form-container-place').style.display = (document.getElementById('form-container-place').style.display != 'flex') ? 'flex' : 'none';
+        if ($("#form-container-place").css("display") == "flex") {
+            $("#form-container-place").fadeOut(200);
+        }
+        else {
+            $("#form-container-place").css("display", "flex").hide().fadeIn(200);
 
+        }
     }
     else if (el.id == "change-email-button")
     {
-        document.getElementById('form-container-email').style.display = (document.getElementById('form-container-email').style.display != 'flex') ? 'flex' : 'none';
+        if ($("#form-container-email").css("display") == "flex") {
+            $("#form-container-email").fadeOut(200);
+        }
+        else {
+            $("#form-container-email").css("display", "flex").hide().fadeIn(200);
+
+        }
 
     }
 }
+$(document).ready(function () {
+    $("#settings-icon").click(function () {
+        if ($("#header-settings").css("display") == "flex") {
+            $("#header-settings").fadeOut(200);
+        }
+        else
+        {
+            $("#header-settings").css("display", "flex").hide().fadeIn(200);
+
+        }
+    })
+});
 
