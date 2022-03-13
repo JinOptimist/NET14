@@ -34,6 +34,14 @@ namespace Net14.Web.Controllers
         {
             return View();
         }
+        public IActionResult Registration()
+        {
+            return View();
+        }
+        public IActionResult Autorisation()
+        {
+            return View();
+        }
 
     }
 }

@@ -19,6 +19,7 @@ body {
 
 .navigation-element
 {
+    text-decoration: none;
     color: black;
     margin: auto;
     font-size: 30px;
