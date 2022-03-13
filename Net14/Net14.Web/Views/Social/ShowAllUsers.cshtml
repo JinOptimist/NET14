@@ -4,35 +4,12 @@
 }
 
 
-<div class="main-container">
-    <div class="Conteyner">
-        <div class="AllUsersSearchContecher">
-            <form action="/Social/ShowAllUsers" method="post" id="form-user">
-                <input placeholder="Search" class="AllUsersSearch" name="name">
-                <input type="submit" value="Find" class="find-button">
-            </form>
-        </div>
-        @foreach (SocialUserViewModel user in Model)
-        {
-            <div class="usersCenter">
-                <div class="findUsers">
-                    <div class="find-recomendation-element-menu">
-                        <div class="user-name-and-photo">
-                            <div class="find-user-photo">
-                                <img src=@user.UserPhoto class="find-user-photo">
-                            </div>
-                            <div class="size-for-user text-indent">
-                                @user.FirstName @user.LastName
-                            </div>
-                        </div>
-                        <div class="place-of-user">
-                            <div>Age: @user.Age</div>
-                            <div>@user.Country, @user.City</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
+<div class="Conteyner">
+    <div class="AllUsersSearchContecher">
+        <form action="/Social/ShowAllUsers" method="post" id="form-user">
+            <input placeholder="Search" class="AllUsersSearch" name="name">
+            <input type="submit" value="Find" class="find-button">
+        </form>
     </div>
     <div class="filters">
         <div class="filters-header">Filters</div>
@@ -45,6 +22,28 @@
             <input type="submit" value="Find">
         </form>
     </div>
+    @foreach (SocialUserViewModel user in Model)
+    {
+        <div class="usersCenter">
+            <div class="findUsers">
+                <div class="find-recomendation-element-menu">
+                    <div class="user-name-and-photo">
+                        <div class="find-user-photo">
+                            <img src=@user.UserPhoto class="find-user-photo">
+                        </div>
+                        <div class="size-for-user text-indent">
+                            @user.FirstName @user.LastName
+                        </div>
+                    </div>
+                    <div class="place-of-user">
+                        <div>Age: @user.Age</div>
+                        <div>@user.Country, @user.City</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
+
 
 

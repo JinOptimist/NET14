@@ -87,6 +87,9 @@ form {
 
 .Conteyner {
     width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .user-name-and-photo {
@@ -107,19 +110,15 @@ form {
 }
 
 .filters {
-    max-height: 700px;
-    min-height: 80px;
-    width: 17%;
-    position: fixed;
-    right: 5%;
+    margin-top: 30px;
+    border-radius: 92px;
+    border: 1px solid grey;
+    color: grey;
+    width: 400px;
     background: white;
-    border-radius: 10px;
-    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
     display: flex;
     flex-direction: column;
     align-items: center;
-
-
 }
 .filters-header {
     display: flex;
@@ -128,9 +127,11 @@ form {
     justify-content: center;
     align-items: center;
     font-size: 25px;
+    border-radius: 92px;
 }
 
-.filters form{
+
+.filters form {
     margin-top: 30px;
     width: 100%;
     display: flex;
