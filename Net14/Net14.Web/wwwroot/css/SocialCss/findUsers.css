@@ -86,7 +86,7 @@ form {
 }
 
 .Conteyner {
-    width: 100%;
+    width: 600px;
 }
 
 .user-name-and-photo {
@@ -109,7 +109,7 @@ form {
 .filters {
     max-height: 700px;
     min-height: 80px;
-    width: 350px;
+    width: 17%;
     position: fixed;
     right: 5%;
     background: white;
@@ -164,4 +164,8 @@ form {
     color: white;
     background: rgb(22 222 48);
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.main-container {
+    display: flex;
+    width: 600px;
 }
