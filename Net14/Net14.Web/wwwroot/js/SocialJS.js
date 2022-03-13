@@ -45,4 +45,10 @@ $(document).ready(function () {
         }
     })
 });
+$(document).ready(function () {
+    $(".filters-header").click(function () {
+        $("#form-filter-user").slideToggle();
+    });
+});
+
 

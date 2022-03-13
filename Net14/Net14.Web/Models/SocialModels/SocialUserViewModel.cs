@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TeamSocial;
 
-namespace Net14.Web.EfStuff.DbModel.SocialDbModels
+namespace Net14.Web.Models
 {
-    public class UserSocial
+    public class SocialUserViewModel
     {
         public int Id { get; set; }
         public string UserPhoto { get; set; }
@@ -14,9 +13,8 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
         public string LastName { get; set; }
         public string Email { get; set; }
         public int Age { get; set; }
-        public string Password { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
-
     }
 }
+

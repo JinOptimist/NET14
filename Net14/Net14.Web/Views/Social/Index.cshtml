@@ -1,10 +1,11 @@
-﻿
+﻿@using Net14.Web.EfStuff.DbModel.SocialDbModels;
+@model List<SocialPostViewModel>; 
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 
 
-@for (int i = 0; i < 5; i++) 
+@foreach(SocialPostViewModel post in Model) 
 {
     <div class="content-element">
         <div class="post-operations">
@@ -24,15 +25,15 @@
                     <img src="https://img.joinfo.com/i/2019/11/800x0/5dda9739ce891.jpg" class="user-photo">
                 </div>
                 <div class="user-name">
-                    <p class="name">Aliaksei</p>
+                    <p class="name">@post.NameOfUser</p>
                     <p>posted:</p>
                 </div>
             </div>
             <div class="block-post-image">
-                <img src="https://miro.medium.com/max/1200/1*ByPNvmu6-mR_jc8rTQpoog.png" class="post-image">
+                <img src=@post.ImageUrl class="post-image">
             </div>
             <div class="footer-of-post">
-                C#
+                @post.Comments
             </div>
             <div class="time-of-posting">Posted @DateTime.Now.ToLocalTime()</div>
         </div>

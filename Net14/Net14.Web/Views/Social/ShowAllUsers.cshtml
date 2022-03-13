@@ -1,32 +1,50 @@
-﻿
+﻿@model List<SocialUserViewModel>
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 
 
-<div class="Conteyner">
-    <div class="AllUsersSearchContecher">
-        <input placeholder="Search" class="AllUsersSearch">
-    </div>
-    @for (int i = 0; i < 5; i++)
-    {
-        <div class="usersCenter">
-            <div class="findUsers">
-                <div class="find-recomendation-element-menu">
-                    <div class="user-name-and-photo">
-                        <div class="find-user-photo">
-                            <img src="https://img.joinfo.com/i/2019/11/800x0/5dda9739ce891.jpg" class="find-user-photo">
+<div style="display: flex">
+    <div class="Conteyner">
+        <div class="AllUsersSearchContecher">
+            <form action="/Social/ShowAllUsers" method="post" id="form-user">
+                <input placeholder="Search" class="AllUsersSearch" name="name">
+                <input type="submit" value="Find" class="find-button">
+            </form>
+        </div>
+        @foreach (SocialUserViewModel user in Model)
+        {
+            <div class="usersCenter">
+                <div class="findUsers">
+                    <div class="find-recomendation-element-menu">
+                        <div class="user-name-and-photo">
+                            <div class="find-user-photo">
+                                <img src=@user.UserPhoto class="find-user-photo">
+                            </div>
+                            <div class="size-for-user text-indent">
+                                @user.FirstName @user.LastName
+                            </div>
                         </div>
-                        <div class="size-for-user text-indent">
-                            freddie mercury
+                        <div class="place-of-user">
+                            <div>Age: @user.Age</div>
+                            <div>@user.Country, @user.City</div>
                         </div>
-                    </div>
-                    <div class="place-of-user">
-                        <div>Age: 20</div>
-                        <div>Belarus, Minsk</div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
+    <div class="filters">
+        <div class="filters-header">Filters</div>
+        <form action="/Social/ShowAllUsers" method="post" id="form-filter-user">
+            <input name="Age" placeholder="Enter age">
+            <input name="Country" placeholder="Enter country">
+            <input name="City" placeholder="Enter city">
+            <input name="FirstName" placeholder="Enter firstname">
+            <input name="LastName" placeholder="Enter lastname">
+            <input type="submit" value="Find">
+        </form>
+    </div>
 </div>
+
+
