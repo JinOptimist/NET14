@@ -4,6 +4,9 @@
     background: gainsboro;
     border: 3mm solid #A9A9A9;
     border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 body {
@@ -17,8 +20,15 @@ body {
     font-family: cursive;
 }
 
+.time {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 10px;
+    font-family: cursive;
+}
+
 .button {
-    font-size: 70px;
+    font-size: 95px;
     height: 111px;
     width: 111px;
     color: rgb(75, 71, 78);
@@ -29,9 +39,21 @@ body {
     align-items: center;
 }
 
-    .button:checked {
-        background-color: aqua;
-    }
+.button1 {
+    border-radius: 25px 10px 10px 10px;
+}
+
+.button2 {
+    border-radius: 10px 25px 10px 10px;
+}
+
+.button3 {
+    border-radius: 10px 10px 10px 25px;
+}
+
+.button4 {
+    border-radius: 10px 10px 25px 10px;
+}
 
 .eye img {
     max-width: 100%;
@@ -48,9 +70,14 @@ body {
 .game {
     display: flex;
     justify-content: center;
-    padding: 30px;
+    padding: 5px;
 }
 
 td {
-    padding: 0px;
+    padding: 0px
+}
+
+.borderForTable {
+    border: 9mm solid blueviolet;
+    border-radius: 10%;
 }
