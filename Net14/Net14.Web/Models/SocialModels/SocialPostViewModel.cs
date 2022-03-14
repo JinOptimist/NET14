@@ -13,6 +13,7 @@ namespace Net14.Web.Models
         public string Comments { get; set; }
         public string TypePost { get; set; } = "Registartion";
         public int Likes { get; set; } = 0;
+        public string UserPhotoUrl { get; set; }
 
     }
 }

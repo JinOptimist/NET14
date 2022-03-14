@@ -22,6 +22,7 @@ namespace Net14.Web.Controllers
         public IActionResult Index()
         {
             var postArr = _webContext.Posts.ToList();
+            var users = _webContext.Users.ToList();
             var viewPost = postArr.Select(post =>
              new SocialPostViewModel()
              {
@@ -31,6 +32,7 @@ namespace Net14.Web.Controllers
                  Likes = post.Likes,
                  TypePost = post.TypePost,
                  NameOfUser = _webContext.Users.First(user => user.Id == post.UserId).FirstName,
+                 UserPhotoUrl = users.Single(user => user.Id == post.UserId).UserPhoto
 
 
              }).ToList();
