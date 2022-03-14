@@ -358,6 +358,7 @@ footer
 .elements-from-hidden {
     padding: 10px;
     transition: background 0.2s ease;
+    text-align: center;
 }
 
 .elements-from-hidden:hover {

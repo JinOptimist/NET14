@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="~/css/SocialCss/SocialCss.css" />
     <link rel="stylesheet" href="~/css/SocialCss/findUsers.css">
     <link rel="stylesheet" href="~/css/SocialCss/SettingsSocialCss.css">
+    <script language="JavaScript" type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
 
 
     <script src="~/js/SocialJS.js"></script>
@@ -25,12 +26,13 @@
         <ul class="navigation">
             <li class="navigation-element"><a href="/Social/Index">Home</a></li>
             <li class="navigation-element">Sign in</li>
-            <li class="navigation-element" id="settings-icon" onmousedown="ViewDiv()">
+            <li class="navigation-element" id="settings-icon">
             </li>
         </ul>
         <div class="settings-div" id="header-settings">
             <div class="elements-from-hidden" onclick="location.href='/Social/Settings'">User settings</div>
             <div class="elements-from-hidden" onclick="location.href='/Social/AboutUs';">About us</div>
+            <div class="elements-from-hidden" onclick="location.href='/Home/Index';"> Start page </div>
         </div>
     </header>
     <div class="maincontent">
