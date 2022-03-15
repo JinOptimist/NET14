@@ -1,0 +1,21 @@
+﻿@using Net14.Web.Models.Calendar
+@model List<NoteViewModel>
+
+@{
+    Layout = "/Views/Shared/_LayoutCalendar.cshtml";
+}
+
+@foreach (var noteViewModel in Model)
+{
+   <div class=notes>
+<div>
+ Name: @noteViewModel.Name 
+</div>  
+<div>
+ Text: @noteViewModel.Text
+</div>  
+<div>
+ Date: @noteViewModel.Date
+</div> 
+   </div>
+}

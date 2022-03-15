@@ -2,6 +2,10 @@
     margin: 0;
     padding: 0
 }
+.notes {
+    width: 300px;
+    display:block;
+}
 
 .main-block {
     display: flex;
@@ -113,10 +117,7 @@
     justify-content: center;
 }
 
-.notes {
-    display: flex;
-    justify-content: space-between;
-}
+
 
     .notes .myButton {
         flex: 1;

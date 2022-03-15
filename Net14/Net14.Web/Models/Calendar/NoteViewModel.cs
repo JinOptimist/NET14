@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Net14.Web.EfStuff.DbModel
+namespace Net14.Web.Models.Calendar
 {
-    public class Note
+    public class NoteViewModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Text { get; set; }
-        public string UserName { get; set; }
-        public int Importance { get; set; }
-        public string DateCreate { get; set; }
         public string Date { get; set; }
     }
 }
