@@ -10,7 +10,6 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public int NameOfUser { get; set; }
         public string ImageUrl { get; set; } = "ImageUrl";
         public string Comments { get; set; }
         public string TypePost { get; set; } = "Registartion";
