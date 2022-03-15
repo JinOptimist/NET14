@@ -1,3 +1,7 @@
+form {
+    display: flex;
+    align-items: center;
+}
 .find-recomendation-element-menu {
     align-items: center;
     margin-top: 100px;
@@ -6,6 +10,7 @@
     background: white;
     padding: 40px;
     transition: background 0.5s ease;
+    min-width: 400px;
 }
 
 
@@ -28,6 +33,7 @@
     max-width: 700px;
     display: flex;
     align-items: center;
+    margin-left: 25px;
 }
 
 
@@ -59,18 +65,40 @@
     justify-content: center;
     margin-top: 50px;
 }
+.find-button {
+    margin-left: 30px;
+    border-radius: 92px;
+    background: white;
+    border: 1px solid grey;
+    height: 52px;
+    width: 100px;
+    border: 1px solid rgb(22 222 48);
+    color: rgb(22 222 48);
+    background: white;
+    transition: background 0.3s ease;
+    transition: box-shadow 0.3s ease;
+    font-size: 17px;
+}
+.find-button:hover {
+    color: white;
+    background: rgb(22 222 48);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
 
 .Conteyner {
-    width: 100%;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .user-name-and-photo {
-    display: flex
-
+    display: flex;
+    justify-content: start;
 }
 .place-of-user {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 .place-of-user div {
@@ -81,3 +109,64 @@
     background: rgba(122,122,122,0.1);
 }
 
+.filters {
+    margin-top: 30px;
+    border-radius: 92px;
+    border: 1px solid grey;
+    color: grey;
+    width: 400px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.filters-header {
+    display: flex;
+    height: 80px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    border-radius: 92px;
+}
+
+
+.filters form {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 100px;
+    display: none;
+}
+
+.filters form input {
+    border-radius: 92px;
+    border: 1px solid grey;
+    padding: 7px;
+    width: 55%;
+    margin-top: 30px;
+
+    
+}
+
+.filters form input[type="submit"] {
+    border: 1px solid rgb(22 222 48);
+    color: rgb(22 222 48);
+    background: white;
+    transition: background 0.3s ease;
+    transition: box-shadow 0.3s ease;
+    font-size: 17px;
+    margin-top: 70px;
+}
+
+.filters form input[type="submit"]:hover{
+    color: white;
+    background: rgb(22 222 48);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.main-container {
+    display: flex;
+    width: 600px;
+}
