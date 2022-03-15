@@ -1,0 +1,18 @@
+﻿@using Net14.Web.Controllers
+
+
+@{
+    Layout = "/Views/Shared/_LayoutCalendar.cshtml";
+}
+
+<div style = display:flex>
+    @*current date @DateTime.Now*@
+    @{
+        Console.WriteLine(DateTime.DaysInMonth(2022, 3));
+        for (int i = 1; i <= DateTime.DaysInMonth(2022,3); i++)
+        {
+            <div> @i</div>
+        }
+    }
+</div>
+

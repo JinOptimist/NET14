@@ -7,7 +7,9 @@
     display: flex;
     width: 100%;
 }
-
+.container {
+    display: contents;
+}
 .menu-block {
     background-color: #00B8D8;
     display: flex;
@@ -107,6 +109,8 @@
     align-items: center;
     height: 50vh;
     background: red;
+    place-content: center;
+    justify-content: center;
 }
 
 .notes {

@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\Calendar\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
