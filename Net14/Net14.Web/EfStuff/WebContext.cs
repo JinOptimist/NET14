@@ -10,7 +10,7 @@ namespace Net14.Web.EfStuff
     public class WebContext : DbContext
     {
         public DbSet<Image> Images { get; set; }
-
+        public DbSet<Note> Notes { get; set; }
         public WebContext(DbContextOptions options) : base(options)
         {
         }
