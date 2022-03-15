@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace TeamSocial
+namespace Net14.Web.Models
 {
-    public class Post
+    public class SocialPostViewModel
     {
         public int UserId { get; set; }
         public string ImageUrl { get; set; } = "ImageUrl";
+        public string NameOfUser { get; set; }
         public string Comments { get; set; }
         public string TypePost { get; set; } = "Registartion";
         public int Likes { get; set; } = 0;
-        public DateTime DateOfPosting { get; set; } = DateTime.Now.ToLocalTime();
-
+        public string UserPhotoUrl { get; set; }
 
     }
 }
