@@ -57,6 +57,10 @@ namespace Net14.Web.Controllers
         [HttpPost]
         public IActionResult AddImage(AddImageVewModel viewModel)
         {
+
+            var a = viewModel.Url;
+
+
             var dbImage = new Image()
             {
                 Name = viewModel.Name,
