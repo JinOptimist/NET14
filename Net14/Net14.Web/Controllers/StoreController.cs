@@ -22,18 +22,5 @@ namespace Net14.Web.Controllers
             return View();
         }
 
-            return View();
-        }
-
-        public IActionResult Shoes2()
-        {
-
-            return View();
-        }
-        public IActionResult Catalog()
-        {
-
-            return View();
-        }
     }
 }
