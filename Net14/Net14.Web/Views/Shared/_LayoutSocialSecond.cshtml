@@ -1,47 +1,31 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Social</title>
-    <link rel="stylesheet" href="~/css/SocialCss/SocialCss.css" />
-    <link rel="stylesheet" href="~/css/SocialCss/findUsers.css">
-    <link rel="stylesheet" href="~/css/SocialCss/SettingsSocialCss.css">
-    <script language="JavaScript" type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="~/css/SocialCss/SecondLayoutSocialCss.css" />
 
-
-    <script src="~/js/SocialJS.js"></script>
 </head>
 <body>
     <header class="header">
         <div class="logo">
             <img src="~/images/Social/j.png">
         </div>
-        <a href="/Social/ShoWSecnodIndex">Ссылка на второй Layout</a>
+        <a href="/Social/Index">Стартовый лэйаут</a>
         <div class="header-search">
             <input placeholder="Search">
         </div>
         <ul class="navigation">
             <li class="navigation-element"><a href="/Social/Index">Home</a></li>
-            <li class="navigation-element"><a href="/Social/Registration">Sign up</a></li>
-            <li class="navigation-element" id="settings-icon">
-            </li>
         </ul>
-        <div class="settings-div" id="header-settings">
-            <div class="elements-from-hidden" onclick="location.href='/Social/Settings'">User settings</div>
-            <div class="elements-from-hidden" onclick="location.href='/Social/AboutUs';">About us</div>
-            <div class="elements-from-hidden" onclick="location.href='/Home/Index';"> Start page </div>
-        </div>
     </header>
     <div class="maincontent">
         <div class="menu">
             <div class="buttons-menu">
                 <div class="menu-element">Recomendation</div>
                 <div class="menu-element">Probably familiar</div>
-                <div class="menu-element" onclick="location.href='/Social/ShowAllUsers';">Find user</div>
-                <div class="menu-element">Sign up</div>
             </div>
             <div class="menu-recomendations-user">
                 <div class="menu-recomendation-title">Recommended accounts</div>
