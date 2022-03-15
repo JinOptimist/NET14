@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Net14.Web.EfStuff;
+using Net14.Web.EfStuff.DbModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +16,11 @@ namespace Net14.Web
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+
+            Seed(host);
+
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -22,5 +29,26 @@ namespace Net14.Web
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+        public static void Seed(IHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var webContext = scope.ServiceProvider.GetService<WebContext>();
+
+                if (!webContext.Images.Any())
+                {
+                    var image = new Image() { 
+                        Name = "qwe",
+                        Url = "qwe",
+                        Rate = 99
+                    };
+
+                    webContext.Images.Add(image);
+                    webContext.SaveChanges();
+                };
+
+            }
+        }
     }
 }
