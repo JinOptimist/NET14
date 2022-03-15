@@ -22,8 +22,6 @@ namespace Net14.Web.Controllers
             return View();
         }
 
-            return View();
-        }
 
         public IActionResult Shoes2()
         {
