@@ -30,4 +30,9 @@
     <ProjectReference Include="..\TeamSocial\TeamSocial.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Calendar\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>
