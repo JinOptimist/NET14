@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Net14.Web</title>
-    <link rel="stylesheet" href="~/css/Store.css" />
+    <link rel="stylesheet" href="~/css/Store.css?v=1" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js"></script>
     @RenderSection("Scripts", required: false)
@@ -12,15 +12,13 @@
 <body>
     <div>
         <a href="/Home/Index">home</a>
-        <a href="/Gallery/Index">gallery</a>
-        <a href="/Store/Index">store</a>
     </div>
     <div>
         <div class="header">
-            <div class="name">
+            <a href="/Store/Index" class="name">
                 <img src="/images/Store/LogoGray.png" class="logo">
                 <span class=shopox>ShopOx </span>
-            </div>
+            </a>
             <div class="search">
                 <div class="search-field">
                     search string
@@ -40,27 +38,46 @@
                 </a>
             </div>
         </div>
-        <div class="container">
-            @RenderBody()
+        <div class="second-header">
+            <a href="/Store/Catalog" class="second-header-banner">
+                Каталог
+            </a>
+            <a href="/Store/Shoes" class="second-header-banner">
+                Аксессуары
+            </a>
+            <a href="/Store/Shoes" class="second-header-banner">
+                Кнопки
+            </a>
+            <a href="/Store/Shoes" class="second-header-banner">
+                Для
+            </a>
+            <a href="/Store/Shoes" class="second-header-banner">
+                Вида
+            </a>
+            <a href="/Store/Shoes" class="second-header-banner">
+                О нас
+            </a>
         </div>
-        <footer class="pagefooter">
-
-            <div class="leftfooter">
-                <div>
-                    <div>© 2022 TMSNET14 </div>
-                    <div>Artem,Mark,Anton,Andrey </div>
-                </div>
-                <div class="adress">
-                    г.Минск ул.Тимирязева 67 оф.601
-                </div>
-                <div class="iconfoot">
-
-                </div>
-            </div>
-
-        </footer>
     </div>
- 
+    <div class="container">
+        @RenderBody()
+    </div>
+    <footer class="pagefooter">
+
+        <div class="leftfooter">
+            <div>
+                <div>© 2022 TMSNET14 </div>
+                <div>Artem,Mark,Anton,Andrey </div>
+            </div>
+            <div class="adress">
+                г.Минск ул.Тимирязева 67 оф.601
+            </div>
+            <div class="iconfoot">
+            </div>
+        </div>
+
+    </footer>
+
 
 </body>
 </html>
