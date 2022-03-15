@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Net14.Web.EfStuff;
 using Net14.Web.EfStuff.DbModel;
+using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +48,47 @@ namespace Net14.Web
                     webContext.Images.Add(image);
                     webContext.SaveChanges();
                 };
+                if (!webContext.Users.Any()) 
+                {
+                    var user = new UserSocial()
+                    {
+                        FirstName = "name",
+                        LastName = "lastname",
+                        Age = 20,
+                        City = "Minsk",
+                        Country = "Belarus",
+                        Email = "email",
+                        Password = "pass",
+                        UserPhoto = "/images/Social/User.jpg"
+                    };
+                    var user2 = new UserSocial()
+                    {
+                        FirstName = "name2",
+                        LastName = "lastname2",
+                        Age = 22,
+                        City = "Vitebsk",
+                        Country = "Belarus",
+                        Email = "email2",
+                        Password = "pass2",
+                        UserPhoto = "/images/Social/User.jpg"
+                    };
+                    webContext.Users.AddRange(user, user2);
+                    webContext.SaveChanges();
+                    if (!webContext.Posts.Any())
+                    {
+                        var post = new PostSocial()
+                        {
+                            UserId = user.Id,
+                            Comments = "Comment",
+                            DateOfPosting = new DateTime(),
+                            ImageUrl = "https://www.imgonline.com.ua/examples/bee-on-daisy.jpg",
+                            Likes = 20,
+                            TypePost = "no"
+                        };
+                        webContext.Posts.Add(post);
+                        webContext.SaveChanges();
+                    }
+                }
 
             }
         }
