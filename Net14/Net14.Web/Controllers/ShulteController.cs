@@ -9,11 +9,7 @@ namespace Net14.Web.Controllers
     {
         public IActionResult Main()
         {
-            var number = new RandomNumberViewModel();
-            number.Today = (int)DateTime.Now.DayOfWeek;
-
-            return View(number);
-           
+            return View();
         }
     }
 }

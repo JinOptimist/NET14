@@ -2,7 +2,6 @@
 {
     public class RandomNumberViewModel
     {
-        public int Today { get; set; }
 
     }
 }
