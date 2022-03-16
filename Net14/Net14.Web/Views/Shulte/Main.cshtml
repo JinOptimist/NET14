@@ -1,37 +1,30 @@
-﻿@{
+﻿@model List<int>
+
+@{
     Layout = "/Views/Shared/_LayoutShulte.cshtml";
 }
 
+@foreach (var number in Model)
+{
+    <div>
+        @number
+    </div>
+}
 <div class="game">
     <div class="borderForTable">
         <table class="shulte5">
             <tbody>
                 <tr class="1rad">
-                    <td>
+                 @for (var i = 0; i < 5; i++)
+                 {
+                   <td>
                         <button class="button button1" id="icon1">
-                            19
+                            @Model[i]
                         </button>
-                    </td>
-                    <td>
-                        <button class="button" id="icon2">
-                            20
-                        </button>
-                    </td>
-                    <td>
-                        <button class="button" id="icon3">
-                            9
-                        </button>
-                    </td>
-                    <td>
-                        <button class="button" id="icon4">
-                            10
-                        </button>
-                    </td>
-                    <td>
-                        <button class="button button2" id="icon5">
-                            14
-                        </button>
-                    </td>
+                   </td>
+                        
+                 }
+                    
                 </tr>
                 <tr>
                     <td>

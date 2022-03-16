@@ -9,7 +9,9 @@ namespace Net14.Web.Controllers
     {
         public IActionResult Main()
         {
-            return View();
+            var random = new RandomNumberViewModel();
+            var numbers = new List<int>(random.Random());
+            return View(numbers);
         }
     }
 }
