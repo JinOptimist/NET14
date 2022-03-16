@@ -10,6 +10,7 @@
 .main-block {
     display: flex;
     width: 100%;
+
 }
 .container {
     display: contents;
