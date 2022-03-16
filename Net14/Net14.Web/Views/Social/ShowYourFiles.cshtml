@@ -1,0 +1,18 @@
+﻿@model List<FilesViewModel>
+@{
+    Layout = "/Views/Shared/_LayoutSocial.cshtml";
+}
+<div class="main-content">
+    <div class="zagolovok">
+        <div>
+            Смотри какие есть авто
+        </div>
+        <div>
+            @foreach (var Files in Model)
+            {
+                <a href="/Social/ShowImage?id=@Files.Id">@Files.Name</a>
+            }
+        </div>
+    </div>
+</div>
+

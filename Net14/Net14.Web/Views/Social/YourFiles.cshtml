@@ -1,0 +1,30 @@
+﻿@model int
+@{
+    Layout = "/Views/Shared/_LayoutSocial.cshtml";
+}
+<div class="main-content">
+    <div class="zagolovok">
+        <div class="text">
+            Привет мой дорогой друг, это страница для добавления, и хранения твоих файлов. 
+        </div>
+        <div class="text">
+            Сегодня @Model день недели, если ты не знал
+        </div>
+    </div>
+    <div class="forma">
+        <form class="addPositions">
+            <input type="file" class="file"/>
+            <div>
+                <input type="text" placeholder="Text" class="input-text"/>
+            </div>
+            <div>
+                <input type="url" placeholder="Url" class="input-text"/>
+            </div>
+            <div>
+                <input type="date" placeholder="date" class="input-text"/>
+            </div>
+            <input type="submit"/>
+        </form>
+        <a href="/Social/ShowYourFiles">Посмотерть все картинки</a>
+    </div>
+</div>
