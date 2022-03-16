@@ -16,13 +16,13 @@
     display: contents;
 }
 .menu-block {
-    background-color: #00B8D8;
+    background-color: #58c4e8;
     display: flex;
     flex-direction: column;
-    min-width: 100px;
-    border-left: 2px solid black;
-    border-right: 2px solid black;
-    border-bottom: 2px solid black;
+    min-width: 110px;
+    border-left: 0px solid black;
+    border-right: 0px solid black;
+    border-bottom: 0px solid black;
     height: auto;
 }
 
@@ -36,48 +36,77 @@
     }
 
     .menu-block .myButton {
-        margin-top: 10px;
-        margin-left: 10px;
-        margin-right: 10px
+        margin-top: 0px;
+        margin-left: 0px;
+        margin-right: 0px
     }
 
 .headtitle {
-    background-color: #0067F4;
-    border: 2px solid black;
-    font-family:'Brush Script MT';
-    letter-spacing: 105px;
+    background-color: #129ac7;
+    border: 0px solid black;
+    font: 30px "Courier New", monospace;
     margin-bottom: 0px;
 }
 
 .buttons {
     display: flex;
 }
+h2 {
+    font: 22px "Courier New", Courier, monospace;
+}
+.greetings {
+    font: 18px "Courier New", Courier, monospace;
+}
 
 .myButton {
-    box-shadow: 0px 0px 0px 2px #9fb4f2;
-    background: linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
-    background-color: #7892c2;
-    border-radius: 3px;
-    display: inline-block;
-    cursor: pointer;
-    color: #ffffff;
-    font-family: Times New Roman;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 0px 0px;
     text-decoration: none;
-    text-shadow: 0px 1px 0px #283966;
     text-align: center;
+    padding: 11px 22px;
+    border: solid 1px #41545c;
+    font: 18px "Courier New", Courier, monospace;
+    font-weight: bold;
+    color: #000000;
+    background: #58c4e8;
+    -webkit-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+    -moz-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+    box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
 }
 
     .myButton:hover {
-        background: linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
-        background-color: #476e9e;
+        width: 100;
+        padding: 11px 32px;
+        border: solid 1px #41545c;
+        font: 18px "Courier New", Courier, monospace;
+        font-weight: bold;
+        color: #000000;
+        background-color: #58c4e8;
+        background-image: -moz-linear-gradient(top, #58c4e8 0%, #b8e6f5 100%);
+        background-image: -webkit-linear-gradient(top, #58c4e8 0%, #b8e6f5 100%);
+        background-image: -o-linear-gradient(top, #58c4e8 0%, #b8e6f5 100%);
+        background-image: -ms-linear-gradient(top, #58c4e8 0%,#b8e6f5 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b8e6f5', endColorstr='#b8e6f5',GradientType=0 );
+        background-image: linear-gradient(top, #58c4e8 0%,#b8e6f5 100%);
+        -webkit-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+        -moz-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+        box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
     }
 
     .myButton:active {
-        position: relative;
-        top: 1px;
+        padding: 11px 32px;
+        border: solid 1px #41545c;
+        font: 18px "Courier New", Courier, monospace;
+        font-weight: bold;
+        color: #000000;
+        background-color: #d1f4ff;
+        background-image: -moz-linear-gradient(top, #d1f4ff 0%, #dbf6ff 100%);
+        background-image: -webkit-linear-gradient(top, #d1f4ff 0%, #dbf6ff 100%);
+        background-image: -o-linear-gradient(top, #d1f4ff 0%, #dbf6ff 100%);
+        background-image: -ms-linear-gradient(top, #d1f4ff 0%,#dbf6ff 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dbf6ff', endColorstr='#dbf6ff',GradientType=0 );
+        background-image: linear-gradient(top, #d1f4ff 0%,#dbf6ff 100%);
+        -webkit-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+        -moz-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+        box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
     }
 
 .buttons .myButton {
@@ -87,7 +116,7 @@
 .content-block {
     flex: 1;
     justify-content: space-between;
-    background: #00B8D8;
+    background: #E9ECEF;
     flex-wrap: wrap;
     border-right: 2px solid black;
 }
@@ -109,11 +138,11 @@
 }
 
 .calendar-view {
+    margin: 3 px;
     display: flex;
-    justify-content: space-between;
+    justify-content:left;
     align-items: center;
-    height: 50vh;
-    background: red;
+    
     place-content: center;
     justify-content: center;
 }
@@ -167,4 +196,56 @@
 
 .y-left {
     cursor: pointer;
+}
+
+.yourButton {
+    text-decoration: none;
+    text-align: center;
+    padding: 30px 30px;
+    border: solid 1px #41545c;
+    font: 18px "Courier New", Courier, monospace;
+    font-weight: bold;
+    color: #000000;
+    -webkit-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+    -moz-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+    box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+}
+
+.yourButton:hover {
+    padding: 30px 30px;
+    border: solid 0px #41545c;
+    font: 18px "Courier New", Courier, monospace;
+    font-weight: bold;
+    color: #000000;
+    background: #000000;
+    background-color: #58c4e8;
+    background-image: -moz-linear-gradient(top, #58c4e8 0%, #b8e6f5 100%);
+    background-image: -webkit-linear-gradient(top, #58c4e8 0%, #b8e6f5 100%);
+    background-image: -o-linear-gradient(top, #58c4e8 0%, #b8e6f5 100%);
+    background-image: -ms-linear-gradient(top, #58c4e8 0%,#b8e6f5 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b8e6f5', endColorstr='#b8e6f5',GradientType=0 );
+    background-image: linear-gradient(top, #58c4e8 0%,#b8e6f5 100%);
+    -webkit-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+    -moz-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+    box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+}
+.yourButton:active {
+    padding: 30px 30px;
+    border: solid 0px #41545c;
+    font: 18px "Courier New", Courier, monospace;
+    font-weight: bold;
+    color: #000000;
+    background-color: #d1f4ff;
+    background-image: -moz-linear-gradient(top, #d1f4ff 0%, #dbf6ff 100%);
+    background-image: -webkit-linear-gradient(top, #d1f4ff 0%, #dbf6ff 100%);
+    background-image: -o-linear-gradient(top, #d1f4ff 0%, #dbf6ff 100%);
+    background-image: -ms-linear-gradient(top, #d1f4ff 0%,#dbf6ff 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dbf6ff', endColorstr='#dbf6ff',GradientType=0 );
+    background-image: linear-gradient(top, #d1f4ff 0%,#dbf6ff 100%);
+    -webkit-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+    -moz-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+    box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+}
+.note .yourButton{
+    display:flex;
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Net14.Web</title>
+    <title>Calendar</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/Calendar.css" />
@@ -12,37 +12,37 @@
 </head>
 <body>
     <div>
-        <a href="/Home/Index">home</a>
+        <a href="/Home/Index">Main</a>
         <a href="/Gallery/Index">gallery</a>
         <a href="/Calendar/Index">Calendar</a>
     </div>
     <div>   
-        <h2 align="center" class ="headtitle">CALENDAR</h2>
+        <h2 align="center" class ="headtitle">Best Calendar in the World</h2>
     </div>
-        <div class="main-block">
-                <div class ="menu-block">
-                    <span class="myButton">
-                        <div>
-                                    <a href="/Calendar/Index">Home page</a>
-                                </div>
-                    </span>
+    <div class="main-block">
+        <div class ="menu-block">
+            <div class="myButton">
+                        <a href="/Calendar/Index">Home page</a>
+                    </div>
 
-                    <span class="myButton">
+                    <div class="myButton">
                         Пункт2
-                    </span>
+                    </div>
 
-                    <span class="myButton">
+                    <div class="myButton">
                         Пункт3
-                    </span>
+                    </div>
 
-                    <span class="myButton">
+                    <div class="myButton">
                         Пункт4
-                    </span>
-                </div>  
-                <div class="container">
-        @RenderBody()
-    </div>
+            </div>
+                    
+        </div>  
+                
+        <div class="container">
+            @RenderBody()
         </div>
+    </div>
     
     
    
