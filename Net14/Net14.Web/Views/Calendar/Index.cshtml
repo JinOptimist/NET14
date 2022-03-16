@@ -1,13 +1,41 @@
 ﻿@model List<string>
-
 @{
     Layout = "/Views/Shared/_LayoutCalendar.cshtml";
 }
 
-<div style = display:flex>
-    @foreach (var num in Model)
-    {
-        <div style = margin-left:10px>@num </div>
-    }
-</div>
+<div class="content-block">
+                    <div class ="calendar">
+                    
+                        <div class="calendar-view">
+                            <div class="calendar-spawn">
+
+                                <div style = display:flex>
+    Hello! 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="calendar-notes">
+                            <div class ="notes">
+                                <span class="myButton">
+                                    <div>
+                                    <a href="/Calendar/Calendar">Watch calendar</a>
+                                </div>
+                                </span>
+            
+                                <span class="myButton">
+                                    <a href="/Calendar/AddNote">Add note</a>
+                                </span>
+            
+                                <span class="myButton">
+                                    <a href="/Calendar/ShowNote">Watch notes</a>
+                                </span>
+            
+                                <span class="myButton">
+                                    Пункт4
+                                </span>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+
 

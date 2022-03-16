@@ -19,11 +19,12 @@
     <div>   
         <h2 align="center" class ="headtitle">CALENDAR</h2>
     </div>
-    
         <div class="main-block">
                 <div class ="menu-block">
                     <span class="myButton">
-                        Пункт1
+                        <div>
+                                    <a href="/Calendar/Index">Home page</a>
+                                </div>
                     </span>
 
                     <span class="myButton">
@@ -37,52 +38,12 @@
                     <span class="myButton">
                         Пункт4
                     </span>
-                </div>   
-
-                <div class="content-block">
-                    <div class ="calendar">
-                    
-                        <div class="year">
-
-                            <img class="y-left" src="https://mywebicons.ru/i/png/93f76507194aece6959052e19ba44dc0.png" width="20" height="20" alt="">
-                            <span >
-                                Year
-                            </span>
-                            <img class="y-right" src="https://mywebicons.ru/i/png/93f76507194aece6959052e19ba44dc0.png" width="20" height="20" alt="">
-                            
-                    
-                        </div>
-                        <div class="calendar-view">
-                            <img class="left" src="https://mywebicons.ru/i/png/93f76507194aece6959052e19ba44dc0.png" width="50" height="50" alt="">
-                            <div class="calendar-spawn">@RenderBody()</div>
-                            <img class="right" src="https://mywebicons.ru/i/png/93f76507194aece6959052e19ba44dc0.png" width="50" height="50" alt="">
-                        </div>
-                        <div class="calendar-notes">
-                            <div class ="notes">
-                                <span class="myButton">
-                                    Пункт1
-                                </span>
-            
-                                <span class="myButton">
-                                    Пункт2
-                                </span>
-            
-                                <span class="myButton">
-                                    Пункт3
-                                </span>
-            
-                                <span class="myButton">
-                                    Пункт4
-                                </span>
-                            </div>  
-                        </div>
-                    </div>
-                </div>
-
-        </div>
-    @*<div class="container">
+                </div>  
+                <div class="container">
         @RenderBody()
-    </div>*@
+    </div>
+        </div>
+    
     
    
     @RenderSection("Scripts", required: false)
