@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Net14.Web.EfStuff;
+using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -161,44 +162,43 @@ namespace Net14.Web.Controllers
         }
         public IActionResult ShowYourFiles()
         {
-            var models = new List<FilesViewModel>()
-            {
-                new FilesViewModel()
+            var dbFiles = _webContext.yourFiles.ToList();
+            var viewModels = dbFiles
+                .Select(dbFiles => new FilesViewModel()
                 {
-                    Id = 1,
-                    Name = "Rolls-Roys"
-                },
-                new FilesViewModel()
-                {
-                    Id=2,
-                    Name = "BMW"
-                },
-                new FilesViewModel()
-                {
-                    Id=3,
-                    Name = "Mercedes"
-                },
-            };
-            return View(models);
+                    Id = dbFiles.Id,
+                    Name = dbFiles.Name,
+                })
+                .ToList();
+            return View(viewModels);
         }
         public IActionResult ShowImage(int id)
         {
-            var model = new FilesUrlViewModel();
-            switch (id)
+            var dbFiles = _webContext.yourFiles.First(dbFile => dbFile.Id == id);
+            var model = new FilesUrlViewModel()
             {
-                case 1:
-                    model.Url = "/images/Social/RollsRoys.jpg";
-                    break;
-                case 2:
-                    model.Url = "/images/Social/bmw.jpg";
-                    break;
-                case 3:
-                    model.Url = "/images/Social/mercedes.webp";
-                    break;
-            }
-
+                Url = dbFiles.Url,
+            };
             return View(model);
         }
+        [HttpPost]
+        public IActionResult AddFiles()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddFiles(AddFilesViewModel viewModel)
+        {
+            var dbfile = new YourFiles()
+            {
+                Name = viewModel.Name,
+                Url = viewModel.Url,
+                Text = viewModel.Text,
+            };
+            _webContext.yourFiles.Add(dbfile);
+            _webContext.SaveChanges();
 
+            return View();
+        }
     }
 }

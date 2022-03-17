@@ -6,6 +6,9 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
     font-weight: 700;
+    display:flex;
+    justify-content:center;
+
 }
 .zagolovok {
     background-color: antiquewhite;
@@ -17,6 +20,7 @@
     margin: 0px 31px 0px 325px;
 }
 .forma {
+    display:block;
     padding: 23px;
     border: 2px solid black;
     border-radius: 17px;
@@ -31,5 +35,14 @@
 img{
     max-width:400px;
 }
+a{
+    text-decoration: none;
+}
+.AddFiles{
+    display:flex;
+    justify-content:center;
+}
+
+
 
 

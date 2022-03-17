@@ -8,8 +8,6 @@ namespace Net14.Web.Models
     public class FilesViewModel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-
+        public string Name { get; set; } = "BMW";
     }
 }
-

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model AddFilesViewModel
+@{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 <div class="main-content">
@@ -11,19 +12,24 @@
         </div>
     </div>
     <div class="forma">
-        <form class="addPositions">
-            <input type="file" class="file"/>
-            <div>
-                <input type="text" placeholder="Text" class="input-text"/>
-            </div>
-            <div>
-                <input type="url" placeholder="Url" class="input-text"/>
-            </div>
-            <div>
-                <input type="date" placeholder="date" class="input-text"/>
-            </div>
-            <input type="submit"/>
-        </form>
+        <div class="AddFiles">
+            Добавь новый файл для сохранения 
+        </div>
+        <form action="/Social/YourFiles" method="post">
+                <div>
+                    @Html.TextBoxFor(x => x.Name)
+                </div>
+                <div>
+                    @Html.TextBoxFor(x => x.Url)
+                </div>
+                <div>
+                    @Html.TextBoxFor(x => x.Text)
+                </div >
+                <div>
+                    <input type="submit" value="Создать"/>
+                </div>
+         </form>
+            
         <a href="/Social/ShowYourFiles">Посмотерть все картинки</a>
     </div>
 </div>
