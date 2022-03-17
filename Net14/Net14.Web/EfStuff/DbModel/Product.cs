@@ -13,5 +13,6 @@ namespace Net14.Web.EfStuff.DbModel
         public int Category { get; set; }
         public int Quantity { get; set; }
         public string Material { get; set; }
-    }
+        public int Price { get; set; }
+           }
 }

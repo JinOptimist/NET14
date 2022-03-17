@@ -21,7 +21,7 @@ namespace Net14.Web.Controllers
           _webContext = webContext;
         }
 
-        public IActionResult CatalogTest()
+        public IActionResult Admin()
         {
             var dbProducts=_webContext.Products.ToList();
             var viewModels = dbProducts
@@ -29,7 +29,12 @@ namespace Net14.Web.Controllers
             {
                 Id = dbProduct.Id,
                 Name = dbProduct.Name,
-                Url=dbProduct.Url
+                Url=dbProduct.Url,
+                Category=dbProduct.Category,
+                Quantity=dbProduct.Quantity,
+                Material=dbProduct.Material,
+                Price=dbProduct.Price,
+                
             }).ToList();
             return View(viewModels);
         }
@@ -79,7 +84,8 @@ namespace Net14.Web.Controllers
                 Url = viewModel.Url,
                 Category=viewModel.Category,
                 Quantity = viewModel.Quantity,
-                Material=viewModel.Material
+                Material=viewModel.Material,
+                Price=viewModel.Price
             };
 
             _webContext.Products.Add(dbProduct);

@@ -1,0 +1,57 @@
+﻿@model List<ProductViewModel>
+@using Net14.Web.Models.store
+@{
+    Layout = "/Views/Shared/_LayoutStore.cshtml";
+}
+<div class="bodyAdmin">
+
+
+<div class="title">
+    Панель администратора
+</div>
+<a class="title_mini" href="/Store/AddProduct">Add product</a>
+<div>
+   
+    
+    <table class="tableAdmin">
+        <thead>
+           <tr>
+            <td>Picture</td>
+
+            <td>Id</td>
+            
+            <td>Name</td>
+            
+            <td>Category</td>
+            
+            <td>Material</td>
+            
+            <td>Quantity</td>
+            
+            <td>Price</td>
+           </tr>
+        </thead>
+        <tbody>
+            @foreach(var product in Model){
+        <tr>
+            <td class="firstTD"> <img src="@product.Url" class="adminPanelImage"/></td>
+            
+            <td> @product.Id</td>
+            
+            <td>@product.Name</td>
+            
+            <td>@product.Category</td>
+            
+            <td>@product.Material</td>
+            
+            <td>@product.Quantity</td>
+            
+            <td>@product.Price $</td>
+            
+            </tr>
+            }
+        </tbody>
+    </table>
+    
+</div>
+</div>

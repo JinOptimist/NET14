@@ -196,6 +196,7 @@
 
 .container {
     min-height: 450px;
+    
 }
 
 .icon {
@@ -428,7 +429,28 @@ a {
     border-radius: 5px;
     margin: 5px;
 }
-.testCatalogimage{
-    width:250px;
-    height:250px;
+.adminPanelImage {
+    width: 150px;
+    height: 150px;
+}
+table{
+    border: 2px solid #212322;
+    height: 150px;
+    width:100%;
+    padding:0;
+    
+    
+}
+td {
+    border: 2px solid #212322;
+    padding: 0;
+    text-align:center;
+}
+.firstTD{
+    width: 150px;
+    height:150px;
+}
+.bodyAdmin{
+    padding: 0;
+    margin: 20px;
 }
