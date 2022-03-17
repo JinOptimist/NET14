@@ -157,8 +157,7 @@ namespace Net14.Web.Controllers
         }
         public IActionResult YourFiles()
         {
-            var dayOfWeek = (int)DateTime.Now.DayOfWeek;
-            return View(dayOfWeek);
+            return View();
         }
         public IActionResult ShowYourFiles()
         {

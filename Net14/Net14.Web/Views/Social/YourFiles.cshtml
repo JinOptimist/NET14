@@ -1,5 +1,4 @@
-﻿@model int
-@{
+﻿@{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 <div class="main-content">
@@ -8,7 +7,7 @@
             Привет мой дорогой друг, это страница для добавления, и хранения твоих файлов. 
         </div>
         <div class="text">
-            Сегодня @Model день недели, если ты не знал
+            Сегодня @DateTime.Now.ToLongDateString(), если ты не знал
         </div>
     </div>
     <div class="forma">
