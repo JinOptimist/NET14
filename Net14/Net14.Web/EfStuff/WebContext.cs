@@ -11,6 +11,8 @@ namespace Net14.Web.EfStuff
     {
         public DbSet<Image> Images { get; set; }
 
+        public DbSet<Product> Products { get; set; }
+
         public WebContext(DbContextOptions options) : base(options)
         {
         }
