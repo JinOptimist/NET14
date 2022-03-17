@@ -27,7 +27,7 @@
     border-radius: 10px;
     margin: 5px;
     text-decoration: none;
-    color: darkslategrey;
+    color: black;
 }
 
 .shopox {
@@ -196,7 +196,9 @@
 
 .container {
     min-height: 450px;
-    
+    width:100%;
+    margin:0;
+    padding:0;
 }
 
 .icon {
@@ -298,6 +300,7 @@
 body {
     font-family: Courier New, monospace;
     margin: 0;
+    padding:0;
 }
 .iconshoes {
     width: 152px;
@@ -394,41 +397,68 @@ body {
     line-height: 44px;
     color: #000;
 }
-
-a {
-    text-decoration: none;
+.indexRunMargin {
+    position: relative;
+    width: 100%;
+   
 }
-
-.content {
+.containerIndex1 {
+    width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    margin:0 10px 0 5px;
 }
 
-.content-big {
-    width: 33%;
-    max-height: 100%;
-    background: red;
-    margin: 5px;
-    margin-top: 10px;
-    border-radius: 5px;
-    align-items:center;
+.indexRun {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.titleImageRun {
+    position: absolute;
+    top: 200px;
+    left: 0;
+    color: white;
+    letter-spacing: -1px;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 25px;
+    font-family: Courier New, monospace;
+    font-size: 40px;
+}
+.containerIndex2 {
+    width: 100%;
+    display: flex
+}
+.womenSnkrs{
+    width:800px;
+    height:600px;
+}
+.sale{
+    width:100%
+}
+.socks {
+    width: 100%
+}
+.accessoriesIndex {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+.miniTitleImageRun {
+    position: absolute;
+    top: 200px;
+    left: 0;
+    color: white;
+    letter-spacing: -1px;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    font-family: Courier New, monospace;
+    font-size: 27px;
 }
 
-.content-medium {
-    max-width: 100%;
-    max-height: 50%;
-    background: green;
-    border-radius: 5px;
-    margin: 5px;
-}
-
-.content-small {
-    max-width: 100%;
-    max-height: 25%;
-    background: blue;
-    border-radius: 5px;
-    margin: 5px;
-}
 .adminPanelImage {
     width: 150px;
     height: 150px;
