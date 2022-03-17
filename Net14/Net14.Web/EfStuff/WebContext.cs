@@ -16,5 +16,9 @@ namespace Net14.Web.EfStuff
         public WebContext(DbContextOptions options) : base(options)
         {
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserSocial>().Property(u => u.UserPhoto).HasDefaultValue("/images/Social/User.jpg");
+        }
     }
 }

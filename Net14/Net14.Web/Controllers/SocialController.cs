@@ -41,11 +41,6 @@ namespace Net14.Web.Controllers
             return View(viewPost);
         }
 
-        public IActionResult ShowSecnodIndex()
-        {
-            return View();
-        }
-
         public IActionResult Settings()
         {
             return View();
@@ -77,7 +72,7 @@ namespace Net14.Web.Controllers
             if (name == null)
             {
                 var user = _webContext.Users.Where(userInDb =>
-                    userInDb.Age == (Age == 0 ? userInDb.Age : Age) && 
+                    userInDb.Age == (Age == 0 ? userInDb.Age : Age) &&
                     userInDb.City.ToLower() == (City == null ? userInDb.City.ToLower() : City.ToLower()) &&
                     userInDb.Country.ToLower() == (Country == null ? userInDb.Country.ToLower() : Country.ToLower()) &&
                     userInDb.FirstName.ToLower() == (FirstName == null ? userInDb.FirstName.ToLower() : FirstName.ToLower()) &&
@@ -96,7 +91,7 @@ namespace Net14.Web.Controllers
 
                 return View(user);
             }
-            else 
+            else
             {
                 string[] names = name.Split(" ");
                 if (names.Length == 1)
@@ -117,7 +112,7 @@ namespace Net14.Web.Controllers
                         }).ToList();
                     return View(user);
                 }
-                else if (names.Length == 2) 
+                else if (names.Length == 2)
                 {
                     var user = _webContext.Users.Where(user =>
                     (user.FirstName.ToLower() == names[0].ToLower() && user.LastName.ToLower() == names[1].ToLower())
@@ -125,13 +120,13 @@ namespace Net14.Web.Controllers
                         .Select(foundUser =>
                         new SocialUserViewModel()
                         {
-                        FirstName = foundUser.FirstName,
-                        LastName = foundUser.LastName,
-                        Age = foundUser.Age,
-                        City = foundUser.City,
-                        Country = foundUser.Country,
-                        Id = foundUser.Id,
-                        UserPhoto = foundUser.UserPhoto
+                            FirstName = foundUser.FirstName,
+                            LastName = foundUser.LastName,
+                            Age = foundUser.Age,
+                            City = foundUser.City,
+                            Country = foundUser.Country,
+                            Id = foundUser.Id,
+                            UserPhoto = foundUser.UserPhoto
 
                         }).ToList();
                     return View(user);
@@ -142,20 +137,17 @@ namespace Net14.Web.Controllers
         }
 
 
-        public IActionResult AboutUs() 
-        {
-            return View();
-        }
-        public IActionResult Registration()
-        {
-            return View();
-        }
-        public IActionResult Autorisation()
+        public IActionResult AboutUs()
         {
             return View();
         }
 
+
         public IActionResult ShowProfile()
+        {
+            return View();
+        }
+        public IActionResult ShowPagesProfile() 
         {
             return View();
         }
