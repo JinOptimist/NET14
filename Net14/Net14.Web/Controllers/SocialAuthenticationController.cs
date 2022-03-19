@@ -73,7 +73,7 @@ namespace Net14.Web.Controllers
                 }
                 else 
                 {
-                    return Redirect("/Social/ShowProfile");
+                    return Redirect("~/Social/ShowPagesProfile");
                 }
             }
             else 
