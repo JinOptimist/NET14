@@ -42,6 +42,20 @@ namespace Net14.Web.Controllers
 
             return View(noteViewModels);
         }
+        public IActionResult ShowPhrase()
+        {
+            var dbPhrases = _webContext
+                .Phrases
+                .ToList();
+            var PhraseViewModels = dbPhrases
+                .Select(dbPhrase => new PhraseViewModel()
+                {
+                    Text = dbPhrase.Text,
+                })
+                .ToList();
+
+            return View(PhraseViewModels);
+        }
 
         [HttpGet]
         public IActionResult AddNote()

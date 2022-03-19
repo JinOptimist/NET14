@@ -1,0 +1,15 @@
+﻿@using Net14.Web.Models.Calendar
+@model List<PhraseViewModel>
+
+@{
+    Layout = "/Views/Shared/_LayoutCalendar.cshtml";
+}
+
+@foreach (var phraseView in Model)
+{
+    <div class=phrase>
+<div>
+@phraseView.Text
+</div>  
+   </div>
+}
