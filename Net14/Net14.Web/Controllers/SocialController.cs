@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Net14.Web.EfStuff;
+using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -147,7 +149,56 @@ namespace Net14.Web.Controllers
         {
             return View();
         }
-        public IActionResult ShowPagesProfile() 
+        public IActionResult MyFiles()
+        {
+            return View();
+        }
+        public IActionResult AllFiles()
+        {
+            var files = _webContext.fileSocial.ToList();
+            var viewModels = files.Select(db => new FilesViewModel()
+            {
+                Id = db.Id,
+                Name = db.Name,
+                Url = db.Url,
+                Text = db.Text,
+            })
+            .ToList();
+            return View(viewModels);
+        }
+        public IActionResult ShowMyFiles(int id)
+        {
+            var files = _webContext.fileSocial.First(x => x.Id == id);
+            var model = new FilesViewModel()
+            {
+                Name = files.Name,
+                Url = files.Url,
+                Text = files.Text,
+            };
+            return View(model);
+        }
+        [HttpGet]
+        public IActionResult AddFiles()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddFiles(FilesViewModel viewModel)
+        {
+            var dbFiles = new FileSocial()
+            {
+                Name = viewModel.Name,
+                Url = viewModel.Url,
+                Text = viewModel.Text,
+            };
+            _webContext.fileSocial.Add(dbFiles);
+            _webContext.SaveChanges();                     // Сохраняйся 
+
+            return View();
+        }
+
+
+        public IActionResult ShowProfile()
         {
             return View();
         }
