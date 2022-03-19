@@ -156,50 +156,55 @@ namespace Net14.Web.Controllers
         {
             return View();
         }
-        public IActionResult YourFiles()
+        public IActionResult MyFiles()
         {
             return View();
         }
-        public IActionResult ShowYourFiles()
+        public IActionResult AllFiles()
         {
-            var dbFiles = _webContext.yourFiles.ToList();
-            var viewModels = dbFiles
-                .Select(dbFiles => new FilesViewModel()
-                {
-                    Id = dbFiles.Id,
-                    Name = dbFiles.Name,
-                })
-                .ToList();
+            var files = _webContext.fileSocial.ToList();
+            var viewModels = files.Select(db => new FilesViewModel()
+            {
+                Id = db.Id,
+                Name = db.Name,
+                Url = db.Url,
+                Text = db.Text,
+            })
+            .ToList();
             return View(viewModels);
         }
-        public IActionResult ShowImage(int id)
+        public IActionResult ShowMyFiles(int id)
         {
-            var dbFiles = _webContext.yourFiles.First(dbFile => dbFile.Id == id);
-            var model = new FilesUrlViewModel()
+            var files = _webContext.fileSocial.First(x => x.Id == id);
+            var model = new FilesViewModel()
             {
-                Url = dbFiles.Url,
+                Name = files.Name,
+                Url = files.Url,
+                Text = files.Text,
             };
             return View(model);
         }
-        [HttpPost]
+        [HttpGet]
         public IActionResult AddFiles()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult AddFiles(AddFilesViewModel viewModel)
+        public IActionResult AddFiles(FilesViewModel viewModel)
         {
-            var dbfile = new YourFiles()
+            var dbFiles = new FileSocial()
             {
                 Name = viewModel.Name,
                 Url = viewModel.Url,
                 Text = viewModel.Text,
             };
-            _webContext.yourFiles.Add(dbfile);
-            _webContext.SaveChanges();
+            _webContext.fileSocial.Add(dbFiles);
+            _webContext.SaveChanges();                     // Сохраняйся 
 
             return View();
         }
+
+
         public IActionResult ShowProfile()
         {
             return View();

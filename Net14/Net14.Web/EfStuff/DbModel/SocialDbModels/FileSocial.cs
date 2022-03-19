@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TeamSocial;
 
-namespace Net14.Web.Models
+namespace Net14.Web.EfStuff.DbModel.SocialDbModels
 {
-    public class FilesViewModel
+    public class FileSocial
     {
         public int Id { get; set; }
         public string Name { get; set; } = "Тестовый, дефолтный файл";
