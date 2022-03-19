@@ -2,10 +2,7 @@
     margin: 0;
     padding: 0
 }
-.notes {
-    width: 300px;
-    display:block;
-}
+
 
 .main-block {
     display: flex;
@@ -16,10 +13,11 @@
     display: contents;
 }
 .menu-block {
+    text-decoration: none;
     background-color: #58c4e8;
     display: flex;
     flex-direction: column;
-    min-width: 110px;
+    min-width: 160px;
     border-left: 0px solid black;
     border-right: 0px solid black;
     border-bottom: 0px solid black;
@@ -27,7 +25,7 @@
 }
 
     .menu-block .myButton:last-child {
-        margin-bottom: 10px;
+        margin-bottom: 0px;
     }
 
     .menu-block a {
@@ -46,22 +44,26 @@
     border: 0px solid black;
     font: 30px "Courier New", monospace;
     margin-bottom: 0px;
+    text-align:left;
 }
 
 .buttons {
     display: flex;
+    
+    padding:2px;
 }
 h2 {
     font: 22px "Courier New", Courier, monospace;
 }
-.greetings {
+.text {
     font: 18px "Courier New", Courier, monospace;
+    text-decoration: none;
 }
 
 .myButton {
     text-decoration: none;
     text-align: center;
-    padding: 11px 22px;
+    padding: 11px 10px;
     border: solid 1px #41545c;
     font: 18px "Courier New", Courier, monospace;
     font-weight: bold;
@@ -73,6 +75,7 @@ h2 {
 }
 
     .myButton:hover {
+        text-decoration: none;
         width: 100;
         padding: 11px 32px;
         border: solid 1px #41545c;
@@ -92,6 +95,7 @@ h2 {
     }
 
     .myButton:active {
+        text-decoration: none;
         padding: 11px 32px;
         border: solid 1px #41545c;
         font: 18px "Courier New", Courier, monospace;
@@ -115,6 +119,7 @@ h2 {
 
 .content-block {
     flex: 1;
+
     justify-content: space-between;
     background: #E9ECEF;
     flex-wrap: wrap;
@@ -123,6 +128,8 @@ h2 {
 
 .calendar {
     border: 1px;
+    max-width: 800px;
+    text-align:center
 }
 
     .calendar .year {
@@ -140,28 +147,16 @@ h2 {
 .calendar-view {
     margin: 3 px;
     display: flex;
-    justify-content:left;
+    justify-content: left;
     align-items: center;
-    
+    text-decoration: none;
     place-content: center;
     justify-content: center;
 }
 
 
 
-    .notes .myButton {
-        flex: 1;
-        box-shadow: none;
-        border-radius: 0;
-        border-right: 2px solid black;
-        border-top: 2px solid black;
-        border-bottom: 2px solid black;
-    }
-
-        .notes .myButton:last-child {
-            border-right: none;
-        }
-
+    
 .month {
     width: 5%;
     cursor: pointer;
@@ -198,54 +193,32 @@ h2 {
     cursor: pointer;
 }
 
-.yourButton {
-    text-decoration: none;
-    text-align: center;
-    padding: 30px 30px;
-    border: solid 1px #41545c;
-    font: 18px "Courier New", Courier, monospace;
-    font-weight: bold;
-    color: #000000;
-    -webkit-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
-    -moz-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
-    box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+.calendar-group{
+    display:flex;
+    justify-content:space-around;
 }
 
-.yourButton:hover {
-    padding: 30px 30px;
-    border: solid 0px #41545c;
-    font: 18px "Courier New", Courier, monospace;
-    font-weight: bold;
-    color: #000000;
-    background: #000000;
-    background-color: #58c4e8;
-    background-image: -moz-linear-gradient(top, #58c4e8 0%, #b8e6f5 100%);
-    background-image: -webkit-linear-gradient(top, #58c4e8 0%, #b8e6f5 100%);
-    background-image: -o-linear-gradient(top, #58c4e8 0%, #b8e6f5 100%);
-    background-image: -ms-linear-gradient(top, #58c4e8 0%,#b8e6f5 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b8e6f5', endColorstr='#b8e6f5',GradientType=0 );
-    background-image: linear-gradient(top, #58c4e8 0%,#b8e6f5 100%);
-    -webkit-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
-    -moz-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
-    box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+.img-link {
+    width: 100%;
+    border-radius: 30px 30px 5px 5px;
+   height:130px;
+   border:0px;
+   margin:0px;
 }
-.yourButton:active {
-    padding: 30px 30px;
-    border: solid 0px #41545c;
-    font: 18px "Courier New", Courier, monospace;
-    font-weight: bold;
-    color: #000000;
-    background-color: #d1f4ff;
-    background-image: -moz-linear-gradient(top, #d1f4ff 0%, #dbf6ff 100%);
-    background-image: -webkit-linear-gradient(top, #d1f4ff 0%, #dbf6ff 100%);
-    background-image: -o-linear-gradient(top, #d1f4ff 0%, #dbf6ff 100%);
-    background-image: -ms-linear-gradient(top, #d1f4ff 0%,#dbf6ff 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dbf6ff', endColorstr='#dbf6ff',GradientType=0 );
-    background-image: linear-gradient(top, #d1f4ff 0%,#dbf6ff 100%);
-    -webkit-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
-    -moz-box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
-    box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;
+.button {
+    min-width: 210px;
+    border: solid 7px #41545c;
+    border-radius: 37px;
+    text-align: center;
+    padding: 0px;
+    margin:5px;
+    
+    
 }
-.note .yourButton{
-    display:flex;
+.another-links {
+    display: flex;
+    justify-content: space-around;
 }
+
+
+
