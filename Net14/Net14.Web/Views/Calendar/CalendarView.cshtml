@@ -1,0 +1,70 @@
+﻿@using Net14.Web.Controllers
+@model List<string>
+
+@{
+    Layout = "/Views/Shared/_LayoutCalendar.cshtml";
+}
+<div>
+    <div>
+        @{
+            var month = DateTime.Now.Month;
+            
+            var Monthes = new Dictionary<int, string>()
+            {
+                {1, "January"},
+                {2, "February"},
+                {3, "March"},
+                {4, "April"},
+                {5, "May"},
+                {6, "June"},
+                {7, "July"},
+                {8, "August"},
+                {9, "September"},
+                {10, "October"},
+                {11, "November"},
+                {12, "December"}
+            };
+            @Monthes[month];
+        }
+    </div>
+<div class="calWindow">
+    <div class="calDayOfWeek">
+        <div>Mo</div>
+        <div>Tu</div>
+        <div>We</div>
+        <div>Th</div>
+        <div>Fr</div>
+        <div style=color:red>Sa</div>
+        <div style=color:red>Su</div>
+    </div>
+    <div class="calWeeks">
+    @{
+        var count = 0;
+        
+        for (int i = 0; i <= 5; i++)
+    {
+        <div class="calNumsWindow">
+        @{
+            for (int j = 0; j < 7; j++)
+        {
+            if (count >= Model.Count)
+                    break;    
+            <div class="calDays">
+            @{
+                @Model[count];
+            }
+            </div>
+                count++;
+            }
+            }
+        </div>
+        
+    }
+     }
+    
+</div>
+</div>
+
+</div>
+
+

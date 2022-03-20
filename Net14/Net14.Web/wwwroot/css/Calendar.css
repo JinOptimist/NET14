@@ -220,5 +220,20 @@ h2 {
     justify-content: space-around;
 }
 
-
-
+.calWindow {
+    display:flex;
+}
+.calDayOfWeek {
+    width:15px;
+    padding-right:40px;
+    color:blue;
+}
+.calNumsWindow {
+    width:50px;
+}
+.calDays {
+    padding-right:20px;
+}
+.calWeeks {
+    display:contents;
+}

@@ -66,5 +66,57 @@ namespace Net14.Web.Controllers
             return View();
         }
         
+        public IActionResult CalendarView(CalendarViewModel CalViewModel)
+        {
+            var dayOfWeek = new DateTime(CalViewModel.Year, CalViewModel.MonthNumber, 1).DayOfWeek;
+            var monthView = new List<string>();
+            int daysCount = DateTime.DaysInMonth(CalViewModel.Year, CalViewModel.MonthNumber);
+            switch (dayOfWeek.ToString())
+            {
+                case "Monday":
+                    break;
+                case "Tuesday":
+                    monthView.Add("_");
+                    break;
+                case "Wednesday":
+                    monthView.Add("_");
+                    monthView.Add("_");
+                    break;
+                case "Thursday":
+                    monthView.Add("_");
+                    monthView.Add("_");
+                    monthView.Add("_");
+                    break;
+                case "Friday":
+                    monthView.Add("_");
+                    monthView.Add("_");
+                    monthView.Add("_");
+                    monthView.Add("_");
+                    break;
+                case "Saturday":
+                    monthView.Add("_");
+                    monthView.Add("_");
+                    monthView.Add("_");
+                    monthView.Add("_");
+                    monthView.Add("_");
+                    break;
+                case "Sunday":
+                    monthView.Add("_");
+                    monthView.Add("_");
+                    monthView.Add("_");
+                    monthView.Add("_");
+                    monthView.Add("_");
+                    monthView.Add("_");
+                    break;
+                default:
+                    break;
+            }
+            for (int i = 0; i < daysCount; i++)
+            {
+                monthView.Add(CalViewModel.DayNumber.ToString());
+                CalViewModel.DayNumber++;
+            }
+            return View(monthView);
+        }
     }
 }
