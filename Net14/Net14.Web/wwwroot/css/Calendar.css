@@ -234,6 +234,10 @@ h2 {
 .calDays {
     padding-right:20px;
 }
+.calDaysNow {
+    padding-right: 20px;
+    color:goldenrod;
+}
 .calWeeks {
     display:contents;
 }

@@ -25,6 +25,7 @@
                 {12, "December"}
             };
             @Monthes[month];
+            
         }
     </div>
 <div class="calWindow">
@@ -44,17 +45,30 @@
         for (int i = 0; i <= 5; i++)
     {
         <div class="calNumsWindow">
-        @{
-            for (int j = 0; j < 7; j++)
-        {
-            if (count >= Model.Count)
-                    break;    
-            <div class="calDays">
+                        @{
+                            for (int j = 0; j < 7; j++)
+                            {
+                                if (count >= Model.Count)
+                                    break;    
+                                if (Model[count]==DateTime.Now.Day.ToString())
+                                {
+                                    <div class="calDaysNow">
+            @{
+                @Model[count];
+            }
+                                    </div>
+                                    count++;
+                                }
+                                else
+                                {
+                                    <div class="calDays">
             @{
                 @Model[count];
             }
             </div>
                 count++;
+                                }
+
             }
             }
         </div>
