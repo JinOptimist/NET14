@@ -37,7 +37,17 @@ body {
     justify-content: center;
     align-items: center;
 }
-
+.button-eye {
+    font-size: 80px;
+    height: 111px;
+    width: 111px;
+    color: rgb(75, 71, 78);
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .button1 {
     border-radius: 25px 10px 10px 10px;
 }
