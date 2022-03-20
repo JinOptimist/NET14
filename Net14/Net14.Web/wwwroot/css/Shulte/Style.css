@@ -36,6 +36,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: opacity 0.3s ease;
 }
 .button-eye {
     font-size: 80px;
@@ -50,18 +51,22 @@ body {
 }
 .button1 {
     border-radius: 25px 10px 10px 10px;
+    transition: opacity 0.3s ease;
 }
 
 .button2 {
     border-radius: 10px 25px 10px 10px;
+    transition: opacity 0.3s ease;
 }
 
 .button3 {
     border-radius: 10px 10px 10px 25px;
+    transition: opacity 0.3s ease;
 }
 
 .button4 {
     border-radius: 10px 10px 25px 10px;
+    transition: opacity 0.3s ease;
 }
 
 .eye img {
