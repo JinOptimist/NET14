@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+	<Folder Include="wwwroot\images\" />
     <Folder Include="Models\Shulte\" />
   </ItemGroup>
 
