@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Net14.Web.EfStuff;
+using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -77,7 +79,7 @@ namespace Net14.Web.Controllers
             if (name == null)
             {
                 var user = _webContext.Users.Where(userInDb =>
-                    userInDb.Age == (Age == 0 ? userInDb.Age : Age) && 
+                    userInDb.Age == (Age == 0 ? userInDb.Age : Age) &&
                     userInDb.City.ToLower() == (City == null ? userInDb.City.ToLower() : City.ToLower()) &&
                     userInDb.Country.ToLower() == (Country == null ? userInDb.Country.ToLower() : Country.ToLower()) &&
                     userInDb.FirstName.ToLower() == (FirstName == null ? userInDb.FirstName.ToLower() : FirstName.ToLower()) &&
@@ -96,7 +98,7 @@ namespace Net14.Web.Controllers
 
                 return View(user);
             }
-            else 
+            else
             {
                 string[] names = name.Split(" ");
                 if (names.Length == 1)
@@ -117,7 +119,7 @@ namespace Net14.Web.Controllers
                         }).ToList();
                     return View(user);
                 }
-                else if (names.Length == 2) 
+                else if (names.Length == 2)
                 {
                     var user = _webContext.Users.Where(user =>
                     (user.FirstName.ToLower() == names[0].ToLower() && user.LastName.ToLower() == names[1].ToLower())
@@ -125,13 +127,13 @@ namespace Net14.Web.Controllers
                         .Select(foundUser =>
                         new SocialUserViewModel()
                         {
-                        FirstName = foundUser.FirstName,
-                        LastName = foundUser.LastName,
-                        Age = foundUser.Age,
-                        City = foundUser.City,
-                        Country = foundUser.Country,
-                        Id = foundUser.Id,
-                        UserPhoto = foundUser.UserPhoto
+                            FirstName = foundUser.FirstName,
+                            LastName = foundUser.LastName,
+                            Age = foundUser.Age,
+                            City = foundUser.City,
+                            Country = foundUser.Country,
+                            Id = foundUser.Id,
+                            UserPhoto = foundUser.UserPhoto
 
                         }).ToList();
                     return View(user);
@@ -142,7 +144,7 @@ namespace Net14.Web.Controllers
         }
 
 
-        public IActionResult AboutUs() 
+        public IActionResult AboutUs()
         {
             return View();
         }
@@ -154,7 +156,56 @@ namespace Net14.Web.Controllers
         {
             return View();
         }
-        public IActionResult ShowPagesProfile()
+        public IActionResult MyFiles()
+        {
+            return View();
+        }
+        public IActionResult AllFiles()
+        {
+            var files = _webContext.fileSocial.ToList();
+            var viewModels = files.Select(db => new FilesViewModel()
+            {
+                Id = db.Id,
+                Name = db.Name,
+                Url = db.Url,
+                Text = db.Text,
+            })
+            .ToList();
+            return View(viewModels);
+        }
+        public IActionResult ShowMyFiles(int id)
+        {
+            var files = _webContext.fileSocial.First(x => x.Id == id);
+            var model = new FilesViewModel()
+            {
+                Name = files.Name,
+                Url = files.Url,
+                Text = files.Text,
+            };
+            return View(model);
+        }
+        [HttpGet]
+        public IActionResult AddFiles()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddFiles(FilesViewModel viewModel)
+        {
+            var dbFiles = new FileSocial()
+            {
+                Name = viewModel.Name,
+                Url = viewModel.Url,
+                Text = viewModel.Text,
+            };
+            _webContext.fileSocial.Add(dbFiles);
+            _webContext.SaveChanges();                     // Сохраняйся 
+
+            return View();
+        }
+
+
+        public IActionResult ShowProfile()
         {
             return View();
         }
