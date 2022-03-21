@@ -118,5 +118,11 @@ namespace Net14.Web.Controllers
             }
             return View(monthView);
         }
+        public IActionResult ChangeMonth(CalendarViewModel CalViewModel)
+        {
+            CalViewModel.MonthNumber--;
+            CalendarView(CalViewModel);
+            return View();
+        }
     }
 }

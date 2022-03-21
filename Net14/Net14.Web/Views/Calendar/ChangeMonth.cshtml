@@ -4,17 +4,12 @@
 @{
     Layout = "/Views/Shared/_LayoutCalendar.cshtml";
 }
-
 <div>
-        <a href="/Calendar/ChangeMonth" target="_blank">
-                    <div class="button">
-                        <div><img src="~/images/Calendar/calendar.jpg" class="img-link" /></div>
-                        <div class="text">Month--</div>
-                     </div>
-                 </a>
+
     <div>
         @{
-            var month = DateTime.Now.Month;
+            var month = DateTime.Now.Month-1;
+
             var Monthes = new Dictionary<int, string>()
             {
                 {1, "January"},

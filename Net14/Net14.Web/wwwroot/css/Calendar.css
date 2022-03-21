@@ -76,7 +76,7 @@ h2 {
 
     .myButton:hover {
         text-decoration: none;
-        width: 100;
+        width:100%;
         padding: 11px 32px;
         border: solid 1px #41545c;
         font: 18px "Courier New", Courier, monospace;
@@ -240,4 +240,8 @@ h2 {
 }
 .calWeeks {
     display:contents;
+}
+.calDaysWeekend {
+    padding-right: 20px;
+    color:red;
 }
