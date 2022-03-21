@@ -1,17 +1,38 @@
-﻿
+﻿@using Net14.Web.EfStuff.DbModel.SocialDbModels;
+@model List<SocialPostViewModel>; 
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
-<link rel="stylesheet" href="~/css/SocialCss/Registration.css">
-<div class="element">
-    <div class="text">
-        Sign in
+
+    <div class="content-element">
+        <div class="post-operations">
+            <div class="operations">
+                <img src="~/images/Social/heart.png">
+            </div>
+            <div class="operations">
+                <img src="~/images/Social/speech-bubble.png">
+            </div>
+            <div class="operations">
+                <img src="~/images/Social/share (1).png">
+            </div>
+        </div>
+        <div class="content-element-card">
+            <div class="user-info">
+                <div class="user-photo">
+                    <img src=post.UserPhotoUrl class="user-photo">
+                </div>
+                <div class="user-name">
+                    <p class="name">post.NameOfUser</p>
+                    <p>posted:</p>
+                </div>
+            </div>
+            <div class="block-post-image">
+                <img src=post.ImageUrl class="post-image">
+            </div>
+            <div class="footer-of-post">
+                post.Comments
+            </div>
+            <div class="time-of-posting">Posted @DateTime.Now.ToLocalTime()</div>
+        </div>
     </div>
-</div>
-<div class="element">
-    <form class="hidden-form form-container">
-        Enter E-mail: <input type="email" placeholder="Enter email">
-        Enter Password: <input type="password" placeholder="Enter password">
-        <input type="submit" value="Come in" onClick='location.href="/Social/ShowProfile"'>
-    </form>
-</div>
+}
