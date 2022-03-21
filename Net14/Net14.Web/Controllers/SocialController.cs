@@ -43,11 +43,6 @@ namespace Net14.Web.Controllers
             return View(viewPost);
         }
 
-        public IActionResult ShowSecnodIndex()
-        {
-            return View();
-        }
-
         public IActionResult Settings()
         {
             return View();
@@ -148,11 +143,9 @@ namespace Net14.Web.Controllers
         {
             return View();
         }
-        public IActionResult Registration()
-        {
-            return View();
-        }
-        public IActionResult Autorisation()
+
+
+        public IActionResult ShowProfile()
         {
             return View();
         }
@@ -204,8 +197,7 @@ namespace Net14.Web.Controllers
             return View();
         }
 
-
-        public IActionResult ShowProfile()
+        public IActionResult ShowPagesProfile() 
         {
             return View();
         }

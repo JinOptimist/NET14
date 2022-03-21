@@ -10,8 +10,7 @@ form {
     background: white;
     padding: 40px;
     transition: background 0.5s ease;
-    min-width: 400px;
-    max-width: 570px;
+    width: 550px;
 }
 
 
