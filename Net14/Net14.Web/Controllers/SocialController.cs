@@ -204,11 +204,28 @@ namespace Net14.Web.Controllers
             return View();
         }
 
-
-        public IActionResult ShowProfile()
-        {
+        [HttpGet]
+        public IActionResult ShowPagesProfile()
+        {            
             return View();
         }
 
+        [HttpPost]
+        public IActionResult ShowPagesProfile(int id)
+        {
+            var users = _webContext.Users.Select(user =>
+            new SocialUserViewModel()
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Age = user.Age,
+                City = user.City,
+                Country = user.Country,
+                Email = user.Email,
+                Id = user.Id,
+                UserPhoto = user.UserPhoto
+            }).ToList();
+            return View(users);
+        }
     }
 }
