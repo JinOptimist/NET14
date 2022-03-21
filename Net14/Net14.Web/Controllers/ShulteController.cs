@@ -55,18 +55,6 @@ namespace Net14.Web.Controllers
 
             return View(viewModels);
         }
-        public IActionResult ShowComments(int id)
-        {
-            var dbImage = _webContext
-                .CommentsForShulte
-                .First(x => x.Id == id);
-
-            var model = new CommentsViewModel()
-            {
-                Comment = dbImage.Comment
-            };
-
-            return View(model);
-        }
+        
     }
 }
