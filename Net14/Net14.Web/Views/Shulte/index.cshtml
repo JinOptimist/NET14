@@ -1,0 +1,21 @@
+﻿@using Net14.Web.Models.Shulte
+@model List<CommentsViewModel>
+@{
+    Layout = "/Views/Shared/_LayoutShulte.cshtml";
+}
+<div>
+    <a href="/Shulte/Main">Back</a>
+</div>
+<div>
+    Все комментарии
+</div>
+<div>
+    @foreach (var comment in Model)
+    {
+    <div>
+        @comment.Comment
+    </div>
+    }
+</div>
+<a href="/Shulte/AddComment">Add comment</a>
+

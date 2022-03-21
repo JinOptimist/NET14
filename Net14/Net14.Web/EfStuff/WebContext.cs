@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Net14.Web.EfStuff.DbModel;
+using Net14.Web.EfStuff.DbModel.DbShulte;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Net14.Web.EfStuff
     public class WebContext : DbContext
     {
         public DbSet<Image> Images { get; set; }
+        public DbSet<CommentsForShulte> CommentsForShulte { get; set; }
 
         public WebContext(DbContextOptions options) : base(options)
         {

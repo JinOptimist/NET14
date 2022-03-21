@@ -84,7 +84,7 @@ body {
 .game {
     display: flex;
     justify-content: center;
-    margin: -86px;
+    margin: -93px 0 -73px 0;
 }
 
 td {
@@ -104,7 +104,7 @@ td {
     font-size: 30px;
     display: flex;
     justify-content: center;
-    margin: 100px 0 700px 20px;
+    margin: 100px 0 -58px 20px;
 }
 .main-text-rules {
     font-family: cursive;
@@ -145,4 +145,27 @@ td {
 .clickedelement {
     height: 500px;
     background: gainsboro;
+}
+.block-comments {
+    display: flex;
+    justify-content: center;
+    padding:0 0 100px 0;
+}
+.comments {
+    padding: 20px;
+    max-width: 710px;
+    max-height: 510px;
+    border: 3mm solid #A9A9A9;
+    border-radius: 15px;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    margin: 100px 0 87px 20px;
+}
+.block-for-AddComments{
+    display:flex;
+    justify-content:flex-end;
+}
+*{
+    text-decoration:none;
 }

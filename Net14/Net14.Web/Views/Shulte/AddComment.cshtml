@@ -1,0 +1,15 @@
+﻿@using Net14.Web.Models.Shulte
+@model CommentsViewModel
+
+@{
+    Layout = "/Views/Shared/_LayoutShulte.cshtml";
+}
+
+<form action="/Shulte/AddComment" method="post">
+    <div>
+        Add Comments: @Html.TextBoxFor(x => x.Comment)
+        <input type="submit" value="Создать" />
+    </div>
+    
+</form>
+<a href="/Shulte/index">Back</a>
