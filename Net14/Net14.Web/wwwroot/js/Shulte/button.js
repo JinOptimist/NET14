@@ -27,4 +27,10 @@ $(document).ready(function ()
         
     })
 })
-//$(this).css("opacity", "0.1");
+
+$(document).ready(function () {
+    var height = $(window).height();
+    $('.clickedelement').on('click', function () {
+        $(window).scrollTop(height);
+    })
+});

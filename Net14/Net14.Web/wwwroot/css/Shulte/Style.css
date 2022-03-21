@@ -84,7 +84,7 @@ body {
 .game {
     display: flex;
     justify-content: center;
-    padding: 5px;
+    margin: -86px;
 }
 
 td {
@@ -104,7 +104,7 @@ td {
     font-size: 30px;
     display: flex;
     justify-content: center;
-    margin: 70px 0 700px 0;
+    margin: 100px 0 700px 20px;
 }
 .main-text-rules {
     font-family: cursive;
@@ -122,20 +122,27 @@ td {
     text-indent: 37px;
 }
 .navigator {
-    max-width: 100px;
-    max-width: 100px;
+    display: flex;
+    max-width: 273px;
+    max-height: 82px;
     font-family: 30px;
     border: 3mm solid #A9A9A9;
     border-radius: 15px;
     font-family: cursive;
+    align-items: center;
+    padding: 10px 10px 10px 10px;
+    font-size: 20px;
+    margin: 10px;
+    height: 500px;
 }
-.game .navigator{
-    align-items:flex-start;
-}
-.main{
-    display:block;
-    justify-content:flex-start;
+.main {
+    display: inline;
 }
 .outline{
     font-size:20px;
+}
+
+.clickedelement {
+    height: 500px;
+    background: gainsboro;
 }
