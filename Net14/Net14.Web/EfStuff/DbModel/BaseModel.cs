@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace Net14.Web.EfStuff.DbModel
 {
-    public class ImageComment : BaseModel
+    public abstract class BaseModel
     {
-        public string Text { get; set; }
-
-        public virtual Image Image { get; set; }
+        public int Id { get; set; }
     }
 }
