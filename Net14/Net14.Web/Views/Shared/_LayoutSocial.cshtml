@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="~/css/SocialCss/findUsers.css">
     <link rel="stylesheet" href="~/css/SocialCss/SettingsSocialCss.css">
     <script language="JavaScript" type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
-
+    @RenderSection("Scripts", required: false)
 
     <script src="~/js/SocialJS.js"></script>
 </head>
@@ -26,7 +26,7 @@
         </div>
         <ul class="navigation">
             <li class="navigation-element"><a href="/Social/Index">Home</a></li>
-            <li class="navigation-element"><a href="/Social/Registration">Sign up</a></li>
+            <li class="navigation-element"><a href="/SocialAuthentication/Registration">Sign up</a></li>
             <li class="navigation-element" id="settings-icon">
             </li>
         </ul>
@@ -43,7 +43,7 @@
                 <div class="menu-element">Recomendation</div>
                 <div class="menu-element">Probably familiar</div>
                 <div class="menu-element" onclick="location.href='/Social/ShowAllUsers';">Find user</div>
-                <div class="menu-element" onclick="location.href='/Social/Autorisation';">Sign in</div>
+                <div class="menu-element" onclick="location.href='/SocialAuthentication/Autorization';">Sign in</div>
             </div>
             <div class="menu-recomendations-user">
                 <div class="menu-recomendation-title">Recommended accounts</div>
