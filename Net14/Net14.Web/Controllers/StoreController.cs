@@ -66,8 +66,20 @@ namespace Net14.Web.Controllers
         }
         public IActionResult Catalog()
         {
+            var dbProducts = _webContext.Products.ToList();
+            var viewModels = dbProducts
+            .Select(dbProduct => new ProductViewModel()
+            {
+                Id = dbProduct.Id,
+                Name = dbProduct.Name,
+                Url = dbProduct.Url,
+                Category = dbProduct.Category,
+                Material = dbProduct.Material,
+                Price = dbProduct.Price,
 
-            return View();
+            }).ToList();
+            return View(viewModels);
+            
         }
         [HttpGet]
         public IActionResult AddProduct()

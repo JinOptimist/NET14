@@ -1,8 +1,24 @@
-﻿@{
+﻿@model List<ProductViewModel>
+@using Net14.Web.Models.store
+@{
     Layout = "/Views/Shared/_LayoutStore.cshtml";
 }
 
 <div class="header_catalog ">
 <center><h1>Каталог</h1></center>
+
+ <div>    
+     @foreach(var product in Model){
+        
+           <div>    <img src="@product.Url" class="adminPanelImage"/>
+            
+            @product.Name
+            @product.Category
+            @product.Material       
+            @product.Price $ 
+            </div> 
+     }
+           
+            </div> 
 </div>
  
