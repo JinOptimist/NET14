@@ -147,7 +147,9 @@ namespace Net14.Web.Controllers
 
         public IActionResult ShowProfile()
         {
-            return View();
+            var user = new UserSocial();
+            
+            return View(user);
         }
         public IActionResult MyFiles()
         {
@@ -197,10 +199,28 @@ namespace Net14.Web.Controllers
             return View();
         }
 
-        public IActionResult ShowPagesProfile() 
-        {
+        [HttpGet]
+        public IActionResult ShowPagesProfile()
+        {            
             return View();
         }
 
+        [HttpPost]
+        public IActionResult ShowPagesProfile(UserSocial user)
+        {
+            var users = _webContext.Users.First(x => x.Email == user.Email && x.Password == user.Password);
+            var model = new UserSocial()
+            {
+                FirstName = users.FirstName,
+                LastName = users.LastName,
+                Age = users.Age,
+                City = users.City,
+                Country = users.Country,
+                Email = users.Email,
+                Id = users.Id,
+                UserPhoto = users.UserPhoto
+            };
+            return View(model);
+        }
     }
 }
