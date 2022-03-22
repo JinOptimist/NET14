@@ -36,10 +36,9 @@ namespace Net14.Web.EfStuff
                 .WithOne(comment => comment.Image);
 
             base.OnModelCreating(modelBuilder);
-        }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+
             modelBuilder.Entity<UserSocial>().Property(u => u.UserPhoto).HasDefaultValue("/images/Social/User.jpg");
         }
+        
     }
 }
