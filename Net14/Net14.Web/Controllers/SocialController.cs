@@ -154,7 +154,9 @@ namespace Net14.Web.Controllers
         }
         public IActionResult Autorisation()
         {
-            return View();
+            var user = new UserSocial();
+            
+            return View(user);
         }
         public IActionResult MyFiles()
         {
@@ -211,10 +213,9 @@ namespace Net14.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult ShowPagesProfile(int id)
-        {
-            var users = _webContext.Users.Select(user =>
-            new SocialUserViewModel()
+        public IActionResult ShowPagesProfile(UserSocial user)
+        {           
+            var model = new UserSocial()
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
@@ -224,8 +225,8 @@ namespace Net14.Web.Controllers
                 Email = user.Email,
                 Id = user.Id,
                 UserPhoto = user.UserPhoto
-            }).ToList();
-            return View(users);
+            };
+            return View(model);
         }
     }
 }

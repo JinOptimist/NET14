@@ -1,5 +1,6 @@
-﻿@using Net14.Web.EfStuff.DbModel.SocialDbModels;
-@model List<SocialUserViewModel>; 
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@using Net14.Web.EfStuff.DbModel.SocialDbModels;
+@model UserSocial; 
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
@@ -19,10 +20,10 @@
         <div class="content-element-card">
             <div class="user-info">
                 <div class="user-photo">
-                    <img src=~/images/Social/User.jpg class="user-photo">
+                    <img src=~@Model class="user-photo">
                 </div>
                 <div class="user-name">
-                    <p class="name">post.NameOfUser</p>
+                    <p class="name">@Model.FirstName</p>
                     <p>posted:</p>
                 </div>
             </div>
