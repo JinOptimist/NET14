@@ -9,8 +9,8 @@ namespace Net14.Web.EfStuff.Repositories
 {
     public abstract class BaseRepository<T> where T : BaseModel
     {
-        private WebContext _webContext;
-        private DbSet<T> _dbSet;
+        protected WebContext _webContext;
+        protected DbSet<T> _dbSet;
 
         public BaseRepository(WebContext context)
         {
