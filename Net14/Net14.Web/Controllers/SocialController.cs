@@ -29,7 +29,7 @@ namespace Net14.Web.Controllers
              new SocialPostViewModel()
              {
                  ImageUrl = post.ImageUrl,
-                 Comments = post.Comments,
+                 Comments = post.UserComments,
                  UserId = post.UserId,
                  Likes = post.Likes,
                  TypePost = post.TypePost,
@@ -206,21 +206,16 @@ namespace Net14.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult ShowPagesProfile(UserSocial user)
+        public IActionResult ShowPagesProfile(SocialProfileViewModel user)
         {
             var users = _webContext.Users.First(x => x.Email == user.Email && x.Password == user.Password);
-            var model = new UserSocial()
-            {
-                FirstName = users.FirstName,
-                LastName = users.LastName,
-                Age = users.Age,
-                City = users.City,
-                Country = users.Country,
-                Email = users.Email,
-                Id = users.Id,
-                UserPhoto = users.UserPhoto
-            };
-            return View(model);
+            user.Age = users.Age;
+            user.FirstName = users.FirstName;
+            user.City = users.City;
+            user.Country = users.Country;
+            user.UserPhoto = users.UserPhoto;
+            
+            return View(user);
         }
     }
 }

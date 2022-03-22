@@ -1,5 +1,5 @@
 ﻿@using Net14.Web.EfStuff.DbModel.SocialDbModels
-@model UserSocial; 
+@model SocialProfileViewModel
 
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
@@ -15,13 +15,11 @@
             <div class="validation" asp-validation-summary="ModelOnly"></div>
             <div class="inputs-validation-element">
                 <span asp-validation-for="Email" class="autorization-validation"></span>
-               Enter E-mail: @Html.TextBoxFor(x => x.Email)
-            <!--   <input type="text" asp-for="Email" placeholder="Enter Email"/> --> 
+                <input type="text" asp-for="Email" placeholder="Enter Email" />
             </div>
             <div class="inputs-validation-element">
                 <span class="autorization-validation" asp-validation-for="Password"></span>
-               Enter Password: @Html.TextBoxFor(x => x.Password)
-             <!--   <input type="password" asp-for="Password" placeholder="Enter Password" /> -->
+                <input type="password" asp-for="Password" placeholder="Enter Password" />
             </div>
             <div>
                 <input type="submit" value="Come in" class="find-button-validation"/>

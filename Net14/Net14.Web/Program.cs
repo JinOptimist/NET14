@@ -90,7 +90,7 @@ namespace Net14.Web
                         var post = new PostSocial()
                         {
                             UserId = user.Id,
-                            Comments = "Comment",
+                            UserComments = "Comment",
                             DateOfPosting = new DateTime(),
                             ImageUrl = "https://www.imgonline.com.ua/examples/bee-on-daisy.jpg",
                             Likes = 20,
