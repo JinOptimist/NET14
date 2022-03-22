@@ -1,0 +1,39 @@
+﻿@model FilesViewModel
+@{
+    Layout = "/Views/Shared/_LayoutSocial.cshtml";
+}
+<div class="myFiles">
+    <div>
+        <a href="/Social/MyFiles">Назад</a>
+        <div class="mainText">
+            <form action="/Social/AddFiles" method="post">
+                <div class="">
+                    <div>
+                        Name
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(x => x.Name)
+                    </div>
+                    <div>
+                        Url
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(x => x.Url)
+                    </div>
+                    <div>
+                        Text
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(x => x.Text)
+                    </div>
+                    <div>
+                        <input type="submit" value="Отправить"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div>
+            <a href="/Social/AllFiles">Посмотерть все файлы</a>
+        </div>
+    </div>
+</div>
