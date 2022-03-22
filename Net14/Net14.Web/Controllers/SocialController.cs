@@ -207,17 +207,18 @@ namespace Net14.Web.Controllers
 
         [HttpPost]
         public IActionResult ShowPagesProfile(UserSocial user)
-        {           
+        {
+            var users = _webContext.Users.First(x => x.Email == user.Email && x.Password == user.Password);
             var model = new UserSocial()
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Age = user.Age,
-                City = user.City,
-                Country = user.Country,
-                Email = user.Email,
-                Id = user.Id,
-                UserPhoto = user.UserPhoto
+                FirstName = users.FirstName,
+                LastName = users.LastName,
+                Age = users.Age,
+                City = users.City,
+                Country = users.Country,
+                Email = users.Email,
+                Id = users.Id,
+                UserPhoto = users.UserPhoto
             };
             return View(model);
         }

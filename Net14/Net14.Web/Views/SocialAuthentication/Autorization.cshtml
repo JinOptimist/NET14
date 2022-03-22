@@ -1,4 +1,6 @@
-﻿@model SocialUserAutorization
+﻿@using Net14.Web.EfStuff.DbModel.SocialDbModels
+@model UserSocial; 
+
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
@@ -8,19 +10,21 @@
     <div class="text">Sing in</div>
 </div>
 <div class="autorization-form-div">
-    <form class="hidden-form" asp-action="Autorization" asp-controller="SocialAuthentication" asp-antiforgery="true" method="post">
+    <form class="hidden-form" asp-action="ShowPagesProfile" asp-controller="Social" asp-antiforgery="true" method="post">
         <div class="inputs-validation">
             <div class="validation" asp-validation-summary="ModelOnly"></div>
             <div class="inputs-validation-element">
                 <span asp-validation-for="Email" class="autorization-validation"></span>
-                <input type="text" asp-for="Email" placeholder="Enter Email"/>
+               Enter E-mail: @Html.TextBoxFor(x => x.Email)
+            <!--   <input type="text" asp-for="Email" placeholder="Enter Email"/> --> 
             </div>
             <div class="inputs-validation-element">
                 <span class="autorization-validation" asp-validation-for="Password"></span>
-                <input type="password" asp-for="Password" placeholder="Enter Password" />
+               Enter Password: @Html.TextBoxFor(x => x.Password)
+             <!--   <input type="password" asp-for="Password" placeholder="Enter Password" /> -->
             </div>
             <div>
-                <input type="submit" value="Save" class="find-button-validation"/>
+                <input type="submit" value="Come in" class="find-button-validation"/>
             </div>
         </div>
     </form>

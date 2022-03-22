@@ -52,8 +52,8 @@ namespace Net14.Web
                 {
                     var user = new UserSocial()
                     {
-                        FirstName = "name",
-                        LastName = "lastname",
+                        FirstName = "Aleksey",
+                        LastName = "Guravlev",
                         Age = 20,
                         City = "Minsk",
                         Country = "Belarus",
@@ -63,8 +63,8 @@ namespace Net14.Web
                     };
                     var user2 = new UserSocial()
                     {
-                        FirstName = "name2",
-                        LastName = "lastname2",
+                        FirstName = "Kiril",
+                        LastName = "Perepechkin",
                         Age = 22,
                         City = "Vitebsk",
                         Country = "Belarus",
@@ -72,7 +72,18 @@ namespace Net14.Web
                         Password = "pass2",
                         UserPhoto = "/images/Social/User.jpg"
                     };
-                    webContext.Users.AddRange(user, user2);
+                    var user3 = new UserSocial()
+                    {
+                        FirstName = "name2",
+                        LastName = "lastname2",
+                        Age = 35,
+                        City = "Grodno",
+                        Country = "Rissia",
+                        Email = "email3",
+                        Password = "pass3",
+                        UserPhoto = "/images/Social/User.jpg"
+                    };
+                    webContext.Users.AddRange(user, user2, user3);
                     webContext.SaveChanges();
                     if (!webContext.Posts.Any())
                     {
