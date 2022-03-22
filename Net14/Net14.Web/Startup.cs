@@ -27,6 +27,7 @@ namespace Net14.Web
 
             var connectString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=WebMaze14;Integrated Security=True;";
             services.AddDbContext<WebContext>(x => x.UseSqlServer(connectString));
+            
 
             services.AddControllersWithViews();
         }

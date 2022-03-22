@@ -2,19 +2,22 @@
 using Net14.Web.EfStuff;
 using Net14.Web.EfStuff.DbModel;
 using Net14.Web.Models;
-using Net14.Web.Models.ArtImage;
+using Net14.Web.Models.gallery;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
+
 namespace Net14.Web.Controllers
 {
-    public class GalleryController : Controller
+    public class ArtImageController : Controller
     {
+
         private WebContext _webContext;
 
-        public GalleryController(WebContext webContext)
+        public ArtImageController(WebContext webContext)
         {
             _webContext = webContext;
         }
@@ -70,5 +73,6 @@ namespace Net14.Web.Controllers
 
             return View();
         }
+       
     }
 }
