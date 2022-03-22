@@ -20,7 +20,6 @@ namespace Net14.Web.EfStuff.Repositories
         {
             return _webContext
                 .Images
-                .Include(x => x.Comments)
                 .FirstOrDefault(x => x.Id == id);
         }
 
