@@ -4,37 +4,28 @@
 @model UserSocial;
 
 @{
-    Layout = "/Views/Shared/_LayoutSocial.cshtml";
+    Layout = "/Views/Shared/_LayoutSocialProfile.cshtml";
 }
+<link rel="stylesheet" href="~/css/SocialCss/ShowPagesProfile.css">
 
-    <div class="content-element">
-        <div class="post-operations">
-            <div class="operations">
-                <img src="~/images/Social/heart.png">
-            </div>
-            <div class="operations">
-                <img src="~/images/Social/speech-bubble.png">
-            </div>
-            <div class="operations">
-                <img src="~/images/Social/share (1).png">
-            </div>
-        </div>
-        <div class="content-element-card">
-            <div class="user-info">
-                <div class="user-photo">
+    <div class="content-element-profile">
+              
+        <div class="content-element-card-profile">
+            <div class="time-of-posting-profile"> Now: @DateTime.Now</div>
+            <div class="name-you-profile">
+                You profile:
+            </div>         
+            
+            <div class="user-photo-profile">
                     <img src="@Model.UserPhoto">
-                </div>
-                <div class="user-name">
-                    @Model.LastName                    
-                </div>
-            </div>
-            <div class="block-post-image">
-                <img src=post.ImageUrl class="post-image">
-            </div>
-            <div class="footer-of-post">
-                post.Comments
-            </div>
-            <div class="time-of-posting">Posted @DateTime.Now.ToLocalTime()</div>
+            </div>                         
+            <div class="user-info-profile">
+                 Name:   @Model.LastName @Model.FirstName </br>
+                 Age:    @Model.Age </br>
+                 E-mail: @Model.Email </br>
+                 Location: @Model.Country - @Model.City </br>   
+            </div>            
+                       
         </div>
     </div>
 
