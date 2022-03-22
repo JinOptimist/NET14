@@ -1,7 +1,8 @@
-body {
+body
+{
     margin: 0;
     background: rgb(245, 244, 244);
-    font-family: Arial, Helvetica, sans-serif;
+
 }
 .header
 {
@@ -66,7 +67,20 @@ body {
     background: rgba(122,122,122,0.1);
 }
 
+.menu-element:last-child
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    border: 2px solid red;
+    color: red;
+    border-radius: 5px;
+}
 
+.menu-element:last-child:hover
+{
+    background: rgba(255, 64, 64, 0.2);
+}
 .content
 {
     display: flex;
@@ -164,12 +178,11 @@ footer
 
 
 }
-
-.recomendation-element-menu {
+.recomendation-element-menu
+{
     display: flex;
     align-items: center;
     margin-top: 30px;
-    padding: 0px 5px;
 }
 
 .menu-recomendation-title
@@ -178,7 +191,6 @@ footer
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     font-weight: 700;
-    padding: 5px;
 }
 
 .logo {
