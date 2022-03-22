@@ -74,11 +74,11 @@ namespace Net14.Web
                     };
                     var user3 = new UserSocial()
                     {
-                        FirstName = "name2",
-                        LastName = "lastname2",
+                        FirstName = "Vasily",
+                        LastName = "Shchur",
                         Age = 35,
                         City = "Grodno",
-                        Country = "Rissia",
+                        Country = "Russia",
                         Email = "email3",
                         Password = "pass3",
                         UserPhoto = "/images/Social/User.jpg"
