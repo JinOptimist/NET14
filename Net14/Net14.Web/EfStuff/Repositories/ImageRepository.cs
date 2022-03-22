@@ -7,31 +7,10 @@ using System.Threading.Tasks;
 
 namespace Net14.Web.EfStuff.Repositories
 {
-    public class ImageRepository
+    public class ImageRepository : BaseRepository<Image>
     {
-        private WebContext _webContext;
-
-        public ImageRepository(WebContext context)
+        public ImageRepository(WebContext context):base(context)
         {
-            _webContext = context;
-        }
-
-        public Image Get(int id)
-        {
-            return _webContext
-                .Images
-                .FirstOrDefault(x => x.Id == id);
-        }
-
-        public List<Image> GetAll()
-        {
-            return _webContext.Images.ToList();
-        }
-
-        public void Save(Image image)
-        {
-            _webContext.Images.Add(image);
-            _webContext.SaveChanges();
         }
     }
 }

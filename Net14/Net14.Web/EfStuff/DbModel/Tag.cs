@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Net14.Web.EfStuff.DbModel
 {
-    public class Tag
+
+    public class Tag : BaseModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

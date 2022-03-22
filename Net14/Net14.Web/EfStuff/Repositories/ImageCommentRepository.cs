@@ -6,19 +6,10 @@ using System.Threading.Tasks;
 
 namespace Net14.Web.EfStuff.Repositories
 {
-    public class ImageCommentRepository
+    public class ImageCommentRepository : BaseRepository<ImageComment>
     {
-        private WebContext _webContext;
-
-        public ImageCommentRepository(WebContext context)
+        public ImageCommentRepository(WebContext context) : base(context)
         {
-            _webContext = context;
-        }
-
-        public void Save(ImageComment image)
-        {
-            _webContext.ImageComments.Add(image);
-            _webContext.SaveChanges();
         }
     }
 }
