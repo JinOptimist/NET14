@@ -29,7 +29,7 @@ namespace Net14.Web.Controllers
              new SocialPostViewModel()
              {
                  ImageUrl = post.ImageUrl,
-                 Comments = post.UserComments,
+                 Comments = post.Comments,
                  UserId = post.UserId,
                  Likes = post.Likes,
                  TypePost = post.TypePost,
