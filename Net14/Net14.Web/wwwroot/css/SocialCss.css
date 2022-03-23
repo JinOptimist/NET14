@@ -1,13 +1,8 @@
-html {
-    height: 100%;
-}
-body {
-    display: flex;
-    flex-direction: column;
+body
+{
     margin: 0;
     background: rgb(245, 244, 244);
-    font-family: Arial, Helvetica, sans-serif;
-    height: 100%;
+
 }
 .header
 {
@@ -20,11 +15,11 @@ body {
     position: fixed;
     width: 100%;
     top: 0px;
+
 }
 
 .navigation-element
 {
-    text-decoration: none;
     color: black;
     margin: auto;
     font-size: 30px;
@@ -43,16 +38,16 @@ body {
     flex: 1;
 }
 
-.maincontent {
+.maincontent
+{
     display: flex;
-    margin: 200px;
-    flex: 1 0 auto;
+    margin: 200px 200px;
+
 }
-.footer {
+.footer
+{
     height: 40px;
     border-top: 2px solid grey;
-    width: 100%;
-    flex-shrink: 0;
 }
 .menu-element
 {
@@ -76,7 +71,7 @@ body {
 {
     display: flex;
     justify-content: center;
-    margin: 50px 5px 5px 5px;
+    margin-top: 50px;
     border: 2px solid red;
     color: red;
     border-radius: 5px;
@@ -188,15 +183,14 @@ footer
     display: flex;
     align-items: center;
     margin-top: 30px;
-    padding: 0px 5px;
 }
 
-.menu-recomendation-title {
+.menu-recomendation-title
+{
     margin-bottom: 50px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     font-weight: 700;
-    padding: 5px;
 }
 
 .logo {
@@ -261,7 +255,7 @@ footer
     min-height: 800px;
     align-items: flex-end;
     margin: 80px auto 10px;
-    margin-left: 525px;
+    margin-left: 500px;
     justify-content: space-around;
     flex-direction: row-reverse;
 
@@ -325,50 +319,3 @@ footer
     padding: 10px;
     justify-content: flex-start;
 }
-
-.navigation-element:last-child {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: url(../../images/Social/settings.png);
-    width: 30px;
-    height: 30px;
-    background-size: cover;
-}
-
-.navigation-element:last-child:hover {
-    background: url(../../images/Social/settings-black.png);
-    background-size: cover;
-}
-
-
-.settings-div {
-    justify-content: space-evenly;
-    border-radius: 10px;
-    position: absolute;
-    flex-direction: column;
-    height: 250px;
-    width: 200px;
-    top: 110px;
-    right: 97px;
-    background: white;
-    font-size: 25px;
-    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
-    align-items: center;
-    z-index: 999999;
-}
-#header-settings {
-
-    display: none;
-}
-
-.elements-from-hidden {
-    padding: 10px;
-    transition: background 0.2s ease;
-    text-align: center;
-}
-
-.elements-from-hidden:hover {
-    background: rgba(122,122,122,0.1);
-}
-
