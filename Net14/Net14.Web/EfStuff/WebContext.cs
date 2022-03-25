@@ -35,6 +35,10 @@ namespace Net14.Web.EfStuff
                 .HasMany(image => image.Comments)
                 .WithOne(comment => comment.Image);
 
+            modelBuilder.Entity<UserSocial>()
+                .HasMany(user => user.Posts)
+                .WithOne(post => post.User);
+
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<UserSocial>().Property(u => u.UserPhoto).HasDefaultValue("/images/Social/User.jpg");

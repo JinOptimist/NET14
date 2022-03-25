@@ -6,10 +6,9 @@ using TeamSocial;
 
 namespace Net14.Web.EfStuff.DbModel.SocialDbModels
 {
-    public class PostSocial
+    public class PostSocial : BaseModel
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
+        public virtual UserSocial User { get; set; }
         public string ImageUrl { get; set; } = "ImageUrl";
         public string Comments { get; set; }
         public string TypePost { get; set; } = "Registartion";
