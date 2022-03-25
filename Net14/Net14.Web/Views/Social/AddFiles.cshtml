@@ -4,36 +4,36 @@
 }
 <div class="myFiles">
     <div>
-        <a href="/Social/MyFiles">Назад</a>
+        <a href="/Social/MyFiles"><img src="~/images/Social/arrow_back.png"/></a>
         <div class="mainText">
             <form action="/Social/AddFiles" method="post">
                 <div class="">
-                    <div>
+                    <div class="addFiles">
                         Name
                     </div>
-                    <div>
+                    <div class="addFiles">
                         @Html.TextBoxFor(x => x.Name)
                     </div>
-                    <div>
+                    <div class="addFiles">
                         Url
                     </div>
-                    <div>
+                    <div class="addFiles">
                         @Html.TextBoxFor(x => x.Url)
                     </div>
-                    <div>
+                    <div class="addFiles">
                         Text
                     </div>
-                    <div>
+                    <div class="addFiles">
                         @Html.TextBoxFor(x => x.Text)
                     </div>
-                    <div>
+                    <div class="addFiles">
                         <input type="submit" value="Отправить"/>
                     </div>
                 </div>
             </form>
         </div>
         <div>
-            <a href="/Social/AllFiles">Посмотерть все файлы</a>
+            <a href="/Social/AllFiles"><img src="~/images/Social/all_files.png"/></a>
         </div>
     </div>
 </div>

@@ -371,4 +371,6 @@ footer
 .elements-from-hidden:hover {
     background: rgba(122,122,122,0.1);
 }
-
+*{
+    text-decoration:none;
+}
