@@ -17,6 +17,8 @@ namespace Net14.Web.EfStuff
 
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<Color> Colors { get; set; }
+
         public WebContext(DbContextOptions options) : base(options)
         {
         }
