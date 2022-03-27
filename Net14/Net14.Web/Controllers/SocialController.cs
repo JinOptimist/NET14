@@ -18,10 +18,13 @@ namespace Net14.Web.Controllers
     {
         private SocialUserRepository _socialUserRepository;
         private SocialPostRepository _socialPostRepository;
-        public SocialController(SocialUserRepository socialUserRepository, SocialPostRepository socialPostRepository)
+        private SocialCommentRepository _socialCommentRepository;
+        public SocialController(SocialUserRepository socialUserRepository, SocialPostRepository socialPostRepository, 
+            SocialCommentRepository socialCommentRepository)
         {
             _socialPostRepository = socialPostRepository;
             _socialUserRepository = socialUserRepository;
+            _socialCommentRepository = socialCommentRepository;
         }
 
         public IActionResult Index()
@@ -30,14 +33,15 @@ namespace Net14.Web.Controllers
             var viewPost = postArr.Select(post =>
              new SocialPostViewModel()
              {
+                 Id = post.Id,
                  ImageUrl = post.ImageUrl,
-                 Comments = post.Comments,
+                 CommentsOfOwner = post.CommentOfUser,
                  UserId = post.User.Id,
                  Likes = post.Likes,
                  TypePost = post.TypePost,
                  NameOfUser = post.User.FirstName,
-                 UserPhotoUrl = post.User.UserPhoto
-
+                 UserPhotoUrl = post.User.UserPhoto,
+                 Comments = post.Comments.Select(x => x.Text).ToList()
 
              }).ToList();
 
@@ -119,6 +123,22 @@ namespace Net14.Web.Controllers
             };
 
             return View(model);
+        }
+
+        public IActionResult AddComment(int postId, string text)
+        {
+            if (text == null)
+            {
+                return RedirectToAction("Index");
+            }
+            var post = _socialPostRepository.Get(postId);
+            var comment = new SocialComment()
+            {
+                Post = post,
+                Text = text
+            };
+            _socialCommentRepository.Save(comment);
+            return RedirectToAction("Index");
         }
     }
 }

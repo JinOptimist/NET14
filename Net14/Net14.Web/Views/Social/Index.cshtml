@@ -8,10 +8,10 @@
 {
     <div class="content-element">
         <div class="post-operations">
-            <div class="operations">
+            <div class="operations" id="heart">
                 <img src="~/images/Social/heart.png">
             </div>
-            <div class="operations">
+            <div class="operations" id="comment">
                 <img src="~/images/Social/speech-bubble.png">
             </div>
             <div class="operations">
@@ -32,11 +32,36 @@
                 <img src=@post.ImageUrl class="post-image">
             </div>
             <div class="footer-of-post">
-                @post.Comments
+                @post.CommentsOfOwner
+            </div>
+            <div class="comments">
+                <div class="comments-elements-container">
+                    <div class="comment-header">Comments</div>
+                    <div class="comment-elements">
+                        @foreach (var comm in post.Comments)
+                        {
+                        <div class="single-comment">
+                            <div class="comment-owner-info">
+                                <img src="https://img.joinfo.com/i/2019/11/800x0/5dda9739ce891.jpg" class="user-photo" id="comment-photo">
+                                <div>Freddie Mercury</div>
+                            </div>
+                            <div>
+                                @comm
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+                <form class="input-container" asp-action="AddComment" asp-controller="Social">
+                    <input name="postId" type="hidden" value="@post.Id" />
+                    <input type="text" class="to-comment" name="text" placeholder="Add comment" />
+                    <input type="submit" value="send" id="comm">
+                </form>
             </div>
             <div class="time-of-posting">Posted @DateTime.Now.ToLocalTime()</div>
         </div>
     </div>
+
 }
 
 

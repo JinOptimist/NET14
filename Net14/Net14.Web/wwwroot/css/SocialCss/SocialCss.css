@@ -318,12 +318,12 @@ footer
     
 }
 
-.time-of-posting 
-{
+.time-of-posting {
     display: flex;
     width: 400px;
     padding: 10px;
     justify-content: flex-start;
+    margin-top: 20px;
 }
 
 .navigation-element:last-child {
@@ -372,3 +372,114 @@ footer
     background: rgba(122,122,122,0.1);
 }
 
+.comments {
+    display: none;
+    width: 90%;
+    height: 500px;
+    padding-bottom: 30px;
+
+}
+.comments-elements-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.comment-header {
+    width: 90%;
+    font-size: 25px;
+    margin: 40px 0px;
+    border-bottom: 1px solid darkgrey;
+}
+
+.single-comment {
+    display: flex;
+    width: 80%;
+    border-bottom: 1px solid lavender;
+    margin-bottom: 40px;
+    word-wrap: break-word;
+    flex-direction: column;
+}
+
+.to-comment {
+    width: 100%;
+    margin: auto 10px auto 0px;
+    height: 35px;
+    border-radius: 10px;
+    border: 1px solid grey;
+}
+.input-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+input[type=submit] {
+
+
+    border-radius: 10px;
+    background: white;
+    border: 1px solid grey;
+    height: 35px;
+    width: 100px;
+    border: 1px solid rgb(22 222 48);
+    color: rgb(22 222 48);
+    background: white;
+    transition: background 0.3s ease;
+    transition: box-shadow 0.3s ease;
+    font-size: 17px;
+}
+
+input[type=submit]:hover{
+    color: white;
+    background: rgb(22 222 48);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+#comm {
+    height:39px;
+}
+.comment-elements {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 15px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #b5b5b5;
+    border-radius: 15px;
+    border: 3px solid #ffffff;
+    height: 20px;
+}
+#comment-photo {
+    width: 35px;
+    height: 35px;
+}
+
+.comment-owner-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+#heart {
+    background-position: 0 0;
+    cursor: pointer;
+    transition: background-position 1s steps(28);
+    transition-duration: 0s;
+}

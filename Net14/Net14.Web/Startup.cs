@@ -43,6 +43,9 @@ namespace Net14.Web
 
             services.AddScoped<SocialFileRepository>(x =>
                 new SocialFileRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<SocialCommentRepository>(x =>
+                new SocialCommentRepository(x.GetService<WebContext>()));
             
 
             services.AddControllersWithViews();
