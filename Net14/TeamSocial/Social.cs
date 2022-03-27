@@ -103,5 +103,13 @@ namespace TeamSocial
             return isValid;
         }
 
+        public IEnumerable<User> GetRec() 
+        {
+            Recomendation rec = new Recomendation(_currentUser);
+            var res = rec.GetRecomendation(users);
+
+            return res;
+        }
+
     }
 }

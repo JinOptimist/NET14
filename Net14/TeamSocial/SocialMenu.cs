@@ -105,7 +105,8 @@ namespace TeamSocial
                 }
                 else if (key.KeyChar == 'r') //Рекомендации
                 {
-                    var rec = admin.wallOffriends.RecomendationOfFriends();
+
+                    var rec = social.GetRec();
                     Console.WriteLine("Your recomendation: ");
                     foreach (User user in rec) 
                     {
