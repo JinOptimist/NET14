@@ -15,5 +15,6 @@ namespace Net14.Web.EfStuff.DbModel
         public string Material { get; set; }
         public int Price { get; set; }
         public virtual List<Color> Colors { get; set; }
+        public virtual List<Size> Sizes { get; set; }
     }
 }

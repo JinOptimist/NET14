@@ -19,6 +19,8 @@ namespace Net14.Web.EfStuff
 
         public DbSet<Color> Colors { get; set; }
 
+        public DbSet<Size> Sizes { get; set; }
+
         public WebContext(DbContextOptions options) : base(options)
         {
         }

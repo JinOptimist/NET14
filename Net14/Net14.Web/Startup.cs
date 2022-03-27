@@ -41,6 +41,9 @@ namespace Net14.Web
             services.AddScoped<ColorRepository>(x =>
               new ColorRepository(x.GetService<WebContext>()));
 
+            services.AddScoped<SizeRepository>(x =>
+              new SizeRepository(x.GetService<WebContext>()));
+
 
             services.AddControllersWithViews();
         }

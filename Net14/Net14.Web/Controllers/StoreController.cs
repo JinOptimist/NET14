@@ -37,7 +37,8 @@ namespace Net14.Web.Controllers
                 Quantity=dbProduct.Quantity,
                 Material=dbProduct.Material,
                 Price=dbProduct.Price,
-                
+                Colors = dbProduct.Colors.Select(x => x.Name).ToList(),
+                Sizes = dbProduct.Sizes.Select(x => x.Name).ToList()
             }).ToList();
             return View(viewModels);
         }
@@ -61,7 +62,8 @@ namespace Net14.Web.Controllers
                 Category = dbProduct.Category,
                 Material = dbProduct.Material,
                 Price = dbProduct.Price,
-                Colors=dbProduct.Colors.Select(x => x.Name).ToList()
+                Colors=dbProduct.Colors.Select(x => x.Name).ToList(),
+                Sizes = dbProduct.Sizes.Select(x => x.Name).ToList()
             };
             return View(model);
         }
@@ -102,6 +104,7 @@ namespace Net14.Web.Controllers
         [HttpPost]
         public IActionResult AddProduct(AddProductVewModel viewModel)
         {
+
             var dbProduct = new Product()
             {
                 Name = viewModel.Name,
@@ -110,9 +113,9 @@ namespace Net14.Web.Controllers
                 Quantity = viewModel.Quantity,
                 Material=viewModel.Material,
                 Price=viewModel.Price,
-              
+                
             };
-
+           
             _productRepository.Save(dbProduct);
 
             return View();
