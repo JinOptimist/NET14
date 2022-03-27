@@ -61,6 +61,7 @@ namespace Net14.Web.Controllers
                 Category = dbProduct.Category,
                 Material = dbProduct.Material,
                 Price = dbProduct.Price,
+                Colors=dbProduct.Colors.Select(x => x.Name).ToList()
             };
             return View(model);
         }

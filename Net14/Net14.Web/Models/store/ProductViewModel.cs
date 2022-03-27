@@ -14,7 +14,10 @@ namespace Net14.Web.Models.store
         public int Quantity { get; set; }
         public string Material { get; set; }
         public int Price { get; set; }
+
         public List<string> Colors { get; set; }
+
+
 
     }
 }

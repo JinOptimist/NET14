@@ -35,8 +35,11 @@ namespace Net14.Web
             services.AddScoped<ImageCommentRepository>(x =>
                 new ImageCommentRepository(x.GetService<WebContext>()));
 
-            services.AddScoped<ProductsRepository>(x =>
-               new ProductsRepository(x.GetService<WebContext>()));
+            services.AddScoped<ProductRepository>(x =>
+               new ProductRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<ColorRepository>(x =>
+              new ColorRepository(x.GetService<WebContext>()));
 
 
             services.AddControllersWithViews();

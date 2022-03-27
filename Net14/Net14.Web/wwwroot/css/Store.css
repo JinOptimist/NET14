@@ -1,4 +1,12 @@
-﻿
+﻿a:focus, a:active {
+    outline: none;
+}
+a, a:visited {
+    text-decoration: none;
+}
+a:hover {
+        text-decoration: none;
+    }
 .header {
     display: flex;
     font-size: 24px;
@@ -517,6 +525,7 @@ td {
     height: 40px;
     text-align:center;
     margin:5px 5px;
+    color:black;
 }
 .catalogImages {
     width: 315px;

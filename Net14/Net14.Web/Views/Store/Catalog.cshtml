@@ -9,12 +9,13 @@
  <div class="catalogItems">
  @foreach(var product in Model){
      <div class="catalogItem">
-                <div class="catalogImages">
-                    <img href="/Gallery/ShowImage?id=@product.Id" src="@product.Url" class="catalogProduct" />
+                <a href="/Store/Shoes?id=@product.Id"><div class="catalogImages">
+                    <img src="@product.Url" class="catalogProduct" />
                 </div>
-                <div href="/Gallery/ShowImage?id=@product.Id" class="catalogMiniTitle">
+                <div class="catalogMiniTitle">
                    @product.Name
                 </div>
+                </a>
                  <div class="catalogMiniTitle">
                    @product.Price $
                 </div>
