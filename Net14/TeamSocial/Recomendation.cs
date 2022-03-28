@@ -13,6 +13,14 @@ namespace TeamSocial
         {
             _currentUser = user;
         }
+        public IEnumerable<User> DefaultRercentage(IEnumerable<User> users) 
+        {
+            foreach (User user in users) 
+            {
+                user.RecomendationPercentage = 0;
+            }
+            return users;
+        }
 
         public IEnumerable<User> GetAgeRate(IEnumerable<User> users) //Рейтинг по возрасту
         {
@@ -73,6 +81,7 @@ namespace TeamSocial
 
         public IEnumerable<User> GetRecomendation(IEnumerable<User> users) 
         {
+            DefaultRercentage(users);
             GetAgeRate(users);
             GetCityRate(users);
             GetCountryRate(users);

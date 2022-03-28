@@ -30,8 +30,8 @@ namespace TeamSocial
                         }*/
             var emptyUser1 = new User()
             {
-                FirstName = $"Empty1",
-                Email = $"user2@mail.ru",
+                FirstName = "Empty1",
+                Email = "user1@mail.ru",
                 Password = "12345678",
                 City = "Moscow",
                 Country = "Russia",
@@ -43,8 +43,8 @@ namespace TeamSocial
             var emptyUser2 = new User()
             {
                 //    FirstName = "Empty"
-                FirstName = $"Empty2",
-                Email = $"user3@mail.ru",
+                FirstName = "Empty2",
+                Email = $"user2@mail.ru",
                 Password = "12345678",
                 City = "Minsk",
                 Country = "Belarus",
@@ -56,16 +56,31 @@ namespace TeamSocial
             var emptyUser3 = new User()
             {
                 //    FirstName = "Empty"
-                FirstName = $"Empty3",
-                Email = $"user4@mail.ru",
+                FirstName = "Empty3",
+                Email = "user3@mail.ru",
                 Password = "12345678",
                 City = "Moscow",
                 Country = "Russia",
                 Age = 51,
             };
             emptyUser3.friends.Add(emptyUser1);
-            emptyUser3.wallOffriends.social = social;
             social.users.Add(emptyUser3);
+            emptyUser3.wallOffriends.social = social;
+
+
+            var emptyUser4 = new User()
+            {
+                FirstName = "Empty4",
+                Email = "user4@mail.ru",
+                Password = "12345678",
+                City = "Minsk",
+                Country = "Belarus",
+                Age = 45
+            };
+
+            emptyUser4.friends.Add(emptyUser2);
+            social.users.Add(emptyUser4);
+            emptyUser4.wallOffriends.social = social;
 
             return social;
         }
