@@ -21,10 +21,10 @@
         <div class="content-element-card">
             <div class="user-info">
                 <div class="user-photo">
-                    <img src=@post.UserPhotoUrl class="user-photo">
+                    <img src=@post.UserPhotoUrl class="user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">
                 </div>
                 <div class="user-name">
-                    <p class="name">@post.NameOfUser</p>
+                    <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@post.NameOfUser</p>
                     <p>posted:</p>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                 <form class="input-container" asp-action="AddComment" asp-controller="Social">
                     <input name="postId" type="hidden" value="@post.Id" />
                     <input type="text" class="to-comment" name="text" placeholder="Add comment" />
-                    <input type="submit" value="send" id="comm">
+                    <input type="submit" value="send" class="comm">
                 </form>
             </div>
             <div class="time-of-posting">Posted @DateTime.Now.ToLocalTime()</div>
