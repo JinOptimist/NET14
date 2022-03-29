@@ -6,19 +6,27 @@
 
 <div class="header_catalog ">
 <center><h1>Каталог</h1></center>
-
- <div>    
-     @foreach(var product in Model){
-        
-           <div>    <img src="@product.Url" class="adminPanelImage"/>
-            
-            @product.Name
-            @product.Category
-            @product.Material       
-            @product.Price $ 
-            </div> 
-     }
-           
-            </div> 
+ <div class="catalogItems">
+ @foreach(var product in Model){
+     <div class="catalogItem">
+                <a href="/Store/Shoes?id=@product.Id"><div class="catalogImages">
+                    <img src="@product.Url" class="catalogProduct" />
+                </div>
+                <div class="catalogMiniTitle">
+                   @product.Name
+                </div>
+                </a>
+                 <div class="catalogMiniTitle">
+                   @product.Price $
+                </div>
+                <div class="buttonCatalog">
+                    <span class="buttonCatalogToBasket">
+                        В Корзину
+                    </span>
+                </div>
+            </div>
+            }
+</div>       
 </div>
+
  

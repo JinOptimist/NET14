@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Net14.Web.EfStuff;
 using Net14.Web.EfStuff.DbModel;
+using Net14.Web.EfStuff.Repositories;
 using Net14.Web.Models;
 using Net14.Web.Models.store;
 using System;
@@ -14,16 +15,18 @@ namespace Net14.Web.Controllers
 {
     public class StoreController : Controller
     {
-        private WebContext _webContext;
-
-        public StoreController(WebContext webContext)
+        
+        private ColorRepository _colorRepository;
+        private ProductRepository _productRepository;
+        public StoreController(ProductRepository productRepository,ColorRepository colorRepository)
         {
-          _webContext = webContext;
+            _colorRepository = colorRepository;
+            _productRepository = productRepository;
         }
 
         public IActionResult Admin()
         {
-            var dbProducts=_webContext.Products.ToList();
+            var dbProducts= _productRepository.GetAll();
             var viewModels = dbProducts
             .Select(dbProduct => new ProductViewModel()
             {
@@ -34,7 +37,8 @@ namespace Net14.Web.Controllers
                 Quantity=dbProduct.Quantity,
                 Material=dbProduct.Material,
                 Price=dbProduct.Price,
-                
+                Colors = dbProduct.Colors.Select(x => x.Name).ToList(),
+                Sizes = dbProduct.Sizes.Select(x => x.Name).ToList()
             }).ToList();
             return View(viewModels);
         }
@@ -48,10 +52,20 @@ namespace Net14.Web.Controllers
 
             return View();
         }
-        public IActionResult Shoes()
+        public IActionResult Shoes(int id)
         {
-
-            return View();
+            var dbProduct= _productRepository.Get(id);
+            var model = new ProductViewModel()
+            {
+                Name = dbProduct.Name,
+                Url = dbProduct.Url,
+                Category = dbProduct.Category,
+                Material = dbProduct.Material,
+                Price = dbProduct.Price,
+                Colors=dbProduct.Colors.Select(x => x.Name).ToList(),
+                Sizes = dbProduct.Sizes.Select(x => x.Name).ToList()
+            };
+            return View(model);
         }
 
         public IActionResult Shoes2()
@@ -66,7 +80,7 @@ namespace Net14.Web.Controllers
         }
         public IActionResult Catalog()
         {
-            var dbProducts = _webContext.Products.ToList();
+            var dbProducts = _productRepository.GetAll();
             var viewModels = dbProducts
             .Select(dbProduct => new ProductViewModel()
             {
@@ -90,6 +104,7 @@ namespace Net14.Web.Controllers
         [HttpPost]
         public IActionResult AddProduct(AddProductVewModel viewModel)
         {
+
             var dbProduct = new Product()
             {
                 Name = viewModel.Name,
@@ -97,12 +112,11 @@ namespace Net14.Web.Controllers
                 Category=viewModel.Category,
                 Quantity = viewModel.Quantity,
                 Material=viewModel.Material,
-                Price=viewModel.Price
+                Price=viewModel.Price,
+                
             };
-
-            _webContext.Products.Add(dbProduct);
-
-            _webContext.SaveChanges();
+           
+            _productRepository.Save(dbProduct);
 
             return View();
         }
