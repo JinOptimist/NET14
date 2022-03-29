@@ -21,6 +21,8 @@ namespace Net14.Web.EfStuff
 
         public DbSet<Size> Sizes { get; set; }
 
+        public DbSet<StoreImage> StoreImages { get; set; }
+
         public WebContext(DbContextOptions options) : base(options)
         {
         }
@@ -36,6 +38,10 @@ namespace Net14.Web.EfStuff
             modelBuilder.Entity<Image>()
                 .HasMany(image => image.Comments)
                 .WithOne(comment => comment.Image);
+
+            modelBuilder.Entity<Product>()
+               .HasMany(Product =>Product.StoreImages)
+               .WithOne(StoreImage => StoreImage.Product);
 
             base.OnModelCreating(modelBuilder);
         }

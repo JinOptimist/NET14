@@ -6,26 +6,19 @@
 }
 
 <body>
-    
+
     <div class="foto">
         <div class="menu">
-            <div class=iconshoes>
-                <img src="/images/Store/11.jpg" class="icon" />
-            </div>
-            <div class=iconshoes>
-                <img src="/images/Store/12.jpg" class="icon" />
-            </div>
-            <div class=iconshoes>
-                <img src="/images/Store/13.jpg" class="icon" />
-            </div>
-            <div class=iconshoes>
-                <img src="/images/Store/14.jpg" class="icon" />
-            </div>
-
+            @foreach (var image in Model.Images)
+            {
+                <div class=iconshoes>
+                    <img src="@image" class="icon" />
+                </div>
+            }
         </div>
 
         <div class="centr">
-            <img src="@Model.Url" class="icon1" />
+            <img src="@Model.Images.First()" class="icon1" />
         </div>
 
         <div class="text">
@@ -47,9 +40,15 @@
                 <div>Страна производства: Вьетнам</div>
                 <div>Предназначение: Повседневная обувь</div>
                 <div>Бренд: Nike</div>
-                <div>Цвет:@foreach (var color in Model.Colors) { <span>@color </span>}</div>
+                <div>Цвет:@foreach (var color in Model.Colors)
+                    {
+                        <span>@color </span>
+                    }</div>
                 <div class="buttonssize">
-                    @foreach (var size in Model.Sizes) { <a href="#" class="ButtonSize">@size</a>}
+                    @foreach (var size in Model.Sizes)
+                    {
+                        <a href="#" class="ButtonSize">@size</a>
+                    }
                 </div>
             </div>
             <a href="#" class="toBasket">В корзину</a>
@@ -76,5 +75,5 @@
                 <div class="textimage">Nike Air Max 270 React W Grey</div>
             </div>
         </div>
-     </div>
+    </div>
 </body>

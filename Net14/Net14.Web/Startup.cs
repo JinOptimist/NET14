@@ -44,6 +44,9 @@ namespace Net14.Web
             services.AddScoped<SizeRepository>(x =>
               new SizeRepository(x.GetService<WebContext>()));
 
+            services.AddScoped<StoreImageRepository>(x =>
+              new StoreImageRepository(x.GetService<WebContext>()));
+
 
             services.AddControllersWithViews();
         }
