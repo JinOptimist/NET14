@@ -18,11 +18,15 @@ namespace Net14.Web.Controllers
         private BasketRepository _basketRepository;
         private ColorRepository _colorRepository;
         private ProductRepository _productRepository;
-        public StoreController(ProductRepository productRepository, ColorRepository colorRepository, BasketRepository basketRepository)
+
+        private StoreImageRepository _storeimageRepository;
+        public StoreController(ProductRepository productRepository, ColorRepository colorRepository, StoreImageRepository storeimageRepository,BasketRepository basketRepository)
         {
             _colorRepository = colorRepository;
             _productRepository = productRepository;
+            _storeimageRepository = storeimageRepository;
             _basketRepository = basketRepository;
+
         }
 
         public IActionResult Admin()
@@ -33,13 +37,17 @@ namespace Net14.Web.Controllers
             {
                 Id = dbProduct.Id,
                 Name = dbProduct.Name,
-                Url = dbProduct.Url,
-                Category = dbProduct.Category,
-                Quantity = dbProduct.Quantity,
-                Material = dbProduct.Material,
-                Price = dbProduct.Price,
+
+       
+
+                Category=dbProduct.Category,
+                Quantity=dbProduct.Quantity,
+                Material=dbProduct.Material,
+                Price=dbProduct.Price,
+
                 Colors = dbProduct.Colors.Select(x => x.Name).ToList(),
-                Sizes = dbProduct.Sizes.Select(x => x.Name).ToList()
+                Sizes = dbProduct.Sizes.Select(x => x.Name).ToList(),
+                Images = dbProduct.StoreImages.Select(x => x.Name).ToList()
             }).ToList();
             return View(viewModels);
         }
@@ -89,13 +97,16 @@ namespace Net14.Web.Controllers
             var model = new ProductViewModel()
             {
                 Name = dbProduct.Name,
-                Url = dbProduct.Url,
                 Category = dbProduct.Category,
                 Material = dbProduct.Material,
                 Price = dbProduct.Price,
-                Colors = dbProduct.Colors.Select(x => x.Name).ToList(),
-                Sizes = dbProduct.Sizes.Select(x => x.Name).ToList()
-            };
+
+
+
+                Colors=dbProduct.Colors.Select(x => x.Name).ToList(),
+                Sizes = dbProduct.Sizes.Select(x => x.Name).ToList(),
+                Images=dbProduct.StoreImages.Select(x => x.Name).ToList()
+         };
             return View(model);
         }
 
@@ -117,10 +128,10 @@ namespace Net14.Web.Controllers
             {
                 Id = dbProduct.Id,
                 Name = dbProduct.Name,
-                Url = dbProduct.Url,
                 Category = dbProduct.Category,
                 Material = dbProduct.Material,
                 Price = dbProduct.Price,
+                Images = dbProduct.StoreImages.Select(x => x.Name).ToList()
 
             }).ToList();
             return View(viewModels);
@@ -139,8 +150,11 @@ namespace Net14.Web.Controllers
             var dbProduct = new Product()
             {
                 Name = viewModel.Name,
+
                 Url = viewModel.Url,
                 Category = viewModel.Category,
+
+
                 Quantity = viewModel.Quantity,
                 Material = viewModel.Material,
                 Price = viewModel.Price,

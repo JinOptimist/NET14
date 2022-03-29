@@ -3,36 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Net14.Web.EfStuff;
 
 namespace Net14.Web.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class WebContextModelSnapshot : ModelSnapshot
+    [Migration("20220329182423_DeleteUrl")]
+    partial class DeleteUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.15")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("BasketProduct", b =>
-                {
-                    b.Property<int>("BasketsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BasketsId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("BasketProduct");
-                });
 
             modelBuilder.Entity("ColorProduct", b =>
                 {
@@ -47,21 +34,6 @@ namespace Net14.Web.Migrations
                     b.HasIndex("ProductsId");
 
                     b.ToTable("ColorProduct");
-                });
-
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Basket", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Baskets");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Color", b =>
@@ -210,21 +182,6 @@ namespace Net14.Web.Migrations
                     b.HasIndex("SizesId");
 
                     b.ToTable("ProductSize");
-                });
-
-            modelBuilder.Entity("BasketProduct", b =>
-                {
-                    b.HasOne("Net14.Web.EfStuff.DbModel.Basket", null)
-                        .WithMany()
-                        .HasForeignKey("BasketsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Net14.Web.EfStuff.DbModel.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("ColorProduct", b =>
