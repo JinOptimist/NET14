@@ -19,7 +19,7 @@ namespace Net14.Web.Models
         public int Age { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string UserPhoto { get; set; }
+        public string UserPhoto { get; set; } 
     }
 }
 

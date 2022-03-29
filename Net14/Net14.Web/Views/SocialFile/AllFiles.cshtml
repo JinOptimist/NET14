@@ -5,7 +5,7 @@
     <div class="myFiles">
         <div>
             <div>
-                <a href="/Social/MyFiles">Назад</a>
+                <a href="/SocialFile/MyFiles">Назад</a>
             </div>
             <div class="mainText">
                 Ваши файлы
@@ -14,7 +14,7 @@
                 @foreach (var Files in Model)
                 {
                     <div>
-                        <a href="/Social/ShowMyFiles?id=@Files.Id">@Files.Name</a>
+                        <a href="/SocialFile/ShowMyFiles?id=@Files.Id">@Files.Name</a>
                     </div>
                 }
             </div>

@@ -1,10 +1,7 @@
-﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
-@using Net14.Web.EfStuff.DbModel.SocialDbModels;
-
-@model SocialProfileViewModel
+﻿@model SocialProfileViewModel
 
 @{
-    Layout = "/Views/Shared/_LayoutSocialProfile.cshtml";
+    Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 <link rel="stylesheet" href="~/css/SocialCss/ShowPagesProfile.css">
 
@@ -17,13 +14,13 @@
             </div>         
             
             <div class="user-photo-profile">
-                    <img src="@Model.UserPhoto">
+                    <img src="@Model.UserPhoto"/>
             </div>                         
             <div class="user-info-profile">
-                 Name:   @Model.LastName @Model.FirstName </br>
-                 Age:    @Model.Age </br>
-                 E-mail: @Model.Email </br>
-                 Location: @Model.Country - @Model.City </br>   
+                 Name:   @Model.LastName @Model.FirstName <br/>
+                 Age:    @Model.Age <br/>
+                 E-mail: @Model.Email <br/>
+                 Location: @Model.Country - @Model.City <br/>   
             </div>            
                        
         </div>
