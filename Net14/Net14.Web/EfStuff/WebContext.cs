@@ -15,7 +15,7 @@ namespace Net14.Web.EfStuff
 
         public DbSet<ImageComment> ImageComments { get; set; }
 
-        public DbSet<Tag> Tags { get; set; }
+     
 
         public WebContext(DbContextOptions options) : base(options)
         {
@@ -32,6 +32,11 @@ namespace Net14.Web.EfStuff
             modelBuilder.Entity<Image>()
                 .HasMany(image => image.Comments)
                 .WithOne(comment => comment.Image);
+
+            modelBuilder.Entity<Сategories>()
+                .HasMany(cat => cat.SubСategories)
+                .WithOne(subCat => subCat.Catigories);
+
 
             base.OnModelCreating(modelBuilder);
         }

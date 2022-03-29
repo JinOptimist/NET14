@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Net14.Web.Models.ArtImage
+namespace Net14.Web.EfStuff.DbModel
 {
-    public class ImageViewModel
+    public class Сategories : BaseModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
+        public virtual List<SubСategories> SubСategories { get; set; }
+
     }
 }

@@ -4,10 +4,12 @@ using Net14.Web.EfStuff.DbModel;
 using Net14.Web.EfStuff.Repositories;
 using Net14.Web.Models;
 using Net14.Web.Models.ArtImage;
+using Net14.Web.Models.gallery;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AddImageVewModel = Net14.Web.Models.gallery.AddImageVewModel;
 
 namespace Net14.Web.Controllers
 {

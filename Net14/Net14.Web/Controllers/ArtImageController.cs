@@ -2,7 +2,7 @@
 using Net14.Web.EfStuff;
 using Net14.Web.EfStuff.DbModel;
 using Net14.Web.Models;
-using Net14.Web.Models.gallery;
+using Net14.Web.Models.ArtImage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,40 +15,35 @@ namespace Net14.Web.Controllers
     public class ArtImageController : Controller
     {
 
-        private WebContext _webContext;
-
-        public ArtImageController(WebContext webContext)
-        {
-            _webContext = webContext;
-        }
 
         public IActionResult Index()
         {
-            var dbImages = _webContext.Images.ToList();
-
-            var viewModels = dbImages
-                .Select(dbImage => new ImageViewModel()
-                {
-                    Id = dbImage.Id,
-                    Name = dbImage.Name
-                })
-                .ToList();
-
-            return View(viewModels);
+            return View();
+        }
+        public IActionResult AddAnimeImage()
+        {
+            return View();
+        }
+        public IActionResult AddCarImage()
+        {
+            return View();
+        }
+        public IActionResult AddMusicImage()
+        {
+            return View();
         }
 
-        public IActionResult ShowImage(int id)
+        public IActionResult CategoriesAnime()
         {
-            var dbImage = _webContext
-                .Images
-                .First(x => x.Id == id);
-
-            var model = new ImageUrlVewModel()
-            {
-                Url = dbImage.Url,
-            };
-
-            return View(model);
+            return View();
+        }
+        public IActionResult CategoriesCar()
+        {
+            return View();
+        }
+        public IActionResult CategoriesMusic()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -67,12 +62,8 @@ namespace Net14.Web.Controllers
                 Url = viewModel.Url
             };
 
-            _webContext.Images.Add(dbImage);
-
-            _webContext.SaveChanges();
-
             return View();
+
         }
-       
     }
 }
