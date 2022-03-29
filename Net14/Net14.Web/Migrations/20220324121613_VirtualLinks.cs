@@ -7,6 +7,8 @@ namespace Net14.Web.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+               name: "fileSocial");
 
             migrationBuilder.CreateTable(
                 name: "fileSocial",
@@ -24,7 +26,8 @@ namespace Net14.Web.Migrations
                 });
 
 
-
+            migrationBuilder.DropTable(
+               name: "Users");
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -45,6 +48,8 @@ namespace Net14.Web.Migrations
                     table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
+            migrationBuilder.DropTable(
+                name: "Posts");
 
             migrationBuilder.CreateTable(
                 name: "Posts",
