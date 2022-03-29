@@ -15,6 +15,7 @@ namespace SocialWeb
         public string Country { get; set; }
         public string City { get; set; }
 
+        public int RecomendationPercentage { get; set; } 
         public byte[] Salt { get; set; }
         public DateTime DateOfRegistration { get; } = DateTime.Now.ToLocalTime();
 

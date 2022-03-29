@@ -1,0 +1,28 @@
+﻿@model SocialProfileViewModel
+
+@{
+    Layout = "/Views/Shared/_LayoutSocial.cshtml";
+}
+<link rel="stylesheet" href="~/css/SocialCss/ShowPagesProfile.css">
+
+    <div class="content-element-profile">
+              
+        <div class="content-element-card-profile">
+            <div class="time-of-posting-profile"> Now: @DateTime.Now</div>
+            <div class="name-you-profile">
+                You profile:
+            </div>         
+            
+            <div class="user-photo-profile">
+                    <img src="@Model.UserPhoto"/>
+            </div>                         
+            <div class="user-info-profile">
+                 Name:   @Model.LastName @Model.FirstName <br/>
+                 Age:    @Model.Age <br/>
+                 E-mail: @Model.Email <br/>
+                 Location: @Model.Country - @Model.City <br/>   
+            </div>            
+                       
+        </div>
+    </div>
+
