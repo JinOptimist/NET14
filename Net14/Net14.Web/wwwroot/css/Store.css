@@ -1,4 +1,12 @@
-﻿
+﻿a:focus, a:active {
+    outline: none;
+}
+a, a:visited {
+    text-decoration: none;
+}
+a:hover {
+        text-decoration: none;
+    }
 .header {
     display: flex;
     font-size: 24px;
@@ -28,6 +36,9 @@
     margin: 5px;
     text-decoration: none;
     color: black;
+}
+.name:hover{
+    background:orange;
 }
 
 .shopox {
@@ -71,6 +82,9 @@
     margin: 5px;
     border: 2px solid #212322;
 }
+.account:hover{
+    background:orange;
+}
 
 .basket {
     display: flex;
@@ -83,11 +97,13 @@
     margin: 5px;
     border: 2px solid #212322;
 }
+.basket:hover{
+    background:orange;
+}
 
 .basket-icon {
     width: 32px;
 }
-
 .text {
     margin-left: 80px;
     margin-right: 80px;
@@ -397,6 +413,9 @@ body {
     line-height: 44px;
     color: #000;
 }
+.second-header-banner:hover{
+    color:orange;
+}
 .indexRunMargin {
     position: relative;
     width: 100%;
@@ -469,7 +488,6 @@ table{
     width:100%;
     padding:0;
     
-    
 }
 td {
     border: 2px solid #212322;
@@ -483,4 +501,61 @@ td {
 .bodyAdmin{
     padding: 0;
     margin: 20px;
+}
+.catalogProduct {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.catalogItems {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+.catalogItem {
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    margin: 5px
+}
+.catalogMiniTitle {
+    width: 300px;
+    height: 40px;
+    text-align:center;
+    margin:5px 5px;
+    color:black;
+}
+.catalogImages {
+    width: 315px;
+    height: 315px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.buttonCatalogToBasket {
+    
+    box-shadow: inset 0px 1px 0px 0px #5A6169;
+    background: linear-gradient(to bottom, #5A6169 5%, #5A6169 100%);
+    background-color: #5A6169;
+    border-radius: 3px;
+    border: 1px solid #5A6169;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Courier New, monospace;
+    font-size: 15px;
+    padding: 6px 70px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #2b665e;
+}
+    .buttonCatalogToBasket:hover {
+        background: black;
+        color: orange;
+    }
+.buttonCatalog {
+    display: flex;
+    justify-content: center;
+    margin: 7px 5px;
 }

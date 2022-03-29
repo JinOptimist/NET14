@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Net14.Web.EfStuff;
 using Net14.Web.EfStuff.DbModel;
+using Net14.Web.EfStuff.Repositories;
 using Net14.Web.Models;
 using Net14.Web.Models.gallery;
 using System;
@@ -12,16 +13,19 @@ namespace Net14.Web.Controllers
 {
     public class GalleryController : Controller
     {
-        private WebContext _webContext;
+        private ImageRepository _imageRepository;
+        private ImageCommentRepository _commentRepository;
 
-        public GalleryController(WebContext webContext)
+        public GalleryController(ImageRepository imageRepository,
+            ImageCommentRepository commentRepository)
         {
-            _webContext = webContext;
+            _imageRepository = imageRepository;
+            _commentRepository = commentRepository;
         }
 
         public IActionResult Index()
         {
-            var dbImages = _webContext.Images.ToList();
+            var dbImages = _imageRepository.GetAll();
 
             var viewModels = dbImages
                 .Select(dbImage => new ImageViewModel()
@@ -36,13 +40,13 @@ namespace Net14.Web.Controllers
 
         public IActionResult ShowImage(int id)
         {
-            var dbImage = _webContext
-                .Images
-                .First(x => x.Id == id);
+            var dbImage = _imageRepository.Get(id);
 
             var model = new ImageUrlVewModel()
             {
+                Id = dbImage.Id,
                 Url = dbImage.Url,
+                Comments = dbImage.Comments.Select(x => x.Text).ToList()
             };
 
             return View(model);
@@ -64,11 +68,30 @@ namespace Net14.Web.Controllers
                 Url = viewModel.Url
             };
 
-            _webContext.Images.Add(dbImage);
+            var adminComment = new ImageComment()
+            {
+                Text = "First comment"
+            };
 
-            _webContext.SaveChanges();
+            dbImage.Comments = new List<ImageComment>() { adminComment };
+
+            _imageRepository.Save(dbImage);
 
             return View();
+        }
+
+        public IActionResult AddComment(int imageId, string text)
+        {
+            var image = _imageRepository.Get(imageId);
+            var comment = new ImageComment()
+            {
+                Text = text,
+                Image = image
+            };
+
+            _commentRepository.Save(comment);
+
+            return RedirectToAction("ShowImage", new { id = imageId });
         }
     }
 }
