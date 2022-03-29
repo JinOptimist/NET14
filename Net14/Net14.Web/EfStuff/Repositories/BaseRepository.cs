@@ -29,7 +29,8 @@ namespace Net14.Web.EfStuff.Repositories
         }
 
         public void Save(T model)
-        {   if (model.Id > 0)
+        {
+            if (model.Id > 0)
             {
                 _dbSet.Update(model);
             }
@@ -37,6 +38,7 @@ namespace Net14.Web.EfStuff.Repositories
             {
                 _dbSet.Add(model);
             }
+
             _webContext.SaveChanges();
         }
 
