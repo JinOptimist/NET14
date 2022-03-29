@@ -28,6 +28,11 @@ namespace Net14.Web.EfStuff.Repositories
             return _dbSet.ToList();
         }
 
+        public bool Any()
+        {
+            return _dbSet.Any();
+        }
+
         public void Save(T model)
         {
             _dbSet.Add(model);
