@@ -51,4 +51,21 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    $("#comment").click(function () {
+        if ($(".comments").css("display") == "none") {
+            $(".content-element-card").animate({ height: '1200px' }, "fast")
+            $(".comments").show();
+        }
+        else {
+            $(".content-element-card").animate({ height: '808px' }, "fast")
+            $(".comments").hide();
+        }
+    })
+})
 
+$(function () {
+    $("#heart").on("click", function () {
+        $(this).toggleClass("is-active");
+    });
+});

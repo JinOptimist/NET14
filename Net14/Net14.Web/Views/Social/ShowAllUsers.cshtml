@@ -7,7 +7,7 @@
 <div class="Conteyner">
     <div class="AllUsersSearchContecher">
         <form action="/Social/ShowAllUsers" method="post" id="form-user">
-            <input placeholder="Search" class="AllUsersSearch" name="name">
+            <input placeholder="Search" class="AllUsersSearch" name="FullName">
             <input type="submit" value="Find" class="find-button">
         </form>
     </div>
@@ -26,7 +26,8 @@
     {
         <div class="usersCenter">
             <div class="findUsers">
-                <div class="find-recomendation-element-menu">
+                <div class="find-recomendation-element-menu" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = user.Id})'">
+
                     <div class="user-name-and-photo">
                         <div class="find-user-photo">
                             <img src=@user.UserPhoto class="find-user-photo">

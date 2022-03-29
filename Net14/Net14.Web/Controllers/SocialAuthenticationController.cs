@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
+using Net14.Web.EfStuff.Repositories;
 
 
 
@@ -14,10 +15,10 @@ namespace Net14.Web.Controllers
     public class SocialAuthenticationController : Controller
 
     {
-        private WebContext _webContext;
-        public SocialAuthenticationController(WebContext webContext)
+        private SocialUserRepository _socialUserRepository;
+        public SocialAuthenticationController(SocialUserRepository socialUserRepository)
         {
-            _webContext = webContext;
+            _socialUserRepository = socialUserRepository;
         }
 
 
@@ -33,19 +34,17 @@ namespace Net14.Web.Controllers
             {
                 var userDb = new UserSocial()
                 {
-                    Email = user.Email,
-                    Password = user.Password,
                     Age = user.Age,
                     City = user.City,
                     Country = user.Country,
+                    Email = user.Email,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-
+                    Password = user.Password,
                 };
-                _webContext.Users.Add(userDb);
-                _webContext.SaveChanges();
-                return Redirect("~/Social/ShowPagesProfile");
+                _socialUserRepository.Save(userDb);
 
+                return RedirectToRoute("default", new { controller = "Social", action = "ShowPagesProfile", id = userDb.Id });
             }
             else 
             {
@@ -63,17 +62,16 @@ namespace Net14.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var users = _webContext.Users.ToArray();
-                var currentUser = users.SingleOrDefault(us =>
-                us.Email == user.Email &&
-                us.Password == user.Password);
-                if (currentUser == null)
+                var users = _socialUserRepository.GetByEmAndPass(user.Email, user.Password);
+
+                if (users == null)
                 {
                     return View();
                 }
                 else 
                 {
-                    return Redirect("~/Social/ShowPagesProfile");
+                    return RedirectToRoute("default", new { controller = "Social", action = "ShowPagesProfile", id = users.Id});
+
                 }
             }
             else 

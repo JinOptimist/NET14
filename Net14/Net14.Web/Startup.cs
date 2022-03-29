@@ -34,6 +34,18 @@ namespace Net14.Web
 
             services.AddScoped<ImageCommentRepository>(x =>
                 new ImageCommentRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<SocialUserRepository>(x =>
+                new SocialUserRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<SocialPostRepository>(x =>
+                new SocialPostRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<SocialFileRepository>(x =>
+                new SocialFileRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<SocialCommentRepository>(x =>
+                new SocialCommentRepository(x.GetService<WebContext>()));
             
 
             services.AddControllersWithViews();

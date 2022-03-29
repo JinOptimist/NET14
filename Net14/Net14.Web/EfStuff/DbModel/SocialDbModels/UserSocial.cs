@@ -6,10 +6,9 @@ using TeamSocial;
 
 namespace Net14.Web.EfStuff.DbModel.SocialDbModels
 {
-    public class UserSocial
+    public class UserSocial : BaseModel
     {
-        public int Id { get; set; }
-        public string UserPhoto { get; set; }
+        public string UserPhoto { get; set; } = "/images/Social/User.jpg";
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -17,6 +16,6 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
         public string Password { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
-
+        public virtual List<PostSocial> Posts { get; set; }
     }
 }

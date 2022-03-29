@@ -89,16 +89,31 @@ namespace Net14.Web
                     {
                         var post = new PostSocial()
                         {
-                            UserId = user.Id,
-                            Comments = "Comment",
+                            User = user,
+                            CommentOfUser = "Comment",
                             DateOfPosting = new DateTime(),
                             ImageUrl = "https://www.imgonline.com.ua/examples/bee-on-daisy.jpg",
                             Likes = 20,
                             TypePost = "no"
                         };
+
                         webContext.Posts.Add(post);
                         webContext.SaveChanges();
                     }
+                }
+                if (!webContext.SocialComments.Any())
+                {
+                    var postCom = webContext.Posts.Single(x => x.Id == 1);
+                    var comment = new SocialComment()
+                    {
+                        DateOfPosting = DateTime.Now,
+                        Post = postCom,
+                        Text = "This is test comment. Try to add your.",
+                        User = null
+                    };
+                    postCom.Comments.Add(comment);
+                    webContext.SocialComments.Add(comment);
+                    webContext.SaveChanges();
                 }
 
             }
