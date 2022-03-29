@@ -1,0 +1,42 @@
+﻿
+@{
+    Layout = "/Views/Shared/_LayoutSocialSecond.cshtml";
+}
+
+
+@for (int i = 0; i < 5; i++) 
+{
+    <div class="content-element">
+        <div class="post-operations">
+            <div class="operations">
+                <img src="~/images/Social/heart.png">
+            </div>
+            <div class="operations">
+                <img src="~/images/Social/speech-bubble.png">
+            </div>
+            <div class="operations">
+                <img src="~/images/Social/share (1).png">
+            </div>
+        </div>
+        <div class="content-element-card">
+            <div class="user-info">
+                <div class="user-photo">
+                    <img src="https://img.joinfo.com/i/2019/11/800x0/5dda9739ce891.jpg" class="user-photo">
+                </div>
+                <div class="user-name">
+                    <p class="name">Aliaksei</p>
+                    <p>posted:</p>
+                </div>
+            </div>
+            <div class="block-post-image">
+                <img src="https://miro.medium.com/max/1200/1*ByPNvmu6-mR_jc8rTQpoog.png" class="post-image">
+            </div>
+            <div class="footer-of-post">
+                C#
+            </div>
+            <div class="time-of-posting">Posted @DateTime.Now.ToLocalTime()</div>
+        </div>
+    </div>
+}
+
+

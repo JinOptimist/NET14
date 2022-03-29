@@ -1,17 +1,17 @@
-﻿
+﻿@using Net14.Web.EfStuff.DbModel.SocialDbModels;
+@model List<SocialPostViewModel>;
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 
-
-@for (int i = 0; i < 5; i++) 
+@foreach (SocialPostViewModel post in Model)
 {
     <div class="content-element">
         <div class="post-operations">
-            <div class="operations">
+            <div class="operations" id="heart">
                 <img src="~/images/Social/heart.png">
             </div>
-            <div class="operations">
+            <div class="operations" id="comment">
                 <img src="~/images/Social/speech-bubble.png">
             </div>
             <div class="operations">
@@ -21,22 +21,47 @@
         <div class="content-element-card">
             <div class="user-info">
                 <div class="user-photo">
-                    <img src="https://img.joinfo.com/i/2019/11/800x0/5dda9739ce891.jpg" class="user-photo">
+                    <img src=@post.UserPhotoUrl class="user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">
                 </div>
                 <div class="user-name">
-                    <p class="name">Aliaksei</p>
+                    <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@post.NameOfUser</p>
                     <p>posted:</p>
                 </div>
             </div>
             <div class="block-post-image">
-                <img src="https://miro.medium.com/max/1200/1*ByPNvmu6-mR_jc8rTQpoog.png" class="post-image">
+                <img src=@post.ImageUrl class="post-image">
             </div>
             <div class="footer-of-post">
-                C#
+                @post.CommentsOfOwner
+            </div>
+            <div class="comments">
+                <div class="comments-elements-container">
+                    <div class="comment-header">Comments</div>
+                    <div class="comment-elements">
+                        @foreach (var comm in post.Comments)
+                        {
+                        <div class="single-comment">
+                            <div class="comment-owner-info">
+                                <img src=@comm.User.UserPhoto class="user-photo" id="comment-photo">
+                                <div>@comm.User.FirstName @comm.User.LastName</div>
+                            </div>
+                            <div>
+                                @comm.Text
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+                <form class="input-container" asp-action="AddComment" asp-controller="Social">
+                    <input name="postId" type="hidden" value="@post.Id" />
+                    <input type="text" class="to-comment" name="text" placeholder="Add comment" />
+                    <input type="submit" value="send" class="comm">
+                </form>
             </div>
             <div class="time-of-posting">Posted @DateTime.Now.ToLocalTime()</div>
         </div>
     </div>
+
 }
 
 
