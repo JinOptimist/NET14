@@ -19,7 +19,7 @@ namespace Net14.Web.Controllers
         private SocialUserRepository _socialUserRepository;
         private SocialPostRepository _socialPostRepository;
         private SocialCommentRepository _socialCommentRepository;
-        public SocialController(SocialUserRepository socialUserRepository, SocialPostRepository socialPostRepository, 
+        public SocialController(SocialUserRepository socialUserRepository, SocialPostRepository socialPostRepository,
             SocialCommentRepository socialCommentRepository)
         {
             _socialPostRepository = socialPostRepository;
@@ -41,9 +41,25 @@ namespace Net14.Web.Controllers
                  TypePost = post.TypePost,
                  NameOfUser = post.User.FirstName,
                  UserPhotoUrl = post.User.UserPhoto,
-                 Comments = post.Comments.Select(x => x.Text).ToList()
-
+                 Comments = post.Comments.Select(comm =>
+                 new SocialCommentViewModel()
+                 {
+                     User = new SocialUserViewModel() 
+                     {
+                         Age = comm.User.Age,
+                         City = comm.User.City,
+                         Country = comm.User.Country,
+                         Email = comm.User.Email,
+                         FirstName = comm.User.FirstName,
+                         Id = comm.User.Id,
+                         LastName = comm.User.LastName,
+                         UserPhoto = comm.User.UserPhoto
+                     },
+                     Text = comm.Text,
+                     DateOfPosting = comm.DateOfPosting
+                 }).ToList()
              }).ToList();
+
 
 
             return View(viewPost);
@@ -90,7 +106,7 @@ namespace Net14.Web.Controllers
                     LastName = user.LastName,
                     UserPhoto = user.UserPhoto
                 }).ToList();
-            
+
             return View(userFind);
         }
 

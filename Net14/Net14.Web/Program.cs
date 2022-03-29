@@ -33,13 +33,15 @@ namespace Net14.Web
 
         public static void Seed(IHost host)
         {
+            UserSocial userComm = null;
+            PostSocial postChange = null;
             using (var scope = host.Services.CreateScope())
             {
                 var webContext = scope.ServiceProvider.GetService<WebContext>();
 
                 if (!webContext.Images.Any())
                 {
-                    var image = new Image() { 
+                    var image = new Image() {
                         Name = "qwe",
                         Url = "qwe",
                         Rate = 99
@@ -48,7 +50,7 @@ namespace Net14.Web
                     webContext.Images.Add(image);
                     webContext.SaveChanges();
                 };
-                if (!webContext.Users.Any()) 
+                if (!webContext.Users.Any())
                 {
                     var user = new UserSocial()
                     {
@@ -85,37 +87,37 @@ namespace Net14.Web
                     };
                     webContext.Users.AddRange(user, user2, user3);
                     webContext.SaveChanges();
-                    if (!webContext.Posts.Any())
-                    {
-                        var post = new PostSocial()
-                        {
-                            User = user,
-                            CommentOfUser = "Comment",
-                            DateOfPosting = new DateTime(),
-                            ImageUrl = "https://www.imgonline.com.ua/examples/bee-on-daisy.jpg",
-                            Likes = 20,
-                            TypePost = "no"
-                        };
-
-                        webContext.Posts.Add(post);
-                        webContext.SaveChanges();
-                    }
+                    userComm = user3;
                 }
-                if (!webContext.SocialComments.Any())
+                if (!webContext.Posts.Any())
                 {
-                    var postCom = webContext.Posts.Single(x => x.Id == 1);
+
+                    var post = new PostSocial()
+                    {
+                        User = userComm,
+                        CommentOfUser = "Comment",
+                        DateOfPosting = new DateTime(),
+                        ImageUrl = "https://www.imgonline.com.ua/examples/bee-on-daisy.jpg",
+                        Likes = 20,
+                        TypePost = "no",
+                        Comments = new List<SocialComment>()
+                    };
+
                     var comment = new SocialComment()
                     {
                         DateOfPosting = DateTime.Now,
-                        Post = postCom,
+                        Post = post,
                         Text = "This is test comment. Try to add your.",
-                        User = null
+                        User = userComm
                     };
-                    postCom.Comments.Add(comment);
+
+
+                    post.Comments.Add(comment);
+                    webContext.Posts.Add(post);
                     webContext.SocialComments.Add(comment);
                     webContext.SaveChanges();
-                }
 
+                }
             }
         }
     }

@@ -42,11 +42,11 @@
                         {
                         <div class="single-comment">
                             <div class="comment-owner-info">
-                                <img src="https://img.joinfo.com/i/2019/11/800x0/5dda9739ce891.jpg" class="user-photo" id="comment-photo">
-                                <div>Freddie Mercury</div>
+                                <img src=@comm.User.UserPhoto class="user-photo" id="comment-photo">
+                                <div>@comm.User.FirstName @comm.User.LastName</div>
                             </div>
                             <div>
-                                @comm
+                                @comm.Text
                             </div>
                         </div>
                         }
