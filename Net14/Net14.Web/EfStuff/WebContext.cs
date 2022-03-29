@@ -20,6 +20,7 @@ namespace Net14.Web.EfStuff
         public DbSet<Color> Colors { get; set; }
 
         public DbSet<Size> Sizes { get; set; }
+        public DbSet<Basket> Baskets { get; set; }
 
         public WebContext(DbContextOptions options) : base(options)
         {
@@ -36,6 +37,10 @@ namespace Net14.Web.EfStuff
             modelBuilder.Entity<Image>()
                 .HasMany(image => image.Comments)
                 .WithOne(comment => comment.Image);
+
+            modelBuilder.Entity<Basket>()
+               .HasMany(image => image.Products)
+               .WithMany(comment => comment.Baskets);
 
             base.OnModelCreating(modelBuilder);
         }

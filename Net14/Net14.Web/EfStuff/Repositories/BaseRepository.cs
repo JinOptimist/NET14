@@ -29,8 +29,14 @@ namespace Net14.Web.EfStuff.Repositories
         }
 
         public void Save(T model)
-        {
-            _dbSet.Add(model);
+        {   if (model.Id > 0)
+            {
+                _dbSet.Update(model);
+            }
+            else
+            {
+                _dbSet.Add(model);
+            }
             _webContext.SaveChanges();
         }
 
