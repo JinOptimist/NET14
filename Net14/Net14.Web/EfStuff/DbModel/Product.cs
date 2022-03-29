@@ -9,12 +9,12 @@ namespace Net14.Web.EfStuff.DbModel
     {
       
         public string Name { get; set; }
-        public string Url { get; set; }
         public string Category { get; set; }
         public int Quantity { get; set; }
         public string Material { get; set; }
         public int Price { get; set; }
         public virtual List<Color> Colors { get; set; }
         public virtual List<Size> Sizes { get; set; }
+        public virtual List<StoreImage> StoreImages { get; set; }
     }
 }

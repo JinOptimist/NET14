@@ -38,7 +38,7 @@
         <tbody>
             @foreach(var product in Model){
         <tr>
-            <td class="firstTD"> <img src="@product.Url" class="adminPanelImage"/></td>
+            <td class="firstTD"> <img src="@product.Images.First()" class="adminPanelImage"/></td>
             
             <td> @product.Id</td>
             
