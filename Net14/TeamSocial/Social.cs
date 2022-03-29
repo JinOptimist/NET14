@@ -103,5 +103,18 @@ namespace TeamSocial
             return isValid;
         }
 
+        public IEnumerable<User> GetRec() 
+        {
+            Recomendation rec = new Recomendation(_currentUser);
+            var res = rec.GetRecomendation(users);
+            foreach (User user in res) 
+            {
+                Console.Write(user.Email + " " + user.RecomendationPercentage + " ");
+            }
+            Console.WriteLine();
+
+            return res;
+        }
+
     }
 }
