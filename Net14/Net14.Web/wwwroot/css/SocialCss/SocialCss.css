@@ -483,3 +483,6 @@ input[type=submit]:hover{
     transition: background-position 1s steps(28);
     transition-duration: 0s;
 }
+* {
+    text-decoration: none;
+}
