@@ -42,8 +42,8 @@ namespace Net14.Web.EfStuff
 
 
             modelBuilder.Entity<Basket>()
-               .HasMany(image => image.Products)
-               .WithMany(comment => comment.Baskets);
+               .HasMany(basket => basket.Products)
+               .WithMany(product => product.Baskets);
 
             modelBuilder.Entity<Product>()
                .HasMany(Product =>Product.StoreImages)
