@@ -63,7 +63,7 @@ namespace Net14.Web.Controllers
             {
                 Id = dbProduct.Id,
                 Name = dbProduct.Name,
-                Url = dbProduct.Url,
+                
                 Category = dbProduct.Category,
                 Material = dbProduct.Material,
                 Price = dbProduct.Price,
@@ -151,7 +151,7 @@ namespace Net14.Web.Controllers
             {
                 Name = viewModel.Name,
 
-                Url = viewModel.Url,
+                
                 Category = viewModel.Category,
 
 
