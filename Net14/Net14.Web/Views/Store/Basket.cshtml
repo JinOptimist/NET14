@@ -15,7 +15,7 @@
                 <div class="catalogItem">
                     <a href="/Store/Shoes?id=@product.Id">
                         <div class="catalogImages">
-                            <img src="@product.Images" class="catalogProduct" />
+                            <img src="@product.Images.First()" class="catalogProduct" />
                         </div>
                         <div class="catalogMiniTitle">
                             @product.Name
@@ -25,8 +25,8 @@
                         @product.Price $
                     </div>
                     <div class="buttonCatalog">
-                        <span class="buttonCatalogToBasket">
-                            <a href="/Store/DeleteProductFromBasket?productId=@product.Id&userId=1">Удалить </a>
+                        <span>
+                            <a class="buttonCatalogToBasket" href="/Store/DeleteProductFromBasket?productId=@product.Id&userId=1">Удалить </a>
                         </span>
                     </div>
 

@@ -62,12 +62,11 @@ namespace Net14.Web.Controllers
             var ProductViewModel = b.Products.Select(dbProduct => new ProductViewModel()
             {
                 Id = dbProduct.Id,
-                Name = dbProduct.Name,
-  
+                Name = dbProduct.Name,      
                 Category = dbProduct.Category,
                 Material = dbProduct.Material,
                 Price = dbProduct.Price,
-
+                Images = dbProduct.StoreImages.Select(x => x.Name).ToList()
             }).ToList();
 
             return View(ProductViewModel);
@@ -100,9 +99,6 @@ namespace Net14.Web.Controllers
                 Category = dbProduct.Category,
                 Material = dbProduct.Material,
                 Price = dbProduct.Price,
-
-
-
                 Colors=dbProduct.Colors.Select(x => x.Name).ToList(),
                 Sizes = dbProduct.Sizes.Select(x => x.Name).ToList(),
                 Images=dbProduct.StoreImages.Select(x => x.Name).ToList()
@@ -150,15 +146,10 @@ namespace Net14.Web.Controllers
             var dbProduct = new Product()
             {
                 Name = viewModel.Name,
-
-       
                 Category = viewModel.Category,
-
-
                 Quantity = viewModel.Quantity,
                 Material = viewModel.Material,
                 Price = viewModel.Price,
-
             };
 
             _productRepository.Save(dbProduct);
