@@ -35,21 +35,13 @@ namespace Net14.Web.Controllers
         public IActionResult GetVideos(int page = 1) 
         {
             const int perPage = 4;
-
-            var res = _youTubeVideoGetter.GetVideosFromChannelAsync(chaneId).Result
-                .OrderByDescending(res => res.Snippet.PublishedAt)
-                .Skip((page - 1) * perPage)
-                .Take(perPage)
-                .Select(video => new VideoSocial()
-                {
-                    VideoDescription = video.Snippet.Title,
-                    VideoId = video.Id.VideoId,
-                    VideoPreview = video.Snippet.Thumbnails.Medium.Url,
-                    LastUpdate = DateTime.Now,
-                    TimeOfPosting = video.Snippet.PublishedAt.Value
-                }).ToList();
-
-            return View(res);
+            var res = _youTubeVideoGetter.GetVideos(page, perPage, chaneId).ToList();
+            var model = new SocialPageVideoViewModel()
+            {
+                Videos = res,
+                Page = page,
+            };
+            return View(model);
         }
     }
 }

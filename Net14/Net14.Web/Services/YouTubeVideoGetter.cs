@@ -6,12 +6,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
-
+using Net14.Web.EfStuff.Repositories;
+using Net14.Web.Models;
 namespace Net14.Web.Services
 {
     public class YouTubeVideoGetter
     {
-        public Task<List<SearchResult>> GetVideosFromChannelAsync(string ytChannelId)
+        private VideoSocialRepository _videoSocialRepository;
+        public YouTubeVideoGetter(VideoSocialRepository videoSocialRepository) 
+        {
+            _videoSocialRepository = videoSocialRepository; 
+        }
+
+        private Task<List<SearchResult>> GetVideosFromChannelAsync(string ytChannelId)
         {
 
             return Task.Run(() =>
@@ -47,6 +54,23 @@ namespace Net14.Web.Services
                 return res;
 
             });
+        }
+        public IEnumerable<SocialVideoViewModel> GetVideos(int page, int perPage, string chanelId)
+        {
+            var res = GetVideosFromChannelAsync(chanelId).Result
+            .OrderByDescending(res => res.Snippet.PublishedAt)
+            .Skip((page - 1) * perPage)
+            .Take(perPage)
+            .Select(video => new SocialVideoViewModel()
+            {
+                VideoDescription = video.Snippet.Title,
+                VideoId = video.Id.VideoId,
+                VideoPhoto = video.Snippet.Thumbnails.Medium.Url,
+
+            }).ToList();
+
+            return res;
+
         }
 
     }
