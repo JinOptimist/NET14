@@ -1,49 +1,11 @@
 ﻿@using Net14.Web.Models.store
 @model List<ProductViewModel>
 
-@{
-    Layout = "/Views/Shared/_LayoutStore.cshtml";
-}
+@{ Layout = "/Views/Shared/_LayoutStore.cshtml"; }
 
-
-
-    <div>
-
-        <div class="catalogItems">
-            @foreach (var product in Model)
-            {
-                <div class="catalogItem">
-                    <a href="/Store/Shoes?id=@product.Id">
-                        <div class="catalogImages">
-                            <img src="@product.Images.First()" class="catalogProduct" />
-                        </div>
-                        <div class="catalogMiniTitle">
-                            @product.Name
-                        </div>
-                    </a>
-                    <div class="catalogMiniTitle">
-                        @product.Price $
-                    </div>
-                    <div class="buttonCatalog">
-                        <span>
-                            <a class="buttonCatalogToBasket" href="/Store/DeleteProductFromBasket?productId=@product.Id&userId=1">Удалить </a>
-                        </span>
-                    </div>
-
-                </div>
-            }
-        </div>
-    </div>
-
-
-
-
-
-
-
-@if (Model.Count == 0)
+@if (Model == null)
 {
-    <div class="noBasketItems">
+<div class="noBasketItems">
 
     <h2 class="emptyBasketHeader">YOUR BAG IS EMPTY</h2>
     <p id="emptyBasketMessage"></p>
@@ -54,7 +16,33 @@
 </div>
 }
 
+else
+{
+<div>
 
+    <div class="catalogItems">
+        @foreach (var product in Model)
+        {
+<div class="catalogItem">
+    <a href="/Store/Shoes?id=@product.Id">
+        <div class="catalogImages">
+            <img src="@product.Images.First()" class="catalogProduct" />
+        </div>
+        <div class="catalogMiniTitle">
+            @product.Name
+        </div>
+    </a>
+    <div class="catalogMiniTitle">
+        @product.Price $
+    </div>
+    <div class="buttonCatalog">
+        <span>
+            <a class="buttonCatalogToBasket" href="/Store/DeleteProductFromBasket?productId=@product.Id&userId=1">Удалить </a>
+        </span>
+    </div>
 
+</div>}
+    </div>
+</div>}
 
 
