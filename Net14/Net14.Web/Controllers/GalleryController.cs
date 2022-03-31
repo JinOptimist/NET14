@@ -23,11 +23,15 @@ namespace Net14.Web.Controllers
             _commentRepository = commentRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            var dbImages = _imageRepository.GetAll();
+            var perPage = 2;
+            var dbImages = _imageRepository
+                .GetAll()
+                .Skip((page - 1) * perPage)
+                .Take(perPage);
 
-            var viewModels = dbImages
+            var imagesViewModels = dbImages
                 .Select(dbImage => new ImageViewModel()
                 {
                     Id = dbImage.Id,
@@ -35,7 +39,12 @@ namespace Net14.Web.Controllers
                 })
                 .ToList();
 
-            return View(viewModels);
+            var viewModel = new IndexGalleryViewModel()
+            {
+                Page = page,
+                Images = imagesViewModels
+            };
+            return View(viewModel);
         }
 
         public IActionResult ShowImage(int id)

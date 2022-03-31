@@ -1,0 +1,165 @@
+﻿@model List<int>;
+
+@{
+    Layout = "/Views/Shared/_LayoutShulte.cshtml";
+}
+<div class="main">
+    <div class="navigator clickedelement">
+        Ryles (Click on me)
+        <img src="~/images/Shulte/outline.png" class="outline" />
+    </div>
+    <div class="game">
+        <div class="borderForTable">
+            <table class="shulte5">
+                <tbody>
+                    <tr name="1rad">
+                        <td>
+                            <button class="button button1">
+                                @Model[0]
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button">
+                                @Model[1]
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button">
+                                @Model[2]
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button">
+                                @Model[3]
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button button2">
+                                @Model[4]
+                            </button>
+                        </td>
+                    </tr>
+                    <tr name="2rad">
+                        <td>
+                            <button class="button">
+                                @Model[5]
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button">
+                                @Model[6]
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button">
+                                @Model[7]
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button">
+                                @Model[8]
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button">
+                                @Model[9]
+                            </button>
+                        </td>
+                    </tr>
+                    <tr name="3rad">
+                        <td>
+                            <button class="button">
+                                @Model[10]
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button">
+                                @Model[11]
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button-eye">
+                                <div class="eye">
+                                    <img src="~/images/Shulte/eye.png" class="nice-eye">
+                                </div>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button">
+                                @Model[12]
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button">
+                                @Model[13]
+                            </button>
+                        </td>
+                    </tr>
+                    <tr name="4rad">
+                        <td>
+                            <button class="button">
+                                @Model[14]
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button">
+                                @Model[15]
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button">
+                                @Model[16]
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button">
+                                @Model[17]
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button">
+                                @Model[18]
+                            </button>
+                        </td>
+                    </tr>
+                    <tr name="5rad">
+                        <td>
+                            <button class="button button3">
+                                @Model[19]
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button">
+                                @Model[20]
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button">
+                                @Model[21]
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button">
+                                @Model[22]
+                            </button>
+                        </td>
+                        <td>
+                            <button class="button button4">
+                                @Model[23]
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="rules"> 
+    <div class="main-text-rules">
+        Rules:
+    </div>
+    <div class="text-rules">
+        В этой игре тебе нужно как можно быстрее найти все числа по порядку. 
+        Очень важно использовать именно периферическое зрение: удерживай взгляд только в центре <img src="~/images/Shulte/eye.png" class="good-eye"> таблицы!
+    </div>
+</div>
