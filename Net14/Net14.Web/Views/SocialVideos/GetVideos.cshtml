@@ -5,8 +5,7 @@
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 <link rel="stylesheet" href="~/css/SocialCss/VideoCss.css">
-<h1 class="video-header">Videos</h1>
-
+<div class="video-header">Videos</div>
 @foreach (SocialVideoViewModel video in Model.Videos)
 {
     <div class="video-programming">
@@ -15,8 +14,12 @@
     </div>
 }
 <div class="navigation-videos">
-    <a class="page" href="/SocialVideos/GetVideos?page=@(Model.Page - 1)">prev</a>
-    <a class="page"href="/SocialVideos/GetVideos?page=@(Model.Page + 1)">next</a>
+    <div class="buttons-navigation" onclick="location.href='/SocialVideos/GetVideos?page=@(Model.Page - 1)'">
+        prev
+    </div>
+    <div class="buttons-navigation" onclick="location.href='/SocialVideos/GetVideos?page=@(Model.Page + 1)'">
+        next
+    </div>
 </div>
 
 

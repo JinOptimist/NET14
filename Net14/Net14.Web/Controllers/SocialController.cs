@@ -151,7 +151,8 @@ namespace Net14.Web.Controllers
             var comment = new SocialComment()
             {
                 Post = post,
-                Text = text
+                Text = text,
+                User = _socialUserRepository.GetByEmAndPass("email", "pass")
             };
             _socialCommentRepository.Save(comment);
             return RedirectToAction("Index");
