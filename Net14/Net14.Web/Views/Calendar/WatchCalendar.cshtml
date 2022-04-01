@@ -1,0 +1,46 @@
+@using Net14.Web.Models.Calendar
+@model List<CalendarViewModel>
+
+@{
+    Layout = "/Views/Shared/_LayoutCalendar.cshtml";
+}
+
+<div>
+    тут Руслан что-то сделает
+</div>
+<div>
+    @{
+        int count = 0;
+        for (int i = 0; i < 5; i++)
+        {
+            <div>
+            @{for (int j = 0;j<7; j++)
+            {
+                <div>
+                    @Model[count].Day
+                </div>
+                count++;
+                        if (count == Model.Count)
+                        {
+                            break;
+                        }
+            }
+            }
+            </div>
+        }
+}
+</div>
+<div>
+    и тут Руслан что-то сделает
+</div>
+<div>   
+    @{
+        foreach (var item in Model)
+        {
+            <div>
+                @item.Notes.Text
+            </div>
+        }
+    }
+</div>
+

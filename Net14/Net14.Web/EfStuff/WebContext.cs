@@ -12,6 +12,7 @@ namespace Net14.Web.EfStuff
         public DbSet<Image> Images { get; set; }
 
         public DbSet<ImageComment> ImageComments { get; set; }
+        public DbSet<DaysNote> DaysNotes { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
 
