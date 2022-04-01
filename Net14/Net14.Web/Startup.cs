@@ -37,16 +37,10 @@ namespace Net14.Web
             var connectString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=WebMaze14;Integrated Security=True;";
             services.AddDbContext<WebContext>(x => x.UseSqlServer(connectString));
 
-            services.AddAuthentication(AuthName)
-             .AddCookie(AuthName, config =>
-             {
-                 config.LoginPath = "/SocialAuthentication/Autorization";
-                 config.AccessDeniedPath = "/SocialAuthentication/AccessDenied";
-                 config.Cookie.Name = "SocialMedeiCool";
-             });
-
-            RegisterMapper(services);
-
+            services.AddScoped<DaysRepository>(x =>
+                new DaysRepository(x.GetService<WebContext>()));
+            services.AddScoped<DaysNoteRepository>(x =>
+                new DaysNoteRepository(x.GetService<WebContext>()));
             services.AddScoped<ImageRepository>(x =>
                 new ImageRepository(x.GetService<WebContext>()));
 

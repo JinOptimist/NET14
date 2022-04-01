@@ -31,8 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Calendar\" />
-    <Folder Include="Views\Calendar\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
