@@ -15,7 +15,6 @@ namespace Net14.Web.EfStuff
 
         public DbSet<Tag> Tags { get; set; }
 
-        public DbSet<Note> Notes { get; set; }
         public WebContext(DbContextOptions options) : base(options)
         {
         }
