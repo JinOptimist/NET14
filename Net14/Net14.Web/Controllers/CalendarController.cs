@@ -28,8 +28,18 @@ namespace Net14.Web.Controllers
         {
             return View();
         }
-        public IActionResult TestCalendar (int month=4, int year=2022)
+        public IActionResult TestCalendar(int year=2022,int month=4)
         {
+            if (month < 1)
+            {
+                month = 12;
+                year--;
+            }
+            if (month > 12)
+            {
+                month = 1;
+                year++;
+            }
             var dayses = new List<int>();
             switch (new DateTime(year, month, 1).DayOfWeek.ToString())
             {
@@ -79,10 +89,9 @@ namespace Net14.Web.Controllers
             {
                 Month = month,
                 Year = year,
-                Days = dayses
+                Days = dayses,
             };
             return View(model);
-            
         }
         public IActionResult WatchCalendar(int month = 4, int year = 2022)
         {
