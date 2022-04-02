@@ -1,0 +1,33 @@
+@using Net14.Web.Models.Calendar.Test
+@model TestCalendarViewModel
+
+@{
+    Layout = "/Views/Shared/_LayoutCalendar.cshtml";
+}
+
+<div>
+    тут Руслан что-то сделает
+</div>
+<a href="/Calendar/TestCalendar?month=@(Model.Month-1)&year=2022">PreviousMonth</a>
+<a href="/Calendar/TestCalendar?month=@(DateTime.Now.Month)&year=@(DateTime.Now.Year)">CurrentMonth</a>
+<a href="/Calendar/TestCalendar?month=@(Model.Month+1)&year=2022">NextMonth</a>
+<div>
+    @{
+        var monthName = new DateTime(Model.Year, Model.Month, 1).Month;
+        
+    }
+    @monthName
+</div>
+<div>
+    @{
+        foreach (var day in Model.Days)
+        {
+            @day
+        }
+    }
+</div>
+<div>
+    и тут Руслан что-то сделает
+</div>
+
+

@@ -4,6 +4,7 @@ using Net14.Web.EfStuff.DbModel;
 using Net14.Web.EfStuff.Repositories;
 using Net14.Web.Models;
 using Net14.Web.Models.Calendar;
+using Net14.Web.Models.Calendar.Test;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -27,26 +28,60 @@ namespace Net14.Web.Controllers
         {
             return View();
         }
-        public IActionResult TestCalendar (int month, int year)
+        public IActionResult TestCalendar (int month=4, int year=2022)
         {
-            List<TestCalendarViewModel> model = new List<TestCalendarViewModel>();
-            var notes = new List<NotesViewModel>();
-            var calendar = new List<CalendarViewModel>();
-            model.Add(new TestCalendarViewModel()
+            var dayses = new List<int>();
+            switch (new DateTime(year, month, 1).DayOfWeek.ToString())
             {
-                month = month,
-                year = year,
-                Calendar = calendar,
-                Notes = notes
-            });
+                case "Monday":
+                    break;
+                case "Tuesday":
+                    dayses.Add(0);
+                    break;
+                case "Wednesday":
+                    dayses.Add(0);
+                    dayses.Add(0);
+                    break;
+                case "Thursday":
+                    dayses.Add(0);
+                    dayses.Add(0);
+                    dayses.Add(0);
+                    break;
+                case "Friday":
+                    dayses.Add(0);
+                    dayses.Add(0);
+                    dayses.Add(0);
+                    dayses.Add(0);
+                    break;
+                case "Saturday":
+                    dayses.Add(0);
+                    dayses.Add(0);
+                    dayses.Add(0);
+                    dayses.Add(0);
+                    dayses.Add(0);
+                    break;
+                case "Sunday":
+                    dayses.Add(0);
+                    dayses.Add(0);
+                    dayses.Add(0);
+                    dayses.Add(0);
+                    dayses.Add(0);
+                    dayses.Add(0);
+                    break;
+                default:
+                    break;
+            }
             for (int i = 1; i <= DateTime.DaysInMonth(year, month); i++)
             {
-                calendar.Add(new CalendarViewModel()
-                {
-                    Day = i,
-                });
+                dayses.Add(i);
             }
-            return View();
+            var model = new TestCalendarViewModel()
+            {
+                Month = month,
+                Year = year,
+                Days = dayses
+            };
+            return View(model);
             
         }
         public IActionResult WatchCalendar(int month = 4, int year = 2022)
