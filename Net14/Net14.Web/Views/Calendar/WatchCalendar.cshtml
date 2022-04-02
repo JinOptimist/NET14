@@ -8,24 +8,60 @@
 <div>
     тут Руслан что-то сделает
 </div>
+<a href="/Calendar/PreviousMonth?month=3&year=2022">PreviousMonth</a>
+<a href="/Calendar/CurrentMonth">CurrentMonth</a>
+<a href="/Calendar/NextMonth?month=5&year=2022">NextMonth</a>
 <div>
     @{
         int count = 0;
         for (int i = 0; i < 5; i++)
         {
             <div>
-            @{for (int j = 0;j<7; j++)
-            {
-                <div>
-                    @Model[count].Day
-                </div>
-                count++;
+                @{
+                    for (int j = 0;j<7; j++)
+                    {
                         if (count == Model.Count)
                         {
                             break;
                         }
-            }
-            }
+                        else if (Model[count].Notes != null)
+                        {
+                            <div style=color:green>
+                                @Model[count].Day
+                            </div>
+                            count++;
+                        }
+                        else if (Model[count].Day == DateTime.Now.Day && Model[count].Month == DateTime.Now.Month)
+                        {
+                            <div style=color:orange>
+                                @Model[count].Day
+                            </div>
+                            count++;
+                        }
+                        else if (Model[count].Day == 0)
+                        {
+                            <div style=color:aqua>
+                                @Model[count].Day
+                            </div>
+                            count++;
+                        }
+                        else if (Model[count].DOW == "Saturday" || Model[count].DOW == "Sunday")
+                        {
+                            <div style=color:red>
+                                @Model[count].Day
+                            </div>
+                            count++;
+                        }
+                        else
+                        {
+                            <div>
+                                @Model[count].Day
+                            </div>
+                            count++;
+                        }
+                        
+                    }
+                }
             </div>
         }
 }
@@ -33,14 +69,5 @@
 <div>
     и тут Руслан что-то сделает
 </div>
-<div>   
-    @{
-        foreach (var item in Model)
-        {
-            <div>
-                @item.Notes.Text
-            </div>
-        }
-    }
-</div>
+
 

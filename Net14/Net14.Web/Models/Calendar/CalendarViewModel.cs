@@ -13,7 +13,8 @@ namespace Net14.Web.Models.Calendar
         public string DOW { get; set; }
         public bool IsHoliday { get; set; }
         public ConsoleColor Color { get; set; }
-       
         public virtual List<NotesViewModel> Notes { get; set; }
+        public int month { get; set; }
+        public int page { get; set; }
     }
 }
