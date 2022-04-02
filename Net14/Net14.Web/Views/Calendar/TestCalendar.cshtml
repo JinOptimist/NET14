@@ -8,26 +8,84 @@
 <div>
     тут Руслан что-то сделает
 </div>
-<a href="/Calendar/TestCalendar?month=@(Model.Month-1)&year=2022">PreviousMonth</a>
+<a href="/Calendar/TestCalendar?month=@(Model.Month-1)&year=@(Model.Year)">PreviousMonth</a>
 <a href="/Calendar/TestCalendar?month=@(DateTime.Now.Month)&year=@(DateTime.Now.Year)">CurrentMonth</a>
-<a href="/Calendar/TestCalendar?month=@(Model.Month+1)&year=2022">NextMonth</a>
+<a href="/Calendar/TestCalendar?month=@(Model.Month+1)&year=@(Model.Year)">NextMonth</a>
 <div>
     @{
-        var monthName = new DateTime(Model.Year, Model.Month, 1).Month;
-        
+        var monthName = new DateTime(Model.Year, Model.Month, 1).ToString("MMMM");
     }
-    @monthName
+    @monthName,@Model.Year
+
+</div>
+<div>   
+    <div>Mo</div>
+    <div>Tu</div>
+    <div>We</div>
+    <div>Th</div>
+    <div>Fr</div>
+    <div style=color:red>Sa</div>
+    <div style=color:red>Su</div>      
 </div>
 <div>
     @{
-        foreach (var day in Model.Days)
+        int count = 0;
+        for (int i = 0; i <= 5; i++)
         {
-            @day
+            <div>
+                @{
+                    for (int j = 0;j<7; j++)
+                    {
+                        if (count == Model.Days.Count)
+                        {
+                            break;
+                        }
+                        else if (Model.Days[count] == DateTime.Now.Day && Model.Month == DateTime.Now.Month)
+                        {
+                            <div style=color:orange>
+                                @Model.Days[count]
+                            </div>
+                            count++;
+                        }
+                        else if (Model.Days[count] == 0)
+                        {
+                            <div style=color:aqua>
+                                @Model.Days[count]
+                            </div>
+                            count++;
+                        }
+                        else if (new DateTime(Model.Year,Model.Month,Model.Days[count]).DayOfWeek.ToString() == "Saturday"
+                        || new DateTime(Model.Year,Model.Month,Model.Days[count]).DayOfWeek.ToString() == "Sunday")
+                        {
+                            <div style=color:red>
+                                @Model.Days[count]
+                            </div>
+                            count++;
+                        }
+                        else
+                        {
+                            <div>
+                                @Model.Days[count]
+                            </div>
+                            count++;
+                        }
+                        
+                    }
+                }
+            </div>
         }
-    }
+}
 </div>
 <div>
     и тут Руслан что-то сделает
 </div>
-
+<div>
+    @{
+        if (Model.Notes != null)
+        {
+        foreach (var note in Model.Notes)
+        @note.EventDate
+        }
+    }
+</div>
 
