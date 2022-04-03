@@ -80,11 +80,17 @@
     и тут Руслан что-то сделает
 </div>
 <div>
+    Notes (Руслан, сделай красиво)):
     @{
         if (Model.Notes != null)
         {
-        foreach (var note in Model.Notes)
-        @note.EventDate
+            foreach (var note in Model.Notes)
+            {
+                <div>
+                @note.EventDate.ToString("d")
+                @note.Text
+                </div>
+            }
         }
     }
 </div>

@@ -28,6 +28,15 @@ namespace Net14.Web.Controllers
         {
             return View();
         }
+        public IActionResult TestViewNotes()
+        {
+            var dbNotes = _DaysNoteRepository.GetAll();
+            var model = new TestNotesViewModel()
+            {
+                Text = dbNotes.Where(x => x.EventDate.Month == 4).Select(x => x.Text).ToString(),
+            };
+            return View();
+        }
         public IActionResult TestCalendar(int year=2022,int month=4)
         {
             if (month < 1)
@@ -40,6 +49,7 @@ namespace Net14.Web.Controllers
                 month = 1;
                 year++;
             }
+            var dbNotes = _DaysNoteRepository.GetAll().Where(x => x.EventDate.Month == month && x.EventDate.Year == year);
             var dayses = new List<int>();
             switch (new DateTime(year, month, 1).DayOfWeek.ToString())
             {
@@ -90,6 +100,11 @@ namespace Net14.Web.Controllers
                 Month = month,
                 Year = year,
                 Days = dayses,
+                Notes = dbNotes.Select(x => new TestNotesViewModel()
+                {
+                    Text = x.Text,
+                    EventDate = x.EventDate,
+                }).ToList(),
             };
             return View(model);
         }
