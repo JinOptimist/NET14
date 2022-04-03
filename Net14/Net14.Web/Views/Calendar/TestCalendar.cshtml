@@ -30,6 +30,7 @@
 <div>
     @{
         int count = 0;
+        int noteCount = 0;
         for (int i = 0; i <= 5; i++)
         {
             <div>
@@ -39,6 +40,18 @@
                         if (count == Model.Days.Count)
                         {
                             break;
+                        }
+                        else if (Model.Notes[noteCount].EventDate.Day == Model.Days[count])
+                        {
+                            <div style=color:white>
+                                @Model.Days[count]
+                            </div>
+                            foreach (var notes in Model.Notes)
+                            {
+                                if (notes.EventDate.Day == Model.Days[count] && noteCount < Model.Notes.Count-1)
+                                    noteCount++;
+                            }
+                            count++;
                         }
                         else if (Model.Days[count] == DateTime.Now.Day && Model.Month == DateTime.Now.Month)
                         {
