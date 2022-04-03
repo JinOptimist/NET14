@@ -33,8 +33,8 @@ namespace Net14.Web
 
         public static void Seed(IHost host)
         {
+            PostSocial postSocial = null;
             UserSocial userComm = null;
-            PostSocial postChange = null;
             using (var scope = host.Services.CreateScope())
             {
                 var webContext = scope.ServiceProvider.GetService<WebContext>();
@@ -111,12 +111,45 @@ namespace Net14.Web
                         User = userComm
                     };
 
-
+                    postSocial = post;
                     post.Comments.Add(comment);
                     webContext.Posts.Add(post);
                     webContext.SocialComments.Add(comment);
                     webContext.SaveChanges();
 
+                }
+                if (!webContext.GroupSocial.Any())
+                {
+                    var groupPost = new PostSocial()
+                    {
+                        CommentOfUser = "Good car",
+                        Comments = new List<SocialComment>(),
+                        ImageUrl = "/images/Social/bmw.jpg",
+                        Likes = 10,
+                        TypePost = "no",
+                        User = userComm
+                    };
+                    var groupComment = new SocialComment()
+                    {
+                        Post = groupPost,
+                        Text = "I wanna buy",
+                        User = webContext.Users.Single(user => user.FirstName == "Aleksey"),
+                    };
+                    groupPost.Comments.Add(groupComment);
+                    webContext.Posts.Add(groupPost);
+                    webContext.SocialComments.Add(groupComment);
+
+                    var group = new GroupSocial()
+                    {
+                        Description = "Cars",
+                        Members = webContext.Users.Where(user => user.FirstName == "Vasily").ToList(),
+                        Name = "BMW Club",
+                        PhotoUrl = "/images/Social/bmw.jpg",
+                        Posts = new List<PostSocial>()
+                    };
+                    group.Posts.Add(groupPost);
+                    webContext.GroupSocial.Add(group);
+                    webContext.SaveChanges();
                 }
             }
         }

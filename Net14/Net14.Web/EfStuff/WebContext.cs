@@ -15,6 +15,7 @@ namespace Net14.Web.EfStuff
         public DbSet<UserSocial> Users { get; set; }
         public DbSet<FileSocial> fileSocial { get; set; }
         public DbSet<SocialComment> SocialComments { get; set; }
+        public DbSet<GroupSocial> GroupSocial { get; set; }
 
         public DbSet<ImageComment> ImageComments { get; set; }
 
@@ -43,6 +44,10 @@ namespace Net14.Web.EfStuff
             modelBuilder.Entity<PostSocial>()
                 .HasMany(post => post.Comments)
                 .WithOne(comment => comment.Post);
+
+            modelBuilder.Entity<GroupSocial>()
+                .HasMany(group => group.Members)
+                .WithMany(user => user.Groups);
 
             modelBuilder.Entity<UserSocial>().Property(u => u.UserPhoto).HasDefaultValue("/images/Social/User.jpg");
 
