@@ -18,7 +18,7 @@
                 <img src="~/images/Social/share (1).png">
             </div>
         </div>
-        <div class="content-element-card">
+        <div class="content-element-card" id=@post.Id>
             <div class="user-info">
                 <div class="user-photo">
                     <img src=@post.UserPhotoUrl class="user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">
