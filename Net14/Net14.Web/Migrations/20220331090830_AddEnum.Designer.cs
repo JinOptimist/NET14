@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Net14.Web.EfStuff;
 
 namespace Net14.Web.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class WebContextModelSnapshot : ModelSnapshot
+    [Migration("20220331090830_AddEnum")]
+    partial class AddEnum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,6 +36,21 @@ namespace Net14.Web.Migrations
                     b.ToTable("BasketProduct");
                 });
 
+            modelBuilder.Entity("ColorProduct", b =>
+                {
+                    b.Property<int>("ColorsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ColorsId", "ProductsId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("ColorProduct");
+                });
+
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Basket", b =>
                 {
                     b.Property<int>("Id")
@@ -47,6 +64,21 @@ namespace Net14.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Baskets");
+                });
+
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Color", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Colors");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Image", b =>
@@ -100,6 +132,9 @@ namespace Net14.Web.Migrations
                     b.Property<int>("BrandCategories")
                         .HasColumnType("int");
 
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CoolCategories")
                         .HasColumnType("int");
 
@@ -111,6 +146,9 @@ namespace Net14.Web.Migrations
 
                     b.Property<int>("Gender")
                         .HasColumnType("int");
+
+                    b.Property<string>("Material")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -196,6 +234,21 @@ namespace Net14.Web.Migrations
                     b.HasOne("Net14.Web.EfStuff.DbModel.Basket", null)
                         .WithMany()
                         .HasForeignKey("BasketsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Net14.Web.EfStuff.DbModel.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ColorProduct", b =>
+                {
+                    b.HasOne("Net14.Web.EfStuff.DbModel.Color", null)
+                        .WithMany()
+                        .HasForeignKey("ColorsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

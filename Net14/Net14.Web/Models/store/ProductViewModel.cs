@@ -17,6 +17,10 @@ namespace Net14.Web.Models.store
         public List<string> Colors { get; set; }
         public List<string> Sizes { get; set; }
         public List<string> Images { get; set; }
-
+        public string CoolMaterial  { get; set; }
+        public string CoolColor { get; set; }
+        public string Gender { get; set; }
+        public string BrandCategories { get; set; }
+        public string CoolCategories { get; set; }
     }
 }
