@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Net14.Web.EfStuff.DbModel;
 using Net14.Web.EfStuff.Repositories;
+using System.Collections.Generic;
 
 namespace Net14.Web.EfStuff
 {
@@ -31,11 +32,19 @@ namespace Net14.Web.EfStuff
                     Quantity = 1,
                     Price = 120,
                     BrandCategories = (EnumStore.BrandСategories)1,
-                    CoolCategories= (EnumStore.CoolCategories)4,
-                    CoolColors= (EnumStore.CoolColors)1,
-                    CoolMaterial= (EnumStore.CoolMaterial)1,
-                    Gender= (EnumStore.Gender)2,
+                    CoolCategories = (EnumStore.CoolCategories)4,
+                    CoolColors = (EnumStore.CoolColors)1,
+                    CoolMaterial = (EnumStore.CoolMaterial)1,
+                    Gender = (EnumStore.Gender)2,
+                    StoreImages = new List<StoreImage>()
+                    {
+                        new StoreImage() { Id = 1, Name ="/images/Store/11.jpg"},
+                        new StoreImage() { Id = 2, Name ="/images/Store/12.jpg"},
+                        new StoreImage() { Id = 3, Name ="/images/Store/13.jpg"},
+                        new StoreImage() { Id = 4, Name ="/images/Store/14.jpg"}
+                    }
                 };
+                             
                 var product2 = new Product()
                 {
                     Id = 2,
@@ -46,7 +55,14 @@ namespace Net14.Web.EfStuff
                     CoolCategories = (EnumStore.CoolCategories)4,
                     CoolColors = (EnumStore.CoolColors)1,
                     CoolMaterial = (EnumStore.CoolMaterial)1,
-                    Gender = (EnumStore.Gender)2
+                    Gender = (EnumStore.Gender)2,
+                    StoreImages = new List<StoreImage>()
+                    {
+                        new StoreImage() { Id = 5, Name ="/images/Store/16.jpg"},
+                        new StoreImage() { Id = 6, Name ="/images/Store/16.1.jpg"},
+                        new StoreImage() { Id = 7, Name ="/images/Store/16.2.jpg"},
+                        new StoreImage() { Id = 8, Name ="/images/Store/16.3.jpg"}
+                    }
                 };
                 var product3 = new Product()
                 {
@@ -59,6 +75,13 @@ namespace Net14.Web.EfStuff
                     CoolColors = (EnumStore.CoolColors)1,
                     CoolMaterial = (EnumStore.CoolMaterial)1,
                     Gender = (EnumStore.Gender)2,
+                    StoreImages = new List<StoreImage>()
+                    {
+                        new StoreImage() { Id = 9, Name ="/images/Store/17.jpg"},
+                        new StoreImage() { Id = 10, Name ="/images/Store/17.1.jpg"},
+                        new StoreImage() { Id = 11, Name ="/images/Store/17.2.jpg"},
+                        new StoreImage() { Id = 12, Name ="/images/Store/17.3.jpg"}
+                    }
                 };
                 var product4 = new Product()
                 {
@@ -71,6 +94,13 @@ namespace Net14.Web.EfStuff
                     CoolColors = (EnumStore.CoolColors)1,
                     CoolMaterial = (EnumStore.CoolMaterial)2,
                     Gender = (EnumStore.Gender)2,
+                    StoreImages = new List<StoreImage>()
+                    {
+                        new StoreImage() { Id = 13, Name ="/images/Store/18.jpg"},
+                        new StoreImage() { Id = 14, Name ="/images/Store/18.1.jpg"},
+                        new StoreImage() { Id = 15, Name ="/images/Store/18.2.jpg"},
+                        new StoreImage() { Id = 16, Name ="/images/Store/18.3.jpg"}
+                    }
                 };
                 var product5 = new Product()
                 {
@@ -83,6 +113,13 @@ namespace Net14.Web.EfStuff
                     CoolColors = (EnumStore.CoolColors)1,
                     CoolMaterial = (EnumStore.CoolMaterial)1,
                     Gender = (EnumStore.Gender)1,
+                    StoreImages = new List<StoreImage>()
+                    {
+                        new StoreImage() { Id = 17, Name = "/images/Store/15.jpg" },
+                        new StoreImage() { Id = 18, Name = "/images/Store/15.1.jpg" },
+                        new StoreImage() { Id = 19, Name = "/images/Store/15.2.jpg" },
+                        new StoreImage() { Id = 20, Name = "/images/Store/15.3.jpg" }
+                    }
                 };
                 var product6 = new Product()
                 {
@@ -144,14 +181,8 @@ namespace Net14.Web.EfStuff
                 productRepository.Save(product8);
                 productRepository.Save(product9);
             };
-            if (!storeImageRepository.Any())
-            {
-                var storeImage1 = new StoreImage()
-                {
-                    Name= "/images/Store/11.jpg",
-                    
-                };
-            }
+            
+            
         }
     }
 }
