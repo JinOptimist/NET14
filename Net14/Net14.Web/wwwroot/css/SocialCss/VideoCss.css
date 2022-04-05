@@ -1,0 +1,44 @@
+.video-programming {
+    margin-bottom: 80px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
+    background: white;
+}
+
+.video-description {
+    margin: 25px;
+    text-align: center;
+}
+
+.navigation-videos {
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    width: 250px;
+    height: 50px;
+    justify-content: space-around;
+    align-items: center;
+    background: white;
+    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
+}
+
+.buttons-navigation {
+    width: 60px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+.buttons-navigation:hover {
+    background: rgba(122,122,122,0.1);
+}
+
+a {
+    color: black;
+}
+
+.video-header {
+
+}
