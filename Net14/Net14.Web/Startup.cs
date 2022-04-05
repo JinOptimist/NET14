@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Net14.Web.Services;
 
 namespace Net14.Web
 {
@@ -56,6 +57,11 @@ namespace Net14.Web
 
             services.AddScoped<SocialCommentRepository>(x =>
                 new SocialCommentRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<VideoSocialRepository>(x =>
+                new VideoSocialRepository(x.GetService<WebContext>()));
+
+            services.AddTransient<YouTubeVideoGetter>();
 
             services.AddScoped<UserService>(x => 
                 new UserService(
