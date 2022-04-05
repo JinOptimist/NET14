@@ -14,20 +14,74 @@ namespace TeamSocial
         {
 
             var social = new Social();
-            for (int i = 1; i < 4; i++)
-            {
-                var emptyUser = new User()
-                {
-                    //    FirstName = "Empty"
-                    FirstName = $"Empty{i}",
-                    Email = $"user{i}@mail.ru",
-                    Password = "12345678",
-                  
-                };
-                emptyUser.wallOffriends.social = social;
-                social.users.Add(emptyUser);
+            /*            for (int i = 1; i < 4; i++)
+                        {
+                            var emptyUser = new User()
+                            {
+                                //    FirstName = "Empty"
+                                FirstName = $"Empty{i}",
+                                Email = $"user{i}@mail.ru",
+                                Password = "12345678",
 
-            }
+                            };
+                            emptyUser.wallOffriends.social = social;
+                            social.users.Add(emptyUser);
+
+                        }*/
+            var emptyUser1 = new User()
+            {
+                FirstName = "Empty1",
+                Email = "user1@mail.ru",
+                Password = "12345678",
+                City = "Moscow",
+                Country = "Russia",
+                Age = 44,
+            };
+            emptyUser1.wallOffriends.social = social;
+            social.users.Add(emptyUser1);
+
+            var emptyUser2 = new User()
+            {
+                //    FirstName = "Empty"
+                FirstName = "Empty2",
+                Email = $"user2@mail.ru",
+                Password = "12345678",
+                City = "Minsk",
+                Country = "Belarus",
+                Age = 20,
+            };
+            emptyUser2.wallOffriends.social = social;
+            social.users.Add(emptyUser2);
+
+            var emptyUser3 = new User()
+            {
+                //    FirstName = "Empty"
+                FirstName = "Empty3",
+                Email = "user3@mail.ru",
+                Password = "12345678",
+                City = "Moscow",
+                Country = "Russia",
+                Age = 51,
+            };
+            emptyUser3.friends.Add(emptyUser1);
+            social.users.Add(emptyUser3);
+            emptyUser3.wallOffriends.social = social;
+
+
+            var emptyUser4 = new User()
+            {
+                FirstName = "Empty4",
+                Email = "user4@mail.ru",
+                Password = "12345678",
+                City = "Minsk",
+                Country = "Belarus",
+                Age = 45
+            };
+
+            emptyUser4.friends.Add(emptyUser2);
+            social.users.Add(emptyUser4);
+            emptyUser4.wallOffriends.social = social;
+
             return social;
         }
 

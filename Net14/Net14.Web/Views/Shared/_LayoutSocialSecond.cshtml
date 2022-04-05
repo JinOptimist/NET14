@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social</title>
+    <link rel="stylesheet" href="~/css/SocialCss/SecondLayoutSocialCss.css" />
+
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="~/images/Social/j.png">
+        </div>
+        <a href="/Social/Index">Стартовый лэйаут</a>
+        <div class="header-search">
+            <input placeholder="Search">
+        </div>
+        <ul class="navigation">
+            <li class="navigation-element"><a href="/Social/Index">Home</a></li>
+        </ul>
+    </header>
+    <div class="maincontent">
+        <div class="menu">
+            <div class="buttons-menu">
+                <div class="menu-element">Recomendation</div>
+                <div class="menu-element">Probably familiar</div>
+            </div>
+            <div class="menu-recomendations-user">
+                <div class="menu-recomendation-title">Recommended accounts</div>
+                <div class="recomendation-element-menu">
+                    <div class="user-photo">
+                        <img src="https://img.joinfo.com/i/2019/11/800x0/5dda9739ce891.jpg" class="user-photo">
+                    </div>
+                    <div class="recomendation-name-menu">
+                        freddie mercuri
+                    </div>
+                </div>
+                <div class="recomendation-element-menu">
+                    <div class="user-photo">
+                        <img src="https://img.joinfo.com/i/2019/11/800x0/5dda9739ce891.jpg" class="user-photo">
+                    </div>
+                    <div class="recomendation-name-menu">
+                        freddie mercuri
+                    </div>
+                </div>
+                <div class="recomendation-element-menu">
+                    <div class="user-photo">
+                        <img src="https://img.joinfo.com/i/2019/11/800x0/5dda9739ce891.jpg" class="user-photo">
+                    </div>
+                    <div class="recomendation-name-menu">
+                        freddie mercuri
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            @RenderBody()
+        </div>
+    </div>
+    <footer class="footer">
+        TeamSocial 2022
+    </footer>
+</body>
+</html>
