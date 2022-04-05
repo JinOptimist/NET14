@@ -148,10 +148,13 @@ namespace Net14.Web.Controllers
                 return RedirectToAction("Index");
             }
             var post = _socialPostRepository.Get(postId);
+            var user = _socialUserRepository.GetByEmAndPass("email", "pass");
+
             var comment = new SocialComment()
             {
                 Post = post,
-                Text = text
+                Text = text,
+                User = user
             };
             _socialCommentRepository.Save(comment);
             return RedirectToAction("Index");
