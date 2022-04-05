@@ -57,9 +57,10 @@ namespace Net14.Web.Controllers
         public IActionResult Basket()
         {
             var b = _basketRepository.Get(1);
-            if (b != null)
-            {
-
+            if (b != null) 
+            { 
+                var ProductModel = b.Products.Select(dbProduct => new ProductViewModel()
+                {
                 Id = dbProduct.Id,
                 BrandCategories = dbProduct.BrandCategories.ToString(),
                 Name = dbProduct.Name,
@@ -71,19 +72,8 @@ namespace Net14.Web.Controllers
                 .Select(x => x.Name).ToList()
             }).ToList();
 
-
-                var ProductModel = b.Products.Select(dbProduct => new ProductViewModel()
-                {
-                    Id = dbProduct.Id,
-                    Name = dbProduct.Name,
-                    Category = dbProduct.Category,
-                    Material = dbProduct.Material,
-                    Price = dbProduct.Price,
-                    Images = dbProduct.StoreImages.Select(x => x.Name).ToList()
-                }).ToList();
                 return View(ProductModel);
             }
-
 
             return View();
         }
@@ -91,6 +81,13 @@ namespace Net14.Web.Controllers
         public IActionResult AddProductToBasket(int productId, int userId = 1)
         {
             var basket = _basketRepository.GetAll().FirstOrDefault(x => x.UserId == userId);
+            if (basket == null)
+            {
+                basket = new Basket() { 
+                    UserId = userId,
+                    Products = new List<Product>()
+                };
+            }
             var product = _productRepository.Get(productId);
             basket.Products.Add(product);
             _basketRepository.Save(basket);
@@ -112,8 +109,6 @@ namespace Net14.Web.Controllers
             {
                 Id = dbProduct.Id,
                 Name = dbProduct.Name,
-                Category = dbProduct.Category,
-                Material = dbProduct.Material,
                 Price = dbProduct.Price,
                 Images = dbProduct.StoreImages.Select(x => x.Name).ToList()
             }).ToList();

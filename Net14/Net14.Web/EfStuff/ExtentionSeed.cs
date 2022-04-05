@@ -24,7 +24,6 @@ namespace Net14.Web.EfStuff
             var productRepository = scope.ServiceProvider.GetService<ProductRepository>();
             var sizeRepository = scope.ServiceProvider.GetService<SizeRepository>();
 
-
             if (!productRepository.Any())
             {
                 //var size = new List<Size>()
