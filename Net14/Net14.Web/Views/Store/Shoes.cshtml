@@ -23,7 +23,7 @@
 
         <div class="text">
 
-            <div>@Model.Category</div>
+            <div>@Model.BrandCategories</div>
             <div>@Model.Name</div>
             <div class="stars">
                 <span><img src="/images/Store/star_black.png" class="star"></span>
@@ -35,15 +35,11 @@
             <div class="cost">@Model.Price $</div>
             <div class="instock">В наличии</div>
             <div class="category">
-                <div>Пол: @Model.Category</div>
-                <div>Материал: Кожа</div>
+                <div>Пол:@Model.Gender</div>
+                <div>Материал: @Model.CoolMaterial</div>
                 <div>Страна производства: Вьетнам</div>
-                <div>Предназначение: Повседневная обувь</div>
-                <div>Бренд: Nike</div>
-                <div>Цвет:@foreach (var color in Model.Colors)
-                    {
-                        <span>@color </span>
-                    }</div>
+                <div>Предназначение: @Model.CoolCategories</div>
+                <div>Цвет:@Model.CoolColor</div>
                 <div class="buttonssize">
                     @foreach (var size in Model.Sizes)
                     {

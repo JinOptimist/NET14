@@ -38,12 +38,10 @@ namespace Net14.Web
             services.AddScoped<ProductRepository>(x =>
                new ProductRepository(x.GetService<WebContext>()));
 
-            services.AddScoped<ColorRepository>(x =>
-              new ColorRepository(x.GetService<WebContext>()));
-
             services.AddScoped<SizeRepository>(x =>
               new SizeRepository(x.GetService<WebContext>()));
             services.AddScoped<BasketRepository>(x =>
+
               new BasketRepository(x.GetService<WebContext>()));
 
             services.AddScoped<StoreImageRepository>(x =>
