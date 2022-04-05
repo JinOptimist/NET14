@@ -57,8 +57,9 @@ namespace Net14.Web.Controllers
         public IActionResult Basket()
         {
             var b = _basketRepository.Get(1);
-            var ProductViewModel = b.Products.Select(dbProduct => new ProductViewModel()
+            if (b != null)
             {
+
                 Id = dbProduct.Id,
                 BrandCategories = dbProduct.BrandCategories.ToString(),
                 Name = dbProduct.Name,
@@ -70,7 +71,21 @@ namespace Net14.Web.Controllers
                 .Select(x => x.Name).ToList()
             }).ToList();
 
-            return View(ProductViewModel);
+
+                var ProductModel = b.Products.Select(dbProduct => new ProductViewModel()
+                {
+                    Id = dbProduct.Id,
+                    Name = dbProduct.Name,
+                    Category = dbProduct.Category,
+                    Material = dbProduct.Material,
+                    Price = dbProduct.Price,
+                    Images = dbProduct.StoreImages.Select(x => x.Name).ToList()
+                }).ToList();
+                return View(ProductModel);
+            }
+
+
+            return View();
         }
 
         public IActionResult AddProductToBasket(int productId, int userId = 1)
@@ -90,6 +105,22 @@ namespace Net14.Web.Controllers
             _basketRepository.Save(basket);
             return RedirectToAction("Basket", "Store");
         }
+        public IActionResult Checkout(int userId)
+        {
+            var basket = _basketRepository.GetAll().FirstOrDefault(x => x.UserId == userId);
+           var ViewModel =  basket.Products.Select(dbProduct => new ProductViewModel()
+            {
+                Id = dbProduct.Id,
+                Name = dbProduct.Name,
+                Category = dbProduct.Category,
+                Material = dbProduct.Material,
+                Price = dbProduct.Price,
+                Images = dbProduct.StoreImages.Select(x => x.Name).ToList()
+            }).ToList();
+
+            return View(ViewModel);
+        }
+
 
         public IActionResult Shoes(int id)
         {
@@ -104,10 +135,12 @@ namespace Net14.Web.Controllers
                 Price = dbProduct.Price,
                 CoolColor = dbProduct.CoolColors.ToString(),
                 Sizes = dbProduct.Sizes.Select(x => x.Name).ToList(),
+
                 Images = dbProduct.StoreImages
                 .OrderBy(x => x.Odrer)
                 .Select(x => x.Name).ToList()
             };
+
             return View(model);
         }
 
@@ -116,11 +149,7 @@ namespace Net14.Web.Controllers
 
             return View();
         }
-        public IActionResult Checkout()
-        {
-
-            return View();
-        }
+    
         public IActionResult Catalog()
         {
             var dbProducts = _productRepository.GetAll();
