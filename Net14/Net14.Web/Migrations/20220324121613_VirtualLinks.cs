@@ -8,7 +8,7 @@ namespace Net14.Web.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "fileSocial");
+               name: "fileSocial");
 
             migrationBuilder.CreateTable(
                 name: "fileSocial",
@@ -27,8 +27,7 @@ namespace Net14.Web.Migrations
 
 
             migrationBuilder.DropTable(
-                name: "Users");
-
+               name: "Users");
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new

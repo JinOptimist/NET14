@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
 namespace Net14.Web.EfStuff.Repositories
 {
-    public class SocialPostRepository : BaseRepository<PostSocial>
+    public class VideoSocialRepository : BaseRepository<VideoSocial>
     {
-        public SocialPostRepository(WebContext context) : base(context)
+        public VideoSocialRepository(WebContext context):base(context)
         {
         }
+
     }
 }

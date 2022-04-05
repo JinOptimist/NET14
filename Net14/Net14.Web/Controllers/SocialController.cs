@@ -8,8 +8,8 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Net14.Web.EfStuff.Repositories;
-
-
+using Microsoft.AspNetCore.Authorization;
+using Net14.Web.Services;
 
 namespace Net14.Web.Controllers
 {
@@ -19,12 +19,17 @@ namespace Net14.Web.Controllers
         private SocialUserRepository _socialUserRepository;
         private SocialPostRepository _socialPostRepository;
         private SocialCommentRepository _socialCommentRepository;
-        public SocialController(SocialUserRepository socialUserRepository, SocialPostRepository socialPostRepository,
-            SocialCommentRepository socialCommentRepository)
+        private UserService _userService;
+
+        public SocialController(SocialUserRepository socialUserRepository, 
+            SocialPostRepository socialPostRepository,
+            SocialCommentRepository socialCommentRepository,
+            UserService userService)
         {
             _socialPostRepository = socialPostRepository;
             _socialUserRepository = socialUserRepository;
             _socialCommentRepository = socialCommentRepository;
+            _userService = userService;
         }
 
         public IActionResult Index()
@@ -44,7 +49,7 @@ namespace Net14.Web.Controllers
                  Comments = post.Comments.Select(comm =>
                  new SocialCommentViewModel()
                  {
-                     User = new SocialUserViewModel() 
+                     User = new SocialUserViewModel()
                      {
                          Age = comm.User.Age,
                          City = comm.User.City,
@@ -141,6 +146,23 @@ namespace Net14.Web.Controllers
             return View(model);
         }
 
+        [Authorize]
+        public IActionResult MyProfile()
+        {
+            var user = _userService.GetCurrent();
+
+            var model = new SocialProfileViewModel()
+            {
+                Age = user.Age,
+                FirstName = user.FirstName,
+                City = user.City,
+                Country = user.Country,
+                UserPhoto = user.UserPhoto
+            };
+
+            return View(model);
+        }
+
         public IActionResult AddComment(int postId, string text)
         {
             if (text == null)
@@ -154,7 +176,7 @@ namespace Net14.Web.Controllers
             {
                 Post = post,
                 Text = text,
-                User = user
+                User = _socialUserRepository.GetByEmAndPass("email", "pass")
             };
             _socialCommentRepository.Save(comment);
             return RedirectToAction("Index");

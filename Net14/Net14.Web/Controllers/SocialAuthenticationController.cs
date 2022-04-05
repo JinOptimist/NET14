@@ -7,8 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.EfStuff.Repositories;
-
-
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace Net14.Web.Controllers
 {
@@ -46,7 +46,7 @@ namespace Net14.Web.Controllers
 
                 return RedirectToRoute("default", new { controller = "Social", action = "ShowPagesProfile", id = userDb.Id });
             }
-            else 
+            else
             {
                 return View();
 
@@ -58,26 +58,35 @@ namespace Net14.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Autorization(SocialUserAutorization user) 
+        public async Task<IActionResult> Autorization(SocialUserAutorization userViewModel)
         {
-            if (ModelState.IsValid)
-            {
-                var users = _socialUserRepository.GetByEmAndPass(user.Email, user.Password);
-
-                if (users == null)
-                {
-                    return View();
-                }
-                else 
-                {
-                    return RedirectToRoute("default", new { controller = "Social", action = "ShowPagesProfile", id = users.Id});
-
-                }
-            }
-            else 
+            if (!ModelState.IsValid)
             {
                 return View();
             }
+
+            var user = _socialUserRepository.GetByEmAndPass(userViewModel.Email, userViewModel.Password);
+
+            if (user == null)
+            {
+                return View();
+            }
+
+            //good
+
+            var claims = new List<Claim>() {
+                new Claim("Id", user.Id.ToString()),
+                new Claim("Name", user.FirstName),
+                new Claim(ClaimTypes.AuthenticationMethod, Startup.AuthName)
+            };
+
+            var identity = new ClaimsIdentity(claims, Startup.AuthName);
+
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync(principal);
+
+            return RedirectToRoute("default", new { controller = "Social", action = "ShowPagesProfile", id = user.Id });
         }
     }
 }

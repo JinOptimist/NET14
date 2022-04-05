@@ -13,8 +13,8 @@ namespace Net14.Web.EfStuff.Repositories
         {
         }
 
-        public List<UserSocial> GetBy(string FullName = null, int Age = 0, string Country = null, string City = null, 
-            string FirstName = null, string LastName = null)
+        public List<UserSocial> GetBy(string FullName = null, int Age = 0, string Country = null, 
+            string City = null, string FirstName = null, string LastName = null)
         {
 
             if (FullName == null)
