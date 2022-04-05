@@ -107,7 +107,7 @@ namespace Net14.Web.Controllers
                 Price = dbProduct.Price,
                 Colors=dbProduct.Colors.Select(x => x.Name).ToList(),
                 Sizes = dbProduct.Sizes.Select(x => x.Name).ToList(),
-                Images=dbProduct.StoreImages.Select(x => x.Name).ToList()
+                Images=dbProduct.StoreImages.Select(x => x.Name).ToList()  
          };
             return View(model);
         }
