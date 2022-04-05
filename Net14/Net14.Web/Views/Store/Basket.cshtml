@@ -23,26 +23,33 @@ else
     <div class="catalogItems">
         @foreach (var product in Model)
         {
-<div class="catalogItem">
-    <a href="/Store/Shoes?id=@product.Id">
-        <div class="catalogImages">
-            <img src="@product.Images.First()" class="catalogProduct" />
-        </div>
-        <div class="catalogMiniTitle">
-            @product.Name
-        </div>
-    </a>
-    <div class="catalogMiniTitle">
-        @product.Price $
+            <div class="catalogItem">
+                <a href="/Store/Shoes?id=@product.Id">
+                    <div class="catalogImages">
+                        <img src="@product.Images.First()" class="catalogProduct" />
+                    </div>
+                    <div class="catalogMiniTitle">
+                        @product.Name
+                    </div>
+                </a>
+                <div class="catalogMiniTitle">
+                    @product.Price $
+                </div>
+                <div class="buttonCatalog">
+                    <span>
+                        <a class="buttonCatalogToBasket" href="/Store/DeleteProductFromBasket?productId=@product.Id&userId=1">Удалить </a>
+                    </span>
+                </div>
+
+            </div>}
     </div>
+
     <div class="buttonCatalog">
         <span>
-            <a class="buttonCatalogToBasket" href="/Store/DeleteProductFromBasket?productId=@product.Id&userId=1">Удалить </a>
+            <a class="buttonCatalogToBasket" href="/Store/Checkout?userId=1"> Оформить заказ </a>
         </span>
     </div>
 
-</div>}
-    </div>
 </div>}
 
 

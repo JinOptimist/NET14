@@ -95,6 +95,22 @@ namespace Net14.Web.Controllers
             _basketRepository.Save(basket);
             return RedirectToAction("Basket", "Store");
         }
+        public IActionResult Checkout(int userId)
+        {
+            var basket = _basketRepository.GetAll().FirstOrDefault(x => x.UserId == userId);
+           var ViewModel =  basket.Products.Select(dbProduct => new ProductViewModel()
+            {
+                Id = dbProduct.Id,
+                Name = dbProduct.Name,
+                Category = dbProduct.Category,
+                Material = dbProduct.Material,
+                Price = dbProduct.Price,
+                Images = dbProduct.StoreImages.Select(x => x.Name).ToList()
+            }).ToList();
+
+            return View(ViewModel);
+        }
+
 
         public IActionResult Shoes(int id)
         {
@@ -117,11 +133,7 @@ namespace Net14.Web.Controllers
 
             return View();
         }
-        public IActionResult Checkout()
-        {
-
-            return View();
-        }
+    
         public IActionResult Catalog()
         {
             var dbProducts = _productRepository.GetAll();

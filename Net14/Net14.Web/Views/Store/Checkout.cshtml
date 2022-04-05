@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Net14.Web.Models.store
+@model List<ProductViewModel>
+
+@{
     Layout = "/Views/Shared/_LayoutStore.cshtml";
 }
 
@@ -11,7 +14,7 @@
 
         <div class="checkout_field">
             <div class="title_mini">Имя</div>
-            <div><input  type="text" name="username" value="" /></div>
+            <div><input type="text" name="username" value="" /></div>
         </div>
 
         <div class="checkout_field">
@@ -24,55 +27,55 @@
             <div><input placeholder="+375 XX YYY-YY-YY" type="tel" name="phonenumber" value="" /></div>
         </div>
     </div>
-    
+
     <div class="checkout_block2">
         <div class="pickup">
-            <div class="checkout_radio"><input checkeds type="radio" name="radiobutton" value="pickupradio" /> Самовывоз</div> 
+            <div class="checkout_radio"><input checkeds type="radio" name="radiobutton" value="pickupradio" /> Самовывоз</div>
             <div class="checkout_field">
-            <div class="title_mini">Комментарий</div>
-                  <div><textarea name="pickupComment" cols="80" rows="10"></textarea> </div>
-                </div>
-              </div>
+                <div class="title_mini">Комментарий</div>
+                <div><textarea name="pickupComment" cols="80" rows="10"></textarea> </div>
+            </div>
+        </div>
         <div class="delivery">
-             <div class="checkout_radio"><input type="radio" name="radiobutton" value="deliverypradio" /> Доставка по городу</div>
-              <div class="checkout_field">
-                      <div class="title_mini">Адресс</div>
-                      <div><input type="text" name="deliveryAdress" value="" /></div>
+            <div class="checkout_radio"><input type="radio" name="radiobutton" value="deliverypradio" /> Доставка по городу</div>
+            <div class="checkout_field">
+                <div class="title_mini">Адресс</div>
+                <div><input type="text" name="deliveryAdress" value="" /></div>
             </div>
             <div class="checkout_field">
-                      <div class="title_mini">Комментарий</div>
-                       <div><textarea name="deliveryComment" cols="80" rows="10"></textarea> </div>
+                <div class="title_mini">Комментарий</div>
+                <div><textarea name="deliveryComment" cols="80" rows="10"></textarea> </div>
             </div>
         </div>
         <div class="sent">
             <div class="checkout_radio"> <input type="radio" name="radiobutton" value="sentradio" /> Отправка почтой </div>
-             <div class="checkout_field">
-                      <div class="title_mini">Индекс</div>
-                      <div><input type="tel" name="indexSent" value="" /></div>
+            <div class="checkout_field">
+                <div class="title_mini">Индекс</div>
+                <div><input type="tel" name="indexSent" value="" /></div>
             </div>
             <div class="checkout_field">
-                      <div class="title_mini">Адресс</div>
-                      <div><input type="text" name="adressSent" value="" /></div>
+                <div class="title_mini">Адресс</div>
+                <div><input type="text" name="adressSent" value="" /></div>
             </div>
             <div class="checkout_field">
-                      <div class="title_mini">Комментарий</div>
-                       <div><textarea name="sentComment" cols="80" rows="10"></textarea> </div>
+                <div class="title_mini">Комментарий</div>
+                <div><textarea name="sentComment" cols="80" rows="10"></textarea> </div>
             </div>
         </div>
     </div>
     <div class="checkout_block3">
         <div class="checkout_finishcost">
             <div class="checkout_cost">
-               <div class="title_mini">Товаров на сумму:</div>
-               <div class="title_mini">120$</div>
+                <div class="title_mini">Товаров на сумму:</div>
+                <div class="title_mini">@Model.Sum(x=>x.Price)$</div>
             </div>
             <div class="checkout_costdelivery">
-               <div class="title_mini">Стоимость доставки:</div>
-               <div class="title_mini">5$</div>
+                <div class="title_mini">Стоимость доставки:</div>
+                <div class="title_mini">5$</div>
             </div>
             <div class="checkout_allcost">
-               <div class="title_mini">Итого к оплате:</div>
-               <div class="title_mini">125$</div>
+                <div class="title_mini">Итого к оплате:</div>
+                <div class="title_mini">125$</div>
             </div>
             <button class="button_checkout" type="submit">Готово</button>
         </div>
