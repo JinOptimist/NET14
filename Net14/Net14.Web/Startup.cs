@@ -15,6 +15,7 @@ namespace Net14.Web
 {
     public class Startup
     {
+        public const string AuthName = "SmileCoockie";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -28,6 +29,13 @@ namespace Net14.Web
             var connectString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=WebMaze14;Integrated Security=True;";
             services.AddDbContext<WebContext>(x => x.UseSqlServer(connectString));
 
+            services.AddAuthentication(AuthName)
+             .AddCookie(AuthName, config =>
+             {
+                 config.LoginPath = "/SocialAuthentication/Autorization";
+                 config.AccessDeniedPath = "/User/AccessDenied";
+                 config.Cookie.Name = "SocialMedeiCool";
+             });
 
             services.AddScoped<ImageRepository>(x =>
                 new ImageRepository(x.GetService<WebContext>()));
@@ -66,6 +74,10 @@ namespace Net14.Web
 
             app.UseRouting();
 
+            // Who I am
+            app.UseAuthentication();
+
+            //Where could I go
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
