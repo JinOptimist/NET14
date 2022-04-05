@@ -82,6 +82,7 @@ namespace Net14.Web.Controllers
         {
             var basket = _basketRepository.GetAll().FirstOrDefault(x => x.UserId == userId);
             var product = _productRepository.Get(productId);
+
             basket.Products.Add(product);
             _basketRepository.Save(basket);
             return RedirectToAction("Catalog", "Store");
