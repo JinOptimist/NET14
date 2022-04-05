@@ -1,9 +1,23 @@
-﻿
+﻿@using Net14.Web.Models.ArtImage
+@model AddImageVewModel
 @{
     Layout = "/Views/Shared/_LayoutArtImage.cshtml";
 }
 
 Тут у нас будет про категории Аниме 
+
+
+<form action="/ArtImage/AddImage" method="post">
+    <div>
+        Name: @Html.TextBoxFor(x => x.Name)
+    </div>
+   
+    <div>
+        <input type="submit" value="Создать" />
+    </div>
+</form>
+
+
 
 <div>
     Action

@@ -58,8 +58,7 @@ namespace Net14.Web.Controllers
             var dbImage = new Image()
             {
                 Name = viewModel.Name,
-                Rate = viewModel.Rate,
-                Url = viewModel.Url
+               
             };
 
             return View();

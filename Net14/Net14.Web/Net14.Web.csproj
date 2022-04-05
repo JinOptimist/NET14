@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\ArtImage\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
