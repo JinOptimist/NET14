@@ -19,9 +19,9 @@ namespace Net14.Web.Controllers
         private ProductRepository _productRepository;
 
         private StoreImageRepository _storeimageRepository;
-        public StoreController(ProductRepository productRepository, StoreImageRepository storeimageRepository,BasketRepository basketRepository)
+        public StoreController(ProductRepository productRepository, StoreImageRepository storeimageRepository, BasketRepository basketRepository)
         {
-            
+
             _productRepository = productRepository;
             _storeimageRepository = storeimageRepository;
             _basketRepository = basketRepository;
@@ -37,13 +37,15 @@ namespace Net14.Web.Controllers
                 Id = dbProduct.Id,
                 Gender = dbProduct.Gender.ToString(),
                 Name = dbProduct.Name,
-                CoolCategories=dbProduct.CoolCategories.ToString(),
-                Quantity=dbProduct.Quantity,
-                CoolMaterial=dbProduct.CoolMaterial.ToString(),
-                Price=dbProduct.Price,
-                CoolColor=dbProduct.CoolColors.ToString(),
+                CoolCategories = dbProduct.CoolCategories.ToString(),
+                Quantity = dbProduct.Quantity,
+                CoolMaterial = dbProduct.CoolMaterial.ToString(),
+                Price = dbProduct.Price,
+                CoolColor = dbProduct.CoolColors.ToString(),
                 Sizes = dbProduct.Sizes.Select(x => x.Name).ToList(),
-                Images = dbProduct.StoreImages.Select(x => x.Name).ToList()
+                Images = dbProduct.StoreImages
+                .OrderBy(x => x.Odrer)
+                .Select(x => x.Name).ToList()
             }).ToList();
             return View(viewModels);
         }
@@ -63,7 +65,9 @@ namespace Net14.Web.Controllers
                 CoolCategories = dbProduct.CoolCategories.ToString(),
                 CoolMaterial = dbProduct.CoolMaterial.ToString(),
                 Price = dbProduct.Price,
-                Images = dbProduct.StoreImages.Select(x => x.Name).ToList()
+                Images = dbProduct.StoreImages
+                .OrderBy(x=>x.Odrer)
+                .Select(x => x.Name).ToList()
             }).ToList();
 
             return View(ProductViewModel);
@@ -93,15 +97,17 @@ namespace Net14.Web.Controllers
             var model = new ProductViewModel()
             {
                 Name = dbProduct.Name,
-                Gender=dbProduct.Gender.ToString(),
+                Gender = dbProduct.Gender.ToString(),
                 BrandCategories = dbProduct.BrandCategories.ToString(),
                 CoolCategories = dbProduct.CoolCategories.ToString(),
                 CoolMaterial = dbProduct.CoolMaterial.ToString(),
                 Price = dbProduct.Price,
                 CoolColor = dbProduct.CoolColors.ToString(),
                 Sizes = dbProduct.Sizes.Select(x => x.Name).ToList(),
-                Images = dbProduct.StoreImages.Select(x => x.Name).ToList(),
-                };
+                Images = dbProduct.StoreImages
+                .OrderBy(x => x.Odrer)
+                .Select(x => x.Name).ToList()
+            };
             return View(model);
         }
 
@@ -127,7 +133,9 @@ namespace Net14.Web.Controllers
                 CoolCategories = dbProduct.CoolCategories.ToString(),
                 CoolMaterial = dbProduct.CoolMaterial.ToString(),
                 Price = dbProduct.Price,
-                Images = dbProduct.StoreImages.Select(x => x.Name).ToList()
+                Images = dbProduct.StoreImages
+                .OrderBy(x => x.Odrer)
+                .Select(x => x.Name).ToList()
             }).ToList();
             return View(viewModels);
 
@@ -145,9 +153,9 @@ namespace Net14.Web.Controllers
             var dbProduct = new Product()
             {
                 Name = viewModel.Name,
-                
+
                 Quantity = viewModel.Quantity,
-                
+
                 Price = viewModel.Price,
             };
 
