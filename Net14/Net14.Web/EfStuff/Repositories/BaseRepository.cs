@@ -47,5 +47,10 @@ namespace Net14.Web.EfStuff.Repositories
             _dbSet.Remove(model);
             _webContext.SaveChanges();
         }
+
+        public bool Any()
+        {
+            return _dbSet.Any();
+        }
     }
 }

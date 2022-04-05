@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EfStuff\EnumStore\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
