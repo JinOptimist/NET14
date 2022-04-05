@@ -70,6 +70,7 @@ namespace Net14.Web.Controllers
             return View(viewPost);
         }
 
+        [Authorize]
         public IActionResult Settings()
         {
             return View();

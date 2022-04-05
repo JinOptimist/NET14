@@ -28,7 +28,7 @@ namespace Net14.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Registration(SocialUserRegistration user)
+        public IActionResult Registration(SocialUserRegistrationViewModel user)
         {
             if (ModelState.IsValid)
             {
@@ -53,12 +53,18 @@ namespace Net14.Web.Controllers
             }
         }
         [HttpGet]
-        public IActionResult Autorization()
+        public IActionResult Autorization(string ReturnUrl)
         {
-            return View();
+            var model = new SocialUserAutorizationViewModel()
+            {
+                ReturnUrl = ReturnUrl
+            };
+
+            return View(model);
         }
+
         [HttpPost]
-        public async Task<IActionResult> Autorization(SocialUserAutorization userViewModel)
+        public async Task<IActionResult> Autorization(SocialUserAutorizationViewModel userViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -86,7 +92,11 @@ namespace Net14.Web.Controllers
 
             await HttpContext.SignInAsync(principal);
 
-            return RedirectToRoute("default", new { controller = "Social", action = "ShowPagesProfile", id = user.Id });
+            if (userViewModel.ReturnUrl == null) 
+            {
+                return RedirectToRoute("default", new { controller = "Social", action = "ShowPagesProfile", id = user.Id });
+            }
+            return Redirect(userViewModel.ReturnUrl);
         }
     }
 }
