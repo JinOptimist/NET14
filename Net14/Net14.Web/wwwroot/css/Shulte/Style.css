@@ -152,5 +152,15 @@ td {
 .button-back {
     border: 3mm solid #A9A9A9;
     border-radius: 15px;
-    padding: 10px 10px 10px 10px;
+    margin: 10px 10px 10px 10px;
+    width: 110px;
+    height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    background:white;
+}
+.blocksgame{
+    display:flex;
 }
