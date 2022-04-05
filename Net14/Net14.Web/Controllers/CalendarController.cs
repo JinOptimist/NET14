@@ -28,15 +28,7 @@ namespace Net14.Web.Controllers
         {
             return View();
         }
-        public IActionResult TestViewNotes()
-        {
-            var dbNotes = _DaysNoteRepository.GetAll();
-            var model = new TestNotesViewModel()
-            {
-                Text = dbNotes.Where(x => x.EventDate.Month == 4).Select(x => x.Text).ToString(),
-            };
-            return View();
-        }
+
         public IActionResult TestCalendar(int year=2022,int month=4)
         {
             if (month < 1)
