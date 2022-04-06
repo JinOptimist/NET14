@@ -49,6 +49,15 @@ body {
     margin: 150px;
     flex: 1 0 auto;
 }
+@media screen and (max-width: 1000px) {
+    .maincontent {
+        display: flex;
+        flex-direction: column;
+        margin: 150px 0px 0px 0px;
+        flex: 1 0 auto;
+    }
+
+}
 .footer {
     height: 40px;
     border-top: 2px solid grey;
