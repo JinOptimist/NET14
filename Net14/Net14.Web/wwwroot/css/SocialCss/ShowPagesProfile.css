@@ -1,14 +1,13 @@
 ﻿
-.content-element-card-profile
-{
+.content-element-card-profile {
     display: flex;
     align-items: center;
     flex-direction: column;
     width: 4300px;
-    min-height: 110%;
+    min-height: 100%;
     border-radius: 10px;
     background: white;
-    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
     max-height: 200px;
 }
 .user-info-profile
@@ -41,15 +40,11 @@
 {
     opacity: 0.5;
 }
-.content-element-profile
-{
+.content-element-profile {
     display: flex;
-    width: 500px;
+    width: 560px;
     min-height: 500px;
     align-items: flex-end;
-    margin: 80px auto 10px;
-    margin-left: 500px;
-    justify-content: space-around;
     flex-direction: row-reverse;
 
 }
