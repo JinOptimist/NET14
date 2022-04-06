@@ -1,0 +1,24 @@
+﻿@model List<SocialGroupViewModel>
+@{
+    Layout = "/Views/Shared/_LayoutSocial.cshtml";
+}
+<link rel="stylesheet" href="~/css/SocialCss/SocialGroups.css">
+
+
+<div class="groups-header">Groups</div>
+<input type="text" placeholder="Find group" class="find-group">
+@foreach (var group in Model)
+{
+<div class="groups-list"  onclick="location.href='@Url.Action("GetSingleGroup", "SocialGroups", new {id = group.Id})'" >
+    <div class="group-list-element">
+        <div class="group-photo-container">
+            <img src=@group.PhotoUrl class="photo-group">
+        </div>
+        <div class="descriptions">
+            <div class="group-name">@group.Name</div>
+            <div>Cars</div>
+            <div>20.131 members</div>
+        </div>
+    </div>
+</div>
+}

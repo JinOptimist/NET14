@@ -8,8 +8,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Net14.Web.EfStuff.Repositories;
-
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace Net14.Web.Controllers
 {
@@ -20,10 +19,10 @@ namespace Net14.Web.Controllers
         public SocialFileController(SocialFileRepository socialFileRepository)
         {
             _socialFileRepository = socialFileRepository;
- 
+
         }
 
-
+        [Authorize]
         public IActionResult MyFiles()
         {
             return View();

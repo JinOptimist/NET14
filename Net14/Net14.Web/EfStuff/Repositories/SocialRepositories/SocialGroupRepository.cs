@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
 namespace Net14.Web.EfStuff.Repositories
 {
-    public class SocialPostRepository : BaseRepository<PostSocial>
+    public class SocialGroupRepository : BaseRepository<GroupSocial>
     {
-        public SocialPostRepository(WebContext context) : base(context)
+        public SocialGroupRepository(WebContext context):base(context)
         {
         }
     }

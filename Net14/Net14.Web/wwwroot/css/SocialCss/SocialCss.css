@@ -45,8 +45,18 @@ body {
 
 .maincontent {
     display: flex;
-    margin: 200px;
+    justify-content:space-between;
+    margin: 150px;
     flex: 1 0 auto;
+}
+@media screen and (max-width: 1000px) {
+    .maincontent {
+        display: flex;
+        flex-direction: column;
+        margin: 150px 0px 0px 0px;
+        flex: 1 0 auto;
+    }
+
 }
 .footer {
     height: 40px;
@@ -86,8 +96,7 @@ body {
 {
     background: rgba(255, 64, 64, 0.2);
 }
-.content
-{
+.content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -192,7 +201,6 @@ footer
 }
 
 .menu-recomendation-title {
-    margin-bottom: 50px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     font-weight: 700;
@@ -254,18 +262,17 @@ footer
     margin-right: 5px;
 }
 
-.content-element
-{
+.content-element {
     display: flex;
     width: 600px;
     min-height: 800px;
     align-items: flex-end;
     margin: 80px auto 10px;
     margin-left: 525px;
-    justify-content: space-around;
     flex-direction: row-reverse;
-
+    width: 27%;
 }
+
 .post-operations
 {
     display: flex;
@@ -347,13 +354,13 @@ footer
     border-radius: 10px;
     position: absolute;
     flex-direction: column;
-    height: 250px;
+    height: 320px;
     width: 200px;
     top: 110px;
     right: 97px;
     background: white;
     font-size: 25px;
-    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
     align-items: center;
     z-index: 999999;
 }
@@ -366,6 +373,7 @@ footer
     padding: 10px;
     transition: background 0.2s ease;
     text-align: center;
+    width: 80%;
 }
 
 .elements-from-hidden:hover {

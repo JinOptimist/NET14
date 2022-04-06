@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace Net14.Web.Models
 {
-    public class SocialUserAutorization
+    public class SocialUserAutorizationViewModel
     {
         [Required(ErrorMessage = "Enter Email!")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Enter Password!")]
         public string Password { get; set; }
+
+        public string ReturnUrl { get; set; }
 
     }
 }

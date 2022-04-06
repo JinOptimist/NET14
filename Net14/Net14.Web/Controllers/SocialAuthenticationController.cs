@@ -7,8 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.EfStuff.Repositories;
-
-
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace Net14.Web.Controllers
 {
@@ -28,7 +28,7 @@ namespace Net14.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Registration(SocialUserRegistration user)
+        public IActionResult Registration(SocialUserRegistrationViewModel user)
         {
             if (ModelState.IsValid)
             {
@@ -46,38 +46,57 @@ namespace Net14.Web.Controllers
 
                 return RedirectToRoute("default", new { controller = "Social", action = "ShowPagesProfile", id = userDb.Id });
             }
-            else 
+            else
             {
                 return View();
 
             }
         }
         [HttpGet]
-        public IActionResult Autorization()
+        public IActionResult Autorization(string ReturnUrl)
         {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Autorization(SocialUserAutorization user) 
-        {
-            if (ModelState.IsValid)
+            var model = new SocialUserAutorizationViewModel()
             {
-                var users = _socialUserRepository.GetByEmAndPass(user.Email, user.Password);
+                ReturnUrl = ReturnUrl
+            };
 
-                if (users == null)
-                {
-                    return View();
-                }
-                else 
-                {
-                    return RedirectToRoute("default", new { controller = "Social", action = "ShowPagesProfile", id = users.Id});
+            return View(model);
+        }
 
-                }
-            }
-            else 
+        [HttpPost]
+        public async Task<IActionResult> Autorization(SocialUserAutorizationViewModel userViewModel)
+        {
+            if (!ModelState.IsValid)
             {
                 return View();
             }
+
+            var user = _socialUserRepository.GetByEmAndPass(userViewModel.Email, userViewModel.Password);
+
+            if (user == null)
+            {
+                return View();
+            }
+
+            //good
+
+            var claims = new List<Claim>() {
+                new Claim("Id", user.Id.ToString()),
+                new Claim("Name", user.FirstName),
+                new Claim(ClaimTypes.AuthenticationMethod, Startup.AuthName)
+            };
+
+            var identity = new ClaimsIdentity(claims, Startup.AuthName);
+
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync(principal);
+
+            if (userViewModel.ReturnUrl == null) 
+            {
+                return RedirectToRoute("default", new { controller = "Social", action = "ShowPagesProfile", id = user.Id });
+            }
+            return Redirect(userViewModel.ReturnUrl);
         }
     }
 }
