@@ -2,6 +2,7 @@
 using Net14.Web.EfStuff;
 using Net14.Web.Models.Shulte;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Net14.Web.Controllers
 {
@@ -13,6 +14,7 @@ namespace Net14.Web.Controllers
         {
             _webContext = webContext;
         }
+        [Authorize]
         public IActionResult Main()
         {
             var random = new RandomNumberViewModel();

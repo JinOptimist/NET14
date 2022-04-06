@@ -16,6 +16,8 @@ using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
 using System.Text.Json;
 using Net14.Web.Services;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace Net14.Web.Controllers
 {
@@ -32,6 +34,7 @@ namespace Net14.Web.Controllers
             _youTubeVideoGetter = youTubeVideoGetter;
         }
 
+        [Authorize]
         public IActionResult GetVideos(int page = 1) 
         {
             const int perPage = 4;
