@@ -172,14 +172,15 @@ namespace Net14.Web.Controllers
                 return RedirectToAction("Index");
             }
             var post = _socialPostRepository.Get(postId);
-            var user = _socialUserRepository.GetByEmAndPass("email", "pass");
+            var currentUser = _userService.GetCurrent();
 
             var comment = new SocialComment()
             {
                 Post = post,
                 Text = text,
-                User = _socialUserRepository.GetByEmAndPass("email", "pass")
+                User = currentUser
             };
+
             _socialCommentRepository.Save(comment);
             return RedirectToAction("Index");
         }
