@@ -70,6 +70,7 @@ namespace Net14.Web.Controllers
             return View(viewPost);
         }
 
+        [Authorize]
         public IActionResult Settings()
         {
             return View();
@@ -163,6 +164,7 @@ namespace Net14.Web.Controllers
             return View(model);
         }
 
+        [Authorize]
         public IActionResult AddComment(int postId, string text)
         {
             if (text == null)
