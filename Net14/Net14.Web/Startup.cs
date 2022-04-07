@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Net14.Web.Services;
 using AutoMapper;
 using Net14.Web.Models.gallery;
 using Net14.Web.EfStuff.DbModel;
@@ -87,7 +88,7 @@ namespace Net14.Web
             var provider = new MapperConfigurationExpression();
 
             provider.CreateMap<AddImageVewModel, Image>();
-
+            
             provider.CreateMap<Image, ImageUrlVewModel>()
                 .ForMember(nameof(ImageUrlVewModel.Comments),
                 opt => opt
@@ -120,6 +121,10 @@ namespace Net14.Web
             provider.CreateMap<UserSocial, SocialProfileViewModel>();
             provider.CreateMap<SocialCommentViewModel, SocialUserViewModel>();
                 
+            provider.CreateMap<FilesViewModel, FileSocial>();
+
+            provider.CreateMap<FileSocial, FilesViewModel>();
+
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);
             services.AddSingleton<IMapper>(x => mapper);
