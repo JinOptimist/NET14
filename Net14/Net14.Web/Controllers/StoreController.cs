@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Net14.Web.EfStuff;
 using Net14.Web.EfStuff.DbModel;
 using Net14.Web.EfStuff.Repositories;
 using Net14.Web.Models;
 using Net14.Web.Models.store;
+using Net14.Web.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,20 +20,23 @@ namespace Net14.Web.Controllers
     {
         private BasketRepository _basketRepository;
         private ProductRepository _productRepository;
-
+        private UserService _userService;
         private StoreImageRepository _storeimageRepository;
-        public StoreController(ProductRepository productRepository, StoreImageRepository storeimageRepository, BasketRepository basketRepository)
+        private IMapper _mapper;
+        public StoreController(ProductRepository productRepository, StoreImageRepository storeimageRepository, BasketRepository basketRepository, UserService userService, IMapper imapper)
         {
 
             _productRepository = productRepository;
             _storeimageRepository = storeimageRepository;
             _basketRepository = basketRepository;
-
+            _userService = userService;
+            _mapper = imapper;
         }
 
         public IActionResult Admin()
         {
             var dbProducts = _productRepository.GetAll();
+            
             var viewModels = dbProducts
             .Select(dbProduct => new ProductViewModel()
             {
@@ -60,27 +66,13 @@ namespace Net14.Web.Controllers
 
             return View();
         }
+        [Authorize]
         public IActionResult Basket()
         {
-            var b = _basketRepository.Get(1);
-            if (b != null) 
-            { 
-                var ProductModel1 = b.Products.Select(dbProduct => new ProductViewModel()
-                {
-                Id = dbProduct.Id,
-                BrandCategories = dbProduct.BrandCategories.ToString(),
-                Name = dbProduct.Name,
-                CoolCategories = dbProduct.CoolCategories.ToString(),
-                CoolMaterial = dbProduct.CoolMaterial.ToString(),
-                Price = dbProduct.Price,
-                Images = dbProduct.StoreImages
-                .OrderBy(x=>x.Odrer)
-                .Select(x => x.Name).ToList()
-            }).ToList();
+            var user = _userService.GetCurrent();
+            var basket = user.Basket ?? new Basket();
 
-                return View(ProductModel1);
-            }
-            var ProductModel = new ProductViewModel();
+            var ProductModel = _mapper.Map<List<ProductViewModel>>(basket.Products);
 
             return View(ProductModel);
         }
@@ -156,20 +148,22 @@ namespace Net14.Web.Controllers
         public IActionResult Catalog()
         {
             var dbProducts = _productRepository.GetAll();
-            var viewModels = dbProducts
-            .Select(dbProduct => new ProductViewModel()
-            {
-                Id = dbProduct.Id,
-                BrandCategories = dbProduct.BrandCategories.ToString(),
-                Name = dbProduct.Name,
-                CoolCategories = dbProduct.CoolCategories.ToString(),
-                CoolMaterial = dbProduct.CoolMaterial.ToString(),
-                Price = dbProduct.Price,
-                Images = dbProduct.StoreImages
-                .OrderBy(x => x.Odrer)
-                .Select(x => x.Name).ToList()
-            }).ToList();
+            var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
             return View(viewModels);
+            //var viewModels = dbProducts
+            //.Select(dbProduct => new ProductViewModel()
+            //{
+            //    Id = dbProduct.Id,
+            //    BrandCategories = dbProduct.BrandCategories.ToString(),
+            //    Name = dbProduct.Name,
+            //    CoolCategories = dbProduct.CoolCategories.ToString(),
+            //    CoolMaterial = dbProduct.CoolMaterial.ToString(),
+            //    Price = dbProduct.Price,
+            //    Images = dbProduct.StoreImages
+            //    .OrderBy(x => x.Odrer)
+            //    .Select(x => x.Name).ToList()
+            //}).ToList();
+
 
         }
         [HttpGet]
