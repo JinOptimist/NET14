@@ -31,12 +31,25 @@ namespace Net14.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Registration(SocialUserRegistrationViewModel user)
+        public async Task<IActionResult> Registration(SocialUserRegistrationViewModel user)
         {
             if (ModelState.IsValid)
             {
                 var userDb = _mapper.Map<UserSocial>(user);
                 _socialUserRepository.Save(userDb);
+
+                var claims = new List<Claim>() {
+                new Claim("Id", userDb.Id.ToString()),
+                new Claim("Name", userDb.FirstName),
+                new Claim(ClaimTypes.AuthenticationMethod, Startup.AuthName)
+                };
+            
+
+                var identity = new ClaimsIdentity(claims, Startup.AuthName);
+
+                var principal = new ClaimsPrincipal(identity);
+
+                await HttpContext.SignInAsync(principal);
 
                 return RedirectToRoute("default", new { controller = "Social", action = "ShowPagesProfile", id = userDb.Id });
             }
@@ -91,6 +104,12 @@ namespace Net14.Web.Controllers
                 return RedirectToRoute("default", new { controller = "Social", action = "ShowPagesProfile", id = user.Id });
             }
             return Redirect(userViewModel.ReturnUrl);
+        }
+
+        public async Task<IActionResult> SignOut() 
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToRoute("default", new { controller = "Social", action = "Index"});
         }
     }
 }
