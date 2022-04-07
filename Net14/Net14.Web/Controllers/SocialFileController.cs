@@ -16,10 +16,8 @@ namespace Net14.Web.Controllers
     public class SocialFileController : Controller
 
     {
-        private SocialFileRepository _socialFileRepository;
-        
+        private SocialFileRepository _socialFileRepository;    
         private IMapper _mapper;
-
         public SocialFileController(IMapper mapper, 
             SocialFileRepository socialFileRepository)
         {
