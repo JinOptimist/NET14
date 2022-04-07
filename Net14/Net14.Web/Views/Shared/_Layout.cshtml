@@ -19,6 +19,16 @@
         <a href="/Social/Index">social</a>
     </div>
     <div class="container">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div>Мы рады тебя снова видеть</div>
+        }
+        else
+        {
+            <div>Ты кто?</div>
+        }
+
+
         @RenderBody()
     </div>
 </body>
