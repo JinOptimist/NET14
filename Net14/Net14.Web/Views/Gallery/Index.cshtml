@@ -1,4 +1,5 @@
-@model List<ImageViewModel>
+@using Net14.Web.Models.gallery
+@model IndexGalleryViewModel
 
 @{
     Layout = "/Views/Shared/_LayoutGallery.cshtml";
@@ -8,11 +9,13 @@
     Смотри какие есть кратинки
 </div>
 <div>
-    @foreach (var image in Model)
+    <a href="/Gallery/Index?page=@(Model.Page - 1)">prev</a>
+    <a href="/Gallery/Index?page=@(Model.Page + 1)">next</a>
+    @foreach (var image in Model.Images)
     {
-    <div>
-        <a href="/Gallery/ShowImage?id=@image.Id">@image.Name</a>
-    </div>
+        <div>
+            <a href="/Gallery/ShowImage?id=@image.Id">@image.Name</a>
+        </div>
     }
 
     <a href="/Gallery/AddImage">Add image</a>

@@ -1,0 +1,34 @@
+﻿@using Net14.Web.EfStuff.DbModel.SocialDbModels
+@model SocialUserAutorization
+
+@{
+    Layout = "/Views/Shared/_LayoutSocial.cshtml";
+}
+<link rel="stylesheet" href="~/css/SocialCss/Autorization.css">
+
+<div class="header-autorization">
+    <div class="text">Sing in</div>
+</div>
+<div class="autorization-form-div">
+    <form class="hidden-form" asp-action="Autorization" asp-controller="SocialAuthentication" asp-antiforgery="true" method="post">
+        <div class="inputs-validation">
+            <div class="validation" asp-validation-summary="ModelOnly"></div>
+            <div class="inputs-validation-element">
+                <span asp-validation-for="Email" class="autorization-validation"></span>
+                <input type="text" asp-for="Email" placeholder="Enter Email" />
+            </div>
+            <div class="inputs-validation-element">
+                <span class="autorization-validation" asp-validation-for="Password"></span>
+                <input type="password" asp-for="Password" placeholder="Enter Password" />
+            </div>
+            <div>
+                <input type="submit" value="Come in" class="find-button-validation"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts{ 
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

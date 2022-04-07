@@ -1,15 +1,19 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Net14.Web.EfStuff;
 using Net14.Web.EfStuff.Repositories;
+using Net14.Web.Services;
+using Net14.Web.EfStuff.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Net14.Web.Services;
 
 namespace Net14.Web
 {
@@ -56,6 +60,44 @@ namespace Net14.Web
               new StoreImageRepository(x.GetService<WebContext>()));
 
 
+            services.AddAuthentication(AuthName)
+                .AddCookie(AuthName, config =>
+                {
+                    config.LoginPath = "/SocialAuthentication/Autorization";
+                    config.AccessDeniedPath = "/User/AccessDenied";
+                    config.Cookie.Name = "SocialMedeiCool";
+                });
+
+            services.AddScoped<ImageRepository>(x =>
+                new ImageRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<ImageCommentRepository>(x =>
+                new ImageCommentRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<SocialUserRepository>(x =>
+                new SocialUserRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<SocialPostRepository>(x =>
+                new SocialPostRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<SocialFileRepository>(x =>
+                new SocialFileRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<SocialCommentRepository>(x =>
+                new SocialCommentRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<VideoSocialRepository>(x =>
+                new VideoSocialRepository(x.GetService<WebContext>()));
+
+            services.AddTransient<YouTubeVideoGetter>();
+
+            services.AddScoped<UserService>(x => 
+                new UserService(
+                    x.GetService<SocialUserRepository>(),
+                    x.GetService<IHttpContextAccessor>()));
+
+            services.AddHttpContextAccessor();
+
             services.AddControllersWithViews();
         }
 
@@ -74,10 +116,10 @@ namespace Net14.Web
 
             app.UseRouting();
 
-            // Who I am
+            //Who I am
             app.UseAuthentication();
 
-            //Where could I go
+            // Where could I go
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
