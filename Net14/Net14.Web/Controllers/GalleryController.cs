@@ -29,11 +29,7 @@ namespace Net14.Web.Controllers
 
         public IActionResult Index(int page = 1)
         {
-            var perPage = 2;
-            var dbImages = _imageRepository
-                .GetAll()
-                .Skip((page - 1) * perPage)
-                .Take(perPage);
+            var dbImages = _imageRepository.GetAll();
 
             var imagesViewModels = dbImages
                 .Select(dbImage => new ImageViewModel()
@@ -89,6 +85,8 @@ namespace Net14.Web.Controllers
             };
 
             dbImage.Comments = new List<ImageComment>() { adminComment };
+
+            _imageRepository.Save(dbImage);
 
             _imageRepository.Save(dbImage);
 
