@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Net14.Web.EfStuff;
 using Net14.Web.EfStuff.DbModel;
 using Net14.Web.EfStuff.Repositories;
@@ -15,12 +16,15 @@ namespace Net14.Web.Controllers
     {
         private ImageRepository _imageRepository;
         private ImageCommentRepository _commentRepository;
+        private IMapper _mapper;
 
         public GalleryController(ImageRepository imageRepository,
-            ImageCommentRepository commentRepository)
+            ImageCommentRepository commentRepository, 
+            IMapper mapper)
         {
             _imageRepository = imageRepository;
             _commentRepository = commentRepository;
+            _mapper = mapper;
         }
 
         public IActionResult Index(int page = 1)
@@ -51,12 +55,13 @@ namespace Net14.Web.Controllers
         {
             var dbImage = _imageRepository.Get(id);
 
-            var model = new ImageUrlVewModel()
-            {
-                Id = dbImage.Id,
-                Url = dbImage.Url,
-                Comments = dbImage.Comments.Select(x => x.Text).ToList()
-            };
+            var model = _mapper.Map<ImageUrlVewModel>(dbImage);
+            //var model = new ImageUrlVewModel()
+            //{
+            //    Id = dbImage.Id,
+            //    Url = dbImage.Url,
+            //    Comments = dbImage.Comments.Select(x => x.Text).ToList()
+            //};
 
             return View(model);
         }
@@ -70,12 +75,13 @@ namespace Net14.Web.Controllers
         [HttpPost]
         public IActionResult AddImage(AddImageVewModel viewModel)
         {
-            var dbImage = new Image()
-            {
-                Name = viewModel.Name,
-                Rate = viewModel.Rate,
-                Url = viewModel.Url
-            };
+            var dbImage = _mapper.Map<Image>(viewModel);
+            //var dbImage = new Image()
+            //{
+            //    Name = viewModel.Name,
+            //    Rate = viewModel.Rate,
+            //    Url = viewModel.Url
+            //};
 
             var adminComment = new ImageComment()
             {
