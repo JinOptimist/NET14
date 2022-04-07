@@ -3,6 +3,17 @@
     display: flex;
     font-size: 24px;
 }
+.header_catalog {
+    display: flex;
+    font-size: 24px;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 150px;
+
+   
+}
+
 
 .logo {
     width: 42px;
