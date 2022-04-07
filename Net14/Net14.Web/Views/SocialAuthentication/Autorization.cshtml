@@ -23,13 +23,16 @@
                 <input type="password" asp-for="Password" placeholder="Enter Password" />
             </div>
             <div>
-                <input type="submit" value="Come in" class="find-button-validation"/>
+                <input type="submit" value="Come in" class="find-button-validation" />
             </div>
         </div>
     </form>
 </div>
+<div class="create-account">
+    <div>Or <a href="/SocialAuthentication/Registration">create acoount</a></div>
+</div>
 
-@section scripts{ 
+@section scripts{
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }

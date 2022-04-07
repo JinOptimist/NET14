@@ -26,7 +26,14 @@
         </div>
         <ul class="navigation">
             <li class="navigation-element"><a href="/Social/Index">Home</a></li>
-            <li class="navigation-element"><a href="/SocialAuthentication/Registration">Sign up</a></li>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li class="navigation-element"><a href="/SocialAuthentication/SignOut">Sign out</a></li>
+            }
+            else
+            {
+            <li class="navigation-element"><a href="/SocialAuthentication/Autorization">Sign in</a></li>
+            }
             <li class="navigation-element" id="settings-icon">
             </li>
         </ul>

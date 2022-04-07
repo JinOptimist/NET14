@@ -483,7 +483,9 @@ input[type=submit]:hover{
 * {
     text-decoration: none;
 }
-
+a {
+    color: #0000FF;
+}
 .menu-container {
     display: flex;
     min-width: 200px;
