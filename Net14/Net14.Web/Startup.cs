@@ -71,7 +71,7 @@ namespace Net14.Web
             services.AddScoped<VideoSocialRepository>(x =>
                 new VideoSocialRepository(x.GetService<WebContext>()));
 
-            services.AddScoped<YouTubeVideoGetter>();
+            services.AddScoped<YouTubeVideoService>();
 
             services.AddScoped<UserService>(x =>
                 new UserService(
