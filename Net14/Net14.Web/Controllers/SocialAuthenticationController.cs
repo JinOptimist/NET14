@@ -9,6 +9,7 @@ using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.EfStuff.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using AutoMapper;
 
 namespace Net14.Web.Controllers
 {
@@ -16,8 +17,10 @@ namespace Net14.Web.Controllers
 
     {
         private SocialUserRepository _socialUserRepository;
-        public SocialAuthenticationController(SocialUserRepository socialUserRepository)
+        private IMapper _mapper;
+        public SocialAuthenticationController(SocialUserRepository socialUserRepository, IMapper mapper)
         {
+            _mapper = mapper;
             _socialUserRepository = socialUserRepository;
         }
 
@@ -32,16 +35,7 @@ namespace Net14.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userDb = new UserSocial()
-                {
-                    Age = user.Age,
-                    City = user.City,
-                    Country = user.Country,
-                    Email = user.Email,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Password = user.Password,
-                };
+                var userDb = _mapper.Map<UserSocial>(user);
                 _socialUserRepository.Save(userDb);
 
                 return RedirectToRoute("default", new { controller = "Social", action = "ShowPagesProfile", id = userDb.Id });

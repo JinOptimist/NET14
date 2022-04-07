@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Net14.Web.EfStuff.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Net14.Web.Services;
+using AutoMapper;
 
 namespace Net14.Web.Controllers
 {
@@ -20,52 +21,25 @@ namespace Net14.Web.Controllers
         private SocialPostRepository _socialPostRepository;
         private SocialCommentRepository _socialCommentRepository;
         private UserService _userService;
+        private IMapper _mapper;
 
         public SocialController(SocialUserRepository socialUserRepository, 
             SocialPostRepository socialPostRepository,
             SocialCommentRepository socialCommentRepository,
-            UserService userService)
+            UserService userService, IMapper mapper)
         {
             _socialPostRepository = socialPostRepository;
             _socialUserRepository = socialUserRepository;
             _socialCommentRepository = socialCommentRepository;
             _userService = userService;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
+
             var postArr = _socialPostRepository.GetAll();
-            var viewPost = postArr.Select(post =>
-             new SocialPostViewModel()
-             {
-                 Id = post.Id,
-                 ImageUrl = post.ImageUrl,
-                 CommentsOfOwner = post.CommentOfUser,
-                 UserId = post.User.Id,
-                 Likes = post.Likes,
-                 TypePost = post.TypePost,
-                 NameOfUser = post.User.FirstName,
-                 UserPhotoUrl = post.User.UserPhoto,
-                 Comments = post.Comments.Select(comm =>
-                 new SocialCommentViewModel()
-                 {
-                     User = new SocialUserViewModel()
-                     {
-                         Age = comm.User.Age,
-                         City = comm.User.City,
-                         Country = comm.User.Country,
-                         Email = comm.User.Email,
-                         FirstName = comm.User.FirstName,
-                         Id = comm.User.Id,
-                         LastName = comm.User.LastName,
-                         UserPhoto = comm.User.UserPhoto
-                     },
-                     Text = comm.Text,
-                     DateOfPosting = comm.DateOfPosting
-                 }).ToList()
-             }).ToList();
-
-
+            var viewPost = _mapper.Map<List<SocialPostViewModel>>(postArr);
 
             return View(viewPost);
         }
@@ -78,42 +52,20 @@ namespace Net14.Web.Controllers
         [HttpGet]
         public IActionResult ShowAllUsers()
         {
-            var users = _socialUserRepository.GetAll().Select(user =>
-            new SocialUserViewModel()
-            {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Age = user.Age,
-                City = user.City,
-                Country = user.Country,
-                Email = user.Email,
-                Id = user.Id,
-                UserPhoto = user.UserPhoto
-            }).ToList();
+            var users = _socialUserRepository.GetAll();
+            var model = _mapper.Map<List<SocialUserViewModel>>(users);
 
-
-
-            return View(users);
+            return View(model);
         }
 
         [HttpPost]
         public IActionResult ShowAllUsers(string FullName, int Age, string Country, string City, string FirstName, string LastName)
         {
 
-            var userFind = _socialUserRepository.GetBy(FullName, Age, Country, City, FirstName, LastName)
-                .Select(user => new SocialUserViewModel()
-                {
-                    Age = user.Age,
-                    City = user.City,
-                    Country = user.Country,
-                    Email = user.Email,
-                    FirstName = user.FirstName,
-                    Id = user.Id,
-                    LastName = user.LastName,
-                    UserPhoto = user.UserPhoto
-                }).ToList();
+            var users = _socialUserRepository.GetBy(FullName, Age, Country, City, FirstName, LastName);
+            var model = _mapper.Map<List<SocialUserViewModel>>(users);
 
-            return View(userFind);
+            return View(model);
         }
 
 
@@ -134,16 +86,8 @@ namespace Net14.Web.Controllers
         {
 
             var user = _socialUserRepository.Get(id);
-
-            var model = new SocialProfileViewModel()
-            {
-                Age = user.Age,
-                FirstName = user.FirstName,
-                City = user.City,
-                Country = user.Country,
-                UserPhoto = user.UserPhoto
-            };
-
+            var model = _mapper.Map<SocialProfileViewModel>(user);
+     
             return View(model);
         }
 
@@ -151,15 +95,7 @@ namespace Net14.Web.Controllers
         public IActionResult MyProfile()
         {
             var user = _userService.GetCurrent();
-
-            var model = new SocialProfileViewModel()
-            {
-                Age = user.Age,
-                FirstName = user.FirstName,
-                City = user.City,
-                Country = user.Country,
-                UserPhoto = user.UserPhoto
-            };
+            var model = _mapper.Map<SocialProfileViewModel>(user);
 
             return View(model);
         }

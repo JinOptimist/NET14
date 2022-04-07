@@ -12,10 +12,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Net14.Web.Services;
 using AutoMapper;
 using Net14.Web.Models.gallery;
 using Net14.Web.EfStuff.DbModel;
+using Net14.Web.EfStuff.DbModel.SocialDbModels;
+using Net14.Web.Models;
 
 namespace Net14.Web
 {
@@ -69,7 +70,7 @@ namespace Net14.Web
             services.AddScoped<VideoSocialRepository>(x =>
                 new VideoSocialRepository(x.GetService<WebContext>()));
 
-            services.AddTransient<YouTubeVideoGetter>();
+            services.AddScoped<YouTubeVideoGetter>();
 
             services.AddScoped<UserService>(x =>
                 new UserService(
@@ -95,6 +96,30 @@ namespace Net14.Web
                             .Select(c => c.Text)
                             .ToList()));
 
+            provider.CreateMap<PostSocial, SocialPostViewModel>()
+                .ForMember(nameof(SocialPostViewModel.UserId),
+                    post => post
+                        .MapFrom(dbPost =>
+                            dbPost.User.Id))
+            .ForMember(nameof(SocialPostViewModel.UserPhoto),
+                    post => post
+                        .MapFrom(dbPost =>
+                            dbPost.User.UserPhoto))
+            .ForMember(nameof(SocialPostViewModel.FirstName),
+                    post => post
+                        .MapFrom(dbPost =>
+                            dbPost.User.FirstName));
+
+            provider.CreateMap<GroupSocial, SocialGroupViewModel>();
+
+            provider.CreateMap<SocialUserRegistrationViewModel, UserSocial>();
+
+
+            provider.CreateMap<UserSocial, SocialUserViewModel>();
+            provider.CreateMap<SocialComment, SocialCommentViewModel>();
+            provider.CreateMap<UserSocial, SocialProfileViewModel>();
+            provider.CreateMap<SocialCommentViewModel, SocialUserViewModel>();
+                
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);
             services.AddSingleton<IMapper>(x => mapper);
