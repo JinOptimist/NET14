@@ -49,6 +49,12 @@ namespace Net14.Web.Controllers
             }).ToList();
             return View(viewModels);
         }
+        public IActionResult MyAccount()
+        {
+
+            return View();
+        }
+
         public IActionResult Index()
         {
 
@@ -59,7 +65,7 @@ namespace Net14.Web.Controllers
             var b = _basketRepository.Get(1);
             if (b != null) 
             { 
-                var ProductModel = b.Products.Select(dbProduct => new ProductViewModel()
+                var ProductModel1 = b.Products.Select(dbProduct => new ProductViewModel()
                 {
                 Id = dbProduct.Id,
                 BrandCategories = dbProduct.BrandCategories.ToString(),
@@ -72,10 +78,11 @@ namespace Net14.Web.Controllers
                 .Select(x => x.Name).ToList()
             }).ToList();
 
-                return View(ProductModel);
+                return View(ProductModel1);
             }
+            var ProductModel = new ProductViewModel();
 
-            return View();
+            return View(ProductModel);
         }
 
         public IActionResult AddProductToBasket(int productId, int userId = 1)

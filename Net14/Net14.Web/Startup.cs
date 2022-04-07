@@ -8,12 +8,12 @@ using Microsoft.Extensions.Hosting;
 using Net14.Web.EfStuff;
 using Net14.Web.EfStuff.Repositories;
 using Net14.Web.Services;
-using Net14.Web.EfStuff.Repositories;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Net14.Web.Services;
+
 
 namespace Net14.Web
 {
@@ -58,15 +58,6 @@ namespace Net14.Web
 
             services.AddScoped<StoreImageRepository>(x =>
               new StoreImageRepository(x.GetService<WebContext>()));
-
-
-            services.AddAuthentication(AuthName)
-                .AddCookie(AuthName, config =>
-                {
-                    config.LoginPath = "/SocialAuthentication/Autorization";
-                    config.AccessDeniedPath = "/User/AccessDenied";
-                    config.Cookie.Name = "SocialMedeiCool";
-                });
 
             services.AddScoped<ImageRepository>(x =>
                 new ImageRepository(x.GetService<WebContext>()));
