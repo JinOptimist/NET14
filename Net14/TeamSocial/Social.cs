@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 namespace TeamSocial
 {
@@ -79,6 +80,26 @@ namespace TeamSocial
             }
 
             return salt;
+        }
+
+        public bool Validate(string emailAddress) //Этот метод проверяет правильность введенного Email
+        {
+            var regex = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+            bool isValid = Regex.IsMatch(emailAddress, regex, RegexOptions.IgnoreCase);
+            return isValid;
+        }
+
+        public IEnumerable<User> GetRec() 
+        {
+            Recomendation rec = new Recomendation(_currentUser);
+            var res = rec.GetRecomendation(users);
+            foreach (User user in res) 
+            {
+                Console.Write(user.Email + " " + user.RecomendationPercentage + " ");
+            }
+            Console.WriteLine();
+
+            return res;
         }
 
     }

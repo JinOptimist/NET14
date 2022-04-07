@@ -89,6 +89,7 @@ namespace Net14.Web.Controllers
                 };
             }
             var product = _productRepository.Get(productId);
+
             basket.Products.Add(product);
             _basketRepository.Save(basket);
             return RedirectToAction("Catalog", "Store");

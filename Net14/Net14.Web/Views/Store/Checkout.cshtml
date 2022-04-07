@@ -26,6 +26,13 @@
             <div class="title_mini">Мобильный телефон</div>
             <div><input placeholder="+375 XX YYY-YY-YY" type="tel" name="phonenumber" value="" /></div>
         </div>
+        <div class="checkout_field">
+            @foreach( var item in Model) {
+            <div class="title_mini"> @item.Name </div>
+            <img src = "@item.Images.First()" class="catalogProduct" />
+            }
+        </div>
+
     </div>
 
     <div class="checkout_block2">

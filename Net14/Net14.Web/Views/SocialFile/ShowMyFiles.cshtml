@@ -1,0 +1,18 @@
+﻿@model FilesViewModel
+@{
+    Layout = "/Views/Shared/_LayoutSocial.cshtml";
+}
+<div class="myFiles">
+    <div>
+        <a href="/SocialFile/AllFiles"><img src="~/images/Social/arrow_back.png"/></a>
+    </div>
+    <div>
+        <div class="mainText">
+            @Model.Name;
+        </div>
+        <img src="@Model.Url" class="picture"/>
+        <div>
+            @Model.Text;
+        </div>
+    </div>
+</div>
