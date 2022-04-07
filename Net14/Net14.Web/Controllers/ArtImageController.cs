@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Net14.Web.EfStuff;
 using Net14.Web.EfStuff.DbModel;
+using Net14.Web.EfStuff.Repositories;
 using Net14.Web.Models;
 using Net14.Web.Models.ArtImage;
 using System;
@@ -14,6 +15,16 @@ namespace Net14.Web.Controllers
 {
     public class ArtImageController : Controller
     {
+
+        private CatigoriRepository _catigoriRepository;
+       
+
+        public ArtImageController(CatigoriRepository catigoriRepository)
+        {
+            _catigoriRepository = catigoriRepository;
+            
+        }
+
 
 
         public IActionResult Index()
@@ -61,6 +72,26 @@ namespace Net14.Web.Controllers
                
             };
 
+            return View();
+
+        }
+
+
+        [HttpGet]
+        public IActionResult AddCategori()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddCategori(AddCategoriVewModel viewModel)
+        {
+            var dbCategori = new Сategories()
+            {
+                Name = viewModel.Name,
+
+            };
+            _catigoriRepository.Save(dbCategori);
             return View();
 
         }

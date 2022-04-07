@@ -70,13 +70,6 @@ namespace Net14.Web.Controllers
                 Url = viewModel.Url
             };
 
-            var adminComment = new ImageComment()
-            {
-                Text = "First comment"
-            };
-
-            dbImage.Comments = new List<ImageComment>() { adminComment };
-
             _imageRepository.Save(dbImage);
 
             return View();

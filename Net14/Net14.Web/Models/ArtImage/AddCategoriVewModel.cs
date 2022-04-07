@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Net14.Web.Models.ArtImage
 {
-    public class ArtAddImageVewModel : AddImageVewModel
+    public class AddCategoriVewModel
     {
-       
+        public string Name { get; set; }
     }
 }

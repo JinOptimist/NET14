@@ -1,0 +1,16 @@
+﻿
+@{
+    Layout = "/Views/Shared/_LayoutArtImage.cshtml";
+}
+
+
+
+<form action="/ArtImage/AddCategori" method="post">
+    <div>
+        Name: @Html.TextBoxFor(x => x.Name)
+    </div>
+   
+    <div>
+        <input type="submit" value="Создать" />
+    </div>
+</form>
