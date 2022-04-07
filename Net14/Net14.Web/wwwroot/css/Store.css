@@ -12,14 +12,12 @@ a:hover {
     font-size: 24px;
 }
 .header_catalog {
-    display: flex;
+    catalogItem display: flex;
     font-size: 24px;
     justify-content: center;
     align-items: center;
     width: auto;
     height: 150px;
-
-   
 }
 
 
@@ -569,4 +567,14 @@ td {
     display: flex;
     justify-content: center;
     margin: 7px 5px;
+}
+section {
+    display: flex;
+    padding: 0 5vw;
+}
+section__account {
+    width: 100%;
+    flex-direction: column;
+    padding: 10vw 20vw 8vw;
+    background: rgba(0,0,0,.03);
 }
