@@ -184,5 +184,9 @@ namespace Net14.Web.Controllers
             _socialCommentRepository.Save(comment);
             return RedirectToAction("Index");
         }
+        public IActionResult AddPost()
+        {
+            return View();
+        }
     }
 }

@@ -5,13 +5,7 @@
 }
 
 <div class="add-post">
-        <div class="add-post-header">Add Post</div>
-        <form action="/Social/ShowAllUsers" method="post" id="form-add-post">
-            <input name="Age" placeholder="Enter title">
-            <input name="FirstName" placeholder="Url">
-            <input name="LastName" placeholder="Text">
-            <input type="submit" value="Add">
-        </form>
+    <a href="/Social/AddPost"><div class="add-post-header">Add Post</div></a>
 </div>
 @foreach (SocialPostViewModel post in Model)
 {
