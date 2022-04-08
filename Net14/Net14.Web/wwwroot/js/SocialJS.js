@@ -50,6 +50,12 @@ $(document).ready(function () {
         $("#form-filter-user").slideToggle();
     });
 });
+$(document).ready(function () {
+    $(".add-post-header").click(function () {
+        $("#form-add-post").slideToggle();
+    });
+});
+
 
 $(document).ready(function () {
     $("#comment").click(function () {
