@@ -1,0 +1,26 @@
+@using Net14.Web.Models.Calendar.Test
+@model TestCalendarViewModel
+
+
+@{
+    Layout = "/Views/Shared/_LayoutCalendar.cshtml";
+}
+
+<div>
+    @{
+        foreach(var a in Model.Notes)
+        {
+            <div>
+            @a.EventDate
+            </div>
+            <div>
+            @a.Text
+            </div>
+        }
+    }
+</div>
+</div>
+<a href="/Calendar/AddNote?year=@(Model.Year)&&month=@(Model.Month)&&day=day">Add note</a>
+<div>
+
+
