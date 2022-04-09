@@ -96,108 +96,9 @@ namespace Net14.Web.Controllers
                 {
                     Text = x.Text,
                     EventDate = x.EventDate,
-                }).ToList(),
+                }).OrderBy(x=>x.EventDate).ToList(),
             };
             return View(model);
-        }
-        public IActionResult WatchCalendar(int month = 4, int year = 2022)
-        {
-            List<CalendarViewModel> model = new List<CalendarViewModel>();
-            void addEmptyDay()
-            {
-                model.Add(new CalendarViewModel()
-                {
-                    Day = 0,
-                    Month = month,
-                    Year = year,
-                    Color = ConsoleColor.White,
-                });
-            }
-            switch (new DateTime(year,month,1).DayOfWeek.ToString())
-            {
-                case "Monday":
-                    break;
-                case "Tuesday":
-                    addEmptyDay();
-                    break;
-                case "Wednesday":
-                    addEmptyDay();
-                    addEmptyDay();
-                    break;
-                case "Thursday":
-                    addEmptyDay();
-                    addEmptyDay();
-                    addEmptyDay();
-                    break;
-                case "Friday":
-                    addEmptyDay();
-                    addEmptyDay();
-                    addEmptyDay();
-                    addEmptyDay();
-                    break;
-                case "Saturday":
-                    addEmptyDay();
-                    addEmptyDay();
-                    addEmptyDay();
-                    addEmptyDay();
-                    addEmptyDay();
-                    break;
-                case "Sunday":
-                    addEmptyDay();
-                    addEmptyDay();
-                    addEmptyDay();
-                    addEmptyDay();
-                    addEmptyDay();
-                    addEmptyDay();
-                    break;
-                default:
-                    break;
-            }
-            for (int i = 1; i <= DateTime.DaysInMonth(year,month); i++)
-            {
-                if (new DateTime(year, month, i).DayOfWeek.ToString() == "Sunday"
-                    || new DateTime(year, month, i).DayOfWeek.ToString() == "Saturday")
-                {
-                    model.Add(new CalendarViewModel()
-                    {
-                        Day = i,
-                        Month = month,
-                        Year = year,
-                        DOW = new DateTime(year, month, i).DayOfWeek.ToString(),
-                        IsHoliday = true,
-                        Color = ConsoleColor.Red,
-                    });
-                } 
-                else
-                {
-                    model.Add(new CalendarViewModel()
-                    {
-                        Day = i,
-                        Month = month,
-                        Year = year,
-                        DOW = new DateTime(year, month, i).DayOfWeek.ToString(),
-                        IsHoliday = false,
-                        Color = ConsoleColor.White,
-                    });
-                }
-            }
-            return View(model);
-        }
-        public IActionResult CurrentMonth()
-        {
-            var Month = DateTime.Now.Month;
-            var Year = DateTime.Now.Year;
-            return RedirectToAction("WatchCalendar", new { month = Month, year = Year });
-        }
-        public IActionResult NextMonth(int month, int year)
-        {
-            
-            return RedirectToAction("WatchCalendar", new { month, year });
-        }
-        public IActionResult PreviousMonth(int month, int year)
-        {
-            
-            return RedirectToAction("WatchCalendar", new { month,year });
         }
         [HttpGet]
         public IActionResult AddNote()
@@ -205,7 +106,7 @@ namespace Net14.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddNote(NotesViewModel viewModel)
+        public IActionResult AddNote(TestNotesViewModel viewModel, int year, int month, int day)
         {
             var dbNote = new DaysNote()
             {
@@ -213,7 +114,36 @@ namespace Net14.Web.Controllers
                 EventDate = viewModel.EventDate,
             };
             _DaysNoteRepository.Save(dbNote);
-            return View();
+            return RedirectToAction("WatchCurrentNotes", new {year = dbNote.EventDate.Year, month = dbNote.EventDate.Month,
+            day = dbNote.EventDate.Day});
         }
+        public IActionResult WatchAllNotes()
+        {
+            var dbNotes = _DaysNoteRepository.GetAll().Where(x=>x.Text != null);
+            var model = new TestCalendarViewModel()
+            {
+                Notes = dbNotes.Select(x => new TestNotesViewModel()
+                {
+                    Text = x.Text,
+                    EventDate = x.EventDate,
+                }).ToList(),
+            };
+            return View(model);
+        }
+        public IActionResult WatchCurrentNotes(int year, int month, int day)
+        {
+            var dbNotes = _DaysNoteRepository.GetAll().Where(x => x.EventDate.Year == year && x.EventDate.Month == month
+                && x.EventDate.Day == day);
+            var model = new TestCalendarViewModel()
+            {
+                Notes = dbNotes.Select(x => new TestNotesViewModel()
+                {
+                    Text = x.Text,
+                    EventDate = x.EventDate,
+                }).ToList(),
+            };
+            return View(model);
+        }
+
     }
 }
