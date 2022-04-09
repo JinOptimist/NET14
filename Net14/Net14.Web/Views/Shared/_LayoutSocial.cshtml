@@ -29,13 +29,13 @@
             @if (User.Identity.IsAuthenticated)
             {
                 <li class="navigation-element"><a href="/SocialAuthentication/SignOut">Sign out</a></li>
+                <li class="navigation-element" id="notification-icon" onclick="location.href='/Social/Notification'" ;></li>
             }
             else
             {
-            <li class="navigation-element"><a href="/SocialAuthentication/Autorization">Sign in</a></li>
+                <li class="navigation-element"><a href="/SocialAuthentication/Autorization">Sign in</a></li>
             }
-            <li class="navigation-element" id="settings-icon">
-            </li>
+            <li class="navigation-element" id="settings-icon"></li>
         </ul>
         <div class="settings-div" id="header-settings">
             <div class="elements-from-hidden" onclick="location.href='/Social/Settings'">User settings</div>
@@ -53,6 +53,7 @@
                     <div class="menu-element">Recomendation</div>
                     <div class="menu-element" onclick="location.href='/SocialGroups/GetGroups';">Groups</div>
                     <div class="menu-element" onclick="location.href='/Social/ShowAllUsers';">Find user</div>
+                    <div class="menu-element" onclick="location.href='/Social/Friends';">Friends</div>
                     <div class="menu-element" onclick="location.href='/SocialAuthentication/Autorization';">Sign in</div>
                 </div>
                 <div class="menu-recomendations-user">

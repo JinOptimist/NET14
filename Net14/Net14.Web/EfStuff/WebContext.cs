@@ -20,6 +20,9 @@ namespace Net14.Web.EfStuff
         public DbSet<ImageComment> ImageComments { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<UserFriend> UserFriends { get; set; }
+
+        public DbSet<UserFriendRequest> UserFriendRequests { get; set; }
 
         public WebContext(DbContextOptions options) : base(options)
         {
@@ -33,13 +36,36 @@ namespace Net14.Web.EfStuff
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<UserFriendRequest>(x =>
+            {
+
+                x.HasOne(fr => fr.Sender)
+                .WithMany(u => u.FriendRequestSent)
+                .HasForeignKey(fr => fr.SenderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+
+                x.HasOne(fr => fr.Receiver)
+                .WithMany(u => u.FriendRequestReceived)
+                .HasForeignKey(fr => fr.ReceiverId)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
+
             modelBuilder.Entity<Image>()
                 .HasMany(image => image.Comments)
                 .WithOne(comment => comment.Image);
 
-            modelBuilder.Entity<UserSocial>()
-                .HasMany(user => user.Posts)
-                .WithOne(post => post.User);
+            modelBuilder.Entity<UserSocial>(x =>
+            {
+                x.HasMany(u => u.Friends)
+                .WithOne(uf => uf.User)
+                .HasForeignKey(uf => uf.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            });
+
 
             modelBuilder.Entity<PostSocial>()
                 .HasMany(post => post.Comments)

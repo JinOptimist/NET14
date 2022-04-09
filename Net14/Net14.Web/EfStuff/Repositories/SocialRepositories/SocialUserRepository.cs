@@ -59,5 +59,10 @@ namespace Net14.Web.EfStuff.Repositories
             var user = _webContext.Users.Single(x => x.Email == email && x.Password == pass);
             return user;
         }
+
+        public bool Exists(int userId) 
+        {
+            return _webContext.Users.Any(user => user.Id == userId);
+        }
     }
 }

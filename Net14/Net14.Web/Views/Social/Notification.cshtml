@@ -1,0 +1,23 @@
+﻿@model List<FriendRequestViewModel>
+@{
+    Layout = "/Views/Shared/_LayoutSocial.cshtml";
+}
+<link rel="stylesheet" href="~/css/SocialCss/NotificationsCss.css">
+
+@foreach (var requests in Model)
+{
+    <div class="notification-container">
+        <div class="notification-element">
+            <div class="user-photo-notification">
+                <img src=@requests.Sender.UserPhoto>
+            </div>
+            <div class="friend-user-notification">
+                @requests.Sender.FirstName @requests.Sender.LastName made a friend request
+            </div>
+        </div>
+        <div class="operations-notification">
+            <div class="accept-button"  onclick="location.href='@Url.Action("AcceptFriend", "Social", new {friendId = requests.Sender.Id})'">Accept</div>
+            <div class="decline-button" onclick="location.href='@Url.Action("DeclineFriend", "Social", new {friendId = requests.Sender.Id})'">Decline</div>
+        </div>
+    </div>
+}

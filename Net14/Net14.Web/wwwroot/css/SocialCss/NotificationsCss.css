@@ -1,0 +1,59 @@
+.user-photo-notification {
+    display: inline-block;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+}
+
+.user-photo-notification img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.notification-element{
+    display: flex;
+    justify-content: center;
+}
+
+.friend-user-notification {
+    display: flex;
+    align-items: center;
+}
+.accept-button {
+    color: white;
+    font-size: 17px;
+    background: rgb(22 222 48);
+    height: 37px;
+    width: 120px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.operations-notification {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 15px;
+}
+.notification-container {
+    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    width: 400px;
+    height: 100px;
+}
+.decline-button {
+    color: white;
+    font-size: 17px;
+    background: #FF2828;
+    height: 37px;
+    width: 120px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
