@@ -31,7 +31,7 @@ namespace Net14.Web.Controllers
             _socialCommentRepository = socialCommentRepository;
             _userService = userService;
         }
-
+        
         public IActionResult Index()
         {
             var postArr = _socialPostRepository.GetAll();
@@ -184,8 +184,23 @@ namespace Net14.Web.Controllers
             _socialCommentRepository.Save(comment);
             return RedirectToAction("Index");
         }
+        [HttpGet]
         public IActionResult AddPost()
         {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddPost(SocialPostViewModel viewModel)
+        {
+            var user = _userService.GetCurrent();
+            var dbPost = new PostSocial()
+            {
+                ImageUrl = viewModel.ImageUrl,
+                CommentOfUser = viewModel.CommentsOfOwner
+            };
+
+            _socialPostRepository.Save(dbPost);
+
             return View();
         }
     }
