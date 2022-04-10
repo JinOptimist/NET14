@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Net14.Web.EfStuff;
 using Net14.Web.EfStuff.DbModel;
 using Net14.Web.EfStuff.Repositories;
@@ -9,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Net14.Web.Controllers
@@ -17,11 +19,13 @@ namespace Net14.Web.Controllers
     {
         private DaysRepository _DaysRepository;
         private DaysNoteRepository _DaysNoteRepository;
+        private CalendarUsersRepository _CalendarUsersRepository;
 
-        public CalendarController(DaysNoteRepository daysNoteRepository, DaysRepository daysRepository)
+        public CalendarController(DaysNoteRepository daysNoteRepository, DaysRepository daysRepository, CalendarUsersRepository calendarUsersRepository)
         {
             _DaysNoteRepository = daysNoteRepository;
             _DaysRepository = daysRepository;
+            _CalendarUsersRepository = calendarUsersRepository;
         }
 
         public IActionResult Index()
@@ -145,5 +149,67 @@ namespace Net14.Web.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public IActionResult Registration()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Registration(TestCalendarUserRegistration user)
+        {
+            if (ModelState.IsValid)
+            {
+                var userdb = new CalendarUser()
+                {
+                    Name = user.Name,
+                    Password = user.Password,
+                    Email = user.Email,
+                };
+                _CalendarUsersRepository.Save(userdb);
+
+                return RedirectToRoute("default", new { controller = "Calendar", action = "TestCalendar", id = userdb.Id });
+            }
+            else
+            {
+                return View();
+
+            }
+        }
+        [HttpGet]
+        public IActionResult Autorization()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Autorization(TestCalendarUserAutorization userViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var user = _CalendarUsersRepository.GetByNameAndPass(userViewModel.Name, userViewModel.Password);
+
+            if (user == null)
+            {
+                return View();
+            }
+
+            //good
+
+            var claims = new List<Claim>() {
+                new Claim("Id", user.Id.ToString()),
+                new Claim("Name", user.Name),
+                new Claim(ClaimTypes.AuthenticationMethod, Startup.AuthName)
+            };
+
+            var identity = new ClaimsIdentity(claims, Startup.AuthName);
+
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync(principal);
+
+            return RedirectToRoute("default", new { controller = "Calendar", action = "TestCalendar", id = user.Id });
+        }        
     }
 }

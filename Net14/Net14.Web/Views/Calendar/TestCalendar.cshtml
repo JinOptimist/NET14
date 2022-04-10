@@ -1,33 +1,33 @@
 @using Net14.Web.Models.Calendar.Test
+@using System.Globalization
 @model TestCalendarViewModel
 
 @{
     Layout = "/Views/Shared/_LayoutCalendar.cshtml";
 }
 
-<div>
-    тут Руслан что-то сделает
-</div>
-<a href="/Calendar/TestCalendar?month=@(Model.Month-1)&year=@(Model.Year)">PreviousMonth</a>
-<a href="/Calendar/TestCalendar?month=@(DateTime.Now.Month)&year=@(DateTime.Now.Year)">CurrentMonth</a>
-<a href="/Calendar/TestCalendar?month=@(Model.Month+1)&year=@(Model.Year)">NextMonth</a>
-<div>
+<div class="date">
     @{
         var monthName = new DateTime(Model.Year, Model.Month, 1).ToString("MMMM");
     }
     @monthName,@Model.Year
 
 </div>
-<div>   
-    <div>Mo</div>
-    <div>Tu</div>
-    <div>We</div>
-    <div>Th</div>
-    <div>Fr</div>
-    <div style=color:red>Sa</div>
-    <div style=color:red>Su</div>      
+<a href="/Calendar/TestCalendar?month=@(Model.Month-1)&year=@(Model.Year)">PreviousMonth</a>
+<a href="/Calendar/TestCalendar?month=@(DateTime.Now.Month)&year=@(DateTime.Now.Year)">CurrentMonth</a>
+<a href="/Calendar/TestCalendar?month=@(Model.Month+1)&year=@(Model.Year)">NextMonth</a>
+
+<div class="wrapper">
+<div class="week">   
+    <div class="day">Mo</div>
+    <div class="day">Tu</div>
+    <div class="day">We</div>
+    <div class="day">Th</div>
+    <div class="day">Fr</div>
+    <div class="day" style=color:red>Sa</div>
+    <div class="day" style=color:red>Su</div>  
 </div>
-<div>
+<div class="calendar">
     @{
         int count = 0;
         int noteCount = 0;
@@ -43,7 +43,7 @@
                         }
                         else if (Model.Notes.Any() == true && Model.Notes[noteCount].EventDate.Day == Model.Days[count])
                         {
-                            <div style=color:white>
+                            <div class="day" style=color:white>
                                 <a style=color:white href="/Calendar/WatchCurrentNotes?year=@(Model.Year)&&month=@(Model.Month)&&day=@(Model.Days[count])">
                                 @Model.Days[count]</a>
                             </div>
@@ -56,7 +56,7 @@
                         }
                         else if (Model.Days[count] == DateTime.Now.Day && Model.Month == DateTime.Now.Month)
                         {
-                            <div style=color:orange>
+                            <div class="day" style=color:orange>
                                 <a style=color:orange href="/Calendar/WatchCurrentNotes?year=@(Model.Year)&&month=@(Model.Month)&&day=@(Model.Days[count])">
                                 @Model.Days[count]</a>
                             </div>
@@ -64,7 +64,7 @@
                         }
                         else if (Model.Days[count] == 0)
                         {
-                            <div style=color:aqua>
+                            <div class="day" style=color:aqua>
                                 @Model.Days[count]
                             </div>
                             count++;
@@ -72,7 +72,7 @@
                         else if (new DateTime(Model.Year,Model.Month,Model.Days[count]).DayOfWeek.ToString() == "Saturday"
                         || new DateTime(Model.Year,Model.Month,Model.Days[count]).DayOfWeek.ToString() == "Sunday")
                         {
-                            <div style=color:red>
+                            <div class="day" style=color:red>
                                 <a style=color:red href="/Calendar/WatchCurrentNotes?year=@(Model.Year)&&month=@(Model.Month)&&day=@(Model.Days[count])">
                                 @Model.Days[count]</a>
                             </div>
@@ -80,7 +80,7 @@
                         }
                         else
                         {
-                            <div>
+                            <div class="day">
                                 <a style=color:black href="/Calendar/WatchCurrentNotes?year=@(Model.Year)&&month=@(Model.Month)&&day=@(Model.Days[count])">
                                 @Model.Days[count]</a>
                             </div>
@@ -90,25 +90,28 @@
                     }
                 }
             </div>
+            
         }
 }
 </div>
-<div>
-    и тут Руслан что-то сделает
-</div>
-<div>
-    Notes (Руслан, сделай красиво)):
+<div class="notes">
+    Notes
     @{
         if (Model.Notes != null)
         {
             foreach (var note in Model.Notes)
             {
+                <div class="note">
                 <div>
                 @note.EventDate.ToString("d")
+                </div>
+                <div>
                 @note.Text
+                </div>
                 </div>
             }
         }
     }
+</div>
 </div>
 
