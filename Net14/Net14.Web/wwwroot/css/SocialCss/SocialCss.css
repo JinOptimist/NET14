@@ -483,6 +483,9 @@ input[type=submit]:hover{
 * {
     text-decoration: none;
 }
+a{
+    color:black;
+}
 
 .menu-container {
     display: flex;
