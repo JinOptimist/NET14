@@ -10,7 +10,7 @@ namespace Net14.Web.EfStuff.DbModel
         public string Text { get; set; }
         public DateTime EventDate { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
-
-        public virtual Days Days { get; set; }
+        public virtual CalendarUser CalendarUser { get; set; }
+        
     }
 }

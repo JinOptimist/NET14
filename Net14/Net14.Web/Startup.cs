@@ -46,7 +46,8 @@ namespace Net14.Web
                 new DaysNoteRepository(x.GetService<WebContext>()));
             services.AddScoped<ImageRepository>(x =>
                 new ImageRepository(x.GetService<WebContext>()));
-
+            services.AddScoped<CalendarUsersRepository>(x =>
+                new CalendarUsersRepository(x.GetService<WebContext>()));
             services.AddScoped<ImageCommentRepository>(x =>
                 new ImageCommentRepository(x.GetService<WebContext>()));
 

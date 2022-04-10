@@ -1,0 +1,28 @@
+@using Net14.Web.Models.Calendar.Test
+@model TestCalendarUserAutorization
+
+
+@{
+    Layout = "/Views/Shared/_LayoutCalendar.cshtml";
+}
+
+<div>
+    <form class="hidden-form" asp-action="Autorization" asp-controller="Calendar" asp-antiforgery="true" method="post">
+        <div class="inputs-validation">
+            <div class="validation" asp-validation-summary="ModelOnly"></div>
+            <div class="inputs-validation-element">
+                <span asp-validation-for="Name" class="autorization-validation"></span>
+                <input type="text" asp-for="Name" placeholder="Enter Name" />
+            </div>
+            <div class="inputs-validation-element">
+                <span class="autorization-validation" asp-validation-for="Password"></span>
+                <input type="password" asp-for="Password" placeholder="Enter Password" />
+            </div>
+            <div>
+                <input type="submit" value="Come in" class="find-button-validation"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+

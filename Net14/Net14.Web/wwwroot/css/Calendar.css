@@ -2,3 +2,39 @@
     margin: 0;
     padding: 0
 }
+
+.calendar {
+    background: aqua;
+    display:flex;
+}
+
+.day {
+    width:30px;
+    height:30px;
+    text-align: center;
+    margin: 2ch;
+    text-decoration: none;
+}
+.day :hover {
+        font-size: 30px;
+        border: 2px solid black;
+        background: blue;
+        text-decoration: none;
+}
+
+.date {
+    text-align: center;
+}
+
+.wrapper {
+    display: flex;
+}
+
+.notes {
+    flex: 0.3;
+    margin-left:30px;
+}
+.note {
+    display: flex;
+    justify-content: space-between
+}

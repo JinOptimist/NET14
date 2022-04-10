@@ -6,15 +6,26 @@
 }
 
 <div>
-    тут Руслан что-то сделает
-</div>
-<div>
     <a href="/Calendar/AddNote">Add Notes</a>
     <a href="/Calendar/TestCalendar?month=@(DateTime.Now.Month)&year=@(DateTime.Now.Year)">Test Calendar</a>
     <a href="/Calendar/WatchAllNotes">Watch all notes</a>
+    
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div>
+          Welcome!  
+          @User.Identity.Name  
+        </div>
+    }
+    else
+    {
+       <div>
+            please, autorize to see your notes
+       <a href="/Calendar/Registration">Registration</a>
+       <a href="/Calendar/Autorization">Autorization</a> 
+       </div>
+    }
+    
+</div>
 
-</div>
-<div>
-    и тут Руслан что-то сделает
-</div>
 
