@@ -1,0 +1,32 @@
+@using Net14.Web.Models.Calendar.Test
+@model TestCalendarUserRegistration
+
+
+@{
+    Layout = "/Views/Shared/_LayoutCalendar.cshtml";
+}
+
+<div>
+   <form class="hidden-form" asp-action="Registration" asp-controller="Calendar" asp-antiforgery="true" method="post">
+        <div class="inputs-validation">
+            <div class="validation" asp-validation-summary="ModelOnly"></div>
+            <div class="inputs-validation-element">
+                <span asp-validation-for="Email" class="autorization-validation"></span>
+                <input type="text" asp-for="Email" placeholder="Enter Email" />
+            </div>
+            <div class="inputs-validation-element">
+                <span  asp-validation-for="Name"class="autorization-validation" ></span>
+                <input type="text" asp-for="Name" placeholder="Enter Name" />
+            </div>
+            <div class="inputs-validation-element">
+                <span class="autorization-validation" asp-validation-for="Password"></span>
+                <input type="password" asp-for="Password" placeholder="Enter password" />
+            </div>
+            <div>
+                <input type="submit" value="Save" class="find-button-validation" />
+            </div>
+        </div>
+    </form>
+</div>
+
+
