@@ -90,7 +90,8 @@ namespace Net14.Web
                     x.GetService<SocialFriendRepository>(),
                     x.GetService<UserFriendRequestRepository>(),
                     x.GetService<SocialUserRepository>()));
-
+            services.AddScoped<CurrencyService>(x =>
+                new CurrencyService());
             services.AddHttpContextAccessor();
 
             services.AddControllersWithViews();
