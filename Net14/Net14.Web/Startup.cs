@@ -8,12 +8,10 @@ using Microsoft.Extensions.Hosting;
 using Net14.Web.EfStuff;
 using Net14.Web.EfStuff.Repositories;
 using Net14.Web.Services;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Net14.Web.Services;
 using AutoMapper;
 using Net14.Web.Models.gallery;
 using Net14.Web.EfStuff.DbModel;

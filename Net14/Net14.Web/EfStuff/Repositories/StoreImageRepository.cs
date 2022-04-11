@@ -12,13 +12,14 @@ namespace Net14.Web.EfStuff.Repositories
         public StoreImageRepository(WebContext context) : base(context)
         {
         }
-        public List<string> GetRandom(int id, int order = 1)
+        public List<StoreImage> GetRandom(int id, int order = 1)
         {
             return _dbSet
                 .Where(x => x.Odrer == order)
-                .Where(x => x.Id != id)
+                .Where(x => x.Product.Id != id)
+                .Where(x=>x.Product.CoolCategories!= EnumStore.CoolCategories.Accessories)
+                .Where(x => x.Product.CoolCategories != EnumStore.CoolCategories.Bags)
                 .OrderBy(x => Guid.NewGuid())
-                .Select(x=>x.Name)
                 .Take(4)
                 .ToList();
         }

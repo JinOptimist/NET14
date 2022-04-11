@@ -56,9 +56,10 @@
         <div class="similarproducts">
             @foreach (var image in Model.RandomImages)
             {
-                <div>
-                    <img src="@image" class="similarproduct" />
-                </div>
+                <a href="/Store/Shoes?id=@image.ProductId"><div>
+                    <img src="@image.Url" class="similarproduct" />
+                    <div class="textimage">@image.Brand @image.Name</div>
+                </div></a>
             }
             
         </div>

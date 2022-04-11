@@ -10,6 +10,7 @@
         Native,
         Vans,
         Fila,
-        Jordan
+        Jordan,
+        Puma
     }
 }

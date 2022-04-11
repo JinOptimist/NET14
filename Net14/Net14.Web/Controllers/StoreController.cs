@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Net14.Web.EfStuff;
+using Net14.Web.EfStuff.EnumStore;
 using Net14.Web.EfStuff.DbModel;
 using Net14.Web.EfStuff.Repositories;
 using Net14.Web.Models;
@@ -44,7 +45,7 @@ namespace Net14.Web.Controllers
                 Sizes = dbProduct.Sizes.Select(x => x.Name).ToList(),
                 Images = dbProduct.StoreImages
                 .OrderBy(x => x.Odrer)
-                .Select(x => x.Name).ToList()
+                .Select(x => x.Url).ToList()
             }).ToList();
             return View(viewModels);
         }
@@ -62,20 +63,20 @@ namespace Net14.Web.Controllers
         public IActionResult Basket()
         {
             var b = _basketRepository.Get(1);
-            if (b != null) 
-            { 
+            if (b != null)
+            {
                 var ProductModel1 = b.Products.Select(dbProduct => new ProductViewModel()
                 {
-                Id = dbProduct.Id,
-                BrandCategories = dbProduct.BrandCategories.ToString(),
-                Name = dbProduct.Name,
-                CoolCategories = dbProduct.CoolCategories.ToString(),
-                CoolMaterial = dbProduct.CoolMaterial.ToString(),
-                Price = dbProduct.Price,
-                Images = dbProduct.StoreImages
-                .OrderBy(x=>x.Odrer)
-                .Select(x => x.Name).ToList()
-            }).ToList();
+                    Id = dbProduct.Id,
+                    BrandCategories = dbProduct.BrandCategories.ToString(),
+                    Name = dbProduct.Name,
+                    CoolCategories = dbProduct.CoolCategories.ToString(),
+                    CoolMaterial = dbProduct.CoolMaterial.ToString(),
+                    Price = dbProduct.Price,
+                    Images = dbProduct.StoreImages
+                .OrderBy(x => x.Odrer)
+                .Select(x => x.Url).ToList()
+                }).ToList();
 
                 return View(ProductModel1);
             }
@@ -89,7 +90,8 @@ namespace Net14.Web.Controllers
             var basket = _basketRepository.GetAll().FirstOrDefault(x => x.UserId == userId);
             if (basket == null)
             {
-                basket = new Basket() { 
+                basket = new Basket()
+                {
                     UserId = userId,
                     Products = new List<Product>()
                 };
@@ -112,12 +114,12 @@ namespace Net14.Web.Controllers
         public IActionResult Checkout(int userId)
         {
             var basket = _basketRepository.GetAll().FirstOrDefault(x => x.UserId == userId);
-           var ViewModel =  basket.Products.Select(dbProduct => new ProductViewModel()
+            var ViewModel = basket.Products.Select(dbProduct => new ProductViewModel()
             {
                 Id = dbProduct.Id,
                 Name = dbProduct.Name,
                 Price = dbProduct.Price,
-                Images = dbProduct.StoreImages.Select(x => x.Name).ToList()
+                Images = dbProduct.StoreImages.Select(x => x.Url).ToList()
             }).ToList();
 
             return View(ViewModel);
@@ -138,12 +140,17 @@ namespace Net14.Web.Controllers
                 Price = dbProduct.Price,
                 CoolColor = dbProduct.CoolColors.ToString(),
                 Sizes = dbProduct.Sizes.Select(x => x.Name).ToList(),
-
                 Images = dbProduct.StoreImages
                 .OrderBy(x => x.Odrer)
-                .Select(x => x.Name).ToList()
+                .Select(x => x.Url).ToList()
             };
-            model.RandomImages = dbImages;
+            model.RandomImages = dbImages.Select(dbImage => new RandomImagesViewModel()
+            {
+                Url = dbImage.Url,
+                ProductId = dbImage.Product.Id,
+                Brand = dbImage.Product.BrandCategories.ToString(),
+                Name = dbImage.Product.Name,
+            }).ToList();
 
             return View(model);
         }
@@ -153,26 +160,120 @@ namespace Net14.Web.Controllers
 
             return View();
         }
-    
-        public IActionResult Catalog()
-        {
-           
-            var dbProducts = _productRepository.GetAll();
-            var viewModels = dbProducts
-            .Select(dbProduct => new ProductViewModel()
-            {
-                Id = dbProduct.Id,
-                BrandCategories = dbProduct.BrandCategories.ToString(),
-                Name = dbProduct.Name,
-                CoolCategories = dbProduct.CoolCategories.ToString(),
-                CoolMaterial = dbProduct.CoolMaterial.ToString(),
-                Price = dbProduct.Price,
-                Images = dbProduct.StoreImages
-                .OrderBy(x => x.Odrer)
-                .Select(x => x.Name).ToList()
-            }).ToList();
 
-            return View(viewModels);
+        public IActionResult Catalog(string category)
+        {
+            var _category = category;
+            if (string.IsNullOrEmpty(_category))
+            {
+                var dbProducts = _productRepository.GetAll();
+                var viewModels = dbProducts
+                .Select(dbProduct => new ProductViewModel()
+                {
+                    Id = dbProduct.Id,
+                    BrandCategories = dbProduct.BrandCategories.ToString(),
+                    Name = dbProduct.Name,
+                    CoolCategories = dbProduct.CoolCategories.ToString(),
+                    CoolMaterial = dbProduct.CoolMaterial.ToString(),
+                    Price = dbProduct.Price,
+                    Images = dbProduct.StoreImages
+                    .OrderBy(x => x.Odrer)
+                    .Select(x => x.Url).ToList()
+                }).ToList();
+                return View(viewModels);
+            }
+            if (_category == "Run")
+            {
+                var dbProducts = _productRepository.GetRun();
+                var viewModels = dbProducts
+                 .Select(dbProduct => new ProductViewModel()
+                 {
+                     Id = dbProduct.Id,
+                     BrandCategories = dbProduct.BrandCategories.ToString(),
+                     Name = dbProduct.Name,
+                     CoolCategories = dbProduct.CoolCategories.ToString(),
+                     CoolMaterial = dbProduct.CoolMaterial.ToString(),
+                     Price = dbProduct.Price,
+                     Images = dbProduct.StoreImages
+                     .OrderBy(x => x.Odrer)
+                     .Select(x => x.Url).ToList()
+                 }).ToList();
+                return View(viewModels);
+            }
+            if (_category == "Men")
+            {
+                var dbProducts = _productRepository.GetMen();
+                var viewModels = dbProducts
+                 .Select(dbProduct => new ProductViewModel()
+                 {
+                     Id = dbProduct.Id,
+                     BrandCategories = dbProduct.BrandCategories.ToString(),
+                     Name = dbProduct.Name,
+                     CoolCategories = dbProduct.CoolCategories.ToString(),
+                     CoolMaterial = dbProduct.CoolMaterial.ToString(),
+                     Price = dbProduct.Price,
+                     Images = dbProduct.StoreImages
+                     .OrderBy(x => x.Odrer)
+                     .Select(x => x.Url).ToList()
+                 }).ToList();
+                return View(viewModels);
+            }
+            if (_category == "Women")
+            {
+                var dbProducts = _productRepository.GetWomen();
+                var viewModels = dbProducts
+                 .Select(dbProduct => new ProductViewModel()
+                 {
+                     Id = dbProduct.Id,
+                     BrandCategories = dbProduct.BrandCategories.ToString(),
+                     Name = dbProduct.Name,
+                     CoolCategories = dbProduct.CoolCategories.ToString(),
+                     CoolMaterial = dbProduct.CoolMaterial.ToString(),
+                     Price = dbProduct.Price,
+                     Images = dbProduct.StoreImages
+                     .OrderBy(x => x.Odrer)
+                     .Select(x => x.Url).ToList()
+                 }).ToList();
+                return View(viewModels);
+            }
+            if (_category == "Accessories")
+            {
+                var dbProducts = _productRepository.GetAccessories();
+                var viewModels = dbProducts
+                 .Select(dbProduct => new ProductViewModel()
+                 {
+                     Id = dbProduct.Id,
+                     BrandCategories = dbProduct.BrandCategories.ToString(),
+                     Name = dbProduct.Name,
+                     CoolCategories = dbProduct.CoolCategories.ToString(),
+                     CoolMaterial = dbProduct.CoolMaterial.ToString(),
+                     Price = dbProduct.Price,
+                     Images = dbProduct.StoreImages
+                     .OrderBy(x => x.Odrer)
+                     .Select(x => x.Url).ToList()
+                 }).ToList();
+                return View(viewModels);
+            }
+            if (_category == "Bags")
+            {
+                var dbProducts = _productRepository.GetBags();
+                var viewModels = dbProducts
+                 .Select(dbProduct => new ProductViewModel()
+                 {
+                     Id = dbProduct.Id,
+                     BrandCategories = dbProduct.BrandCategories.ToString(),
+                     Name = dbProduct.Name,
+                     CoolCategories = dbProduct.CoolCategories.ToString(),
+                     CoolMaterial = dbProduct.CoolMaterial.ToString(),
+                     Price = dbProduct.Price,
+                     Images = dbProduct.StoreImages
+                     .OrderBy(x => x.Odrer)
+                     .Select(x => x.Url).ToList()
+                 }).ToList();
+                return View(viewModels);
+            }
+            return View();
+
 
         }
         [HttpGet]

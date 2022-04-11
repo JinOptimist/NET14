@@ -23,6 +23,6 @@ namespace Net14.Web.Models.store
         public string Gender { get; set; }
         public string BrandCategories { get; set; }
         public string CoolCategories { get; set; }
-        public List<string> RandomImages { get; set; }
+        public List<RandomImagesViewModel> RandomImages { get; set; }
     }
 }

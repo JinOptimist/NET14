@@ -51,6 +51,12 @@ namespace Net14.Web.EfStuff
                     new Size(){Name="44"},
                     new Size(){Name="44.5"},
                     new Size(){Name="45"},
+                    new Size(){Name="S"},
+                    new Size(){Name="M"},
+                    new Size(){Name="L"},
+                    new Size(){Name="35-37"},
+                    new Size(){Name="38-41"},
+                    new Size(){Name="42-45"},
                 };
                     sizeRepository.SaveList(size);
                 }
@@ -76,6 +82,12 @@ namespace Net14.Web.EfStuff
                 var size44 = sizeRepository.GetName("44");
                 var size44_5 = sizeRepository.GetName("44.5");
                 var size45 = sizeRepository.GetName("45");
+                var sizeS = sizeRepository.GetName("S");
+                var sizeM = sizeRepository.GetName("M");
+                var sizeL = sizeRepository.GetName("L");
+                var size35_37 = sizeRepository.GetName("35-37");
+                var size38_41 = sizeRepository.GetName("38-41");
+                var size42_45 = sizeRepository.GetName("42-45");
 
 
                 var product1 = new Product()
@@ -91,10 +103,10 @@ namespace Net14.Web.EfStuff
                     Gender = EnumStore.Gender.Women,
                     StoreImages = new List<StoreImage>()
                     {
-                        new StoreImage() { Name ="/images/Store/14-1.jpg",Odrer=1},
-                        new StoreImage() { Name ="/images/Store/14-2.jpg",Odrer=2},
-                        new StoreImage() { Name ="/images/Store/14-3.jpg",Odrer=3},
-                        new StoreImage() { Name ="/images/Store/14-4.jpg",Odrer=4}
+                        new StoreImage() { Url ="/images/Store/14-1.jpg",Odrer=1},
+                        new StoreImage() { Url ="/images/Store/14-2.jpg",Odrer=2},
+                        new StoreImage() { Url ="/images/Store/14-3.jpg",Odrer=3},
+                        new StoreImage() { Url ="/images/Store/14-4.jpg",Odrer=4}
                     },
                     Sizes= new List<Size>(){size35,size35_5,size36,size36_5,size37,size37_5,size38}
                 };
@@ -111,10 +123,10 @@ namespace Net14.Web.EfStuff
                     Gender = EnumStore.Gender.Women,
                     StoreImages = new List<StoreImage>()
                     {
-                        new StoreImage() { Name ="/images/Store/16-1.jpg",Odrer=1},
-                        new StoreImage() { Name ="/images/Store/16-2.jpg",Odrer=2},
-                        new StoreImage() { Name ="/images/Store/16-3.jpg",Odrer=3},
-                        new StoreImage() { Name ="/images/Store/16-4.jpg",Odrer=4}
+                        new StoreImage() { Url ="/images/Store/16-1.jpg",Odrer=1},
+                        new StoreImage() { Url ="/images/Store/16-2.jpg",Odrer=2},
+                        new StoreImage() { Url ="/images/Store/16-3.jpg",Odrer=3},
+                        new StoreImage() { Url ="/images/Store/16-4.jpg",Odrer=4}
                     },
                     Sizes = new List<Size>() { size35, size35_5, size36, size36_5, size37, size37_5, size39 }
                 };
@@ -130,10 +142,10 @@ namespace Net14.Web.EfStuff
                     Gender = EnumStore.Gender.Women,
                     StoreImages = new List<StoreImage>()
                     {
-                        new StoreImage() { Name ="/images/Store/17-1.jpg",Odrer=1},
-                        new StoreImage() { Name ="/images/Store/17-2.jpg",Odrer=2},
-                        new StoreImage() { Name ="/images/Store/17-3.jpg",Odrer=3},
-                        new StoreImage() { Name ="/images/Store/17-4.jpg",Odrer=4}
+                        new StoreImage() { Url ="/images/Store/17-1.jpg",Odrer=1},
+                        new StoreImage() { Url ="/images/Store/17-2.jpg",Odrer=2},
+                        new StoreImage() { Url ="/images/Store/17-3.jpg",Odrer=3},
+                        new StoreImage() { Url ="/images/Store/17-4.jpg",Odrer=4}
                     },
                     Sizes = new List<Size>() { size35, size35_5, size36_5, size38_5, size39, size39_5 }
                 };
@@ -149,10 +161,10 @@ namespace Net14.Web.EfStuff
                     Gender = EnumStore.Gender.Women,
                     StoreImages = new List<StoreImage>()
                     {
-                        new StoreImage() { Name ="/images/Store/18-1.jpg",Odrer=1},
-                        new StoreImage() { Name ="/images/Store/18-2.jpg",Odrer=2},
-                        new StoreImage() { Name ="/images/Store/18-3.jpg",Odrer=3},
-                        new StoreImage() { Name ="/images/Store/18-4.jpg",Odrer=4}
+                        new StoreImage() { Url ="/images/Store/18-1.jpg",Odrer=1},
+                        new StoreImage() { Url ="/images/Store/18-2.jpg",Odrer=2},
+                        new StoreImage() { Url ="/images/Store/18-3.jpg",Odrer=3},
+                        new StoreImage() { Url ="/images/Store/18-4.jpg",Odrer=4}
                     },
                     Sizes = new List<Size>() { size35, size35_5, size36_5, size38_5, size39, size40 }
                 };
@@ -168,10 +180,10 @@ namespace Net14.Web.EfStuff
                     Gender = EnumStore.Gender.Men,
                     StoreImages = new List<StoreImage>()
                     {
-                        new StoreImage() { Name = "/images/Store/15-1.jpg",Odrer=1 },
-                        new StoreImage() { Name = "/images/Store/15-2.jpg",Odrer=2 },
-                        new StoreImage() { Name = "/images/Store/15-3.jpg",Odrer=3 },
-                        new StoreImage() { Name = "/images/Store/15-4.jpg",Odrer=4 }
+                        new StoreImage() { Url = "/images/Store/15-1.jpg",Odrer=1 },
+                        new StoreImage() { Url = "/images/Store/15-2.jpg",Odrer=2 },
+                        new StoreImage() { Url = "/images/Store/15-3.jpg",Odrer=3 },
+                        new StoreImage() { Url = "/images/Store/15-4.jpg",Odrer=4 }
                     },
                     Sizes = new List<Size>() { size40, size40_5, size41, size41_5, size42, size43 }
                 };
@@ -187,10 +199,10 @@ namespace Net14.Web.EfStuff
                     Gender = EnumStore.Gender.Men,
                     StoreImages = new List<StoreImage>()
                     {
-                        new StoreImage() { Name = "/images/Store/21-1.jpg",Odrer=1 },
-                        new StoreImage() { Name = "/images/Store/21-2.jpg",Odrer=2 },
-                        new StoreImage() { Name = "/images/Store/21-3.jpg",Odrer=3 },
-                        new StoreImage() { Name = "/images/Store/21-4.jpg",Odrer=4 }
+                        new StoreImage() { Url = "/images/Store/21-1.jpg",Odrer=1 },
+                        new StoreImage() { Url = "/images/Store/21-2.jpg",Odrer=2 },
+                        new StoreImage() { Url = "/images/Store/21-3.jpg",Odrer=3 },
+                        new StoreImage() { Url = "/images/Store/21-4.jpg",Odrer=4 }
                     },
                     Sizes = new List<Size>() { size40, size40_5, size41, size42_5, size42, size43_5 }
                 };
@@ -206,10 +218,10 @@ namespace Net14.Web.EfStuff
                     Gender = EnumStore.Gender.Men,
                     StoreImages = new List<StoreImage>()
                     {
-                        new StoreImage() { Name = "/images/Store/19-1.jpg",Odrer=1 },
-                        new StoreImage() { Name = "/images/Store/19-2.jpg",Odrer=2 },
-                        new StoreImage() { Name = "/images/Store/19-3.jpg",Odrer=3 },
-                        new StoreImage() { Name = "/images/Store/19-4.jpg",Odrer=4 }
+                        new StoreImage() { Url = "/images/Store/19-1.jpg",Odrer=1 },
+                        new StoreImage() { Url = "/images/Store/19-2.jpg",Odrer=2 },
+                        new StoreImage() { Url = "/images/Store/19-3.jpg",Odrer=3 },
+                        new StoreImage() { Url = "/images/Store/19-4.jpg",Odrer=4 }
                     },
                     Sizes = new List<Size>() { size40, size40_5, size41, size42_5, size42, size43_5 }
                 };
@@ -225,17 +237,16 @@ namespace Net14.Web.EfStuff
                     Gender = EnumStore.Gender.Men,
                     StoreImages = new List<StoreImage>()
                     {
-                        new StoreImage() { Name = "/images/Store/20-1.jpg",Odrer=1 },
-                        new StoreImage() { Name = "/images/Store/20-2.jpg",Odrer=2 },
-                        new StoreImage() { Name = "/images/Store/20-3.jpg",Odrer=3 },
-                        new StoreImage() { Name = "/images/Store/20-4.jpg",Odrer=4}
+                        new StoreImage() { Url = "/images/Store/20-1.jpg",Odrer=1 },
+                        new StoreImage() { Url = "/images/Store/20-2.jpg",Odrer=2 },
+                        new StoreImage() { Url = "/images/Store/20-3.jpg",Odrer=3 },
+                        new StoreImage() { Url = "/images/Store/20-4.jpg",Odrer=4}
                     },
                     Sizes = new List<Size>() { size40, size41, size42_5, size42, size43_5,size45 }
 
                 };
                 var product9 = new Product()
                 {
-                    
                     Name = "Club C 85 Revenge Burgundy",
                     Quantity = 5,
                     Price = 100,
@@ -246,15 +257,155 @@ namespace Net14.Web.EfStuff
                     Gender = EnumStore.Gender.Men,
                     StoreImages = new List<StoreImage>()
                     {
-                        new StoreImage() { Name = "/images/Store/22-1.jpg",Odrer=1},
-                        new StoreImage() { Name = "/images/Store/22-2.jpg",Odrer=2},
-                        new StoreImage() { Name = "/images/Store/22-3.jpg",Odrer=3},
-                        new StoreImage() { Name = "/images/Store/22-4.jpg",Odrer=4}
+                        new StoreImage() { Url = "/images/Store/22-1.jpg",Odrer=1},
+                        new StoreImage() { Url = "/images/Store/22-2.jpg",Odrer=2},
+                        new StoreImage() { Url = "/images/Store/22-3.jpg",Odrer=3},
+                        new StoreImage() { Url = "/images/Store/22-4.jpg",Odrer=4}
                     },
                     Sizes = new List<Size>() { size40, size40_5, size41, size42_5, size42, size44_5,size44 }
                 };
+                var product10 = new Product()
+                {
+                    Name = "Gel-Kayano 28 Lake Drive",
+                    Quantity = 5,
+                    Price = 200,
+                    BrandCategories = EnumStore.BrandСategories.Asics,
+                    CoolCategories = EnumStore.CoolCategories.Run,
+                    CoolColors = EnumStore.CoolColors.Blue,
+                    CoolMaterial = EnumStore.CoolMaterial.Textile,
+                    Gender = EnumStore.Gender.Men,
+                    StoreImages = new List<StoreImage>()
+                    {
+                        new StoreImage() { Url = "/images/Store/13-1.png",Odrer=1},
+                        new StoreImage() { Url = "/images/Store/13-2.png",Odrer=2},
+                        new StoreImage() { Url = "/images/Store/13-3.png",Odrer=3},
+                       
+                    },
+                    Sizes = new List<Size>() { size40, size40_5, size41, size42_5, size42, size44_5, size44 }
+                };
+                var product11 = new Product()
+                {
+                    Name = "Gel-Nimbus 24",
+                    Quantity = 7,
+                    Price = 175,
+                    BrandCategories = EnumStore.BrandСategories.Asics,
+                    CoolCategories = EnumStore.CoolCategories.Run,
+                    CoolColors = EnumStore.CoolColors.Orange,
+                    CoolMaterial = EnumStore.CoolMaterial.Textile,
+                    Gender = EnumStore.Gender.Men,
+                    StoreImages = new List<StoreImage>()
+                    {
+                        new StoreImage() { Url = "/images/Store/12-1.jpg",Odrer=1},
+                        new StoreImage() { Url = "/images/Store/12-2.jpg",Odrer=2},
+                        new StoreImage() { Url = "/images/Store/12-3.jpg",Odrer=3},
+                        new StoreImage() { Url = "/images/Store/12-4.jpg",Odrer=4}
+                    },
+                    Sizes = new List<Size>() { size40, size40_5, size41, size42_5, size42, size44_5, size44 }
+                };
+                var product12 = new Product()
+                {
+                    Name = "Everyday Cushioned Crew Black",
+                    Quantity = 5,
+                    Price = 5,
+                    BrandCategories = EnumStore.BrandСategories.Nike,
+                    CoolCategories = EnumStore.CoolCategories.Accessories,
+                    CoolColors = EnumStore.CoolColors.Black,
+                    CoolMaterial = EnumStore.CoolMaterial.Textile,
+                    Gender = EnumStore.Gender.Unisex,
+                    StoreImages = new List<StoreImage>()
+                    {
+                        new StoreImage() { Url = "/images/Store/1-1.jpg",Odrer=1},
+                    },
+                    Sizes = new List<Size>() { size35_37,size38_41 }
+                };
+                var product13 = new Product()
+                {
+                    Name = "Everyday Cushioned Crew White",
+                    Quantity = 3,
+                    Price = 5,
+                    BrandCategories = EnumStore.BrandСategories.Nike,
+                    CoolCategories = EnumStore.CoolCategories.Accessories,
+                    CoolColors = EnumStore.CoolColors.White,
+                    CoolMaterial = EnumStore.CoolMaterial.Textile,
+                    Gender = EnumStore.Gender.Unisex,
+                    StoreImages = new List<StoreImage>()
+                    {
+                        new StoreImage() { Url = "/images/Store/2-1.jpg",Odrer=1},
+                    },
+                    Sizes = new List<Size>() {size38_41,size42_45 }
+                };
+                var product14 = new Product()
+                {
+                    Name = "Originals Solid Crew Black",
+                    Quantity = 12,
+                    Price = 5,
+                    BrandCategories = EnumStore.BrandСategories.Adidas,
+                    CoolCategories = EnumStore.CoolCategories.Accessories,
+                    CoolColors = EnumStore.CoolColors.Black,
+                    CoolMaterial = EnumStore.CoolMaterial.Textile,
+                    Gender = EnumStore.Gender.Unisex,
+                    StoreImages = new List<StoreImage>()
+                    {
+                        new StoreImage() { Url = "/images/Store/3-1.jpg",Odrer=1},
+                    },
+                    Sizes = new List<Size>() { size38_41, size42_45 }
+                };
+                var product15 = new Product()
+                {
+                    Name = "Originals Solid Crew White",
+                    Quantity = 12,
+                    Price = 5,
+                    BrandCategories = EnumStore.BrandСategories.Adidas,
+                    CoolCategories = EnumStore.CoolCategories.Accessories,
+                    CoolColors = EnumStore.CoolColors.White,
+                    CoolMaterial = EnumStore.CoolMaterial.Textile,
+                    Gender = EnumStore.Gender.Unisex,
+                    StoreImages = new List<StoreImage>()
+                    {
+                        new StoreImage() { Url = "/images/Store/4-1.jpg",Odrer=1},
+                    },
+                    Sizes = new List<Size>() { size35_37, size42_45 }
+                };
+                var product16 = new Product()
+                {
+                    Name = "S Backpack Grey",
+                    Quantity = 5,
+                    Price = 35,
+                    BrandCategories = EnumStore.BrandСategories.Puma,
+                    CoolCategories = EnumStore.CoolCategories.Bags,
+                    CoolColors = EnumStore.CoolColors.Gray,
+                    CoolMaterial = EnumStore.CoolMaterial.Textile,
+                    Gender = EnumStore.Gender.Unisex,
+                    StoreImages = new List<StoreImage>()
+                    {
+                        new StoreImage() { Url = "/images/Store/5-1.jpg",Odrer=1},
+                        new StoreImage() { Url = "/images/Store/5-2.jpg",Odrer=2},
+                        new StoreImage() { Url = "/images/Store/5-3.jpg",Odrer=3},
+                        new StoreImage() { Url = "/images/Store/5-4.jpg",Odrer=4}
+                    },
+                    Sizes = new List<Size>() { sizeM, sizeL }
+                };
+                var product17 = new Product()
+                {
+                    Name = "Sportswear Essentials Green",
+                    Quantity = 5,
+                    Price = 70,
+                    BrandCategories = EnumStore.BrandСategories.Nike,
+                    CoolCategories = EnumStore.CoolCategories.Bags,
+                    CoolColors = EnumStore.CoolColors.Green,
+                    CoolMaterial = EnumStore.CoolMaterial.Textile,
+                    Gender = EnumStore.Gender.Unisex,
+                    StoreImages = new List<StoreImage>()
+                    {
+                        new StoreImage() { Url = "/images/Store/6-1.jpg",Odrer=1},
+                        new StoreImage() { Url = "/images/Store/6-2.jpg",Odrer=2},
+                        new StoreImage() { Url = "/images/Store/6-3.jpg",Odrer=3},
+                        new StoreImage() { Url = "/images/Store/6-4.jpg",Odrer=4}
+                    },
+                    Sizes = new List<Size>() { sizeM, sizeL }
+                };
 
-                
+
                 productRepository.Save(product1);
                 productRepository.Save(product2);
                 productRepository.Save(product3);
@@ -264,6 +415,14 @@ namespace Net14.Web.EfStuff
                 productRepository.Save(product7);
                 productRepository.Save(product8);
                 productRepository.Save(product9);
+                productRepository.Save(product10);
+                productRepository.Save(product11);
+                productRepository.Save(product12);
+                productRepository.Save(product13);
+                productRepository.Save(product14);
+                productRepository.Save(product15);
+                productRepository.Save(product16);
+                productRepository.Save(product17);
             };
 
 
