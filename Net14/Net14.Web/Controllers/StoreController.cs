@@ -17,7 +17,6 @@ namespace Net14.Web.Controllers
     {
         private BasketRepository _basketRepository;
         private ProductRepository _productRepository;
-
         private StoreImageRepository _storeimageRepository;
         public StoreController(ProductRepository productRepository, StoreImageRepository storeimageRepository, BasketRepository basketRepository)
         {
@@ -127,6 +126,7 @@ namespace Net14.Web.Controllers
 
         public IActionResult Shoes(int id)
         {
+            var dbImages = _storeimageRepository.GetRandom(id);
             var dbProduct = _productRepository.Get(id);
             var model = new ProductViewModel()
             {
@@ -143,6 +143,7 @@ namespace Net14.Web.Controllers
                 .OrderBy(x => x.Odrer)
                 .Select(x => x.Name).ToList()
             };
+            model.RandomImages = dbImages;
 
             return View(model);
         }
@@ -155,6 +156,7 @@ namespace Net14.Web.Controllers
     
         public IActionResult Catalog()
         {
+           
             var dbProducts = _productRepository.GetAll();
             var viewModels = dbProducts
             .Select(dbProduct => new ProductViewModel()
@@ -169,6 +171,7 @@ namespace Net14.Web.Controllers
                 .OrderBy(x => x.Odrer)
                 .Select(x => x.Name).ToList()
             }).ToList();
+
             return View(viewModels);
 
         }
