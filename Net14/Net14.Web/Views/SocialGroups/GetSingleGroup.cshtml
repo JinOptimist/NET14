@@ -11,7 +11,14 @@
     </div>
     <div class="group-name">
         <div>@Model.Name</div>
-        <div class="subscribe">Subscribe</div>
+        @if (Model.IsCurUserIsMember)
+        {
+            <div class="unsubscribe" onclick="location.href='@Url.Action("Unsubscribe", "SocialGroups", new {groupId = Model.Id})'">Unsubscribe</div>
+        }
+        else
+        {
+            <div class="subscribe" onclick="location.href='@Url.Action("Subscribe", "SocialGroups", new {groupId = Model.Id})'">Subscribe</div>
+        }
     </div>
 </div>
 @foreach (var post in Model.Posts)

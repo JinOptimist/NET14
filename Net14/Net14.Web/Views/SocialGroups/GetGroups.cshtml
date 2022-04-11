@@ -6,7 +6,10 @@
 
 
 <div class="groups-header">Groups</div>
-<input type="text" placeholder="Find group" class="find-group">
+<form action="/SocialGroups/GetGroups" method="post">
+    <input type="text" placeholder="Find group" class="find-group" name="name">
+    <input type="submit" placeholder="find" class="group-submit" value="Find">
+</form>
 @foreach (var group in Model)
 {
 <div class="groups-list"  onclick="location.href='@Url.Action("GetSingleGroup", "SocialGroups", new {id = group.Id})'" >
@@ -17,7 +20,7 @@
         <div class="descriptions">
             <div class="group-name">@group.Name</div>
             <div>Cars</div>
-            <div>20.131 members</div>
+            <div>@group.Members.Count members</div>
         </div>
     </div>
 </div>

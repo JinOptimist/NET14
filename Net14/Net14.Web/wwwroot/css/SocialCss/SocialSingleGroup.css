@@ -5,6 +5,7 @@
     display: flex;
     border-bottom: 2px solid grey;
     align-items: center;
+    white-space: nowrap;
 }
 .group-icon-container{
     display: inline-block;
@@ -28,7 +29,7 @@
 .subscribe {
     color: black;
     font-size: 17px;
-    background: rgba(122,122,122,0.1);
+    background: rgba(81, 204, 105, 0.3);
     height: 37px;
     width: 120px;
     margin-left: 9px;
@@ -46,6 +47,31 @@
 
 .subscribe:hover {
     background: rgb(22 222 48);
+    color: white;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.unsubscribe {
+    color: black;
+    font-size: 17px;
+    background: rgba(255, 40, 40, 0.3);
+    height: 37px;
+    width: 125px;
+    margin-left: 9px;
+    border-radius: 20px;
+    display: flex;
+    /* align-content: center; */
+    align-items: center;
+    justify-content: center;
+    /* margin-bottom: 5px; */
+    margin-bottom: 5px;
+    margin-left: 200px;
+    transition: background 0.3s ease;
+    transition: box-shadow 0.3s ease;
+}
+
+.unsubscribe:hover {
+    background: rgba(255, 40, 40, 0.7);
     color: white;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }

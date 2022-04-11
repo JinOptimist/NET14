@@ -214,12 +214,12 @@ footer
 
 }
 
-.header-search
-{
+.header-search {
+
     display: flex;
     align-items: center;
     width: 250px;
-    
+    margin-left: 200px;
 }
 
 .header input
