@@ -44,15 +44,16 @@
             
             <td>@product.Name</td>
             
-            <td>@product.Category</td>
+            <td>@product.CoolCategories</td>
             
-            <td>@product.Material</td>
+            <td>@product.CoolMaterial</td>
             
             <td>@product.Quantity</td>
             
             <td>@product.Price $</td>
 
-            <td>@foreach (var color in product.CoolColor) { <span>@color </span>} </td>
+
+         @*@//   <td>@foreach (var color in product.CoolColor) { <span>@color </span>} </td>*@
 
              <td>@foreach (var size in product.Sizes) { <span>@size, </span>} </td>
             </tr>

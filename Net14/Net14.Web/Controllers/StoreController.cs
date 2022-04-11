@@ -36,23 +36,23 @@ namespace Net14.Web.Controllers
         public IActionResult Admin()
         {
             var dbProducts = _productRepository.GetAll();
-            
-            var viewModels = dbProducts
-            .Select(dbProduct => new ProductViewModel()
-            {
-                Id = dbProduct.Id,
-                Gender = dbProduct.Gender.ToString(),
-                Name = dbProduct.Name,
-                CoolCategories = dbProduct.CoolCategories.ToString(),
-                Quantity = dbProduct.Quantity,
-                CoolMaterial = dbProduct.CoolMaterial.ToString(),
-                Price = dbProduct.Price,
-                CoolColor = dbProduct.CoolColors.ToString(),
-                Sizes = dbProduct.Sizes.Select(x => x.Name).ToList(),
-                Images = dbProduct.StoreImages
-                .OrderBy(x => x.Odrer)
-                .Select(x => x.Name).ToList()
-            }).ToList();
+            var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
+            //var viewModels = dbProducts
+            //.Select(dbProduct => new ProductViewModel()
+            //{
+            //    Id = dbProduct.Id,
+            //    Gender = dbProduct.Gender.ToString(),
+            //    Name = dbProduct.Name,
+            //    CoolCategories = dbProduct.CoolCategories.ToString(),
+            //    Quantity = dbProduct.Quantity,
+            //    CoolMaterial = dbProduct.CoolMaterial.ToString(),
+            //    Price = dbProduct.Price,
+            //    CoolColor = dbProduct.CoolColors.ToString(),
+            //    Sizes = dbProduct.Sizes.Select(x => x.Name).ToList(),
+            //    Images = dbProduct.StoreImages
+            //    .OrderBy(x => x.Odrer)
+            //    .Select(x => x.Name).ToList()
+            //}).ToList();
             return View(viewModels);
         }
         public IActionResult MyAccount()
@@ -79,16 +79,22 @@ namespace Net14.Web.Controllers
 
         public IActionResult AddProductToBasket(int productId, int userId = 1)
         {
+            //var user = _userService.GetCurrent();
+            //var basket = user.Basket ?? new Basket();
+            //var product = _productRepository.Get(productId);
+            //basket.Products.Add(product);
+
             var basket = _basketRepository.GetAll().FirstOrDefault(x => x.UserId == userId);
             if (basket == null)
             {
-                basket = new Basket() { 
+                basket = new Basket()
+                {
                     UserId = userId,
                     Products = new List<Product>()
                 };
             }
-            var product = _productRepository.Get(productId);
 
+            var product = _productRepository.Get(productId);
             basket.Products.Add(product);
             _basketRepository.Save(basket);
             return RedirectToAction("Catalog", "Store");
