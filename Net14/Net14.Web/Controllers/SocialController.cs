@@ -189,19 +189,22 @@ namespace Net14.Web.Controllers
         {
             return View();
         }
+
+        [Authorize]
         [HttpPost]
         public IActionResult AddPost(SocialPostViewModel viewModel)
         {
             var user = _userService.GetCurrent();
             var dbPost = new PostSocial()
             {
+                User = user,
                 ImageUrl = viewModel.ImageUrl,
                 CommentOfUser = viewModel.CommentsOfOwner
             };
 
             _socialPostRepository.Save(dbPost);
 
-            return View();
+            return Redirect("Index");
         }
     }
 }

@@ -7,21 +7,20 @@
         <div class="add-post-header">Add Post</div>
         
         <form action="/Social/AddPost" method="post" id="form-add-post">
-            <div>
+            <div class="textForInput">
                 ImageUrl
             </div>
             <div>
                @Html.TextBoxFor(x => x.ImageUrl)
             </div>
-            <div>
+            <div class="textForInput">
                 Comment
             </div>
             <div>
                 @Html.TextBoxFor(x => x.CommentsOfOwner)
             </div>
-            <a href="/Social/Index">
+            <div>
                 <input type="submit" value="Add" class="button-add-post">
-            </a>
+            </div>
         </form>
-        
 </div>

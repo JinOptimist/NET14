@@ -36,7 +36,7 @@
     border-radius: 92px;
     border: 1px solid grey;
     padding: 24px;
-    width: 55%;
+    width: 80%;
     margin-top: 30px;
 }
 .add-post form input[type="submit"] {
@@ -54,5 +54,11 @@
     color: white;
     background: rgb(22 222 48);
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.textForInput{
+    display:flex;
+    justify-content:center;
+    color:black;
+    padding:5px;
 }
 
