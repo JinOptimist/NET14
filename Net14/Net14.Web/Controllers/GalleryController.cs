@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Net14.Web.EfStuff;
 using Net14.Web.EfStuff.DbModel;
 using Net14.Web.EfStuff.Repositories;
 using Net14.Web.Models;
 using Net14.Web.Models.gallery;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Net14.Web.Controllers
 {
@@ -71,6 +68,11 @@ namespace Net14.Web.Controllers
         [HttpPost]
         public IActionResult AddImage(AddImageVewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
             var dbImage = _mapper.Map<Image>(viewModel);
             //var dbImage = new Image()
             //{
@@ -85,8 +87,6 @@ namespace Net14.Web.Controllers
             };
 
             dbImage.Comments = new List<ImageComment>() { adminComment };
-
-            _imageRepository.Save(dbImage);
 
             _imageRepository.Save(dbImage);
 
