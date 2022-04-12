@@ -29,11 +29,6 @@ namespace Net14.Web.EfStuff.Repositories
             return _dbSet.ToList();
         }
 
-        public bool Any()
-        {
-            return _dbSet.Any();
-        }
-
         public void Save(T model)
         {
             if (model.Id > 0)
@@ -44,7 +39,7 @@ namespace Net14.Web.EfStuff.Repositories
             {
                 _dbSet.Add(model);
             }
-           
+
             _webContext.SaveChanges();
         }
 
@@ -54,6 +49,13 @@ namespace Net14.Web.EfStuff.Repositories
             _webContext.SaveChanges();
         }
 
-
+        public bool Any()
+        {
+            return _dbSet.Any();
+        }
+        public void SaveList(List<T> models)
+            => models.ForEach(Save);
+        
     }
+    
 }

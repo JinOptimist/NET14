@@ -9,9 +9,8 @@ namespace Net14.Web.EfStuff.Repositories
 {
     public class ImageRepository : BaseRepository<Image>
     {
-        public ImageRepository(WebContext context) : base(context)
+        public ImageRepository(WebContext context):base(context)
         {
         }
-
     }
 }

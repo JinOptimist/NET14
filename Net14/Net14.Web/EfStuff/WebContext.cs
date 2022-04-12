@@ -22,6 +22,17 @@ namespace Net14.Web.EfStuff
         public DbSet<Tag> Tags { get; set; }
         public DbSet<UserFriendRequest> UserFriendRequests { get; set; }
 
+        public DbSet<Product> Products { get; set; }
+
+        public DbSet<Size> Sizes { get; set; }
+        public DbSet<Basket> Baskets { get; set; }
+
+        public DbSet<StoreImage> StoreImages { get; set; }
+
+   
+
+
+
         public WebContext(DbContextOptions options) : base(options)
         {
         }
@@ -49,6 +60,22 @@ namespace Net14.Web.EfStuff
                 .HasMany(image => image.Comments)
                 .WithOne(comment => comment.Image);
 
+
+            modelBuilder.Entity<Basket>()
+               .HasMany(basket => basket.Products)
+               .WithMany(product => product.Baskets);
+
+            modelBuilder.Entity<Product>()
+               .HasMany(Product =>Product.StoreImages)
+               .WithOne(StoreImage => StoreImage.Product);
+
+            modelBuilder.Entity<Image>()
+              .HasMany(image => image.Comments)
+              .WithOne(comment => comment.Image);
+
+            modelBuilder.Entity<UserSocial>()
+                .HasMany(user => user.Posts)
+                .WithOne(post => post.User);
             modelBuilder.Entity<UserSocial>(x =>
             {
                 x.HasMany(u => u.Friends)
@@ -67,8 +94,11 @@ namespace Net14.Web.EfStuff
             modelBuilder.Entity<UserSocial>().Property(u => u.UserPhoto).HasDefaultValue("/images/Social/User.jpg");
 
             base.OnModelCreating(modelBuilder);
-
         }
+
+
+
+      
 
     }
 }

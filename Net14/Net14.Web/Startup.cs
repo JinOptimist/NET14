@@ -18,6 +18,7 @@ using Net14.Web.EfStuff.DbModel;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.Models;
 
+
 namespace Net14.Web
 {
     public class Startup
@@ -37,14 +38,32 @@ namespace Net14.Web
             services.AddDbContext<WebContext>(x => x.UseSqlServer(connectString));
 
             services.AddAuthentication(AuthName)
-                .AddCookie(AuthName, config =>
-                {
-                    config.LoginPath = "/SocialAuthentication/Autorization";
-                    config.AccessDeniedPath = "/User/AccessDenied";
-                    config.Cookie.Name = "SocialMedeiCool";
-                });
+             .AddCookie(AuthName, config =>
+             {
+                 config.LoginPath = "/SocialAuthentication/Autorization";
+                 config.AccessDeniedPath = "/User/AccessDenied";
+                 config.Cookie.Name = "SocialMedeiCool";
+             });
 
             RegisterMapper(services);
+
+            services.AddScoped<ImageRepository>(x =>
+                new ImageRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<ImageCommentRepository>(x =>
+                new ImageCommentRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<ProductRepository>(x =>
+               new ProductRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<SizeRepository>(x =>
+              new SizeRepository(x.GetService<WebContext>()));
+            services.AddScoped<BasketRepository>(x =>
+
+              new BasketRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<StoreImageRepository>(x =>
+              new StoreImageRepository(x.GetService<WebContext>()));
 
             services.AddScoped<ImageRepository>(x =>
                 new ImageRepository(x.GetService<WebContext>()));

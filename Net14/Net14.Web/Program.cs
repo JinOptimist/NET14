@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Net14.Web.EfStuff;
 using Net14.Web.EfStuff.DbModel;
+using Net14.Web.EfStuff.Repositories;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,6 @@ namespace Net14.Web
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Seed().Run();
-
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -29,4 +29,5 @@ namespace Net14.Web
                 });
         
     }
+    
 }
