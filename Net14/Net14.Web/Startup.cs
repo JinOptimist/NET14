@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Net14.Web.Models.gallery;
 using Net14.Web.EfStuff.DbModel;
-
+using Net14.Web.Models.store;
 
 namespace Net14.Web
 {
@@ -101,11 +101,25 @@ namespace Net14.Web
             var provider = new MapperConfigurationExpression();
 
             provider.CreateMap<AddImageVewModel, Image>();
+            provider.CreateMap<Basket, ProductViewModel>();
+
+            provider.CreateMap<Product, ProductViewModel>()
+                .ForMember(nameof(ProductViewModel.Images),
+                opt => opt
+                .MapFrom(dbProducts => 
+                    dbProducts
+                        .StoreImages
+                        .OrderBy(x => x.Odrer)
+                        .Select(x => x.Name)
+                        .ToList()
+                    )
+                );
+
 
             provider.CreateMap<Image, ImageUrlVewModel>()
                 .ForMember(nameof(ImageUrlVewModel.Comments),
                 opt => opt
-                    .MapFrom(dbImage => 
+                    .MapFrom(dbImage =>
                         dbImage.Comments
                             .Select(c => c.Text)
                             .ToList()));

@@ -7,13 +7,19 @@
 
 <form action="/Gallery/AddImage" method="post">
     <div>
-        Name: @Html.TextBoxFor(x => x.Name)
+        Name: 
+        @Html.TextBoxFor(x => x.Name)
+        @Html.ValidationMessageFor(x => x.Name)
     </div>
     <div>
-        Url : @Html.TextBoxFor(x => x.Url)
+        Url:
+        @Html.TextBoxFor(x => x.Url)
+        @Html.ValidationMessageFor(x => x.Url)
     </div>
     <div>
-        Rate: @Html.TextBoxFor(x => x.Rate)
+        Rate:
+        @Html.TextBoxFor(x => x.Rate)
+        @Html.ValidationMessageFor(x => x.Rate)
     </div>
     <div>
         <input type="submit" value="Создать" />
