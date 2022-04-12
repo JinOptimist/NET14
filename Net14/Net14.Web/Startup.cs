@@ -110,7 +110,7 @@ namespace Net14.Web
                     dbProducts
                         .StoreImages
                         .OrderBy(x => x.Odrer)
-                        .Select(x => x.Name)
+                        .Select(x => x.Url)
                         .ToList()
                     )
                 );

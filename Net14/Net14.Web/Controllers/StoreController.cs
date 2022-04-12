@@ -38,38 +38,7 @@ namespace Net14.Web.Controllers
         {
             var dbProducts = _productRepository.GetAll();
             var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
-            //var viewModels = dbProducts
-            //.Select(dbProduct => new ProductViewModel()
-            //{
-            //    Id = dbProduct.Id,
-            //    Gender = dbProduct.Gender.ToString(),
-            //    Name = dbProduct.Name,
-            //    CoolCategories = dbProduct.CoolCategories.ToString(),
-            //    Quantity = dbProduct.Quantity,
-            //    CoolMaterial = dbProduct.CoolMaterial.ToString(),
-            //    Price = dbProduct.Price,
-            //    CoolColor = dbProduct.CoolColors.ToString(),
-            //    Sizes = dbProduct.Sizes.Select(x => x.Name).ToList(),
-            //    Images = dbProduct.StoreImages
-            //    .OrderBy(x => x.Odrer)
-            //    .Select(x => x.Name).ToList()
-            //}).ToList();
-            //var viewModels = dbProducts
-            //.Select(dbProduct => new ProductViewModel()
-            //{
-            //    Id = dbProduct.Id,
-            //    Gender = dbProduct.Gender.ToString(),
-            //    Name = dbProduct.Name,
-            //    CoolCategories = dbProduct.CoolCategories.ToString(),
-            //    Quantity = dbProduct.Quantity,
-            //    CoolMaterial = dbProduct.CoolMaterial.ToString(),
-            //    Price = dbProduct.Price,
-            //    CoolColor = dbProduct.CoolColors.ToString(),
-            //    Sizes = dbProduct.Sizes.Select(x => x.Name).ToList(),
-            //    Images = dbProduct.StoreImages
-            //    .OrderBy(x => x.Odrer)
-            //    .Select(x => x.Url).ToList()
-            //}).ToList();
+
             return View(viewModels);
         }
         public IActionResult MyAccount()
@@ -181,109 +150,43 @@ namespace Net14.Web.Controllers
             if (string.IsNullOrEmpty(_category))
             {
                 var dbProducts = _productRepository.GetAll();
-                var viewModels = dbProducts
-                .Select(dbProduct => new ProductViewModel()
-                {
-                    Id = dbProduct.Id,
-                    BrandCategories = dbProduct.BrandCategories.ToString(),
-                    Name = dbProduct.Name,
-                    CoolCategories = dbProduct.CoolCategories.ToString(),
-                    CoolMaterial = dbProduct.CoolMaterial.ToString(),
-                    Price = dbProduct.Price,
-                    Images = dbProduct.StoreImages
-                    .OrderBy(x => x.Odrer)
-                    .Select(x => x.Url).ToList()
-                }).ToList();
+                var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
+
                 return View(viewModels);
             }
             if (_category == "Run")
             {
                 var dbProducts = _productRepository.GetRun();
-                var viewModels = dbProducts
-                 .Select(dbProduct => new ProductViewModel()
-                 {
-                     Id = dbProduct.Id,
-                     BrandCategories = dbProduct.BrandCategories.ToString(),
-                     Name = dbProduct.Name,
-                     CoolCategories = dbProduct.CoolCategories.ToString(),
-                     CoolMaterial = dbProduct.CoolMaterial.ToString(),
-                     Price = dbProduct.Price,
-                     Images = dbProduct.StoreImages
-                     .OrderBy(x => x.Odrer)
-                     .Select(x => x.Url).ToList()
-                 }).ToList();
+                var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
+  
                 return View(viewModels);
             }
             if (_category == "Men")
             {
                 var dbProducts = _productRepository.GetMen();
-                var viewModels = dbProducts
-                 .Select(dbProduct => new ProductViewModel()
-                 {
-                     Id = dbProduct.Id,
-                     BrandCategories = dbProduct.BrandCategories.ToString(),
-                     Name = dbProduct.Name,
-                     CoolCategories = dbProduct.CoolCategories.ToString(),
-                     CoolMaterial = dbProduct.CoolMaterial.ToString(),
-                     Price = dbProduct.Price,
-                     Images = dbProduct.StoreImages
-                     .OrderBy(x => x.Odrer)
-                     .Select(x => x.Url).ToList()
-                 }).ToList();
+                var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
+
                 return View(viewModels);
             }
             if (_category == "Women")
             {
                 var dbProducts = _productRepository.GetWomen();
-                var viewModels = dbProducts
-                 .Select(dbProduct => new ProductViewModel()
-                 {
-                     Id = dbProduct.Id,
-                     BrandCategories = dbProduct.BrandCategories.ToString(),
-                     Name = dbProduct.Name,
-                     CoolCategories = dbProduct.CoolCategories.ToString(),
-                     CoolMaterial = dbProduct.CoolMaterial.ToString(),
-                     Price = dbProduct.Price,
-                     Images = dbProduct.StoreImages
-                     .OrderBy(x => x.Odrer)
-                     .Select(x => x.Url).ToList()
-                 }).ToList();
+                var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
+
                 return View(viewModels);
             }
             if (_category == "Accessories")
             {
                 var dbProducts = _productRepository.GetAccessories();
-                var viewModels = dbProducts
-                 .Select(dbProduct => new ProductViewModel()
-                 {
-                     Id = dbProduct.Id,
-                     BrandCategories = dbProduct.BrandCategories.ToString(),
-                     Name = dbProduct.Name,
-                     CoolCategories = dbProduct.CoolCategories.ToString(),
-                     CoolMaterial = dbProduct.CoolMaterial.ToString(),
-                     Price = dbProduct.Price,
-                     Images = dbProduct.StoreImages
-                     .OrderBy(x => x.Odrer)
-                     .Select(x => x.Url).ToList()
-                 }).ToList();
+                var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
+      
                 return View(viewModels);
             }
             if (_category == "Bags")
             {
                 var dbProducts = _productRepository.GetBags();
-                var viewModels = dbProducts
-                 .Select(dbProduct => new ProductViewModel()
-                 {
-                     Id = dbProduct.Id,
-                     BrandCategories = dbProduct.BrandCategories.ToString(),
-                     Name = dbProduct.Name,
-                     CoolCategories = dbProduct.CoolCategories.ToString(),
-                     CoolMaterial = dbProduct.CoolMaterial.ToString(),
-                     Price = dbProduct.Price,
-                     Images = dbProduct.StoreImages
-                     .OrderBy(x => x.Odrer)
-                     .Select(x => x.Url).ToList()
-                 }).ToList();
+                var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
+
                 return View(viewModels);
             }
             return View();
