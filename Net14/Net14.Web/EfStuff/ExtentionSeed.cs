@@ -17,7 +17,6 @@ namespace Net14.Web.EfStuff
             {
                 SeedProduct(scope);
 
-                SeedImage(scope);
                 SeedUser(scope);
                 SeedPostAndComm(scope);
                 GroupSeed(scope);
