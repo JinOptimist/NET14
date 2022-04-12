@@ -10,30 +10,26 @@ namespace Net14.Web.Services
 {
     public class FriendRequestService
     {
-        private UserService _userService;
-        private SocialFriendRepository _socialFriendRepository;
         private UserFriendRequestRepository _userFriendRequestRepository;
         private SocialUserRepository _socialUserRepository;
 
-        public FriendRequestService(UserService userService, 
-            SocialFriendRepository socialFriendRepository,
-            UserFriendRequestRepository userFriendRequestRepository,
+        public FriendRequestService( UserFriendRequestRepository userFriendRequestRepository,
             SocialUserRepository socialUserRepository)
         {
-            _userService = userService;
-            _socialFriendRepository = socialFriendRepository;
             _userFriendRequestRepository = userFriendRequestRepository;
             _socialUserRepository = socialUserRepository;
         }
 
-        public void Create(int  senderId, int receiverId)
+        public void CreateFriendRequest(int  senderId, int receiverId)
         {
             if (!Exists(senderId, receiverId) && _socialUserRepository.Exists(senderId) && _socialUserRepository.Exists(receiverId))
             {
+                var sender = _socialUserRepository.Get(senderId);
+                var reciver = _socialUserRepository.Get(receiverId);
                 var friendRequest = new UserFriendRequest
                 {
-                    SenderId = senderId,
-                    ReceiverId = receiverId,
+                    Sender = sender,
+                    Receiver = reciver,
                     FriendRequestStatus = FriendRequestStatus.Pending
                 };
 
@@ -45,11 +41,12 @@ namespace Net14.Web.Services
         {
             if (Exists(senderId, receiverId) && _socialUserRepository.Exists(senderId) && _socialUserRepository.Exists(receiverId))
             {
-                var friendRequest = _userFriendRequestRepository.GetAll().FirstOrDefault(fr => fr.ReceiverId == receiverId && fr.SenderId == senderId);
+                var rec = _socialUserRepository.Get(receiverId);
+                var send = _socialUserRepository.Get(senderId);
+                var friendRequest = _userFriendRequestRepository.GetAll().FirstOrDefault(fr => fr.Receiver == rec && fr.Sender == send);
                 friendRequest.FriendRequestStatus = FriendRequestStatus.Accepted;
                 _userFriendRequestRepository.Save(friendRequest);
-                _userService.MakeFriends(senderId, receiverId);
-                _userService.MakeFriends(receiverId, senderId);
+                MakeFriends(senderId, receiverId);
 
             }
         }
@@ -57,16 +54,43 @@ namespace Net14.Web.Services
         {
             if (Exists(senderId, receiverId) && _socialUserRepository.Exists(senderId) && _socialUserRepository.Exists(receiverId)) 
             {
+                var recive = _socialUserRepository.Get(receiverId);
                 var friendRequest = _userFriendRequestRepository.GetAll();
-                var target = friendRequest.Single(req => req.ReceiverId == receiverId);
+                var target = friendRequest.Single(req => req.Receiver == recive);
                 _userFriendRequestRepository.Remove(target);
             }
         }
 
         private bool Exists(int senderId, int receiverId)
         {
-            return _userFriendRequestRepository.GetAll().Any(fr => fr.SenderId == senderId && fr.ReceiverId == receiverId);
+            var send = _socialUserRepository.Get(senderId);
+            var receive = _socialUserRepository.Get(receiverId);
+            return _userFriendRequestRepository.GetAll().Any(fr => fr.Sender == send && fr.Receiver == receive);
         }
 
+        public bool CheckIfFriends(int requestUserId, int targetUserId)
+        {
+            var user = _socialUserRepository.Get(requestUserId);
+            var user2 = _socialUserRepository.Get(targetUserId);
+
+            return user.Friends.Contains(user2);
+        }
+
+        public void MakeFriends(int senderId, int receiverId)
+        {
+            if (_socialUserRepository.Get(senderId) != null && _socialUserRepository.Get(senderId) != null &&
+               !CheckIfFriends(senderId, receiverId))
+            {
+                var sender = _socialUserRepository.Get(senderId);
+                var rec = _socialUserRepository.Get(receiverId);
+
+                sender.Friends.Add(rec);
+                rec.Friends.Add(sender);
+
+                _socialUserRepository.Save(sender);
+                _socialUserRepository.Save(rec);
+
+            }
+        }
     }
 }

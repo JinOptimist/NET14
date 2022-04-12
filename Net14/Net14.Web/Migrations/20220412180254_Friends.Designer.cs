@@ -10,8 +10,8 @@ using Net14.Web.EfStuff;
 namespace Net14.Web.Migrations
 {
     [DbContext(typeof(WebContext))]
-    [Migration("20220409123657_FriendTest2")]
-    partial class FriendTest2
+    [Migration("20220412180254_Friends")]
+    partial class Friends
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -184,28 +184,6 @@ namespace Net14.Web.Migrations
                     b.ToTable("SocialComments");
                 });
 
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserFriend", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("FriendId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FriendId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserFriends");
-                });
-
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserFriendRequest", b =>
                 {
                     b.Property<int>("Id")
@@ -216,10 +194,10 @@ namespace Net14.Web.Migrations
                     b.Property<int>("FriendRequestStatus")
                         .HasColumnType("int");
 
-                    b.Property<int>("ReceiverId")
+                    b.Property<int?>("ReceiverId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SenderId")
+                    b.Property<int?>("SenderId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -284,6 +262,21 @@ namespace Net14.Web.Migrations
                     b.ToTable("Tags");
                 });
 
+            modelBuilder.Entity("UserSocialUserSocial", b =>
+                {
+                    b.Property<int>("FriendsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WhoFriendsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FriendsId", "WhoFriendsId");
+
+                    b.HasIndex("WhoFriendsId");
+
+                    b.ToTable("UserSocialUserSocial");
+                });
+
             modelBuilder.Entity("GroupSocialUserSocial", b =>
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupSocial", null)
@@ -336,42 +329,34 @@ namespace Net14.Web.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserFriend", b =>
-                {
-                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "Friend")
-                        .WithMany()
-                        .HasForeignKey("FriendId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "User")
-                        .WithMany("Friends")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Friend");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserFriendRequest", b =>
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "Receiver")
                         .WithMany("FriendRequestReceived")
-                        .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("ReceiverId");
 
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "Sender")
                         .WithMany("FriendRequestSent")
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("SenderId");
 
                     b.Navigation("Receiver");
 
                     b.Navigation("Sender");
+                });
+
+            modelBuilder.Entity("UserSocialUserSocial", b =>
+                {
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", null)
+                        .WithMany()
+                        .HasForeignKey("FriendsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", null)
+                        .WithMany()
+                        .HasForeignKey("WhoFriendsId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Image", b =>
@@ -394,8 +379,6 @@ namespace Net14.Web.Migrations
                     b.Navigation("FriendRequestReceived");
 
                     b.Navigation("FriendRequestSent");
-
-                    b.Navigation("Friends");
 
                     b.Navigation("Posts");
                 });
