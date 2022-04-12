@@ -20,7 +20,6 @@ namespace Net14.Web.Controllers
         private SocialUserRepository _socialUserRepository;
         private SocialPostRepository _socialPostRepository;
         private SocialCommentRepository _socialCommentRepository;
-        private SocialFriendRepository _socialFriendRepository;
         private UserService _userService;
         private IMapper _mapper;
         private FriendRequestService _friendRequestService;
@@ -29,7 +28,6 @@ namespace Net14.Web.Controllers
         public SocialController(SocialUserRepository socialUserRepository,
             SocialPostRepository socialPostRepository,
             SocialCommentRepository socialCommentRepository,
-            SocialFriendRepository socialFriendRepository,
             UserService userService, IMapper mapper,
             FriendRequestService friendRequestService,
             UserFriendRequestRepository userFriendRequestRepository)
@@ -38,7 +36,6 @@ namespace Net14.Web.Controllers
             _socialUserRepository = socialUserRepository;
             _socialCommentRepository = socialCommentRepository;
             _userService = userService;
-            _socialFriendRepository = socialFriendRepository;
             _mapper = mapper;
             _friendRequestService = friendRequestService;
             _userFriendRequestRepository = userFriendRequestRepository;
@@ -62,29 +59,20 @@ namespace Net14.Web.Controllers
         public IActionResult ShowAllUsers() 
         {
             var currentUser = _userService.GetCurrent();
-            List<SocialUserViewModel> model;
-            List<UserSocial> users; 
-            if (currentUser == null)
+            var dbUsers = _socialUserRepository.GetAll();
+
+            var model = _mapper.Map<List<SocialUserViewModel>>(dbUsers);
+
+            for (int i = 0; i < dbUsers.Count; i++) 
             {
-                users = _socialUserRepository.GetAll();
-                model = _mapper.Map<List<SocialUserViewModel>>(users);
-                return View(model);
-            }
-            else 
-            {
-                users = _socialUserRepository.GetAll()
-                    .Where(user => user.Id != currentUser.Id)
-                    .ToList();
-                model = _mapper.Map<List<SocialUserViewModel>>(users);
-                foreach (var user in model) 
+                if (currentUser.Friends.Contains(dbUsers[i])) 
                 {
-                    if (currentUser.Friends.Any(us => us.FriendId == user.Id)) 
-                    {
-                        user.IsFriend = true;
-                    }
+                    model[i].IsFriend = true;
                 }
-                return View(model);
             }
+
+
+            return View(model);
         }
 
         [HttpPost]
@@ -154,7 +142,7 @@ namespace Net14.Web.Controllers
         public IActionResult AddFriend(int friendId)
         {
             var currentUserId = _userService.GetCurrent().Id;
-            _friendRequestService.Create(currentUserId, friendId);
+            _friendRequestService.CreateFriendRequest(currentUserId, friendId);
 
             return RedirectToAction("Index");
         }
@@ -162,7 +150,7 @@ namespace Net14.Web.Controllers
         public IActionResult Notification() 
         {
             var user = _userService.GetCurrent();
-            var requests = _userFriendRequestRepository.GetAll().Where(req => req.ReceiverId == user.Id & 
+            var requests = _userFriendRequestRepository.GetAll().Where(req => req.Receiver == user & 
                             req.FriendRequestStatus == FriendRequestStatus.Pending);
 
             var model = _mapper.Map<List<FriendRequestViewModel>>(requests);
@@ -174,9 +162,9 @@ namespace Net14.Web.Controllers
         [Authorize]
         public IActionResult Friends() 
         {
-            var currentUserId = _userService.GetCurrent();
+            var currentUser = _userService.GetCurrent();
 
-            var friends = _socialFriendRepository.FriendsIds(currentUserId.Id);
+            var friends = currentUser.Friends;
 
             var model = _mapper.Map<List<SocialUserViewModel>>(friends);
 

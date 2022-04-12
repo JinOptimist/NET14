@@ -70,24 +70,19 @@ namespace Net14.Web
             services.AddScoped<VideoSocialRepository>(x =>
                 new VideoSocialRepository(x.GetService<WebContext>()));
 
-            services.AddScoped<SocialFriendRepository>(x => 
-                new SocialFriendRepository(x.GetService<WebContext>()));
 
             services.AddScoped<YouTubeVideoService>();
 
             services.AddScoped<UserService>(x =>
                 new UserService(
                     x.GetService<SocialUserRepository>(),
-                    x.GetService<IHttpContextAccessor>(),
-                    x.GetService<SocialFriendRepository>()));
-
+                    x.GetService<IHttpContextAccessor>()));
+                    
             services.AddScoped<UserFriendRequestRepository>(x =>
                 new UserFriendRequestRepository(x.GetService<WebContext>()));
 
             services.AddScoped<FriendRequestService>(x =>
                 new FriendRequestService(
-                    x.GetService<UserService>(),
-                    x.GetService<SocialFriendRepository>(),
                     x.GetService<UserFriendRequestRepository>(),
                     x.GetService<SocialUserRepository>()));
 
