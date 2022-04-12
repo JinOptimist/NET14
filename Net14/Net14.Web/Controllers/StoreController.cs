@@ -100,7 +100,7 @@ namespace Net14.Web.Controllers
 
             basket.Products.Add(product);
             _basketRepository.Save(basket);
-            return RedirectToAction("Catalog", "Store");
+            return RedirectToAction("Catalog", "Store"); //TO DO change url 
         }
 
         public IActionResult DeleteProductFromBasket(int productId, int userId = 1)
