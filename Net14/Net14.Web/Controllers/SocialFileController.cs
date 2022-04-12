@@ -58,8 +58,12 @@ namespace Net14.Web.Controllers
         [HttpPost]
         public IActionResult AddFiles(FilesViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+            
             var dbFiles = _mapper.Map<FileSocial>(viewModel);
-
             _socialFileRepository.Save(dbFiles); // Сохраняйся 
 
             return View();
