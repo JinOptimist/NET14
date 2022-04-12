@@ -4,6 +4,7 @@
     {
        Men=1,
        Women,
-       Children
+       Children,
+       Unisex
     }
 }

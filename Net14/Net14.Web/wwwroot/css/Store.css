@@ -1,16 +1,20 @@
 ﻿a:focus, a:active {
     outline: none;
 }
+
 a, a:visited {
     text-decoration: none;
 }
-a:hover {
+
+    a:hover {
         text-decoration: none;
     }
+
 .header {
     display: flex;
     font-size: 24px;
 }
+
 .header_catalog {
     catalogItem display: flex;
     font-size: 24px;
@@ -46,9 +50,10 @@ a:hover {
     text-decoration: none;
     color: black;
 }
-.name:hover{
-    background:orange;
-}
+
+    .name:hover {
+        background: orange;
+    }
 
 .shopox {
     font-family: impact, sans-serif;
@@ -91,9 +96,10 @@ a:hover {
     margin: 5px;
     border: 2px solid #212322;
 }
-.account:hover{
-    background:orange;
-}
+
+    .account:hover {
+        background: orange;
+    }
 
 .basket {
     display: flex;
@@ -106,13 +112,15 @@ a:hover {
     margin: 5px;
     border: 2px solid #212322;
 }
-.basket:hover{
-    background:orange;
-}
+
+    .basket:hover {
+        background: orange;
+    }
 
 .basket-icon {
     width: 32px;
 }
+
 .text {
     margin-left: 80px;
     margin-right: 80px;
@@ -221,9 +229,9 @@ a:hover {
 
 .container {
     min-height: 450px;
-    width:100%;
-    margin:0;
-    padding:0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 .icon {
@@ -325,16 +333,16 @@ a:hover {
 body {
     font-family: Courier New, monospace;
     margin: 0;
-    padding:0;
+    padding: 0;
 }
+
 .iconshoes {
     width: 152px;
     height: 152px;
-    
 }
-.cost{
-    margin:5px 0 0 0;
-    
+
+.cost {
+    margin: 5px 0 0 0;
 }
 
 .title {
@@ -343,35 +351,39 @@ body {
     font-weight: 700;
     margin: 50px;
 }
+
 .title_mini {
     font-size: 22px;
     margin: 0px 0 0px 50px;
     width: 260px;
     height: 42px;
 }
-.checkout_field{
-    display:flex;
-    
+
+.checkout_field {
+    display: flex;
 }
 
 .cheсkout_block1 {
-    margin:0 0 40px 0;
-    padding:0 0 40px 0;
+    margin: 0 0 40px 0;
+    padding: 0 0 40px 0;
     border-bottom: 1px solid #e8e8e8
 }
+
 .checkout_block2 {
     margin: 0 0 40px 0;
     padding: 0 0 40px 0;
     border-bottom: 1px solid #e8e8e8
 }
+
 .checkout_block3 {
     display: flex;
     justify-content: right;
     text-align: left;
     margin: 0 50px 0 0;
 }
+
 .button_checkout {
-    margin : 25px 0 0 55px;
+    margin: 25px 0 0 55px;
     box-shadow: inset 0px 1px 0px 0px #5A6169;
     background: linear-gradient(to bottom, #5A6169 5%, #5A6169 100%);
     background-color: #5A6169;
@@ -386,6 +398,7 @@ body {
     text-decoration: none;
     text-shadow: 0px 1px 0px #2b665e;
 }
+
 .checkout_radio {
     margin: 30px 0 10px 50px;
     box-shadow: inset 0px 1px 0px 0px #5A6169;
@@ -422,19 +435,23 @@ body {
     line-height: 44px;
     color: #000;
 }
-.second-header-banner:hover{
-    color:orange;
-}
+
+    .second-header-banner:hover {
+        color: orange;
+    }
+
 .indexRunMargin {
     position: relative;
     width: 100%;
-   
+    overflow: hidden
 }
+
 .containerIndex1 {
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin:0 10px 0 5px;
+    margin: 0 10px 0 5px;
+    overflow: hidden
 }
 
 .indexRun {
@@ -442,7 +459,12 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
+    transition: 1s;
 }
+    .indexRun:hover {
+        transform: scale(1.05)
+    }
+
 .titleImageRun {
     position: absolute;
     top: 200px;
@@ -454,26 +476,54 @@ body {
     padding: 25px;
     font-family: Courier New, monospace;
     font-size: 40px;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-delay: 0s;
+    transition-timing-function: ease;
 }
+
+    .titleImageRun:hover {
+        color: orange;
+        padding:35px;
+    }
+
 .containerIndex2 {
     width: 100%;
-    display: flex
+    display: flex;
 }
-.womenSnkrs{
-    width:800px;
-    height:600px;
+
+.womenSnkrs {
+    width: 800px;
+    height: 600px;
+    transition: 1s;
 }
-.sale{
-    width:100%
+    .womenSnkrs:hover {
+        transform: scale(1.1)
+    }
+
+.sale {
+    width: 100%;
+    transition: 1s;
 }
+    .sale:hover {
+        transform: scale(1.2)
+    }
+
 .socks {
-    width: 100%
+    width: 100%;
+    transition: 1s;
 }
+.socks:hover {
+    transform: scale(1.2)
+}
+
 .accessoriesIndex {
     position: relative;
     margin: 0;
     padding: 0;
+    overflow: hidden
 }
+
 .miniTitleImageRun {
     position: absolute;
     top: 200px;
@@ -485,32 +535,47 @@ body {
     padding: 10px;
     font-family: Courier New, monospace;
     font-size: 27px;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-delay: 0s;
+    transition-timing-function: ease;
 }
+    .miniTitleImageRun:hover {
+        color: orange;
+        padding: 17px;
+    }
+    .miniTitleImageRun:hover {
+        color: orange;
+    }
 
 .adminPanelImage {
     width: 150px;
     height: 150px;
 }
-table{
+
+table {
     border: 2px solid #212322;
     height: 150px;
-    width:100%;
-    padding:0;
-    
+    width: 100%;
+    padding: 0;
 }
+
 td {
     border: 2px solid #212322;
     padding: 0;
-    text-align:center;
+    text-align: center;
 }
-.firstTD{
+
+.firstTD {
     width: 150px;
-    height:150px;
+    height: 150px;
 }
-.bodyAdmin{
+
+.bodyAdmin {
     padding: 0;
     margin: 20px;
 }
+
 .catalogProduct {
     width: 300px;
     height: 300px;
@@ -518,24 +583,28 @@ td {
     justify-content: center;
     align-items: center;
 }
+
 .catalogItems {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     margin-top: 40px;
 }
+
 .catalogItem {
     border: 1px solid #e8e8e8;
     border-radius: 4px;
     margin: 5px
 }
+
 .catalogMiniTitle {
     width: 300px;
     height: 40px;
-    text-align:center;
-    margin:5px 5px;
-    color:black;
+    text-align: center;
+    margin: 5px 5px;
+    color: black;
 }
+
 .catalogImages {
     width: 315px;
     height: 315px;
@@ -543,8 +612,8 @@ td {
     justify-content: center;
     align-items: center;
 }
+
 .buttonCatalogToBasket {
-    
     box-shadow: inset 0px 1px 0px 0px #5A6169;
     background: linear-gradient(to bottom, #5A6169 5%, #5A6169 100%);
     background-color: #5A6169;
@@ -559,19 +628,23 @@ td {
     text-decoration: none;
     text-shadow: 0px 1px 0px #2b665e;
 }
+
     .buttonCatalogToBasket:hover {
         background: black;
         color: orange;
     }
+
 .buttonCatalog {
     display: flex;
     justify-content: center;
     margin: 7px 5px;
 }
+
 section {
     display: flex;
     padding: 0 5vw;
 }
+
 section__account {
     width: 100%;
     flex-direction: column;
