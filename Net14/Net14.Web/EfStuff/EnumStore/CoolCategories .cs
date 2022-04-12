@@ -6,6 +6,8 @@
         Winter,
         Gumshoes,
         Snekers,
-        Football
+        Football,
+        Accessories,
+        Bags
     }
 }

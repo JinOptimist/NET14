@@ -52,5 +52,9 @@ namespace Net14.Web.EfStuff.Repositories
         {
             return _dbSet.Any();
         }
+        public void SaveList(List<T> models)
+            => models.ForEach(Save);
+        
     }
+    
 }
