@@ -104,7 +104,8 @@ namespace Net14.Web
                 new FriendRequestService(
                     x.GetService<UserFriendRequestRepository>(),
                     x.GetService<SocialUserRepository>()));
-
+            services.AddScoped<CurrencyService>(x =>
+                new CurrencyService());
             services.AddHttpContextAccessor();
 
             services.AddControllersWithViews();
