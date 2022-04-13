@@ -1,4 +1,5 @@
-﻿
+﻿@using Net14.Web.Services;
+@inject UserService UserService
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +29,17 @@
             @if (User.Identity.IsAuthenticated)
             {
                 <li class="navigation-element"><a href="/SocialAuthentication/SignOut">Sign out</a></li>
-                <li class="navigation-element" id="notification-icon" onclick="location.href='/Social/Notification'" ;></li>
+                if (UserService.GetUsersNotifications() > 0)
+                {
+                    <li class="navigation-element" id="notification-icon" onclick="location.href='/Social/Notification'" ;>
+                        <span class="badge">@UserService.GetUsersNotifications()</span>
+                    </li>
+                }
+                else
+                {
+                    <li class="navigation-element" id="notification-icon" onclick="location.href='/Social/Notification'"></li>
+                }
+
             }
             else
             {

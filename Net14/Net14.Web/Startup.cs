@@ -95,7 +95,8 @@ namespace Net14.Web
             services.AddScoped<UserService>(x =>
                 new UserService(
                     x.GetService<SocialUserRepository>(),
-                    x.GetService<IHttpContextAccessor>()));
+                    x.GetService<IHttpContextAccessor>(),
+                    x.GetService<IMapper>()));
                     
             services.AddScoped<UserFriendRequestRepository>(x =>
                 new UserFriendRequestRepository(x.GetService<WebContext>()));

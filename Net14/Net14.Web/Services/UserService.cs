@@ -5,6 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Net14.Web.Models.SocialModels;
+using Net14.Web.Models;
+using AutoMapper;
+using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 
 namespace Net14.Web.Services
 {
@@ -12,13 +16,16 @@ namespace Net14.Web.Services
     {
         private SocialUserRepository _socialUserRepository;
         private IHttpContextAccessor _httpContextAccessor;
+        private IMapper _mapper;
 
         public UserService(
             SocialUserRepository socialUserRepository,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            IMapper mapper)
         {
             _socialUserRepository = socialUserRepository;
             _httpContextAccessor = httpContextAccessor;
+            _mapper = mapper;
         }
 
         public UserSocial GetCurrent()
@@ -39,6 +46,26 @@ namespace Net14.Web.Services
             var user = _socialUserRepository.Get(id);
 
             return user;
+        }
+
+        public int GetUsersNotifications() 
+        {
+            var currentUser = GetCurrent();
+            var res = currentUser.FriendRequestReceived.Where(req => req.FriendRequestStatus == FriendRequestStatus.Pending).Count();
+            return res;
+        }
+
+        public List<SocialUserViewModel> GetUserToRecSection() 
+        {
+            var currentUser = GetCurrent();
+            if (currentUser == null) 
+            {
+                var model = _mapper.Map<List<SocialUserViewModel>>(_socialUserRepository.GetAll());
+                return model;
+            }
+
+            var modelNoCurrent = _mapper.Map<List<SocialUserViewModel>>(_socialUserRepository.GetAll().Where(user => user.Id != currentUser.Id));
+            return modelNoCurrent;
         }
 
     }

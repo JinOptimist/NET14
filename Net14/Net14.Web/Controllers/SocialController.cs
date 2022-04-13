@@ -61,18 +61,29 @@ namespace Net14.Web.Controllers
             var currentUser = _userService.GetCurrent();
             var dbUsers = _socialUserRepository.GetAll();
 
-            var model = _mapper.Map<List<SocialUserViewModel>>(dbUsers);
-
-            for (int i = 0; i < dbUsers.Count; i++) 
+            if (currentUser == null) 
             {
-                if (currentUser.Friends.Contains(dbUsers[i])) 
-                {
-                    model[i].IsFriend = true;
-                }
+                var model = _mapper.Map<List<SocialUserViewModel>>(dbUsers);
+                return View(model);
+
             }
 
+            var modelNoCurrent = dbUsers.Where(user => user.Id != currentUser.Id)
+                .Select(db =>
+                {
+                    if (currentUser.Friends.Contains(db)) 
+                    {
+                        var mod = _mapper.Map<SocialUserViewModel>(db);
+                        mod.IsFriend = true;
+                        return mod;
+                    }
+                    var modNotFriend = _mapper.Map<SocialUserViewModel>(db);
+                    return modNotFriend;
 
-            return View(model);
+                }).ToList();
+
+
+            return View(modelNoCurrent);
         }
 
         [HttpPost]
@@ -81,6 +92,7 @@ namespace Net14.Web.Controllers
 
             var users = _socialUserRepository.GetBy(FullName, Age, Country, City, FirstName, LastName);
             var model = _mapper.Map<List<SocialUserViewModel>>(users);
+
 
             return View(model);
         }

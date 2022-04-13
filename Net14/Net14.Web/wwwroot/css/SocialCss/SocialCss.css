@@ -528,7 +528,7 @@ a {
 }
 
 #notification-icon {
-
+    position: relative;
 }
 .friend-status {
     display: flex;
@@ -538,4 +538,26 @@ a {
     height: 36px;
     border: 1px solid grey;
     border-radius: 92px;
+}
+
+
+.badge {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 16px;
+    right: -8px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.notifications-title {
+    font-size: 25px;
+    margin-bottom: 50px;
 }
