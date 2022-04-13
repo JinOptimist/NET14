@@ -12,5 +12,23 @@ namespace Net14.Web.EfStuff.Repositories
         public SocialGroupRepository(WebContext context):base(context)
         {
         }
+
+        public void RemoveMember(int groupId, int userId) 
+        {
+            var group = _webContext.GroupSocial
+                .FirstOrDefault(group => group.Id == groupId);
+            var user = _webContext.Users.FirstOrDefault(user => user.Id == userId);
+            group.Members.Remove(user);
+            user.Groups.Remove(group);
+            _webContext.SaveChanges();
+        }
+
+        public List<GroupSocial> GetGroupsByName(string name) 
+        {
+            var groups = _webContext.GroupSocial
+                .Where(group => group.Name.ToLower() == name.ToLower()).ToList();
+
+            return groups;
+        }
     }
 }
