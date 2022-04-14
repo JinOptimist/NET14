@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Net14.Web.EfStuff.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Net14.Web.Services;
+using SocialWeb;
 
 namespace Net14.Web.Controllers
 {
@@ -32,6 +33,7 @@ namespace Net14.Web.Controllers
             _userService = userService;
         }
         
+        [HttpGet]
         public IActionResult Index()
         {
             var postArr = _socialPostRepository.GetAll();
@@ -68,6 +70,22 @@ namespace Net14.Web.Controllers
 
 
             return View(viewPost);
+        }
+        [HttpPost]
+        public IActionResult Index(string ImageUrl, string CommentsOfOwner)
+        {
+            var user = _userService.GetCurrent();
+            var post = new PostSocial()
+            {
+                CommentOfUser = CommentsOfOwner,
+                ImageUrl = ImageUrl,
+                User = user
+            };
+            _socialPostRepository.Save(post);
+
+
+
+            return Redirect("Index");
         }
 
         [Authorize]
@@ -184,27 +202,7 @@ namespace Net14.Web.Controllers
             _socialCommentRepository.Save(comment);
             return RedirectToAction("Index");
         }
-        [HttpGet]
-        public IActionResult AddPost()
-        {
-            return View();
-        }
+        
 
-        [Authorize]
-        [HttpPost]
-        public IActionResult AddPost(SocialPostViewModel viewModel)
-        {
-            var user = _userService.GetCurrent();
-            var dbPost = new PostSocial()
-            {
-                User = user,
-                ImageUrl = viewModel.ImageUrl,
-                CommentOfUser = viewModel.CommentsOfOwner
-            };
-
-            _socialPostRepository.Save(dbPost);
-
-            return Redirect("Index");
-        }
     }
 }
