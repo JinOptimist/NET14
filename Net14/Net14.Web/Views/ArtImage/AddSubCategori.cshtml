@@ -1,0 +1,25 @@
+﻿@using Net14.Web.Models.ArtImage
+@model AddSubCategoriVewModel
+
+@{
+	Layout = "/Views/Shared/_LayoutArtImage.cshtml";
+}
+
+
+
+
+<form action="/ArtImage/AddSubCategori" method="post">
+
+	@Html.HiddenFor(x=>x.CategoriId)
+	<div>
+		Name: @Html.TextBoxFor(x => x.Name)
+	</div>
+
+	<div>
+		<input type="submit" value="Создать ПодКатегорию" />
+	</div>
+</form>
+
+
+
+

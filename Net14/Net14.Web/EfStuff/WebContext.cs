@@ -15,8 +15,6 @@ namespace Net14.Web.EfStuff
 
         public DbSet<ImageComment> ImageComments { get; set; }
 
-     
-
         public WebContext(DbContextOptions options) : base(options)
         {
         }

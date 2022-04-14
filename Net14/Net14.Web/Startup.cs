@@ -27,8 +27,9 @@ namespace Net14.Web
         {
             var connectString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=WebMaze14;Integrated Security=True;";
             services.AddDbContext<WebContext>(x => x.UseSqlServer(connectString));
-            
 
+            services.AddScoped<SubCatigoriRepository>(x =>
+                new SubCatigoriRepository(x.GetService<WebContext>()));
 
             services.AddScoped<CatigoriRepository>(x =>
                 new CatigoriRepository(x.GetService<WebContext>()));

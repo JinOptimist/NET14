@@ -1,0 +1,17 @@
+﻿@using Net14.Web.Models.ArtImage
+@model List<AddCategoriVewModel>
+@{
+    Layout = "/Views/Shared/_LayoutArtImage.cshtml";
+}
+
+
+ @foreach (var categorViewModel in Model)
+   {
+       <div>
+          <a href='/ArtImage/Categories?id=@categorViewModel.Id'>
+               @categorViewModel.Name
+           </a>
+
+            
+       </div>
+   }

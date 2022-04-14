@@ -17,62 +17,39 @@ namespace Net14.Web.Controllers
     {
 
         private CatigoriRepository _catigoriRepository;
-       
+        private SubCatigoriRepository _subcatigoriRepository;
 
-        public ArtImageController(CatigoriRepository catigoriRepository)
+
+        public ArtImageController(CatigoriRepository catigoriRepository, SubCatigoriRepository subcatigoriRepository)
         {
             _catigoriRepository = catigoriRepository;
-            
-        }
+            _subcatigoriRepository = subcatigoriRepository;
 
-
-
+    }
+ 
         public IActionResult Index()
         {
-            return View();
-        }
-        public IActionResult AddAnimeImage()
-        {
-            return View();
-        }
-        public IActionResult AddCarImage()
-        {
-            return View();
-        }
-        public IActionResult AddMusicImage()
-        {
-            return View();
-        }
-
-        public IActionResult CategoriesAnime()
-        {
-            return View();
-        }
-        public IActionResult CategoriesCar()
-        {
-            return View();
-        }
-        public IActionResult CategoriesMusic()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public IActionResult AddImage()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult AddImage(AddImageVewModel viewModel)
-        {
-            var dbImage = new Image()
-            {
-                Name = viewModel.Name,
-               
-            };
 
             return View();
+
+        }
+
+        public IActionResult Categories(int id)
+        {
+            var cat = _catigoriRepository.Get(id);
+
+            var subСategories = cat.SubСategories;
+
+            
+            var viewModels = subСategories
+                .Select(dbSubCategori => new AddSubCategoriVewModel()
+                {
+                    Id = dbSubCategori.Id,
+                    Name = dbSubCategori.Name
+                })
+                .ToList();
+
+            return View(viewModels);
 
         }
 
@@ -86,6 +63,12 @@ namespace Net14.Web.Controllers
         [HttpPost]
         public IActionResult AddCategori(AddCategoriVewModel viewModel)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
             var dbCategori = new Сategories()
             {
                 Name = viewModel.Name,
@@ -95,5 +78,46 @@ namespace Net14.Web.Controllers
             return View();
 
         }
+
+
+        public IActionResult ShowCategories()
+        {
+            var dbCategori = _catigoriRepository.GetAll();
+
+            var viewModels = dbCategori
+                .Select(dbCategori => new AddCategoriVewModel()
+                {
+                    Id = dbCategori.Id,
+                    Name = dbCategori.Name
+                })
+                .ToList();
+
+            return View(viewModels);
+        }
+
+        [HttpGet]
+        public IActionResult AddSubCategori(int id)
+        {
+            var viewModel = new AddSubCategoriVewModel();
+            viewModel.CategoriId = id;
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult AddSubCategori(AddSubCategoriVewModel viewModel)
+        {
+            var categori = _catigoriRepository.Get(viewModel.CategoriId);
+
+            var dbSubCategori = new SubСategories()
+            {
+                Name = viewModel.Name,
+                Catigories = categori
+            };
+
+            _subcatigoriRepository.Save(dbSubCategori);
+            return View();
+
+        }
+
     }
 }

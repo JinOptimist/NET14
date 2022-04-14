@@ -1,16 +1,24 @@
-﻿
+﻿@using Net14.Web.Models.ArtImage
+@model AddCategoriVewModel
+
 @{
     Layout = "/Views/Shared/_LayoutArtImage.cshtml";
 }
 
 
 
+
 <form action="/ArtImage/AddCategori" method="post">
     <div>
         Name: @Html.TextBoxFor(x => x.Name)
+        @Html.ValidationMessageFor(x=>x.Name)
     </div>
    
     <div>
-        <input type="submit" value="Создать" />
+        <input type="submit" value="Создать Категорию" />
     </div>
 </form>
+
+
+
+
