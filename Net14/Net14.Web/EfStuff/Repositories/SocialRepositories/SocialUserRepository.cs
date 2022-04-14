@@ -62,5 +62,10 @@ namespace Net14.Web.EfStuff.Repositories
 
         public bool IsEmailExist(string email)
             => _dbSet.Any(x => x.Email == email);
+
+        public bool Exists(int userId) 
+        {
+            return _webContext.Users.Any(user => user.Id == userId);
+        }
     }
 }

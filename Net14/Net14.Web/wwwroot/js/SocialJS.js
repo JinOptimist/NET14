@@ -63,7 +63,3 @@ $(document).ready(function () {
         }
     })
 })
-
-
-
-

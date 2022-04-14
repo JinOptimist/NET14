@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Net14.Web.Models
 {
-    public class SocialUserRegistration
+    public class SocialUserRegistrationViewModel
     {
         [Required(ErrorMessage = "Enter Email!")]
         [IsUniqEmail]

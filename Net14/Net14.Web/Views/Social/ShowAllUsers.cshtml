@@ -26,7 +26,7 @@
     {
         <div class="usersCenter">
             <div class="findUsers">
-                <div class="find-recomendation-element-menu" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = user.Id})'">
+                <div class="find-recomendation-element-menu">
 
                     <div class="user-name-and-photo">
                         <div class="find-user-photo">
@@ -39,6 +39,16 @@
                     <div class="place-of-user">
                         <div>Age: @user.Age</div>
                         <div>@user.Country, @user.City</div>
+                    </div>
+                    <div class="add-to-friends-button-container" onclick="location.href='@Url.Action("AddFriend", "Social", new {friendId = user.Id})'">
+                        @if (user.IsFriend)
+                        {
+                            <div class="friend-status">Friend</div>
+                        }
+                        else
+                        {
+                            <div class="add-to-friends-button">Add to friends</div>
+                        }
                     </div>
                 </div>
             </div>
