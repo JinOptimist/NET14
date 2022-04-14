@@ -1,0 +1,31 @@
+﻿@using Net14.Web.Models
+@model AddProductVewModel
+
+@{
+    Layout = "/Views/Shared/_LayoutStore.cshtml";
+}
+
+<form action="/Store/AddProduct" method="post">
+    <div>
+        Name: @Html.TextBoxFor(x => x.Name)
+    </div>
+    <div>
+        Url : @Html.TextBoxFor(x => x.Url)
+    </div>
+    <div>
+        Category: @Html.TextBoxFor(x => x.Category)
+    </div>
+    <div>
+        Quantity: @Html.TextBoxFor(x => x.Quantity)
+    </div>
+     <div>
+        Material: @Html.TextBoxFor(x => x.Material)
+    </div>
+    <div>
+        Price: @Html.TextBoxFor(x => x.Price)
+    </div>
+   
+    <div>
+        <input type="submit" value="Создать" />
+    </div>
+</form>

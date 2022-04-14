@@ -12,7 +12,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Net14.Web.Services;
+using AutoMapper;
+using Net14.Web.Models.gallery;
+using Net14.Web.EfStuff.DbModel;
+
 
 namespace Net14.Web
 {
@@ -33,12 +36,32 @@ namespace Net14.Web
             services.AddDbContext<WebContext>(x => x.UseSqlServer(connectString));
 
             services.AddAuthentication(AuthName)
-                .AddCookie(AuthName, config =>
-                {
-                    config.LoginPath = "/SocialAuthentication/Autorization";
-                    config.AccessDeniedPath = "/User/AccessDenied";
-                    config.Cookie.Name = "SocialMedeiCool";
-                });
+             .AddCookie(AuthName, config =>
+             {
+                 config.LoginPath = "/SocialAuthentication/Autorization";
+                 config.AccessDeniedPath = "/User/AccessDenied";
+                 config.Cookie.Name = "SocialMedeiCool";
+             });
+
+            RegisterMapper(services);
+
+            services.AddScoped<ImageRepository>(x =>
+                new ImageRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<ImageCommentRepository>(x =>
+                new ImageCommentRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<ProductRepository>(x =>
+               new ProductRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<SizeRepository>(x =>
+              new SizeRepository(x.GetService<WebContext>()));
+            services.AddScoped<BasketRepository>(x =>
+
+              new BasketRepository(x.GetService<WebContext>()));
+
+            services.AddScoped<StoreImageRepository>(x =>
+              new StoreImageRepository(x.GetService<WebContext>()));
 
             services.AddScoped<DaysRepository>(x =>
                 new DaysRepository(x.GetService<WebContext>()));
@@ -68,7 +91,7 @@ namespace Net14.Web
 
             services.AddTransient<YouTubeVideoGetter>();
 
-            services.AddScoped<UserService>(x => 
+            services.AddScoped<UserService>(x =>
                 new UserService(
                     x.GetService<SocialUserRepository>(),
                     x.GetService<IHttpContextAccessor>()));
@@ -76,6 +99,25 @@ namespace Net14.Web
             services.AddHttpContextAccessor();
 
             services.AddControllersWithViews();
+        }
+
+        private void RegisterMapper(IServiceCollection services)
+        {
+            var provider = new MapperConfigurationExpression();
+
+            provider.CreateMap<AddImageVewModel, Image>();
+
+            provider.CreateMap<Image, ImageUrlVewModel>()
+                .ForMember(nameof(ImageUrlVewModel.Comments),
+                opt => opt
+                    .MapFrom(dbImage => 
+                        dbImage.Comments
+                            .Select(c => c.Text)
+                            .ToList()));
+
+            var mapperConfiguration = new MapperConfiguration(provider);
+            var mapper = new Mapper(mapperConfiguration);
+            services.AddSingleton<IMapper>(x => mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
