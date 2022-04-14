@@ -46,9 +46,13 @@
             <li class="navigation-element" id="settings-icon"></li>
         </ul>
         <div class="settings-div" id="header-settings">
-            <div class="elements-from-hidden" onclick="location.href='/Social/Settings'">User settings</div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="elements-from-hidden" onclick="location.href='/Social/Settings'">User settings</div>
+                <div class="elements-from-hidden" onclick="location.href='/SocialFile/MyFiles';">My Files</div>
+
+            }
             <div class="elements-from-hidden" onclick="location.href='/SocialCurrency/GetCurrency'">Currency</div>
-            <div class="elements-from-hidden" onclick="location.href='/SocialFile/MyFiles';">My Files</div>
             <div class="elements-from-hidden" onclick="location.href='/SocialGames/FindGame';">Games</div>
             <div class="elements-from-hidden" onclick="location.href='/Home/Index';"> Start page </div>
             <div class="elements-from-hidden" onclick="location.href='/SocialVideos/GetVideos';">Learn C#</div>
@@ -62,7 +66,14 @@
                     <div class="menu-element" onclick="location.href='/SocialGroups/GetGroups';">Groups</div>
                     <div class="menu-element" onclick="location.href='/Social/ShowAllUsers';">Find user</div>
                     <div class="menu-element" onclick="location.href='/Social/Friends';">Friends</div>
-                    <div class="menu-element" onclick="location.href='/SocialAuthentication/Autorization';">Sign in</div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="menu-element"  onclick="location.href='/SocialAuthentication/SignOut'">Sign out</div>
+                    }
+                    else
+                    {
+                        <div class="menu-element" onclick="location.href='/SocialAuthentication/Autorization';">Sign in</div>
+                    }
                 </div>
                 <div class="menu-recomendations-user">
                     <div class="menu-recomendation-title">Recommended accounts</div>
