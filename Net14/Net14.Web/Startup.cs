@@ -265,7 +265,11 @@ namespace Net14.Web
 
             provider.CreateMap<FileSocial, FilesViewModel>();
 
-            provider.CreateMap<UserSocial, SocialUserRecomendationViewModel>();
+            provider.CreateMap<UserSocial, SocialUserSettingsViewModel>();
+
+            provider.CreateMap<SocialUserSettingsViewModel, UserSocial>();
+
+
 
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);

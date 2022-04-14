@@ -65,9 +65,32 @@ namespace Net14.Web.Controllers
         }
 
         [Authorize]
+        [HttpGet]
         public IActionResult Settings()
         {
-            return View();
+            var currentUser = _userService.GetCurrent();
+            var model = _mapper.Map<SocialUserSettingsViewModel>(currentUser);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Settings(SocialUserSettingsViewModel socialUserSettingsViewModel) 
+        {
+            if (ModelState.IsValid) 
+            {
+                var currentUser = _userService.GetCurrent();
+
+                currentUser.Age = socialUserSettingsViewModel.Age;
+                currentUser.City = socialUserSettingsViewModel.City;
+                currentUser.Country = socialUserSettingsViewModel.Country;
+                currentUser.FirstName = socialUserSettingsViewModel.FirstName;
+                currentUser.LastName = socialUserSettingsViewModel.LastName;
+
+                _socialUserRepository.Save(currentUser);
+            }
+
+            return RedirectToAction("Settings");
         }
         [HttpGet]
         public IActionResult ShowAllUsers() 
