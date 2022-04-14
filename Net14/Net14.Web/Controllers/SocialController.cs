@@ -50,12 +50,12 @@ namespace Net14.Web.Controllers
             return View(viewPost);
         }
         [HttpPost]
-        public IActionResult Index(string ImageUrl, string CommentsOfOwner)
+        public IActionResult Index(string ImageUrl, string CommentOfUser)
         {
             var user = _userService.GetCurrent();
             var post = new PostSocial()
             {
-                CommentOfUser = CommentsOfOwner,
+                CommentOfUser = CommentOfUser,
                 ImageUrl = ImageUrl,
                 User = user
             };
