@@ -54,22 +54,14 @@
     <div class="similar">
         <div class="similartext"> Похожие товары </div>
         <div class="similarproducts">
-            <div>
-                <div><img src="/images/Store/15.jpg" class="similarproduct" /></div>
-                <div class="textimage">Adidas Originals Supercourt 2 </div>
-            </div>
-            <div>
-                <div><img src="/images/Store/16.jpg" class="similarproduct" /></div>
-                <div class="textimage">Nike Air Force 1 LV8 W White</div>
-            </div>
-            <div>
-                <div><img src="/images/Store/17.jpg" class="similarproduct" /></div>
-                <div class="textimage">Nike Air Force 1 LV8 1 HO20 W</div>
-            </div>
-            <div>
-                <div><img src="/images/Store/18.jpg" class="similarproduct" /></div>
-                <div class="textimage">Nike Air Max 270 React W Grey</div>
-            </div>
+            @foreach (var image in Model.RandomImages)
+            {
+                <a href="/Store/Shoes?id=@image.ProductId"><div>
+                    <img src="@image.Url" class="similarproduct" />
+                    <div class="textimage">@image.Brand @image.Name</div>
+                </div></a>
+            }
+            
         </div>
     </div>
 </body>

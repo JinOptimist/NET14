@@ -1,4 +1,5 @@
-﻿
+﻿@using Net14.Web.Services;
+@inject UserService UserService
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,19 +21,35 @@
         <div class="logo">
             <img src="~/images/Social/j.png">
         </div>
-        <a href="/Social/ShoWSecnodIndex">Ссылка на второй Layout</a>
         <div class="header-search">
             <input placeholder="Search">
         </div>
         <ul class="navigation">
             <li class="navigation-element"><a href="/Social/Index">Home</a></li>
-            <li class="navigation-element"><a href="/SocialAuthentication/Registration">Sign up</a></li>
-            <li class="navigation-element" id="settings-icon">
-            </li>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li class="navigation-element"><a href="/SocialAuthentication/SignOut">Sign out</a></li>
+                if (UserService.GetUsersNotifications() > 0)
+                {
+                    <li class="navigation-element" id="notification-icon" onclick="location.href='/Social/Notification'" ;>
+                        <span class="badge">@UserService.GetUsersNotifications()</span>
+                    </li>
+                }
+                else
+                {
+                    <li class="navigation-element" id="notification-icon" onclick="location.href='/Social/Notification'"></li>
+                }
+
+            }
+            else
+            {
+                <li class="navigation-element"><a href="/SocialAuthentication/Autorization">Sign in</a></li>
+            }
+            <li class="navigation-element" id="settings-icon"></li>
         </ul>
         <div class="settings-div" id="header-settings">
             <div class="elements-from-hidden" onclick="location.href='/Social/Settings'">User settings</div>
-            <div class="elements-from-hidden" onclick="location.href='/Social/AboutUs';">About us</div>
+            <div class="elements-from-hidden" onclick="location.href='/SocialCurrency/GetCurrency'">Currency</div>
             <div class="elements-from-hidden" onclick="location.href='/SocialFile/MyFiles';">My Files</div>
             <div class="elements-from-hidden" onclick="location.href='/SocialGames/FindGame';">Games</div>
             <div class="elements-from-hidden" onclick="location.href='/Home/Index';"> Start page </div>
@@ -46,6 +63,7 @@
                     <div class="menu-element">Recomendation</div>
                     <div class="menu-element" onclick="location.href='/SocialGroups/GetGroups';">Groups</div>
                     <div class="menu-element" onclick="location.href='/Social/ShowAllUsers';">Find user</div>
+                    <div class="menu-element" onclick="location.href='/Social/Friends';">Friends</div>
                     <div class="menu-element" onclick="location.href='/SocialAuthentication/Autorization';">Sign in</div>
                 </div>
                 <div class="menu-recomendations-user">

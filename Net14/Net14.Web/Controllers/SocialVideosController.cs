@@ -24,10 +24,10 @@ namespace Net14.Web.Controllers
     public class SocialVideosController : Controller
     {
         private VideoSocialRepository _videoSocialRepository;
-        private YouTubeVideoGetter _youTubeVideoGetter;
+        private YouTubeVideoService _youTubeVideoGetter;
         private const string chaneId = "UCJC0-trcxlfV8uuygkbFDHg";
 
-        public SocialVideosController(VideoSocialRepository videoSocial, YouTubeVideoGetter youTubeVideoGetter) 
+        public SocialVideosController(VideoSocialRepository videoSocial, YouTubeVideoService youTubeVideoGetter) 
         {
 
             _videoSocialRepository = videoSocial;

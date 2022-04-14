@@ -214,12 +214,12 @@ footer
 
 }
 
-.header-search
-{
+.header-search {
+
     display: flex;
     align-items: center;
     width: 250px;
-    
+    margin-left: 200px;
 }
 
 .header input
@@ -322,11 +322,20 @@ footer
     margin-top: 20px;
 }
 
-.navigation-element:last-child {
+#settings-icon {
     display: flex;
     justify-content: center;
     align-items: center;
     background: url(../../images/Social/settings.png);
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+}
+#notification-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url(../../images/Social/notification-bell-svgrepo-com.svg);
     width: 30px;
     height: 30px;
     background-size: cover;
@@ -483,9 +492,72 @@ input[type=submit]:hover{
 * {
     text-decoration: none;
 }
-
+a {
+    color: #0000FF;
+}
 .menu-container {
     display: flex;
     min-width: 200px;
     justify-content: center;
+}
+
+.friends-header {
+    font-size: 25px;
+}
+.add-to-friends-button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.add-to-friends-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 36px;
+    border: 1px solid grey;
+    border-radius: 92px;
+    transition: background 0.3s ease;
+    transition: box-shadow 0.3s ease;
+}
+
+.add-to-friends-button:hover {
+    background: rgb(22 222 48);
+    color: white;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+#notification-icon {
+    position: relative;
+}
+.friend-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 36px;
+    border: 1px solid grey;
+    border-radius: 92px;
+}
+
+
+.badge {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 16px;
+    right: -8px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.notifications-title {
+    font-size: 25px;
+    margin-bottom: 50px;
 }

@@ -9,6 +9,7 @@ using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.EfStuff.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using AutoMapper;
 
 namespace Net14.Web.Controllers
 {
@@ -16,8 +17,10 @@ namespace Net14.Web.Controllers
 
     {
         private SocialUserRepository _socialUserRepository;
-        public SocialAuthenticationController(SocialUserRepository socialUserRepository)
+        private IMapper _mapper;
+        public SocialAuthenticationController(SocialUserRepository socialUserRepository, IMapper mapper)
         {
+            _mapper = mapper;
             _socialUserRepository = socialUserRepository;
         }
 
@@ -28,21 +31,25 @@ namespace Net14.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Registration(SocialUserRegistrationViewModel user)
+        public async Task<IActionResult> Registration(SocialUserRegistrationViewModel user)
         {
             if (ModelState.IsValid)
             {
-                var userDb = new UserSocial()
-                {
-                    Age = user.Age,
-                    City = user.City,
-                    Country = user.Country,
-                    Email = user.Email,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Password = user.Password,
-                };
+                var userDb = _mapper.Map<UserSocial>(user);
                 _socialUserRepository.Save(userDb);
+
+                var claims = new List<Claim>() {
+                new Claim("Id", userDb.Id.ToString()),
+                new Claim("Name", userDb.FirstName),
+                new Claim(ClaimTypes.AuthenticationMethod, Startup.AuthName)
+                };
+            
+
+                var identity = new ClaimsIdentity(claims, Startup.AuthName);
+
+                var principal = new ClaimsPrincipal(identity);
+
+                await HttpContext.SignInAsync(principal);
 
                 return RedirectToRoute("default", new { controller = "Social", action = "ShowPagesProfile", id = userDb.Id });
             }
@@ -97,6 +104,12 @@ namespace Net14.Web.Controllers
                 return RedirectToRoute("default", new { controller = "Social", action = "ShowPagesProfile", id = user.Id });
             }
             return Redirect(userViewModel.ReturnUrl);
+        }
+
+        public async Task<IActionResult> SignOut() 
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToRoute("default", new { controller = "Social", action = "Index"});
         }
     }
 }

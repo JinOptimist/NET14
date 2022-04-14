@@ -10,10 +10,10 @@
         <div class="content-element-card" id=@post.Id>
             <div class="user-info">
                 <div class="user-photo">
-                    <img src=@post.UserPhotoUrl class="user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">
+                    <img src=@post.UserPhoto class="user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">
                 </div>
                 <div class="user-name">
-                    <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@post.NameOfUser</p>
+                    <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@post.FirstName</p>
                     <p>posted:</p>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                 <img src=@post.ImageUrl class="post-image">
             </div>
             <div class="footer-of-post">
-                @post.CommentsOfOwner
+                @post.CommentsOfUser
             </div>
             <div class="post-operations">
                 <div class="operations" id="heart">
@@ -63,5 +63,3 @@
     </div>
 
 }
-
-

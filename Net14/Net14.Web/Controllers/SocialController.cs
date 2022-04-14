@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 using Net14.Web.EfStuff.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Net14.Web.Services;
-
+using AutoMapper;
+using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 namespace Net14.Web.Controllers
 {
     public class SocialController : Controller
@@ -20,52 +21,31 @@ namespace Net14.Web.Controllers
         private SocialPostRepository _socialPostRepository;
         private SocialCommentRepository _socialCommentRepository;
         private UserService _userService;
+        private IMapper _mapper;
+        private FriendRequestService _friendRequestService;
+        private UserFriendRequestRepository _userFriendRequestRepository;
 
-        public SocialController(SocialUserRepository socialUserRepository, 
+        public SocialController(SocialUserRepository socialUserRepository,
             SocialPostRepository socialPostRepository,
             SocialCommentRepository socialCommentRepository,
-            UserService userService)
+            UserService userService, IMapper mapper,
+            FriendRequestService friendRequestService,
+            UserFriendRequestRepository userFriendRequestRepository)
         {
             _socialPostRepository = socialPostRepository;
             _socialUserRepository = socialUserRepository;
             _socialCommentRepository = socialCommentRepository;
             _userService = userService;
+            _mapper = mapper;
+            _friendRequestService = friendRequestService;
+            _userFriendRequestRepository = userFriendRequestRepository;
         }
 
         public IActionResult Index()
         {
+
             var postArr = _socialPostRepository.GetAll();
-            var viewPost = postArr.Select(post =>
-             new SocialPostViewModel()
-             {
-                 Id = post.Id,
-                 ImageUrl = post.ImageUrl,
-                 CommentsOfOwner = post.CommentOfUser,
-                 UserId = post.User.Id,
-                 Likes = post.Likes,
-                 TypePost = post.TypePost,
-                 NameOfUser = post.User.FirstName,
-                 UserPhotoUrl = post.User.UserPhoto,
-                 Comments = post.Comments.Select(comm =>
-                 new SocialCommentViewModel()
-                 {
-                     User = new SocialUserViewModel()
-                     {
-                         Age = comm.User.Age,
-                         City = comm.User.City,
-                         Country = comm.User.Country,
-                         Email = comm.User.Email,
-                         FirstName = comm.User.FirstName,
-                         Id = comm.User.Id,
-                         LastName = comm.User.LastName,
-                         UserPhoto = comm.User.UserPhoto
-                     },
-                     Text = comm.Text,
-                     DateOfPosting = comm.DateOfPosting
-                 }).ToList()
-             }).ToList();
-
-
+            var viewPost = _mapper.Map<List<SocialPostViewModel>>(postArr);
 
             return View(viewPost);
         }
@@ -76,44 +56,45 @@ namespace Net14.Web.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult ShowAllUsers()
+        public IActionResult ShowAllUsers() 
         {
-            var users = _socialUserRepository.GetAll().Select(user =>
-            new SocialUserViewModel()
+            var currentUser = _userService.GetCurrent();
+            var dbUsers = _socialUserRepository.GetAll();
+
+            if (currentUser == null) 
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Age = user.Age,
-                City = user.City,
-                Country = user.Country,
-                Email = user.Email,
-                Id = user.Id,
-                UserPhoto = user.UserPhoto
-            }).ToList();
+                var model = _mapper.Map<List<SocialUserViewModel>>(dbUsers);
+                return View(model);
+
+            }
+
+            var modelNoCurrent = dbUsers.Where(user => user.Id != currentUser.Id)
+                .Select(db =>
+                {
+                    if (currentUser.Friends.Contains(db)) 
+                    {
+                        var mod = _mapper.Map<SocialUserViewModel>(db);
+                        mod.IsFriend = true;
+                        return mod;
+                    }
+                    var modNotFriend = _mapper.Map<SocialUserViewModel>(db);
+                    return modNotFriend;
+
+                }).ToList();
 
 
-
-            return View(users);
+            return View(modelNoCurrent);
         }
 
         [HttpPost]
         public IActionResult ShowAllUsers(string FullName, int Age, string Country, string City, string FirstName, string LastName)
         {
 
-            var userFind = _socialUserRepository.GetBy(FullName, Age, Country, City, FirstName, LastName)
-                .Select(user => new SocialUserViewModel()
-                {
-                    Age = user.Age,
-                    City = user.City,
-                    Country = user.Country,
-                    Email = user.Email,
-                    FirstName = user.FirstName,
-                    Id = user.Id,
-                    LastName = user.LastName,
-                    UserPhoto = user.UserPhoto
-                }).ToList();
+            var users = _socialUserRepository.GetBy(FullName, Age, Country, City, FirstName, LastName);
+            var model = _mapper.Map<List<SocialUserViewModel>>(users);
 
-            return View(userFind);
+
+            return View(model);
         }
 
 
@@ -134,15 +115,7 @@ namespace Net14.Web.Controllers
         {
 
             var user = _socialUserRepository.Get(id);
-
-            var model = new SocialProfileViewModel()
-            {
-                Age = user.Age,
-                FirstName = user.FirstName,
-                City = user.City,
-                Country = user.Country,
-                UserPhoto = user.UserPhoto
-            };
+            var model = _mapper.Map<SocialProfileViewModel>(user);
 
             return View(model);
         }
@@ -151,15 +124,7 @@ namespace Net14.Web.Controllers
         public IActionResult MyProfile()
         {
             var user = _userService.GetCurrent();
-
-            var model = new SocialProfileViewModel()
-            {
-                Age = user.Age,
-                FirstName = user.FirstName,
-                City = user.City,
-                Country = user.Country,
-                UserPhoto = user.UserPhoto
-            };
+            var model = _mapper.Map<SocialProfileViewModel>(user);
 
             return View(model);
         }
@@ -183,6 +148,58 @@ namespace Net14.Web.Controllers
 
             _socialCommentRepository.Save(comment);
             return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public IActionResult AddFriend(int friendId)
+        {
+            var currentUserId = _userService.GetCurrent().Id;
+            _friendRequestService.CreateFriendRequest(currentUserId, friendId);
+
+            return RedirectToAction("Index");
+        }
+        [Authorize]
+        public IActionResult Notification() 
+        {
+            var user = _userService.GetCurrent();
+            var requests = _userFriendRequestRepository.GetAll().Where(req => req.Receiver == user & 
+                            req.FriendRequestStatus == FriendRequestStatus.Pending);
+
+            var model = _mapper.Map<List<FriendRequestViewModel>>(requests);
+
+            return View(model);
+
+
+        }
+        [Authorize]
+        public IActionResult Friends() 
+        {
+            var currentUser = _userService.GetCurrent();
+
+            var friends = currentUser.Friends;
+
+            var model = _mapper.Map<List<SocialUserViewModel>>(friends);
+
+            return View(model);
+        }
+
+        [Authorize]
+        public IActionResult AcceptFriend(int friendId) 
+        {
+            var user = _userService.GetCurrent();
+            _friendRequestService.Accept(friendId, user.Id);
+
+            return Redirect("Notification");
+
+        }
+
+        [Authorize]
+        public IActionResult DeclineFriend(int friendId) 
+        {
+            var user = _userService.GetCurrent();
+            _friendRequestService.Decline(friendId, user.Id);
+            return Redirect("Notification");
+
         }
     }
 }

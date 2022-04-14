@@ -10,10 +10,10 @@ using Net14.Web.EfStuff.Repositories;
 using Net14.Web.Models;
 namespace Net14.Web.Services
 {
-    public class YouTubeVideoGetter
+    public class YouTubeVideoService
     {
         private VideoSocialRepository _videoSocialRepository;
-        public YouTubeVideoGetter(VideoSocialRepository videoSocialRepository) 
+        public YouTubeVideoService(VideoSocialRepository videoSocialRepository) 
         {
             _videoSocialRepository = videoSocialRepository; 
         }

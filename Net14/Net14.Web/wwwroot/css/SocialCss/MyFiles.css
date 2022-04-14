@@ -52,3 +52,6 @@
     border: 5px solid black;
     border-radius: 20px;
 }
+.field-validation-error{
+    color:red;
+}
