@@ -27,10 +27,10 @@ namespace Net14.Web.Models.CustomValidationAttribute
             return Validate(value.ToString());
         }
 
-        public bool Validate(string emailAddress)
+        private bool Validate(string emailAddress)
         {
             var regex = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
-            bool isValid = Regex.IsMatch(emailAddress, regex, RegexOptions.IgnoreCase) & emailAddress.Length > 0;
+            bool isValid = Regex.IsMatch(emailAddress, regex, RegexOptions.IgnoreCase) && emailAddress.Length > 0;
             return isValid;
         }
     }
