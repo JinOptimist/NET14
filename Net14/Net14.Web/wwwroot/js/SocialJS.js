@@ -63,3 +63,9 @@ $(document).ready(function () {
         }
     })
 })
+
+$(document).ready(function () {
+    $(".add-post-header").click(function () {
+        $("#form-add-post").slideToggle();
+    });
+});
