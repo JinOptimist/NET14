@@ -40,7 +40,7 @@ namespace Net14.Web.Controllers
             _friendRequestService = friendRequestService;
             _userFriendRequestRepository = userFriendRequestRepository;
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
 
@@ -48,6 +48,20 @@ namespace Net14.Web.Controllers
             var viewPost = _mapper.Map<List<SocialPostViewModel>>(postArr);
 
             return View(viewPost);
+        }
+        [HttpPost]
+        public IActionResult Index(string ImageUrl, string CommentsOfOwner)
+        {
+            var user = _userService.GetCurrent();
+            var post = new PostSocial()
+            {
+                CommentOfUser = CommentsOfOwner,
+                ImageUrl = ImageUrl,
+                User = user
+            };
+            _socialPostRepository.Save(post);
+
+            return Redirect("Index");
         }
 
         [Authorize]
