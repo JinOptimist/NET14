@@ -26,10 +26,6 @@
 .addFiles {
     padding: 3px 0 3px 0;
 }
-.button-videoHosting {
-    display: flex;
-    align-items: center;
-}
 .zagolovok-myFiles {
     display: flex;
     justify-content: center;
@@ -38,20 +34,91 @@
     padding: 30px;
     width: 479px;
     font-size: 50px;
-    border: 5px solid black;
-    border-radius: 20px;
-}
-.zagolovok-hostings {
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin: 0 0 30px 0;
-    padding: 30px;
-    min-width: 560px;
-    font-size: 50px;
-    border: 5px solid black;
     border-radius: 20px;
 }
 .field-validation-error{
     color:red;
+}
+
+
+.button {
+    margin-top: 30px;
+    border-radius: 92px;
+    border: 1px solid grey;
+    color: grey;
+    width: 450px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-file-header {
+    display: flex;
+    height: 80px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    border-radius: 92px;
+    color: black;
+}
+.show-file-header {
+    display: flex;
+    height: 80px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    border-radius: 92px;
+    color: black;
+}
+
+
+.button form {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 100px;
+    display: none;
+}
+
+    .button form input {
+        border-radius: 92px;
+        border: 1px solid grey;
+        padding: 24px;
+        width: 80%;
+        margin-top: 30px;
+    }
+
+        .button form input[type="submit"] {
+            border: 1px solid rgb(22 222 48);
+            color: rgb(22 222 48);
+            background: white;
+            transition: background 0.3s ease;
+            transition: box-shadow 0.3s ease;
+            font-size: 17px;
+            margin-top: 70px;
+            min-width: 294px;
+        }
+
+            .button form input[type="submit"]:hover {
+                color: white;
+                background: rgb(22 222 48);
+                box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+            }
+
+.textForInput {
+    display: flex;
+    justify-content: center;
+    color: black;
+    padding: 5px;
+}
+.items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
