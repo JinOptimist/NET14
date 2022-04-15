@@ -1,4 +1,4 @@
-﻿
+﻿@model List<FilesViewModel>
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
@@ -33,8 +33,15 @@
             </form>
         </div>
         <div class="button">
-            <a href="/SocialFile/AllFiles" class="show-files-header">Show Files</a>
-
+            <div class="show-file-header">Show Files</div>
+                <form action="/SocialFile/MyFiles" method="post" id="form-show-files">
+                    @foreach (var Files in Model)
+                    {
+                        <div>
+                            <a href="/SocialFile/ShowMyFiles?id=@Files.Id">@Files.Name</a>
+                        </div>
+                    }
+                </form>
         </div>
     </div>
 </div>

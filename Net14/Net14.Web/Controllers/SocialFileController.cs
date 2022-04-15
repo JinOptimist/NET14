@@ -29,7 +29,16 @@ namespace Net14.Web.Controllers
         [HttpGet]
         public IActionResult MyFiles()
         {
-            return View();
+            var files = _socialFileRepository.GetAll().Select(x =>
+                new FilesViewModel()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Text = x.Text,
+                    Url = x.Url
+                }).ToList();
+
+            return View(files);
         }
         [HttpPost]
         public IActionResult MyFiles(string Name, string Url, string Text)
@@ -51,19 +60,7 @@ namespace Net14.Web.Controllers
 
             return View(model);
         }
-        public IActionResult AllFiles()
-        {
-            var files = _socialFileRepository.GetAll().Select(x =>
-                new FilesViewModel()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Text = x.Text,
-                    Url = x.Url
-                }).ToList();
-
-            return View(files);
-        }
+        
        
     }
 }
