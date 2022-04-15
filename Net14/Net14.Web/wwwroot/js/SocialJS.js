@@ -69,3 +69,13 @@ $(document).ready(function () {
         $("#form-add-post").slideToggle();
     });
 });
+$(document).ready(function () {
+    $(".add-file-header").click(function () {
+        $("#form-add-file").slideToggle();
+    });
+});
+$(document).ready(function () {
+    $(".show-file-header").click(function () {
+        $("#form-show-files").slideToggle();
+    });
+});
