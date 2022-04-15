@@ -89,6 +89,11 @@ namespace Net14.Web
             services.AddScoped<VideoSocialRepository>(x =>
                 new VideoSocialRepository(x.GetService<WebContext>()));
 
+            services.AddScoped<RecomendationsService>(x =>
+                new RecomendationsService(
+                    x.GetService<SocialUserRepository>(),
+                    x.GetService<IMapper>(),
+                    x.GetService<UserService>()));
 
             services.AddScoped<YouTubeVideoService>();
 
@@ -255,6 +260,8 @@ namespace Net14.Web
             provider.CreateMap<Image, ImageViewModel>();
 
             provider.CreateMap<FileSocial, FilesViewModel>();
+
+            provider.CreateMap<UserSocial, SocialUserRecomendationViewModel>();
 
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);

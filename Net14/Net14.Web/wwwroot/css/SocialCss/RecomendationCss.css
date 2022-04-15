@@ -1,0 +1,22 @@
+﻿#recomendation-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#recomendations-users {
+    display: inline-block;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    margin-right: -20px;
+}
+
+#recomendaton-page-element {
+    min-height: 160px;
+}
+
+.recomendation-header {
+    font-size: 25px;
+}
