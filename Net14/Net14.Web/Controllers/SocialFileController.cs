@@ -51,7 +51,7 @@ namespace Net14.Web.Controllers
             };
             _socialFileRepository.Save(file);
 
-            return View("MyFiles");
+            return RedirectToAction("MyFiles");
         }
         public IActionResult ShowMyFiles(int id)
         {
