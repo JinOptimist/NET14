@@ -145,7 +145,11 @@ namespace Net14.Web
                         .MapFrom(dbPost =>
                             dbPost.User.FirstName));
 
-            provider.CreateMap<GroupSocial, SocialGroupViewModel>();
+            provider.CreateMap<GroupSocial, SocialGroupViewModel>()
+                .ForMember(nameof(SocialGroupViewModel.Tags),
+                    group => group
+                        .MapFrom(dbGroup =>
+                            dbGroup.Tags.Select(tag => tag.Tag)));
 
             provider.CreateMap<SocialUserRegistrationViewModel, UserSocial>();
 

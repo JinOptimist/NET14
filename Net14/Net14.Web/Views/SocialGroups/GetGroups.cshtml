@@ -21,6 +21,12 @@
             <div class="group-name">@group.Name</div>
             <div>Cars</div>
             <div>@group.Members.Count members</div>
+            <div>
+                @foreach (var tag in group.Tags)
+                {
+                    <span>@tag</span>
+                }
+            </div>
         </div>
     </div>
 </div>

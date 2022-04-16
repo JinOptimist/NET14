@@ -26,7 +26,7 @@ namespace Net14.Web.Services
             _currentUser = _userService.GetCurrent();
         }
 
-        public List<SocialUserRecomendationViewModel> GetAgeRate(List<SocialUserRecomendationViewModel> users) //Рейтинг по возрасту
+        private List<SocialUserRecomendationViewModel> GetAgeRate(List<SocialUserRecomendationViewModel> users) //Рейтинг по возрасту
         {
             var _currentUser = _userService.GetCurrent();
             const int fiveYearsDifferent = 2;
@@ -59,7 +59,7 @@ namespace Net14.Web.Services
             return users;
         }
 
-        public List<SocialUserRecomendationViewModel> GetCityRate(List<SocialUserRecomendationViewModel> users)
+        private List<SocialUserRecomendationViewModel> GetCityRate(List<SocialUserRecomendationViewModel> users)
         {
             var _currentUser = _userService.GetCurrent();
 
@@ -76,7 +76,7 @@ namespace Net14.Web.Services
 
 
 
-        public List<SocialUserRecomendationViewModel> GetCountryRate(List<SocialUserRecomendationViewModel> users)
+        private List<SocialUserRecomendationViewModel> GetCountryRate(List<SocialUserRecomendationViewModel> users)
         {
             var _currentUser = _userService.GetCurrent();
 
@@ -90,7 +90,7 @@ namespace Net14.Web.Services
             return users;
         }
 
-        public List<SocialUserRecomendationViewModel> GetSameFriendRate(List<SocialUserRecomendationViewModel> users)
+        private List<SocialUserRecomendationViewModel> GetSameFriendRate(List<SocialUserRecomendationViewModel> users)
         {
             var _currentUser = _userService.GetCurrent();
             SocialUserRecomendationViewModel model;
@@ -108,6 +108,37 @@ namespace Net14.Web.Services
             return users;
         }
 
+        private List<SocialUserRecomendationViewModel> GetGroupsRate(List<SocialUserRecomendationViewModel> users)
+        {
+            int sameGroupTagsCount;
+            SocialUserRecomendationViewModel model;
+            var currentUser = _userService.GetCurrent();
+            var currentUserGroupTags = currentUser.Groups
+                .Select(group => group.Tags
+                        .Select(tag => tag.Tag))
+                .SelectMany(group => group)
+                .Distinct()
+                .ToList();
+            var dbUsers = _socialUserRepository.GetAll();
+
+            List<string> dbUserGroupTags;
+            foreach (UserSocial user in dbUsers) 
+            {
+                dbUserGroupTags = user
+                    .Groups
+                    .Select(group => group.Tags
+                            .Select(tag => tag.Tag))
+                    .SelectMany(group => group)
+                    .Distinct()
+                    .ToList();
+                sameGroupTagsCount = dbUserGroupTags.Intersect(currentUserGroupTags).Count();
+                model = users.Single(userView => userView.Id == user.Id);
+                model.RecomendationRate += (int)UserRecomendationRatesEnum.SameGroupTag * sameGroupTagsCount;
+            }
+
+            return users;
+        }
+
 
         public List<SocialUserRecomendationViewModel> GetUserRecomendation() 
         {
@@ -118,6 +149,7 @@ namespace Net14.Web.Services
             GetCityRate(viewModelUsers);
             GetCountryRate(viewModelUsers);
             GetSameFriendRate(viewModelUsers);
+            GetGroupsRate(viewModelUsers);
 
             var result = viewModelUsers
                 .OrderByDescending(user => user.RecomendationRate)
