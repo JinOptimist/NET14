@@ -5,6 +5,10 @@
 
 <link rel="stylesheet" href="~/css/SocialCss/RecomendationCss.css" />
 <div class="recomendation-header">Recomendation</div>
+<div class="select-recomendations">
+    <div class="select active">Users</div>
+    <div class="select">Group</div>
+</div>
 
     @foreach (SocialUserRecomendationViewModel user in Model)
     {
@@ -34,7 +38,7 @@
                             <div>
                                 @foreach (SocialUserRecomendationViewModel userRec in user.SameFriends)
                                 {
-                                    <img src=@userRec.UserPhoto class="find-user-photo" id="recomendations-users" />
+                                    <img src=@userRec.UserPhoto class="find-user-photo" id="recomendations-users" title=@userRec.FirstName />
                                 }
                             </div>
                         </div>

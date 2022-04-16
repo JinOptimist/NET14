@@ -69,3 +69,11 @@ $(document).ready(function () {
         $("#form-add-post").slideToggle();
     });
 });
+
+
+$(document).ready(function () {
+    $(".select").click(function () {
+        $(".select.active").toggleClass("active");
+        $(this).toggleClass("active");
+    })
+})

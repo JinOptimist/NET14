@@ -11,6 +11,6 @@ namespace Net14.Web.Services.Enums
         Country = 40,
         City = 100,
         SameFriend = 300,
-        SameGroup = 150,
+        SameGroupTag = 150,
     }
 }
