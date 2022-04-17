@@ -1,26 +1,47 @@
-﻿@{
+﻿@model List<FilesViewModel>
+@{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 <div class="myFiles">
-    <div>
-        <div>
-            <div class="mainText">
-                <div class="zagolovok-myFiles">
-                    Your Files
+    <div class="mainText">
+        <div class="zagolovok-myFiles">
+            Your Files
+        </div>
+    </div>
+    <div class="items">
+
+
+        <div class="button">
+            <div class="add-file-header">Add File</div>
+
+            <form action="/SocialFile/MyFiles" method="post" id="form-add-file">
+                <div>
+                    Fill in the form
                 </div>
                 <div>
-                    Today is @DateTime.Now.ToLongDateString()
+                    <input name="Name" placeholder="Name">
                 </div>
-            </div>
-            <div>
-                <a href="/SocialFile/AddFiles"><img src="~/images/Social/add_notes.png"/></a>
-            </div>
-            <div>
-                <a href="/SocialFile/AllFiles"><img src="~/images/Social/all_files.png"/></a>
-            </div>
-            <div>
-                <a class="button-videoHosting" href="/SocialFile/VideoHosting"><img src="~/images/Social/button-videoHosting.png"/>All videos Павел Львов</a>
-            </div>
-         </div>
+                <div>
+                    <input name="Url" placeholder="Url">
+                </div>
+                <div>
+                    <input name="Text" placeholder="Text">
+                </div>
+                <div>
+                    <input type="submit" value="Add" class="button-add-post">
+                </div>
+            </form>
+        </div>
+        <div class="button">
+            <div class="show-file-header">Show Files</div>
+                <form action="/SocialFile/MyFiles" method="post" id="form-show-files">
+                    @foreach (var Files in Model)
+                    {
+                        <div>
+                            <a href="/SocialFile/ShowMyFiles?id=@Files.Id">@Files.Name</a>
+                        </div>
+                    }
+                </form>
+        </div>
     </div>
 </div>
