@@ -23,6 +23,15 @@ namespace Net14.Web.EfStuff.Repositories
             _webContext.SaveChanges();
         }
 
+        public void AddPost(PostSocial post, int id) 
+        {
+            var group = _webContext.GroupSocial
+                .SingleOrDefault(group => group.Id == id);
+            group.Posts.Add(post);
+            _webContext.SaveChanges();
+
+        }
+
         public List<GroupSocial> GetGroupsByName(string name) 
         {
             var groups = _webContext.GroupSocial

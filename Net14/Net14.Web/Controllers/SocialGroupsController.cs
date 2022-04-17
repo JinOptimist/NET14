@@ -78,5 +78,19 @@ namespace Net14.Web.Controllers
 
             return Redirect($"/SocialGroups/GetSingleGroup?id={groupId}");
         }
+
+        public IActionResult AddPost(string ImageUrl, string CommentOfUser, int groupId)
+        {
+            var post = new PostSocial()
+            {
+                CommentOfUser = CommentOfUser,
+                ImageUrl = ImageUrl,
+                User = _userService.GetCurrent()
+            };
+
+            _socialGroupRepository.AddPost(post, groupId);
+
+            return Redirect($"/SocialGroups/GetSingleGroup?id={groupId}");
+        }
     }
 }
