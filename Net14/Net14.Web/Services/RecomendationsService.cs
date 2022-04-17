@@ -168,13 +168,29 @@ namespace Net14.Web.Services
                 .SelectMany(friend => friend.Groups)
                 .ToList();
 
-            var currentUserGroupTags = _currentUser.Groups.SelectMany(group => group.Tags).ToList();
+            var currentUserGroupTags = _currentUser.Groups
+                .Select(group => group.Tags
+                    .Select(tag => tag.Tag))
+                .SelectMany(grop => grop)
+                .ToList();
 
-            var groupsSameTags = _socialGroupRepository
-                .GetAll()
-                .Where(group => group.Tags.Contains(currentUserGroupTags.Select(tag => tag)))
+            var hashCurrentUserTags = new HashSet<string>(currentUserGroupTags);
 
-            return null;
+            var groupSameTag = _socialGroupRepository.GetAll()
+                .Select(group => group)
+                .Where(group => group.Tags
+                    .Select(tag => tag.Tag)
+                    .Any(tag => hashCurrentUserTags.Contains(tag)))
+                .ToList();
+
+            var result = _mapper.Map<List<SocialGroupViewModel>>(groupSameTag.Union(groupsOfriends).ToList());
+
+            if(result.Count() == 0) 
+            {
+                return _mapper.Map<List<SocialGroupViewModel>>(_socialGroupRepository.GetAll());
+            }
+
+            return result;
         }
 
 

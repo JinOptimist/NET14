@@ -35,10 +35,9 @@ namespace Net14.Web.Controllers
         }
         public IActionResult GroupRecomendations()
         {
-            var recomendationGroup = _socialGroupRepository.GetAll();
-            var viewModel = _mapper.Map<List<SocialGroupViewModel>>(recomendationGroup);
+            var recomendations = _recomendationsService.GetGrouprecomendation();
 
-            return View(viewModel);
+            return View(recomendations);
         }
     }
 }

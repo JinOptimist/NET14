@@ -564,6 +564,27 @@ namespace Net14.Web.EfStuff
 
                 group.Posts.Add(groupPost);
                 groupRepository.Save(group);
+
+
+                var group2 = new GroupSocial()
+                {
+                    Description = "Moto",
+                    Members = userRepository.GetAll().Where(user => user.FirstName == "Kiril").ToList(),
+                    Name = "Moto club",
+                    PhotoUrl = "/images/Social/bmw.jpg",
+                    Posts = new List<PostSocial>(),
+                    Tags = new List<GroupTags>()
+
+                };
+
+                var tag3 = new GroupTags() { Group = group, Tag = "#moto" };
+                var tag4 = new GroupTags() { Group = group, Tag = "#bike" };
+
+                group2.Tags.Add(tag3);
+                group2.Tags.Add(tag4);
+
+
+                groupRepository.Save(group2);
             }
         }
     }
