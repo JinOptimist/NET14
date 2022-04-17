@@ -26,11 +26,8 @@ namespace Net14.Web.Controllers
         }
 
         [Authorize]
+        [HttpGet]
         public IActionResult MyFiles()
-        {
-            return View();
-        }
-        public IActionResult AllFiles()
         {
             var files = _socialFileRepository.GetAll().Select(x =>
                 new FilesViewModel()
@@ -43,6 +40,19 @@ namespace Net14.Web.Controllers
 
             return View(files);
         }
+        [HttpPost]
+        public IActionResult MyFiles(string Name, string Url, string Text)
+        {
+            var file = new FileSocial()
+            {
+                Name = Name,
+                Url = Url,
+                Text = Text
+            };
+            _socialFileRepository.Save(file);
+
+            return RedirectToAction("MyFiles");
+        }
         public IActionResult ShowMyFiles(int id)
         {
             var files = _socialFileRepository.Get(id);
@@ -50,27 +60,7 @@ namespace Net14.Web.Controllers
 
             return View(model);
         }
-        [HttpGet]
-        public IActionResult AddFiles()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult AddFiles(FilesViewModel viewModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(viewModel);
-            }
-            
-            var dbFiles = _mapper.Map<FileSocial>(viewModel);
-            _socialFileRepository.Save(dbFiles); // Сохраняйся 
-
-            return View();
-        }
-        public IActionResult VideoHosting()
-        {
-            return View();
-        }
+        
+       
     }
 }
