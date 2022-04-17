@@ -93,7 +93,8 @@ namespace Net14.Web
                 new RecomendationsService(
                     x.GetService<SocialUserRepository>(),
                     x.GetService<IMapper>(),
-                    x.GetService<UserService>()));
+                    x.GetService<UserService>(),
+                    x.GetService<SocialGroupRepository>()));
 
             services.AddScoped<YouTubeVideoService>();
 
