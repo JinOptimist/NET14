@@ -1,85 +1,43 @@
-.form-element {
-    display: flex;
-    flex-direction: column;
-    border-radius: 10px;
-    padding: 20px;
-    background: white;
-    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
-    width: 100%;
-}
-
 .settings-form {
-    display: flex;
-    flex-direction: column;
-    align-items: baseline;
+    padding: 40px;
+    background: white;
+    border-radius: 20px;
+    margin-top: 45px;
+    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
 }
 
-.element {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    flex-direction: column;
-    width: 100%;
-}
-
-.change-button {
-    justify-content: flex-end;
-    margin-top: 30px;
-    padding: 15px;
-    border-radius: 10px;
-    transition: background 0.2s ease;
-}
-
-.change-button:hover {
-    background: rgba(122,122,122,0.1);
-}
-
-h1 {
-    margin-bottom: 100px;
-}
-
-.hidden-form {
+.settings {
     display: flex;
     flex-direction: column;
 }
 
-.form-container {
-    margin-top: 20px;
-    display: none;
-    margin: 40px auto;
-}
-
-.form-container input {
-    margin-bottom: 10px;
+.input-settings {
+    margin-bottom: 20px;
+    width: 300px;
     height: 30px;
-    padding: 5px;
-    font-size: 15px;
-    border-radius: 10px;
+    border-radius: 20px;
     border: 1px solid grey;
+    padding: 5px;
 }
 
-.form-container input:last-child {
+.property-name {
+    width: 100%;
+    margin-bottom: 5px;
+}
+.submit-settings {
+    background: white;
+    border: 1px solid grey;
+    height: 41px;
+    width: 100px;
     border: 1px solid rgb(22 222 48);
+    border-radius: 92px;
     color: rgb(22 222 48);
     background: white;
-    margin-top: 20px;
-    height: 40px;
     transition: background 0.3s ease;
     transition: box-shadow 0.3s ease;
+    font-size: 17px;
 }
 
-.form-container input:last-child:hover {
-    color: white;
-    background: rgb(22 222 48);
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+.settings-header {
+    font-size: 25px;
 }
-
-.change-name {
-    text-align: center;
-}
-
