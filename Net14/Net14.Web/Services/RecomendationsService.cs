@@ -16,10 +16,12 @@ namespace Net14.Web.Services
         private UserService _userService;
         private IMapper _mapper;
         private UserSocial _currentUser;
+        private SocialGroupRepository _socialGroupRepository;
 
         public RecomendationsService(SocialUserRepository socialUserRepository,
-            IMapper mapper, UserService userService)
+            IMapper mapper, UserService userService, SocialGroupRepository socialGroupRepository)
         {
+            _socialGroupRepository = socialGroupRepository;
             _socialUserRepository = socialUserRepository;
             _mapper = mapper;
             _userService = userService;
@@ -157,6 +159,22 @@ namespace Net14.Web.Services
                 .ToList();
 
             return result;
+        }
+
+
+        public List<SocialGroupViewModel> GetGrouprecomendation() 
+        {
+            var groupsOfriends = _currentUser.Friends
+                .SelectMany(friend => friend.Groups)
+                .ToList();
+
+            var currentUserGroupTags = _currentUser.Groups.SelectMany(group => group.Tags).ToList();
+
+            var groupsSameTags = _socialGroupRepository
+                .GetAll()
+                .Where(group => group.Tags.Contains(currentUserGroupTags.Select(tag => tag)))
+
+            return null;
         }
 
 
