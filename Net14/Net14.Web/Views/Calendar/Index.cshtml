@@ -6,24 +6,36 @@
 }
 
 <div>
-    <a href="/Calendar/AddNote">Add Notes</a>
-    <a href="/Calendar/TestCalendar?month=@(DateTime.Now.Month)&year=@(DateTime.Now.Year)">Test Calendar</a>
-    <a href="/Calendar/WatchAllNotes">Watch all notes</a>
-    
+   
     @if (User.Identity.IsAuthenticated)
     {
         <div>
-          Welcome!  
-          @User.Identity.Name  
+            Hello, Dear Friend!  
+            @User.Identity.Name  
+        </div>
+        <div>
+            <div class="button"><a href="/Calendar/TestCalendar?month=@(DateTime.Now.Month)&year=@(DateTime.Now.Year)">Test Calendar</a></div>
         </div>
     }
     else
     {
-       <div>
-            please, autorize to see your notes
-       <a href="/Calendar/Registration">Registration</a>
-       <a href="/Calendar/Autorization">Autorization</a> 
-       </div>
+        <div class="window">
+            <div class="content-left">
+            <div class="content-left">
+            Hello, Dear Friend! You need to log in or register to use all the features of the calendar.
+            </div>
+            <div class="first-visit">
+                <div class="button"><a href="/Calendar/Registration">Registration</a></div>
+                <div class="button"><a href="/Calendar/Autorization">Autorization</a></div>
+                <div class="button"><a href="/Calendar/TestCalendar?month=@(DateTime.Now.Month)&year=@(DateTime.Now.Year)">Test Calendar</a></div>
+            </div>
+            </div>
+            <div class="content-right">
+                    tipo novosti
+            </div>
+        </div>
+        
+       
     }
     
 </div>

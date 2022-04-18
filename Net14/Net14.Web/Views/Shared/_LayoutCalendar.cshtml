@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Net14.Web</title>
+    <title>Calendar</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/Calendar.css"/>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -11,15 +11,49 @@
 </head>
 <body>
     
-    <div>
-        Шаблон для календаря
-        <a href="/Home/Index">Начальная страница</a>
-        <a href="/Gallery/Index">gallery</a>
-        <a href="/Calendar/Index">Calendar</a>
+    <div class="another-links">
+        
+        <a href="/Home/Index">Main</a>
+        <a href="/Gallery/Index">Gallery</a>
+        <a href="/Social/Index">Social</a>
+        <a href="/Store/Index">Store</a>
     </div>
-    <div class="container">
+    <div>   
+        <h2 align="flex-start" class ="headtitle">
+            <a href="/Calendar/Index">Best Calendar in the World</a>
+        </h2>
+    </div>
+    <div class="main-block">
+        <div class="menu-block">
+            <a href="/Calendar/Index">
+                <div class="myButton">
+                     Home
+                </div>
+            </a>
+        
+            <a href="/Calendar/TestCalendar">
+                <div class="myButton">
+                     View calendar
+                </div>
+            </a>
+
+            <a href="/Calendar/TestCalendar">
+                <div class="myButton">
+                     Пункт3
+                </div>
+            </a>
+
+            <a href="/Calendar/TestCalendar">
+                <div class="myButton">
+                     Пункт4
+                </div>
+            </a>
+        </div>
+        <div class="container">
         @RenderBody()
+        </div>
     </div>
+    
 
    
     @RenderSection("Scripts", required: false)

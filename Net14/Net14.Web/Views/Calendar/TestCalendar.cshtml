@@ -5,8 +5,9 @@
 @{
     Layout = "/Views/Shared/_LayoutCalendar.cshtml";
 }
-
-<div class="date">
+<div class="window">
+    <div class="content-left">
+    <div class="date">
     @{
         var monthName = new DateTime(Model.Year, Model.Month, 1).ToString("MMMM");
     }
@@ -94,7 +95,9 @@
         }
 }
 </div>
-<div class="notes">
+</div>
+</div>
+<div class="content-right">
     Notes
     @{
         if (Model.Notes != null)
@@ -113,5 +116,7 @@
         }
     }
 </div>
+
 </div>
+
 
