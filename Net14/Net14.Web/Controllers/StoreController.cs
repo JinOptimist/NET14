@@ -24,7 +24,8 @@ namespace Net14.Web.Controllers
         private UserService _userService;
         private StoreImageRepository _storeimageRepository;
         private IMapper _mapper;
-        public StoreController(ProductRepository productRepository, StoreImageRepository storeimageRepository, BasketRepository basketRepository, UserService userService, IMapper imapper)
+        private SizeRepository _sizeRepository;
+        public StoreController(ProductRepository productRepository, StoreImageRepository storeimageRepository, BasketRepository basketRepository, UserService userService, IMapper imapper, SizeRepository sizeRepository)
         {
 
             _productRepository = productRepository;
@@ -32,6 +33,7 @@ namespace Net14.Web.Controllers
             _basketRepository = basketRepository;
             _userService = userService;
             _mapper = imapper;
+            _sizeRepository = sizeRepository;
         }
 
         public IActionResult Admin()
@@ -121,7 +123,7 @@ namespace Net14.Web.Controllers
                 CoolCategories = dbProduct.CoolCategories.ToString(),
                 CoolMaterial = dbProduct.CoolMaterial.ToString(),
                 Price = dbProduct.Price,
-                CoolColor = dbProduct.CoolColors.ToString(),
+                CoolColors = dbProduct.CoolColors.ToString(),
                 Sizes = dbProduct.Sizes.Select(x => x.Name).ToList(),
                 Images = dbProduct.StoreImages
                 .OrderBy(x => x.Odrer)
@@ -158,7 +160,7 @@ namespace Net14.Web.Controllers
             {
                 var dbProducts = _productRepository.GetRun();
                 var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
-  
+
                 return View(viewModels);
             }
             if (_category == "Men")
@@ -179,7 +181,7 @@ namespace Net14.Web.Controllers
             {
                 var dbProducts = _productRepository.GetAccessories();
                 var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
-      
+
                 return View(viewModels);
             }
             if (_category == "Bags")
@@ -196,25 +198,85 @@ namespace Net14.Web.Controllers
         [HttpGet]
         public IActionResult AddProduct()
         {
-            return View();
+            var dbSize = _sizeRepository.GetAll();
+            var model = new AddProductVewModel()
+            {
+                Sizes = dbSize.Select(x => x.Name).ToList(),
+            };
+
+
+            return View(model);
         }
 
         [HttpPost]
         public IActionResult AddProduct(AddProductVewModel viewModel)
         {
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(viewModel);
+            //}
+
+            var dbSized = _sizeRepository.GetByNames(viewModel.CheckedSizes);
 
             var dbProduct = new Product()
             {
+                BrandCategories = viewModel.Brand,
                 Name = viewModel.Name,
-
                 Quantity = viewModel.Quantity,
-
                 Price = viewModel.Price,
+                CoolCategories = viewModel.Category,
+                CoolColors = viewModel.Color,
+                CoolMaterial = viewModel.Material,
+                Gender = viewModel.Gender,
+                Sizes = dbSized
             };
 
             _productRepository.Save(dbProduct);
 
-            return View();
+
+            var dbSize = _sizeRepository.GetAll();
+            var model = new AddProductVewModel()
+            {
+                Sizes = dbSize.Select(x => x.Name).ToList(),
+            };
+
+
+            return View(model);
+        }
+        [HttpGet]
+        public IActionResult AddImageProduct(int id)
+        {
+            var dbProduct = _productRepository.Get(id);
+            var model = new AddImageProductVewModel
+            {
+                Name = dbProduct.Name,
+                BrandCategories = dbProduct.BrandCategories.ToString(),
+                Images = dbProduct.StoreImages
+                .OrderBy(x => x.Odrer)
+                .Select(x => x.Url).ToList()
+            };
+
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult AddImageProduct(AddImageProductVewModel viewModel)
+        {
+            var dbProduct = _productRepository.Get(viewModel.Id);
+            var storeImage = new StoreImage()
+            {
+                Url = viewModel.NewImageUrl,
+                Product = dbProduct,
+                Odrer = dbProduct.StoreImages.Count() + 1
+            };
+
+            _storeimageRepository.Save(storeImage);
+
+
+
+
+            return RedirectToAction("AddImageProduct", new { id = viewModel.Id });
         }
     }
 }

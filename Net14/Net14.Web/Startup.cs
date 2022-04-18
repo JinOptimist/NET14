@@ -105,15 +105,24 @@ namespace Net14.Web
 
             provider.CreateMap<Product, ProductViewModel>()
                 .ForMember(nameof(ProductViewModel.Images),
-                opt => opt
-                .MapFrom(dbProducts => 
-                    dbProducts
-                        .StoreImages
-                        .OrderBy(x => x.Odrer)
-                        .Select(x => x.Url)
-                        .ToList()
+                    opt => opt
+                    .MapFrom(dbProducts => 
+                        dbProducts
+                            .StoreImages
+                            .OrderBy(x => x.Odrer)
+                            .Select(x => x.Url)
+                            .ToList()
+                        )
                     )
-                );
+                .ForMember(nameof(ProductViewModel.Sizes),
+                    opt => opt
+                    .MapFrom(dbProducts =>
+                        dbProducts
+                            .Sizes
+                            .Select(x => x.Name)
+                            .ToList()
+                        )
+                    );
 
 
             provider.CreateMap<Image, ImageUrlVewModel>()

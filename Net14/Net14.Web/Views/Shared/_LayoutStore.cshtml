@@ -4,81 +4,80 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Net14.Web</title>
-    <link rel="stylesheet" href="~/css/Store.css?v=26" />
+    <link rel="stylesheet" href="~/css/Store.css?v=4" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js"></script>
     @RenderSection("Scripts", required: false)
 </head>
-<body>
-    <div>
-        <a href="/Home/Index">home</a>
-        <a href="/Store/Admin">Admin panel</a>
-    </div>
-    <div>
-        <div class="header">
-            <a href="/Store/Index" class="name">
-                <img src="/images/Store/LogoGray.png" class="logo">
-                <span class=shopox>ShopOx </span>
-            </a>
-            <div class="search">
-                <div class="search-field">
-                    search string
+<form>
+    <body>
+        <div>
+            <a href="/Home/Index">home</a>
+            <a href="/Store/Admin">Admin panel</a>
+        </div>
+        <div>
+            <div class="header">
+                <a href="/Store/Index" class="name">
+                    <img src="/images/Store/LogoGray.png" class="logo">
+                    <span class=shopox>ShopOx </span>
+                </a>
+
+                <div class="search">
+                    <input type="text" placeholder="Search" class="search-field">
+                    <img src="/images/Store/search1.svg" alt="search icon" class="search-icon">
                 </div>
-                <div class="search-icon">
-                    <img src="/images/Store/search.png" class="basket-icon">
+                <div class="account">
+                    <div>
+                        account
+                    </div>
+                </div>
+                <div class="basket">
+                    <a href="/Store/Basket">
+                        <img src="/images/Store/basket.png" class="basket-icon">
+                    </a>
                 </div>
             </div>
-            <div class="account">
-                <div>
-                    account
-                </div>
-            </div>
-            <div class="basket">
-                <a href="/Store/Basket">
-                    <img src="/images/Store/basket.png" class="basket-icon">
+            <div class="second-header">
+                <a href="/Store/Catalog" class="second-header-banner">
+                    Catalog
+                </a>
+                <a href="/Store/Catalog?category=Accessories" class="second-header-banner">
+                    Accessories
+                </a>
+                <a href="/Store/Catalog?category=Bags" class="second-header-banner">
+                    Bags
+                </a>
+                <a class="second-header-banner">
+                    Clean
+                </a>
+                <a class="second-header-banner">
+                    Payment and Delivery
+                </a>
+                <a class="second-header-banner">
+                    About us
                 </a>
             </div>
         </div>
-        <div class="second-header">
-            <a href="/Store/Catalog" class="second-header-banner">
-                Каталог
-            </a>
-            <a href="/Store/Catalog?category=Accessories" class="second-header-banner">
-                Аксессуары
-            </a>
-            <a href="/Store/Catalog?category=Bags" class="second-header-banner">
-                Сумки
-            </a>
-            <a  class="second-header-banner">
-                Для
-            </a>
-            <a  class="second-header-banner">
-                Вида
-            </a>
-            <a  class="second-header-banner">
-                О нас
-            </a>
+        <div class="container">
+            @RenderBody()
         </div>
-    </div>
-    <div class="container">
-        @RenderBody()
-    </div>
-    <footer class="pagefooter">
+        <footer class="pagefooter">
 
-        <div class="leftfooter">
-            <div>
-                <div>© 2022 TMSNET14 </div>
-                <div>Artem,Mark,Anton,Andrey </div>
+            <div class="leftfooter">
+                <div>
+                    <div>© 2022 TMSNET14 </div>
+                    <div>Artem,Mark,Anton,Andrey </div>
+                </div>
+                <div class="adress">
+                    Minsk, Timiryazev street 67 office 601
+                </div>
+                <div class="iconfoot">
+                </div>
             </div>
-            <div class="adress">
-                г.Минск ул.Тимирязева 67 оф.601
-            </div>
-            <div class="iconfoot">
-            </div>
-        </div>
 
-    </footer>
+        </footer>
 
 
-</body>
+    </body>
+</form>
 </html>

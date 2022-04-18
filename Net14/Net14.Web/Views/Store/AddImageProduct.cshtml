@@ -1,0 +1,30 @@
+﻿@using Net14.Web.EfStuff.EnumStore
+@using Net14.Web.Models
+@model AddImageProductVewModel
+
+@{
+    Layout = "/Views/Shared/_LayoutStore.cshtml";
+}
+
+<div>@Model.BrandCategories</div>
+<div>@Model.Name</div>
+<div class="menu">
+    @foreach (var image in Model.Images)
+    {
+        <div class=iconshoes>
+            <img src="@image" class="icon" />
+        </div>
+    }
+</div>
+<form action="/Store/AddImageProduct" method="post">
+    @Html.HiddenFor(x=>x.Id)
+
+    <div>
+        New Image Url: @Html.TextBoxFor(x => x.NewImageUrl)
+        @Html.ValidationMessageFor(x => x.NewImageUrl)
+
+        <div>
+            <input type="submit" value="Add" />
+        </div>
+    </div>
+</form>
