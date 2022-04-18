@@ -585,8 +585,8 @@ namespace Net14.Web.EfStuff
                 {
                     Description = "Moto",
                     Members = userRepository.GetAll().Where(user => user.FirstName == "Kiril").ToList(),
-                    Name = "Moto club",
-                    PhotoUrl = "/images/Social/bmw.jpg",
+                    Name = "Moto Club",
+                    PhotoUrl = "/images/Social/moto.jpeg",
                     Posts = new List<PostSocial>(),
                     Tags = new List<GroupTags>()
 

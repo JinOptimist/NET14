@@ -104,7 +104,7 @@ namespace Net14.Web.Services
                 model = users.Single(userViewModel => userViewModel.Id == user.Id);
                 model.RecomendationRate += (int)UserRecomendationRatesEnum.SameFriend * SameFriends.Count();
                 model.SameFriendsCount = SameFriends.Count();
-                model.SameFriends = _mapper.Map<List<SocialUserRecomendationViewModel>>(SameFriends);
+                model.SameFriends = _mapper.Map<List<SocialUserRecomendationViewModel>>(SameFriends.Take(3));
             }
 
             return users;
@@ -162,7 +162,7 @@ namespace Net14.Web.Services
         }
 
 
-        public List<SocialGroupViewModel> GetGrouprecomendation() 
+        public List<SocialGroupViewModel> GetGroupsRecomendation() 
         {
             var groupsOfriends = _currentUser.Friends
                 .SelectMany(friend => friend.Groups)
@@ -187,7 +187,8 @@ namespace Net14.Web.Services
 
             if(result.Count() == 0) 
             {
-                return _mapper.Map<List<SocialGroupViewModel>>(_socialGroupRepository.GetAll());
+                return _mapper.Map<List<SocialGroupViewModel>>(_socialGroupRepository.GetAll()
+                    .OrderByDescending(group => group.Members.Count()));
             }
 
             return result;
