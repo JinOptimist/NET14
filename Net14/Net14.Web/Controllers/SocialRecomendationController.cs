@@ -35,7 +35,7 @@ namespace Net14.Web.Controllers
         }
         public IActionResult GroupRecomendations()
         {
-            var recomendations = _recomendationsService.GetGrouprecomendation();
+            var recomendations = _recomendationsService.GetGroupsRecomendation();
 
             return View(recomendations);
         }
