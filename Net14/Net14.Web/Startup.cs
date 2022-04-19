@@ -39,7 +39,7 @@ namespace Net14.Web
              .AddCookie(AuthName, config =>
              {
                  config.LoginPath = "/SocialAuthentication/Autorization";
-                 config.AccessDeniedPath = "/User/AccessDenied";
+                 config.AccessDeniedPath = "/CalendarUser/AccessDenied";
                  config.Cookie.Name = "SocialMedeiCool";
              });
 

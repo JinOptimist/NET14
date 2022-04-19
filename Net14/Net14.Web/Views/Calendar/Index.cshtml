@@ -1,4 +1,7 @@
-@using Net14.Web.Models.Calendar
+@using Net14.Web.EfStuff.Repositories
+@using Net14.Web.Models.Calendar.Test
+
+@model DaysNoteRepository 
 
 
 @{
@@ -13,8 +16,9 @@
     @if (User.Identity.IsAuthenticated)
     {
         <div>
-          Welcome!  
-          @User.Identity.Name  
+            Welcome!
+            
+          <div class="navigation-element"><a href="/Calendar/LogOut">LogOut</a></div>
         </div>
     }
     else

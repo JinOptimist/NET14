@@ -59,7 +59,7 @@ namespace Net14.Web
                         Country = "Belarus",
                         Email = "email",
                         Password = "pass",
-                        UserPhoto = "/images/Social/User.jpg"
+                        UserPhoto = "/images/Social/CalendarUser.jpg"
                     };
                     var user2 = new UserSocial()
                     {
@@ -70,7 +70,7 @@ namespace Net14.Web
                         Country = "Belarus",
                         Email = "email2",
                         Password = "pass2",
-                        UserPhoto = "/images/Social/User.jpg"
+                        UserPhoto = "/images/Social/CalendarUser.jpg"
                     };
                     var user3 = new UserSocial()
                     {
@@ -81,7 +81,7 @@ namespace Net14.Web
                         Country = "Russia",
                         Email = "email3",
                         Password = "pass3",
-                        UserPhoto = "/images/Social/User.jpg"
+                        UserPhoto = "/images/Social/CalendarUser.jpg"
                     };
                     webContext.Users.AddRange(user, user2, user3);
                     webContext.SaveChanges();
