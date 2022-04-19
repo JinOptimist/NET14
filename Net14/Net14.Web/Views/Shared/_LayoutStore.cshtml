@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Net14.Web.Services
+@using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums
+@inject UserService userService
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -13,7 +16,10 @@
     <body>
         <div>
             <a href="/Home/Index">home</a>
+           @if (userService.HasRole(SiteRole.StoreAdmin))
+        {
             <a href="/Store/Admin">Admin panel</a>
+        }
         </div>
         <div>
             <div class="header">

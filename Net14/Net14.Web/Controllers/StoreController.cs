@@ -14,6 +14,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Net14.Web.Services;
+using Net14.Web.Controllers.AutorizeAttribute;
+using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 
 namespace Net14.Web.Controllers
 {
@@ -23,9 +26,13 @@ namespace Net14.Web.Controllers
         private ProductRepository _productRepository;
         private UserService _userService;
         private StoreImageRepository _storeimageRepository;
+        private UserService _userService;
         private IMapper _mapper;
         private SizeRepository _sizeRepository;
-        public StoreController(ProductRepository productRepository, StoreImageRepository storeimageRepository, BasketRepository basketRepository, UserService userService, IMapper imapper, SizeRepository sizeRepository)
+        public StoreController(ProductRepository productRepository, 
+            StoreImageRepository storeimageRepository,
+            BasketRepository basketRepository, UserService userService, 
+            IMapper imapper, SizeRepository sizeRepository)
         {
 
             _productRepository = productRepository;
@@ -36,6 +43,7 @@ namespace Net14.Web.Controllers
             _sizeRepository = sizeRepository;
         }
 
+        [HasRole(SiteRole.StoreAdmin)]
         public IActionResult Admin()
         {
             var dbProducts = _productRepository.GetAll();
@@ -85,7 +93,9 @@ namespace Net14.Web.Controllers
             var product = _productRepository.Get(productId);
             basket.Products.Add(product);
             _basketRepository.Save(basket);
-            return RedirectToAction("Catalog", "Store"); //TO DO change url 
+            var prevUrl = Request.Headers.First(x => x.Key == "Referer").Value;
+            return Redirect(prevUrl);
+            //return RedirectToAction("Catalog", "Store"); //TO DO change url 
         }
 
         public IActionResult DeleteProductFromBasket(int productId, int userId = 1)
@@ -196,6 +206,7 @@ namespace Net14.Web.Controllers
 
         }
         [HttpGet]
+        [IsStoreAdmin]
         public IActionResult AddProduct()
         {
             var dbSize = _sizeRepository.GetAll();
@@ -209,7 +220,8 @@ namespace Net14.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduct(AddProductVewModel viewModel)
+        [IsStoreAdmin]
+        public IActionResult AddProduct([FromBody]AddProductVewModel viewModel)
         {
             //if (!ModelState.IsValid)
             //{

@@ -8,22 +8,24 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Net14.Web.EfStuff.Repositories;
-
-
+using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
 
 namespace Net14.Web.Controllers
 {
     public class SocialFileController : Controller
 
     {
-        private SocialFileRepository _socialFileRepository;
-        public SocialFileController(SocialFileRepository socialFileRepository)
+        private SocialFileRepository _socialFileRepository;    
+        private IMapper _mapper;
+        public SocialFileController(IMapper mapper, 
+            SocialFileRepository socialFileRepository)
         {
-            _socialFileRepository = socialFileRepository;
- 
+            _mapper = mapper;
+            _socialFileRepository= socialFileRepository;
         }
 
-
+        [Authorize]
         public IActionResult MyFiles()
         {
             return View();
@@ -44,12 +46,8 @@ namespace Net14.Web.Controllers
         public IActionResult ShowMyFiles(int id)
         {
             var files = _socialFileRepository.Get(id);
-            var model = new FilesViewModel()
-            {
-                Name = files.Name,
-                Url = files.Url,
-                Text = files.Text,
-            };
+            var model = _mapper.Map<FilesViewModel>(files);
+
             return View(model);
         }
         [HttpGet]
@@ -60,15 +58,18 @@ namespace Net14.Web.Controllers
         [HttpPost]
         public IActionResult AddFiles(FilesViewModel viewModel)
         {
-            var dbFiles = new FileSocial()
+            if (!ModelState.IsValid)
             {
-                Name = viewModel.Name,
-                Url = viewModel.Url,
-                Text = viewModel.Text,
-            };
-
+                return View(viewModel);
+            }
+            
+            var dbFiles = _mapper.Map<FileSocial>(viewModel);
             _socialFileRepository.Save(dbFiles); // Сохраняйся 
 
+            return View();
+        }
+        public IActionResult VideoHosting()
+        {
             return View();
         }
     }

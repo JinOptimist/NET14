@@ -12,6 +12,8 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    padding: 10px;
+    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
 }
 
 .picture {
@@ -23,4 +25,33 @@
 }
 .addFiles {
     padding: 3px 0 3px 0;
+}
+.button-videoHosting {
+    display: flex;
+    align-items: center;
+}
+.zagolovok-myFiles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 30px 0;
+    padding: 30px;
+    width: 479px;
+    font-size: 50px;
+    border: 5px solid black;
+    border-radius: 20px;
+}
+.zagolovok-hostings {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin: 0 0 30px 0;
+    padding: 30px;
+    min-width: 560px;
+    font-size: 50px;
+    border: 5px solid black;
+    border-radius: 20px;
+}
+.field-validation-error{
+    color:red;
 }
