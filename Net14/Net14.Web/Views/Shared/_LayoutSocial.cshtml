@@ -60,11 +60,23 @@
         <div class="menu-container">
             <div class="menu">
                 <div class="buttons-menu">
-                    <div class="menu-element">Recomendation</div>
-                    <div class="menu-element" onclick="location.href='/SocialGroups/GetGroups';">Groups</div>
-                    <div class="menu-element" onclick="location.href='/Social/ShowAllUsers';">Find user</div>
-                    <div class="menu-element" onclick="location.href='/Social/Friends';">Friends</div>
-                    <div class="menu-element" onclick="location.href='/SocialAuthentication/Autorization';">Sign in</div>
+                    @if (User.Identity.IsAuthenticated)
+                        {
+                        <div class="menu-user-box">@RenderSection("ProfileBoxMenu", required: false)</div>
+                        <div class="menu-element">Recomendation</div>
+                        <div class="menu-element" onclick="location.href='/SocialGroups/GetGroups';">Groups</div>
+                        <div class="menu-element" onclick="location.href='/Social/ShowAllUsers';">Find user</div>
+                        <div class="menu-element" onclick="location.href='/Social/Friends';">Friends</div>
+                        <div class="menu-element"></div>
+                        }
+                    else
+                        {
+                        <div class="menu-element">Recomendation</div>
+                        <div class="menu-element" onclick="location.href='/SocialGroups/GetGroups';">Groups</div>
+                        <div class="menu-element" onclick="location.href='/Social/ShowAllUsers';">Find user</div>
+                        <div class="menu-element" onclick="location.href='/Social/Friends';">Friends</div>
+                        <div class="menu-element" onclick="location.href='/SocialAuthentication/Autorization';">Sign in</div>
+                        }                    
                 </div>
                 <div class="menu-recomendations-user">
                     <div class="menu-recomendation-title">Recommended accounts</div>
