@@ -26,12 +26,11 @@ namespace Net14.Web.Controllers
         private ProductRepository _productRepository;
         private UserService _userService;
         private StoreImageRepository _storeimageRepository;
-        private UserService _userService;
         private IMapper _mapper;
         private SizeRepository _sizeRepository;
-        public StoreController(ProductRepository productRepository, 
+        public StoreController(ProductRepository productRepository,
             StoreImageRepository storeimageRepository,
-            BasketRepository basketRepository, UserService userService, 
+            BasketRepository basketRepository, UserService userService,
             IMapper imapper, SizeRepository sizeRepository)
         {
 
@@ -73,23 +72,15 @@ namespace Net14.Web.Controllers
             return View(ProductModel);
         }
 
-        public IActionResult AddProductToBasket(int productId, int userId = 1)
+        public IActionResult AddProductToBasket(int productId)
         {
             //var user = _userService.GetCurrent();
             //var basket = user.Basket ?? new Basket();
             //var product = _productRepository.Get(productId);
             //basket.Products.Add(product);
 
-            var basket = _basketRepository.GetAll().FirstOrDefault(x => x.UserId == userId);
-            if (basket == null)
-            {
-                basket = new Basket()
-                {
-                    UserId = userId,
-                    Products = new List<Product>()
-                };
-            }
-
+            var user = _userService.GetCurrent();
+            var basket = user.Basket ?? new Basket() { User = user, Products = new List<Product>() };
             var product = _productRepository.Get(productId);
             basket.Products.Add(product);
             _basketRepository.Save(basket);
@@ -221,7 +212,7 @@ namespace Net14.Web.Controllers
 
         [HttpPost]
         [IsStoreAdmin]
-        public IActionResult AddProduct([FromBody]AddProductVewModel viewModel)
+        public IActionResult AddProduct([FromBody] AddProductVewModel viewModel)
         {
             //if (!ModelState.IsValid)
             //{
