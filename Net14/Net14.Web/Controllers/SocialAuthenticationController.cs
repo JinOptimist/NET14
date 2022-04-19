@@ -10,6 +10,7 @@ using Net14.Web.EfStuff.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using AutoMapper;
+using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 
 namespace Net14.Web.Controllers
 {
@@ -36,12 +37,14 @@ namespace Net14.Web.Controllers
             if (ModelState.IsValid)
             {
                 var userDb = _mapper.Map<UserSocial>(user);
+                userDb.Role = SiteRole.User;
                 _socialUserRepository.Save(userDb);
 
                 var claims = new List<Claim>() {
-                new Claim("Id", userDb.Id.ToString()),
-                new Claim("Name", userDb.FirstName),
-                new Claim(ClaimTypes.AuthenticationMethod, Startup.AuthName)
+                    new Claim("Id", userDb.Id.ToString()),
+                    new Claim("Role", userDb.Role.ToString()),
+                    new Claim("Name", userDb.FirstName),
+                    new Claim(ClaimTypes.AuthenticationMethod, Startup.AuthName)
                 };
             
 

@@ -6,6 +6,7 @@ using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 
 namespace Net14.Web.EfStuff
 {
@@ -437,6 +438,20 @@ namespace Net14.Web.EfStuff
             var userRepository = scope.ServiceProvider.GetService<SocialUserRepository>();
             if (!userRepository.Any()) 
             {
+                var user0 = new UserSocial()
+                {
+                    FirstName = "admin",
+                    LastName = "admin",
+                    Age = 7,
+                    City = "Grodno",
+                    Country = "Russia",
+                    Email = "admin",
+                    Password = "admin",
+                    UserPhoto = "/images/Social/User.jpg",
+                    Role = SiteRole.Admin
+                };
+                userRepository.Save(user0);
+
                 var user = new UserSocial()
                 {
                     FirstName = "Aleksey",

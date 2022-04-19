@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Net14.Web.Services
+@using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums
+@inject UserService userService
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,7 +15,10 @@
 <body>
     <div>
         <a href="/Home/Index">home</a>
-        <a href="/Store/Admin">Admin panel</a>
+        @if (userService.HasRole(SiteRole.StoreAdmin))
+        {
+            <a href="/Store/Admin">Admin panel</a>
+        }
     </div>
     <div>
         <div class="header">
@@ -49,13 +55,13 @@
             <a href="/Store/Catalog?category=Bags" class="second-header-banner">
                 Сумки
             </a>
-            <a  class="second-header-banner">
+            <a class="second-header-banner">
                 Для
             </a>
-            <a  class="second-header-banner">
+            <a class="second-header-banner">
                 Вида
             </a>
-            <a  class="second-header-banner">
+            <a class="second-header-banner">
                 О нас
             </a>
         </div>

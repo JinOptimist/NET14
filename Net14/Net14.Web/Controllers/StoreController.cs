@@ -11,6 +11,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Net14.Web.Services;
+using Net14.Web.Controllers.AutorizeAttribute;
+using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 
 namespace Net14.Web.Controllers
 {
@@ -19,15 +22,20 @@ namespace Net14.Web.Controllers
         private BasketRepository _basketRepository;
         private ProductRepository _productRepository;
         private StoreImageRepository _storeimageRepository;
-        public StoreController(ProductRepository productRepository, StoreImageRepository storeimageRepository, BasketRepository basketRepository)
+        private UserService _userService;
+        public StoreController(ProductRepository productRepository, 
+            StoreImageRepository storeimageRepository, 
+            BasketRepository basketRepository, UserService 
+            userService)
         {
 
             _productRepository = productRepository;
             _storeimageRepository = storeimageRepository;
             _basketRepository = basketRepository;
-
+            _userService = userService;
         }
 
+        [HasRole(SiteRole.StoreAdmin)]
         public IActionResult Admin()
         {
             var dbProducts = _productRepository.GetAll();
@@ -100,7 +108,9 @@ namespace Net14.Web.Controllers
 
             basket.Products.Add(product);
             _basketRepository.Save(basket);
-            return RedirectToAction("Catalog", "Store"); //TO DO change url 
+            var prevUrl = Request.Headers.First(x => x.Key == "Referer").Value;
+            return Redirect(prevUrl);
+            //return RedirectToAction("Catalog", "Store"); //TO DO change url 
         }
 
         public IActionResult DeleteProductFromBasket(int productId, int userId = 1)
@@ -277,15 +287,16 @@ namespace Net14.Web.Controllers
 
         }
         [HttpGet]
+        [IsStoreAdmin]
         public IActionResult AddProduct()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult AddProduct(AddProductVewModel viewModel)
+        [IsStoreAdmin]
+        public IActionResult AddProduct([FromBody]AddProductVewModel viewModel)
         {
-
             var dbProduct = new Product()
             {
                 Name = viewModel.Name,

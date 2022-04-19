@@ -48,6 +48,15 @@ namespace Net14.Web.Services
             return user;
         }
 
+        public bool HasRole(SiteRole role)
+            => GetCurrent()?.Role.HasFlag(role) ?? false;
+
+        public bool IsAdmin()
+            => HasRole(SiteRole.Admin);
+
+        public bool IsStoreAdmin()
+            => HasRole(SiteRole.StoreAdmin);
+
         public int GetUsersNotifications() 
         {
             var currentUser = GetCurrent();
