@@ -45,7 +45,11 @@ namespace Net14.Web.Controllers
                 month = 1;
                 year++;
             }
-            var dbNotes = _DaysNoteRepository.GetAll().Where(x => x.EventDate.Month == month && x.EventDate.Year == year);
+            var dbNotes = _DaysNoteRepository.GetAll()
+                .Where(x => x.EventDate.Month == month && x.EventDate.Year == year
+                 && x.CalendarUser == _CalendarUsersRepository.GetAll()
+                .FirstOrDefault(x => User.Identity.IsAuthenticated == true));
+
             var dayses = new List<int>();
             switch (new DateTime(year, month, 1).DayOfWeek.ToString())
             {
@@ -100,6 +104,7 @@ namespace Net14.Web.Controllers
                 {
                     Text = x.Text,
                     EventDate = x.EventDate,
+                    CalendarUser = x.CalendarUser,
                 }).OrderBy(x=>x.EventDate).ToList(),
             };
             return View(model);
@@ -116,6 +121,8 @@ namespace Net14.Web.Controllers
             {
                 Text = viewModel.Text,
                 EventDate = viewModel.EventDate,
+                CalendarUser = _CalendarUsersRepository.GetAll()
+                .FirstOrDefault(x => User.Identity.IsAuthenticated == true),
             };
             _DaysNoteRepository.Save(dbNote);
             return RedirectToAction("WatchCurrentNotes", new {year = dbNote.EventDate.Year, month = dbNote.EventDate.Month,
@@ -123,7 +130,9 @@ namespace Net14.Web.Controllers
         }
         public IActionResult WatchAllNotes()
         {
-            var dbNotes = _DaysNoteRepository.GetAll().Where(x=>x.Text != null);
+            var dbNotes = _DaysNoteRepository.GetAll().Where(x=>x.Text != null && x.CalendarUser ==
+            _CalendarUsersRepository.GetAll()
+                .FirstOrDefault(x => User.Identity.IsAuthenticated == true));
             var model = new TestCalendarViewModel()
             {
                 Notes = dbNotes.Select(x => new TestNotesViewModel()
@@ -136,8 +145,12 @@ namespace Net14.Web.Controllers
         }
         public IActionResult WatchCurrentNotes(int year, int month, int day)
         {
-            var dbNotes = _DaysNoteRepository.GetAll().Where(x => x.EventDate.Year == year && x.EventDate.Month == month
-                && x.EventDate.Day == day);
+            var dbNotes = _DaysNoteRepository.GetAll()
+                .Where(x => x.EventDate.Year == year && x.EventDate.Month == month
+                && x.EventDate.Day == day)
+                .Where(x => x.Text != null && x.CalendarUser ==
+            _CalendarUsersRepository.GetAll()
+                .FirstOrDefault(x => User.Identity.IsAuthenticated == true));
             var model = new TestCalendarViewModel()
             {
                 Notes = dbNotes.Select(x => new TestNotesViewModel()
@@ -195,8 +208,6 @@ namespace Net14.Web.Controllers
                 return View();
             }
 
-            //good
-
             var claims = new List<Claim>() {
                 new Claim("Id", user.Id.ToString()),
                 new Claim("Name", user.Name),
@@ -210,6 +221,11 @@ namespace Net14.Web.Controllers
             await HttpContext.SignInAsync(principal);
 
             return RedirectToRoute("default", new { controller = "Calendar", action = "TestCalendar", id = user.Id });
-        }        
+        }
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync(Startup.AuthName);
+            return RedirectToRoute("default", new { controller = "Calendar", action = "Index" });
+        }
     }
 }

@@ -100,11 +100,7 @@ namespace Net14.Web.EfStuff
                 .HasMany(post => post.Comments)
                 .WithOne(comment => comment.Post);
 
-            modelBuilder.Entity<GroupSocial>()
-                .HasMany(group => group.Members)
-                .WithMany(user => user.Groups);
-
-            modelBuilder.Entity<UserSocial>().Property(u => u.UserPhoto).HasDefaultValue("/images/Social/User.jpg");
+            modelBuilder.Entity<UserSocial>().Property(u => u.UserPhoto).HasDefaultValue("/images/Social/CalendarUser.jpg");
 
             base.OnModelCreating(modelBuilder);
         }

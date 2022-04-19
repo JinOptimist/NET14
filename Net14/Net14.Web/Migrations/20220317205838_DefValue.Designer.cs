@@ -103,7 +103,7 @@ namespace Net14.Web.Migrations
                     b.Property<string>("UserPhoto")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("/images/Social/User.jpg");
+                        .HasDefaultValue("/images/Social/CalendarUser.jpg");
 
                     b.HasKey("Id");
 

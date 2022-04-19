@@ -11,6 +11,6 @@ namespace Net14.Web.EfStuff.DbModel
         public DateTime EventDate { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public virtual CalendarUser CalendarUser { get; set; }
-        
+        public string UserName { get; set; }
     }
 }

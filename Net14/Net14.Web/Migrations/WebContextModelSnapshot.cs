@@ -59,6 +59,18 @@ namespace Net14.Web.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("EventDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId")
@@ -362,7 +374,7 @@ namespace Net14.Web.Migrations
                     b.Property<string>("UserPhoto")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("/images/Social/User.jpg");
+                        .HasDefaultValue("/images/Social/CalendarUser.jpg");
 
                     b.HasKey("Id");
 
@@ -507,15 +519,11 @@ namespace Net14.Web.Migrations
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", b =>
                 {
-                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupSocial", null)
-                        .WithMany("Posts")
-                        .HasForeignKey("GroupSocialId");
-
-                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "User")
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "CalendarUser")
                         .WithMany("Posts")
                         .HasForeignKey("UserId");
 
-                    b.Navigation("User");
+                    b.Navigation("CalendarUser");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.SocialComment", b =>
@@ -524,13 +532,13 @@ namespace Net14.Web.Migrations
                         .WithMany("Comments")
                         .HasForeignKey("PostId");
 
-                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "User")
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "CalendarUser")
                         .WithMany()
                         .HasForeignKey("UserId");
 
                     b.Navigation("Post");
 
-                    b.Navigation("User");
+                    b.Navigation("CalendarUser");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserFriendRequest", b =>
