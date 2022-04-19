@@ -63,7 +63,11 @@ namespace Net14.Web.Controllers
 
             return Redirect("Index");
         }
-
+        public IActionResult AddLike(int id)
+        {
+            _socialPostRepository.AddLike(id);
+            return Redirect("Index");
+        }
         [Authorize]
         [HttpGet]
         public IActionResult Settings()

@@ -48,7 +48,14 @@
             </div>
             <div class="post-operations">
                 <div class="operations" id="heart">
-                    <img src="~/images/Social/heart.png">
+                    <div>
+                        <a href="/Social/AddLike?id=@post.Id" class="heart" >
+                            <img src="~/images/Social/heart.png">
+                        </a>
+                    </div>
+                    <div>
+                        @post.Likes.ToString()
+                    </div>
                 </div>
                 <div class="operations" id="comment">
                     <img src="~/images/Social/speech-bubble.png">

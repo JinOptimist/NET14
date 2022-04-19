@@ -284,18 +284,16 @@ footer
     
 }
 
-.operations img
-{
-    display: inline-block;
-    overflow: hidden;
-    width: 25px;
-    height: 25px;
-    padding: 10px;
-    transition: height 0.2s ease;
-    transition: width 0.2s ease;
-
-}
-
+    .operations img {
+        display: inline-block;
+        overflow: hidden;
+        width: 25px;
+        height: 25px;
+        padding: 6px;
+        transition: height 0.2s ease;
+        transition: width 0.2s ease;
+    }
+    
 .operations img:hover
 {
     width: 30px;
@@ -566,3 +564,4 @@ a {
     font-size: 25px;
     margin-bottom: 50px;
 }
+
