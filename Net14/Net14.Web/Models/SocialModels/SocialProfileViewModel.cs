@@ -20,6 +20,7 @@ namespace Net14.Web.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string UserPhoto { get; set; } 
+        public SocialPostViewModel socialPostViewModel { get; set; }
     }
 }
 

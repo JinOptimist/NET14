@@ -178,6 +178,12 @@ footer
 
 
 }
+.menu-user-box {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
 .recomendation-element-menu
 {
     display: flex;
