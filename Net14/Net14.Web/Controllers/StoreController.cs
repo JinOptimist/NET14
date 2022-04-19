@@ -26,7 +26,6 @@ namespace Net14.Web.Controllers
         private ProductRepository _productRepository;
         private UserService _userService;
         private StoreImageRepository _storeimageRepository;
-        private UserService _userService;
         private IMapper _mapper;
         private SizeRepository _sizeRepository;
         public StoreController(ProductRepository productRepository, 
