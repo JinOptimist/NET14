@@ -175,14 +175,29 @@ footer
     display: flex;
     flex-direction: column;
     margin-top: 50px;
-
-
 }
-.menu-user-box {
+
+.box-user-element {
     display: flex;
-    flex-direction: column;
-    margin-top: 50px;
+    width: 175px;
+    min-height: 235px;
+    align-items: flex-end;
+    flex-direction: row-reverse;
 }
+
+.box-user-element-card {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 170px;
+    min-height: 100%;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
+    max-height: 230px;
+}
+
+
 
 .recomendation-element-menu
 {
