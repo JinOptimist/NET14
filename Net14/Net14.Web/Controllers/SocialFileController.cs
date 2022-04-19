@@ -12,7 +12,7 @@ using Net14.Web.EfStuff.Repositories;
 
 
 namespace Net14.Web.Controllers
-{
+{ 
     public class SocialFileController : Controller
 
     {
