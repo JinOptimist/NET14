@@ -1,0 +1,56 @@
+.currency-info {
+    flex-direction: column;
+    display: flex;
+    background: white;
+    height: 400px;
+    width: 500px;
+    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
+    align-items: center;
+    border-radius: 20px;
+}
+
+.currency-result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    font-size: 22px;
+}
+
+.form-currency {
+    display: flex;
+    width: 70%;
+    justify-content: center;
+}
+
+.form-currency fieldset {
+    font-size: 20px;
+    border: 1px solid gray;
+    border-radius: 20px;
+    width: 70%;
+    height: 190px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.form-sections {
+    display: flex;
+    flex-direction: column;
+}
+.form-currency p {
+    display: flex;
+    justify-content: center;
+}
+.submit-currency {
+    width: 130px;
+    height: 35px;
+    border-radius: 92px;
+    border: 1px solid grey;
+}
+.select-currency {
+    border-radius: 20px;
+    font-size: 13px;
+    margin-top: 5px;
+}

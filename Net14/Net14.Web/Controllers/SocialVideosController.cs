@@ -16,22 +16,25 @@ using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
 using System.Text.Json;
 using Net14.Web.Services;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace Net14.Web.Controllers
 {
     public class SocialVideosController : Controller
     {
         private VideoSocialRepository _videoSocialRepository;
-        private YouTubeVideoGetter _youTubeVideoGetter;
+        private YouTubeVideoService _youTubeVideoGetter;
         private const string chaneId = "UCJC0-trcxlfV8uuygkbFDHg";
 
-        public SocialVideosController(VideoSocialRepository videoSocial, YouTubeVideoGetter youTubeVideoGetter) 
+        public SocialVideosController(VideoSocialRepository videoSocial, YouTubeVideoService youTubeVideoGetter) 
         {
 
             _videoSocialRepository = videoSocial;
             _youTubeVideoGetter = youTubeVideoGetter;
         }
 
+        [Authorize]
         public IActionResult GetVideos(int page = 1) 
         {
             const int perPage = 4;

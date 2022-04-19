@@ -1,4 +1,5 @@
-﻿@model FilesViewModel
+﻿@using Net14.Web.Models
+@model FilesViewModel
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
@@ -13,18 +14,23 @@
                     </div>
                     <div class="addFiles">
                         @Html.TextBoxFor(x => x.Name)
+                        @Html.ValidationMessageFor(x=> x.Name)
                     </div>
                     <div class="addFiles">
                         Url
                     </div>
                     <div class="addFiles">
                         @Html.TextBoxFor(x => x.Url)
+                        @Html.ValidationMessageFor(x=> x.Url)
+
                     </div>
                     <div class="addFiles">
                         Text
                     </div>
                     <div class="addFiles">
                         @Html.TextBoxFor(x => x.Text)
+                        @Html.ValidationMessageFor(x=> x.Text)
+
                     </div>
                     <div class="addFiles">
                         <input type="submit" value="Отправить"/>

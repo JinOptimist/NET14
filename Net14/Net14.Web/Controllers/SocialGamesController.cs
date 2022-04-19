@@ -2,6 +2,7 @@
 using Net14.Web.EfStuff;
 using Net14.Web.Models.Shulte;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Net14.Web.Controllers
 {
@@ -13,7 +14,12 @@ namespace Net14.Web.Controllers
         {
             _webContext = webContext;
         }
-        public IActionResult Main()
+        [Authorize]
+        public IActionResult FindGame()
+        {
+            return View();
+        }
+        public IActionResult ShulteGame()
         {
             var random = new RandomNumberViewModel();
             var numbers = new List<int>(random.Random());
