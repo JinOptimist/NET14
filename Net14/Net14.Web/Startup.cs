@@ -89,6 +89,12 @@ namespace Net14.Web
             services.AddScoped<VideoSocialRepository>(x =>
                 new VideoSocialRepository(x.GetService<WebContext>()));
 
+            services.AddScoped<RecomendationsService>(x =>
+                new RecomendationsService(
+                    x.GetService<SocialUserRepository>(),
+                    x.GetService<IMapper>(),
+                    x.GetService<UserService>(),
+                    x.GetService<SocialGroupRepository>()));
 
             services.AddScoped<YouTubeVideoService>();
 
@@ -163,7 +169,11 @@ namespace Net14.Web
                         .MapFrom(dbPost =>
                             dbPost.User.FirstName));
 
-            provider.CreateMap<GroupSocial, SocialGroupViewModel>();
+            provider.CreateMap<GroupSocial, SocialGroupViewModel>()
+                .ForMember(nameof(SocialGroupViewModel.Tags),
+                    group => group
+                        .MapFrom(dbGroup =>
+                            dbGroup.Tags.Select(tag => tag.Tag)));
 
             provider.CreateMap<SocialUserRegistrationViewModel, UserSocial>();
 
@@ -184,6 +194,8 @@ namespace Net14.Web
             provider.CreateMap<SocialUserSettingsViewModel, UserSocial>();
 
 
+
+            provider.CreateMap<UserSocial, SocialUserRecomendationViewModel>();
 
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);

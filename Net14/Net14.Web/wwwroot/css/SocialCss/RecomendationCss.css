@@ -1,0 +1,43 @@
+﻿#recomendation-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#recomendations-users {
+    display: inline-block;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    margin-right: -20px;
+}
+
+#recomendaton-page-element {
+    min-height: 160px;
+}
+
+.recomendation-header {
+    font-size: 25px;
+}
+
+.select-recomendations {
+    cursor: pointer;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 50px;
+    /* min-width: 200px; */
+    width: 500px;
+    justify-content: space-evenly;
+}
+
+.select {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    width: 100px;
+}
+.select.active {
+    border-bottom: 2px solid grey;
+}

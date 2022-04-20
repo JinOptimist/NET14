@@ -79,3 +79,11 @@ $(document).ready(function () {
         $("#form-show-files").slideToggle();
     });
 });
+
+
+$(document).ready(function () {
+    $(".select").click(function () {
+        $(".select.active").toggleClass("active");
+        $(this).toggleClass("active");
+    })
+})
