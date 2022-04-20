@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Net14.Web.EfStuff;
 
 namespace Net14.Web.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class WebContextModelSnapshot : ModelSnapshot
+    [Migration("20220419162617_AddRoleForUser")]
+    partial class AddRoleForUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,26 +200,6 @@ namespace Net14.Web.Migrations
                     b.ToTable("GroupSocial");
                 });
 
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupTags", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("GroupId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Tag")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GroupId");
-
-                    b.ToTable("GroupTags");
-                });
-
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", b =>
                 {
                     b.Property<int>("Id")
@@ -292,12 +274,6 @@ namespace Net14.Web.Migrations
 
                     b.Property<int>("FriendRequestStatus")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsViewedByReceiver")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsViewedBySender")
-                        .HasColumnType("bit");
 
                     b.Property<int?>("ReceiverId")
                         .HasColumnType("int");
@@ -462,15 +438,6 @@ namespace Net14.Web.Migrations
                     b.Navigation("Image");
                 });
 
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupTags", b =>
-                {
-                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupSocial", "Group")
-                        .WithMany("Tags")
-                        .HasForeignKey("GroupId");
-
-                    b.Navigation("Group");
-                });
-
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", b =>
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupSocial", null)
@@ -566,8 +533,6 @@ namespace Net14.Web.Migrations
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupSocial", b =>
                 {
                     b.Navigation("Posts");
-
-                    b.Navigation("Tags");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", b =>

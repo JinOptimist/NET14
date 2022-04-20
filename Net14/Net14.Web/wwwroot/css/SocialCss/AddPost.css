@@ -37,7 +37,7 @@
         border: 1px solid grey;
         padding: 24px;
         width: 80%;
-        margin-top: 30px;
+        margin-top: 7px;
     }
 
         .add-post form input[type="submit"] {
@@ -62,4 +62,5 @@
     justify-content: center;
     color: black;
     padding: 5px;
+    margin:5px;
 }

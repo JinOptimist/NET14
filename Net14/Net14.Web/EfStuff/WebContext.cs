@@ -69,6 +69,10 @@ namespace Net14.Web.EfStuff
                .HasMany(basket => basket.Products)
                .WithMany(product => product.Baskets);
 
+            modelBuilder.Entity<UserSocial>()
+             .HasOne(user => user.Basket)
+             .WithOne(basket => basket.User);
+
             modelBuilder.Entity<Product>()
                .HasMany(Product =>Product.StoreImages)
                .WithOne(StoreImage => StoreImage.Product);
