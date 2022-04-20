@@ -198,32 +198,16 @@ namespace Net14.Web.Controllers
         [Authorize]
         public IActionResult Notification() 
         {
-            var currentUser = _userService.GetCurrent();
+            var user = _userService.GetCurrent();
+            var requests = _userFriendRequestRepository.GetAll().Where(req => req.Receiver == user & 
+                            req.FriendRequestStatus == FriendRequestStatus.Pending);
 
-            var recievedRequests = currentUser.FriendRequestReceived
-                .ToList();
+            var model = _mapper.Map<List<FriendRequestViewModel>>(requests);
 
-            recievedRequests.ForEach(el => el.IsViewedByReceiver = true);
-            _userFriendRequestRepository.SaveList(recievedRequests);
+            return View(model);
 
 
-            var closeSentRequests = currentUser.FriendRequestSent
-                .Where(req => req.FriendRequestStatus != FriendRequestStatus.Pending).ToList();
-
-            closeSentRequests.ForEach(el => el.IsViewedBySender = true);
-            _userFriendRequestRepository.SaveList(closeSentRequests);
-
-            var receivedModel = _mapper.Map<List<FriendRequestViewModel>>(recievedRequests);
-            receivedModel.ForEach(req => req.Type = RequestViewModelType.Received);
-
-            var sentModel = _mapper.Map<List<FriendRequestViewModel>>(closeSentRequests);
-            sentModel.ForEach(req => req.Type = RequestViewModelType.Sent);
-
-            receivedModel.AddRange(sentModel);
-
-            return View(receivedModel);
         }
-
         [Authorize]
         public IActionResult Friends() 
         {

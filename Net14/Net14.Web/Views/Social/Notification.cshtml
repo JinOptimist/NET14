@@ -1,5 +1,4 @@
-﻿@using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums
-@model List<FriendRequestViewModel>
+﻿@model List<FriendRequestViewModel>
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
@@ -8,76 +7,18 @@
 <div class="notifications-title">Notifications</div>
 @foreach (var requests in Model)
 {
-    if (requests.FriendRequestStatus == FriendRequestStatus.Pending)
-    {
-        <div class="notification-container">
-            <div class="notification-element">
-                <div class="user-photo-notification">
-                    <img src=@requests.Sender.UserPhoto>
-                </div>
-                <div class="friend-user-notification">
-                    @requests.Sender.FirstName @requests.Sender.LastName made a friend request
-                </div>
+    <div class="notification-container">
+        <div class="notification-element">
+            <div class="user-photo-notification">
+                <img src=@requests.Sender.UserPhoto>
             </div>
-            <div class="operations-notification">
-                <div class="accept-button" onclick="location.href='@Url.Action("AcceptFriend", "Social", new { friendId = requests.Sender.Id })'">Accept</div>
-                <div class="decline-button" onclick="location.href='@Url.Action("DeclineFriend", "Social", new { friendId = requests.Sender.Id })'">Decline</div>
+            <div class="friend-user-notification">
+                @requests.Sender.FirstName @requests.Sender.LastName made a friend request
             </div>
         </div>
-    }
-
-    else if (requests.FriendRequestStatus == FriendRequestStatus.Accepted && requests.Type == RequestViewModelType.Received)
-    {
-        <div class="notification-container" id="decline-or-accept">
-            <div class="notification-element">
-                <div class="user-photo-notification">
-                    <img src=@requests.Receiver.UserPhoto>
-                </div>
-                <div class="friend-user-notification">
-                    You accepted a friend request from @requests.Sender.FirstName @requests.Sender.LastName
-                </div>
-            </div>
+        <div class="operations-notification">
+            <div class="accept-button"  onclick="location.href='@Url.Action("AcceptFriend", "Social", new {friendId = requests.Sender.Id})'">Accept</div>
+            <div class="decline-button" onclick="location.href='@Url.Action("DeclineFriend", "Social", new {friendId = requests.Sender.Id})'">Decline</div>
         </div>
-    }
-
-    else if (requests.FriendRequestStatus == FriendRequestStatus.Accepted && requests.Type == RequestViewModelType.Sent)
-    {
-        <div class="notification-container" id="decline-or-accept">
-            <div class="notification-element">
-                <div class="user-photo-notification">
-                    <img src=@requests.Receiver.UserPhoto>
-                </div>
-                <div class="friend-user-notification">
-                    @requests.Receiver.FirstName @requests.Receiver.LastName accepted a friend request
-                </div>
-            </div>
-        </div>
-    }
-    else if (requests.FriendRequestStatus == FriendRequestStatus.Declined && requests.Type == RequestViewModelType.Received)
-    {
-        <div class="notification-container" id="decline-or-accept">
-            <div class="notification-element">
-                <div class="user-photo-notification">
-                    <img src=@requests.Sender.UserPhoto>
-                </div>
-                <div class="friend-user-notification">
-                    You declined a friend request from @requests.Sender.FirstName @requests.Sender.LastName
-                </div>
-            </div>
-        </div>
-    }
-
-    else if (requests.FriendRequestStatus == FriendRequestStatus.Declined && requests.Type == RequestViewModelType.Sent)
-    {
-        <div class="notification-container" id="decline-or-accept">
-            <div class="notification-element">
-                <div class="user-photo-notification">
-                    <img src=@requests.Sender.UserPhoto>
-                </div>
-                <div class="friend-user-notification">
-                    @requests.Receiver.FirstName @requests.Receiver.LastName declined friend request
-                </div>
-            </div>
-        </div>
-    }
+    </div>
 }

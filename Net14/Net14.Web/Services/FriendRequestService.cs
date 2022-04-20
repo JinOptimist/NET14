@@ -43,9 +43,8 @@ namespace Net14.Web.Services
             {
                 var rec = _socialUserRepository.Get(receiverId);
                 var send = _socialUserRepository.Get(senderId);
-                var friendRequest = _userFriendRequestRepository.GetAll().FirstOrDefault(fr => fr.Receiver.Id == rec.Id && fr.Sender.Id == send.Id);
+                var friendRequest = _userFriendRequestRepository.GetAll().FirstOrDefault(fr => fr.Receiver == rec && fr.Sender == send);
                 friendRequest.FriendRequestStatus = FriendRequestStatus.Accepted;
-
                 _userFriendRequestRepository.Save(friendRequest);
                 MakeFriends(senderId, receiverId);
 
@@ -55,13 +54,10 @@ namespace Net14.Web.Services
         {
             if (Exists(senderId, receiverId) && _socialUserRepository.Exists(senderId) && _socialUserRepository.Exists(receiverId)) 
             {
-                var sender = _socialUserRepository.Get(senderId);
                 var recive = _socialUserRepository.Get(receiverId);
                 var friendRequest = _userFriendRequestRepository.GetAll();
                 var target = friendRequest.Single(req => req.Receiver == recive);
-                target.FriendRequestStatus = FriendRequestStatus.Declined;
-
-                _userFriendRequestRepository.Save(target);
+                _userFriendRequestRepository.Remove(target);
             }
         }
 
@@ -69,9 +65,7 @@ namespace Net14.Web.Services
         {
             var send = _socialUserRepository.Get(senderId);
             var receive = _socialUserRepository.Get(receiverId);
-            return _userFriendRequestRepository.GetAll()
-                .Where(request => request.FriendRequestStatus == FriendRequestStatus.Pending)
-                .Any(fr => fr.Sender == send && fr.Receiver == receive);
+            return _userFriendRequestRepository.GetAll().Any(fr => fr.Sender == send && fr.Receiver == receive);
         }
 
         public bool CheckIfFriends(int requestUserId, int targetUserId)
