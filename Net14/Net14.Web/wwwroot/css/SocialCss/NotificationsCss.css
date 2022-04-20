@@ -58,3 +58,9 @@
     align-items: center;
     justify-content: center;
 }
+
+#decline-or-accept{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
