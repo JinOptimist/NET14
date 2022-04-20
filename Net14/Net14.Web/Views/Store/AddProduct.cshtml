@@ -1,4 +1,5 @@
-﻿@using Net14.Web.Models
+﻿@using Net14.Web.EfStuff.EnumStore
+@using Net14.Web.Models
 @model AddProductVewModel
 
 @{
@@ -6,26 +7,31 @@
 }
 
 <form action="/Store/AddProduct" method="post">
+    <select asp-for="Brand" asp-items="Html.GetEnumSelectList<BrandСategories>()"></select>
     <div>
-        Name: @Html.TextBoxFor(x => x.Name)
+        Name: @Html.TextBoxFor(x => x.Name) @Html.ValidationMessageFor(x => x.Name)
+        @Html.ValidationMessageFor(x => x.Name)
     </div>
     <div>
-        Url : @Html.TextBoxFor(x => x.Url)
+        Quantity: @Html.TextBoxFor(x => x.Quantity) @Html.ValidationMessageFor(x => x.Quantity)
     </div>
     <div>
-        Category: @Html.TextBoxFor(x => x.Category)
+        Price: @Html.TextBoxFor(x => x.Price) @Html.ValidationMessageFor(x => x.Price)
+    </div>
+    <select asp-for="Category" asp-items="Html.GetEnumSelectList<CoolCategories>()"> </select>
+    <select asp-for="Color" asp-items="Html.GetEnumSelectList<CoolColors>()"></select>
+    <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()"></select>
+    <select asp-for="Material" asp-items="Html.GetEnumSelectList<CoolMaterial>()"></select>
+    <div>
+        @Html.ValidationMessageFor(x => x.Sizes)
+        @foreach (var size in Model.Sizes)
+        {    <br />
+            <input name="CheckedSizes" type="checkbox" value="@size" /> @size
+
+            <br />
+        }
     </div>
     <div>
-        Quantity: @Html.TextBoxFor(x => x.Quantity)
-    </div>
-     <div>
-        Material: @Html.TextBoxFor(x => x.Material)
-    </div>
-    <div>
-        Price: @Html.TextBoxFor(x => x.Price)
-    </div>
-   
-    <div>
-        <input type="submit" value="Создать" />
+        <input type="submit" value="Add Product" />
     </div>
 </form>

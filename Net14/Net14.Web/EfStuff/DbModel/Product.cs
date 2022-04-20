@@ -21,5 +21,6 @@ namespace Net14.Web.EfStuff.DbModel
         public virtual List<Basket> Baskets { get; set; }
         public virtual List<StoreImage> StoreImages { get; set; }
 
+        
     }
 }
