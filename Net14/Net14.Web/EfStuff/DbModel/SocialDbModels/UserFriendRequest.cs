@@ -18,9 +18,5 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
         [Required]
         public FriendRequestStatus FriendRequestStatus { get; set; }
 
-        public bool IsViewedBySender { get; set; }
-        public bool IsViewedByReceiver { get; set; }
-
-
     }
 }

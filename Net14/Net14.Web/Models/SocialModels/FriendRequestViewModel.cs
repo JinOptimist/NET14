@@ -9,10 +9,8 @@ namespace Net14.Web.Models
 {
     public class FriendRequestViewModel
     {
-        public SocialUserViewModel Sender { get; set; }
+        public UserSocial Sender { get; set; }
         public FriendRequestStatus FriendRequestStatus { get; set; }
-        public SocialUserViewModel Receiver { get; set; }
-        public RequestViewModelType Type { get; set; }
 
     }
 }
