@@ -60,22 +60,15 @@ namespace Net14.Web.Services
         public int GetUsersNotifications() 
         {
             var currentUser = GetCurrent();
-            var res = currentUser.FriendRequestReceived.Where(req => req.FriendRequestStatus == FriendRequestStatus.Pending).Count();
-            return res;
+            var recievedRequests = currentUser.FriendRequestReceived.Where(request => request.IsViewedByReceiver == false);
+            var sentRequests = currentUser.FriendRequestSent
+                .Where(request => request.FriendRequestStatus != FriendRequestStatus.Pending
+                &&
+                request.IsViewedBySender == false);
+
+
+
+            return recievedRequests.Count() + sentRequests.Count();
         }
-
-        public List<SocialUserViewModel> GetUserToRecSection() 
-        {
-            var currentUser = GetCurrent();
-            if (currentUser == null) 
-            {
-                var model = _mapper.Map<List<SocialUserViewModel>>(_socialUserRepository.GetAll());
-                return model;
-            }
-
-            var modelNoCurrent = _mapper.Map<List<SocialUserViewModel>>(_socialUserRepository.GetAll().Where(user => user.Id != currentUser.Id));
-            return modelNoCurrent;
-        }
-
     }
 }
