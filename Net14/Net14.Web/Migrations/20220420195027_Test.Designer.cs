@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Net14.Web.EfStuff;
 
 namespace Net14.Web.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class WebContextModelSnapshot : ModelSnapshot
+    [Migration("20220420195027_Test")]
+    partial class Test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -295,6 +297,12 @@ namespace Net14.Web.Migrations
 
                     b.Property<int>("FriendRequestStatus")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsViewedByReceiver")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsViewedBySender")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("ReceiverId")
                         .HasColumnType("int");
