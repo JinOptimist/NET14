@@ -293,12 +293,6 @@ namespace Net14.Web.Migrations
                     b.Property<int>("FriendRequestStatus")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsViewedByReceiver")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsViewedBySender")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("ReceiverId")
                         .HasColumnType("int");
 
