@@ -145,6 +145,7 @@ namespace Net14.Web.Services
         public List<SocialUserRecomendationViewModel> GetUserRecomendation() 
         {
             var dbUsers = _socialUserRepository.GetAll();
+
             var viewModelUsers = _mapper.Map<List<SocialUserRecomendationViewModel>>(dbUsers);
 
             GetAgeRate(viewModelUsers);
@@ -153,9 +154,13 @@ namespace Net14.Web.Services
             GetSameFriendRate(viewModelUsers);
             GetGroupsRate(viewModelUsers);
 
+            var friendIds = new HashSet<int>(_currentUser.Friends.Select(user => user.Id));
+
+
             var result = viewModelUsers
                 .OrderByDescending(user => user.RecomendationRate)
                 .Where(user => user.Id != _currentUser.Id)
+                .Where(user => !friendIds.Contains(user.Id))
                 .ToList();
 
             return result;
@@ -182,13 +187,16 @@ namespace Net14.Web.Services
                     .Select(tag => tag.Tag)
                     .Any(tag => hashCurrentUserTags.Contains(tag)))
                 .ToList();
+            var currentUserGroupsIds = new HashSet<int>(_currentUser.Groups.Select(group => group.Id));
 
-            var result = _mapper.Map<List<SocialGroupViewModel>>(groupSameTag.Union(groupsOfriends).ToList());
+            var result = _mapper.Map<List<SocialGroupViewModel>>(groupSameTag
+                .Union(groupsOfriends)
+                .Where(group => !currentUserGroupsIds.Contains(group.Id)).ToList());
 
             if(result.Count() == 0) 
             {
                 return _mapper.Map<List<SocialGroupViewModel>>(_socialGroupRepository.GetAll()
-                    .OrderByDescending(group => group.Members.Count()));
+                    .OrderByDescending(group => group.Members.Count()).Where(group => !currentUserGroupsIds.Contains(group.Id)).ToList());
             }
 
             return result;
