@@ -56,7 +56,7 @@ namespace Net14.Web.EfStuff.Repositories
 
         public UserSocial GetByEmAndPass(string email, string pass) 
         {
-            var user = _webContext.Users.Single(x => x.Email == email && x.Password == pass);
+            var user = _webContext.Users.SingleOrDefault(x => x.Email == email && x.Password == pass);
             return user;
         }
 
@@ -67,5 +67,6 @@ namespace Net14.Web.EfStuff.Repositories
         {
             return _webContext.Users.Any(user => user.Id == userId);
         }
+
     }
 }
