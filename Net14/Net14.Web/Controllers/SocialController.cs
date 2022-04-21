@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Authorization;
 using Net14.Web.Services;
 using AutoMapper;
 using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
+using Net14.Web.Controllers.AutorizeAttribute;
+
 namespace Net14.Web.Controllers
 {
     public class SocialController : Controller
@@ -87,9 +89,9 @@ namespace Net14.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Settings(SocialUserSettingsViewModel socialUserSettingsViewModel) 
+        public IActionResult Settings(SocialUserSettingsViewModel socialUserSettingsViewModel)
         {
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
                 var currentUser = _userService.GetCurrent();
 
@@ -105,12 +107,12 @@ namespace Net14.Web.Controllers
             return RedirectToAction("Settings");
         }
         [HttpGet]
-        public IActionResult ShowAllUsers() 
+        public IActionResult ShowAllUsers()
         {
             var currentUser = _userService.GetCurrent();
             var dbUsers = _socialUserRepository.GetAll();
 
-            if (currentUser == null) 
+            if (currentUser == null)
             {
                 var model = _mapper.Map<List<SocialUserViewModel>>(dbUsers);
                 return View(model);
@@ -120,7 +122,7 @@ namespace Net14.Web.Controllers
             var modelNoCurrent = dbUsers.Where(user => user.Id != currentUser.Id)
                 .Select(db =>
                 {
-                    if (currentUser.Friends.Contains(db)) 
+                    if (currentUser.Friends.Contains(db))
                     {
                         var mod = _mapper.Map<SocialUserViewModel>(db);
                         mod.IsFriend = true;
@@ -205,10 +207,10 @@ namespace Net14.Web.Controllers
             var currentUserId = _userService.GetCurrent().Id;
             _friendRequestService.CreateFriendRequest(currentUserId, friendId);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("ShowAllUsers");
         }
         [Authorize]
-        public IActionResult Notification() 
+        public IActionResult Notification()
         {
             var currentUser = _userService.GetCurrent();
 
@@ -237,7 +239,7 @@ namespace Net14.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult Friends() 
+        public IActionResult Friends()
         {
             var currentUser = _userService.GetCurrent();
 
@@ -249,7 +251,7 @@ namespace Net14.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult AcceptFriend(int friendId) 
+        public IActionResult AcceptFriend(int friendId)
         {
             var user = _userService.GetCurrent();
             _friendRequestService.Accept(friendId, user.Id);
@@ -259,12 +261,29 @@ namespace Net14.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult DeclineFriend(int friendId) 
+        public IActionResult DeclineFriend(int friendId)
         {
             var user = _userService.GetCurrent();
             _friendRequestService.Decline(friendId, user.Id);
             return Redirect("Notification");
 
+        }
+        [HasRole(SiteRole.Admin)]
+        public IActionResult BlockUser(int userId) 
+        {
+            var user = _socialUserRepository.Get(userId);
+            user.IsBlocked = true;
+            _socialUserRepository.Save(user);
+            return Redirect($"/Social/ShowAllUsers");
+        }
+
+        [HasRole(SiteRole.Admin)]
+        public IActionResult UnblockUser(int userId) 
+        {
+            var user = _socialUserRepository.Get(userId);
+            user.IsBlocked = false;
+            _socialUserRepository.Save(user);
+            return Redirect($"/Social/ShowAllUsers");
         }
     }
 }
