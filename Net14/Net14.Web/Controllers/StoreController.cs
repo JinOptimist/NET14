@@ -140,12 +140,6 @@ namespace Net14.Web.Controllers
             return View(model);
         }
 
-        public IActionResult Shoes2()
-        {
-
-            return View();
-        }
-
         public IActionResult Catalog(string category)
         {
             var _category = category;
