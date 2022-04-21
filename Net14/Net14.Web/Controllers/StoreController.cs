@@ -211,7 +211,7 @@ namespace Net14.Web.Controllers
 
         [HttpPost]
         [IsStoreAdmin]
-        public IActionResult AddProduct([FromBody] AddProductVewModel viewModel)
+        public IActionResult AddProduct( AddProductVewModel viewModel)
         {
             //if (!ModelState.IsValid)
             //{
