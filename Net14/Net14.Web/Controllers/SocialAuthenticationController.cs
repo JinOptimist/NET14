@@ -85,7 +85,10 @@ namespace Net14.Web.Controllers
 
             if (user == null)
             {
-                return View();
+                ModelState.AddModelError(
+                    nameof(SocialUserAutorizationViewModel.Email),
+                    "Invalid email or passrowd");
+                return View(userViewModel);
             }
 
             //good

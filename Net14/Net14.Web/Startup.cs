@@ -177,6 +177,8 @@ namespace Net14.Web
                 
             provider.CreateMap<FilesViewModel, FileSocial>();
 
+            provider.CreateMap<Image, ImageViewModel>(); 
+
             provider.CreateMap<FileSocial, FilesViewModel>();
 
             var mapperConfiguration = new MapperConfiguration(provider);
