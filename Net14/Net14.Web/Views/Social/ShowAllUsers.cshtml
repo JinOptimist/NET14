@@ -27,38 +27,69 @@
     </div>
     @foreach (SocialUserViewModel user in Model)
     {
-        <div class="usersCenter">
-            <div class="findUsers">
-                <div class="find-recomendation-element-menu">
-                    <div class="user-name-and-photo">
-                        <div class="find-user-photo">
-                            <img src=@user.UserPhoto class="find-user-photo">
+        if (user.IsBlocked == true)
+        {
+            <div class="usersCenter">
+                <div class="findUsers">
+                    <div class="find-recomendation-element-menu blocked">
+                        <div class="user-name-and-photo">
+                            <div class="find-user-photo">
+                                <img src=@user.UserPhoto class="find-user-photo">
+                            </div>
+                            <div class="size-for-user text-indent">
+                                @user.FirstName @user.LastName
+                            </div>
                         </div>
-                        <div class="size-for-user text-indent">
-                            @user.FirstName @user.LastName
+                        <div class="place-of-user">
+                            <div>Age: @user.Age</div>
+                            <div>@user.Country, @user.City</div>
+                        </div>
+                        <div class="add-to-friends-button-container" @*onclick="location.href='@Url.Action("AddFriend", "Social", new { friendId = user.Id })'"*@>
+                            @if (userService.IsAdmin())
+                            {
+                                <div class="friend-status-unblocked" onclick="location.href='@Url.Action("UnblockUser", "Social", new { userId = user.Id })'">Unblock</div>
+                            }
+                            <div class="friend-status">Blocked</div>
                         </div>
                     </div>
-                    <div class="place-of-user">
-                        <div>Age: @user.Age</div>
-                        <div>@user.Country, @user.City</div>
-                    </div>
-                    <div class="add-to-friends-button-container" onclick="location.href='@Url.Action("AddFriend", "Social", new {friendId = user.Id})'">
-                        @if (user.IsFriend)
-                        {
-                            <div class="friend-status">Friend</div>
-                        }
-                        else
-                        {
-                            <div class="add-to-friends-button">Add to friends</div>
-                        }
-                    </div>
-                    @if (userService.IsAdmin())
-                    {
-                        <div>Delete</div>
-                    }
                 </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="usersCenter">
+                <div class="findUsers">
+                    <div class="find-recomendation-element-menu">
+                        <div class="user-name-and-photo">
+                            <div class="find-user-photo">
+                                <img src=@user.UserPhoto class="find-user-photo">
+                            </div>
+                            <div class="size-for-user text-indent">
+                                @user.FirstName @user.LastName
+                            </div>
+                        </div>
+                        <div class="place-of-user">
+                            <div>Age: @user.Age</div>
+                            <div>@user.Country, @user.City</div>
+                        </div>
+                        <div class="add-to-friends-button-container">
+                            @if (userService.IsAdmin())
+                            {
+                                <div class="friend-status-blocked" onclick="location.href='@Url.Action("BlockUser", "Social", new { userId = user.Id })'">Delete</div>
+                            }
+                            @if (user.IsFriend)
+                            {
+                                <div class="friend-status">Friend</div>
+                            }
+                            else
+                            {
+                                <div class="add-to-friends-button" onclick="location.href='@Url.Action("AddFriend", "Social", new { friendId = user.Id })'">Add to friends</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     }
 </div>
 

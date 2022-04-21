@@ -109,6 +109,10 @@ form {
     background: rgba(122,122,122,0.1);
 }
 
+.find-recomendation-element-menu.blocked {
+    background: rgba(122,122,122,0.1);
+}
+
 .filters {
     margin-top: 30px;
     border-radius: 92px;
@@ -170,3 +174,40 @@ form {
     display: flex;
     width: 600px;
 }
+.friend-status-blocked {
+    margin-right: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 36px;
+    border: 1px solid grey;
+    border-radius: 92px;
+    transition: background 0.3s ease;
+    transition: box-shadow 0.3s ease;
+}
+
+    .friend-status-blocked:hover {
+        color: white;
+        background: rgb(255, 40, 40);
+
+    }
+
+.friend-status-unblocked {
+    margin-right: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 36px;
+    border: 1px solid grey;
+    border-radius: 92px;
+    transition: background 0.3s ease;
+    transition: box-shadow 0.3s ease;
+}
+
+
+    .friend-status-unblocked:hover {
+        background: rgb(22 222 48);
+        color: white;
+    }

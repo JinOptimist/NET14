@@ -78,14 +78,21 @@ namespace Net14.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return View(userViewModel);
             }
 
             var user = _socialUserRepository.GetByEmAndPass(userViewModel.Email, userViewModel.Password);
 
             if (user == null)
             {
-                return View();
+                ModelState.AddModelError(nameof(SocialUserAutorizationViewModel.Email), "Invalid email or password");
+                return View(userViewModel);
+            }
+
+            if (user.IsBlocked == true) 
+            {
+                ModelState.AddModelError(nameof(SocialUserAutorizationViewModel.Email), "This user is blocked");
+                return View(userViewModel);
             }
 
             //good

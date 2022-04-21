@@ -58,7 +58,7 @@ namespace Net14.Web.Services
                 var sender = _socialUserRepository.Get(senderId);
                 var recive = _socialUserRepository.Get(receiverId);
                 var friendRequest = _userFriendRequestRepository.GetAll();
-                var target = friendRequest.Single(req => req.Receiver == recive);
+                var target = friendRequest.Single(req => req.Receiver == recive && req.FriendRequestStatus == FriendRequestStatus.Pending);
                 target.FriendRequestStatus = FriendRequestStatus.Declined;
 
                 _userFriendRequestRepository.Save(target);
