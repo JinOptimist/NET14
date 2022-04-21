@@ -1,4 +1,7 @@
-﻿@model List<SocialUserViewModel>
+﻿@using Net14.Web.Services; 
+@model List<SocialUserViewModel>
+@inject UserService userService
+
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
@@ -49,6 +52,10 @@
                             <div class="add-to-friends-button"  onclick="location.href='@Url.Action("AddFriend", "Social", new {friendId = user.Id})'">Add to friends</div>
                         }
                     </div>
+                    @if (userService.IsAdmin())
+                    {
+                        <div>Delete</div>
+                    }
                 </div>
             </div>
         </div>
