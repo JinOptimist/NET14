@@ -33,6 +33,8 @@ function ViewClosedForm(el)
 
     }
 }
+
+
 $(document).ready(function () {
     $("#settings-icon").click(function () {
         if ($("#header-settings").css("display") == "flex") {
