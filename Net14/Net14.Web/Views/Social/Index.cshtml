@@ -1,4 +1,7 @@
 ﻿@using Net14.Web.EfStuff.DbModel.SocialDbModels;
+@using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums
+@using Net14.Web.Services
+@inject UserService userService
 @model List<SocialPostViewModel>;
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
@@ -27,8 +30,13 @@
         </form>
     </div>
 }
+
 @foreach (SocialPostViewModel post in Model)
 {
+    @if (userService.HasRole(SiteRole.Admin))
+    {
+        <a href="/Social/Index" id=@post.Id/>
+    }
     <div class="content-element">
         <div class="content-element-card" id=@post.Id>
             <div class="user-info">

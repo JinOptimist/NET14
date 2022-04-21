@@ -12,5 +12,14 @@ namespace Net14.Web.EfStuff.Repositories
         public SocialPostRepository(WebContext context) : base(context)
         {
         }
+        public void RemovePost(int idPost)
+        {
+            var post = _webContext.Posts
+                .SingleOrDefault(post => post.Id == idPost); //находим по id поста данный пост
+                
+
+            _webContext.Posts.Remove(post); // удаляем его 
+            _webContext.SaveChanges();
+        }
     }
 }

@@ -41,8 +41,9 @@ namespace Net14.Web.Controllers
             _userFriendRequestRepository = userFriendRequestRepository;
         }
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int idPost)
         {
+            _socialPostRepository.RemovePost(idPost);//
 
             var postArr = _socialPostRepository.GetAll();
             var viewPost = _mapper.Map<List<SocialPostViewModel>>(postArr);
