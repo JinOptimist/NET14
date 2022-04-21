@@ -7,6 +7,22 @@
     display: flex;
 }
 
-.image img{
+.image img {
     max-width: 200px;
 }
+
+.image-toggle {
+    border: 10px solid red;
+}
+
+    .image-toggle img {
+        width: 50px;
+    }
+
+    .image-toggle.active {
+        border: 10px solid green;
+    }
+
+        .image-toggle.active img {
+            width: 150px;
+        }
