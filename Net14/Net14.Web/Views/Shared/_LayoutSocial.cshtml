@@ -58,26 +58,25 @@
     </header>
     <div class="maincontent">
         <div class="menu-container">
-            <div class="menu">
+            <div class="menu">                               
                 <div class="buttons-menu">
-                    @if (User.Identity.IsAuthenticated)
-                        {
+                        @if (User.Identity.IsAuthenticated)
+                        { 
                         <div class="box-user-element">@RenderSection("ProfileBoxMenu", required: false)</div>
-                        <div class="menu-element">Recomendation</div>
-                        <div class="menu-element" onclick="location.href='/SocialGroups/GetGroups';">Groups</div>
-                        <div class="menu-element" onclick="location.href='/Social/ShowAllUsers';">Find user</div>
-                        <div class="menu-element" onclick="location.href='/Social/Friends';">Friends</div>
-                        <div class="menu-element"></div>
+                        <div class="menu-element-box">Recomendation</div>
+                        <div class="menu-element-box" onclick="location.href='/SocialGroups/GetGroups';">Groups</div>
+                        <div class="menu-element-box" onclick="location.href='/Social/ShowAllUsers';">Find user</div>
+                        <div class="menu-element-box" onclick="location.href='/Social/Friends';">Friends</div>
                         }
-                    else
-                        {
+                        else
+                        {                    
                         <div class="menu-element">Recomendation</div>
                         <div class="menu-element" onclick="location.href='/SocialGroups/GetGroups';">Groups</div>
                         <div class="menu-element" onclick="location.href='/Social/ShowAllUsers';">Find user</div>
                         <div class="menu-element" onclick="location.href='/Social/Friends';">Friends</div>
-                        <div class="menu-element" onclick="location.href='/SocialAuthentication/Autorization';">Sign in</div>
-                        }                    
-                </div>
+                        <div class="menu-element" onclick="location.href='/SocialAuthentication/Autorization';">Sign in</div>                      
+                        }   
+                 </div> 
                 <div class="menu-recomendations-user">
                     <div class="menu-recomendation-title">Recommended accounts</div>
                     <div class="recomendation-element-menu">
