@@ -24,7 +24,6 @@ namespace Net14.Web.Controllers
         private IMapper _mapper;
         private FriendRequestService _friendRequestService;
         private UserFriendRequestRepository _userFriendRequestRepository;
-
         public SocialController(SocialUserRepository socialUserRepository,
             SocialPostRepository socialPostRepository,
             SocialCommentRepository socialCommentRepository,
@@ -51,8 +50,12 @@ namespace Net14.Web.Controllers
             return View(viewPost);
         }
         [HttpPost]
-        public IActionResult Index(string ImageUrl, string CommentOfUser)
+        public IActionResult Index(string ImageUrl, string CommentOfUser, int id)
         {
+            if (_userService.HasRole(SiteRole.Admin))
+            {
+                _socialPostRepository.RemovePost(id);
+            }
             var user = _userService.GetCurrent();
             var post = new PostSocial()
             {

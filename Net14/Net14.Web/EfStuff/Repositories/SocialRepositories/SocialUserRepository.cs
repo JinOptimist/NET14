@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
+using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
+
 namespace Net14.Web.EfStuff.Repositories
 {
     public class SocialUserRepository : BaseRepository<UserSocial>
