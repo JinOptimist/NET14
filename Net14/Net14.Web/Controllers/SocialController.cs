@@ -148,12 +148,11 @@ namespace Net14.Web.Controllers
             return View(user);
         }
 
-        public IActionResult ShowPagesProfile()
+        public IActionResult ShowPagesProfile(int id)
         {
-            var postUser = _mapper.Map<List<SocialPostViewModel>>(_userService.GetCurrent().Posts);
-            var user = _userService.GetCurrent();
+
+            var user = _socialUserRepository.Get(id);
             var model = _mapper.Map<SocialProfileViewModel>(user);
-            model.UserPost = postUser;
 
             return View(model);
         }

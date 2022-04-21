@@ -64,37 +64,7 @@ body {
     padding: 10px;
     align-items: center;
     transition: background 0.3s ease;
-}
 
-.box-user-element {
-    display: flex;
-    width: 175px;
-    min-height: 235px;
-    align-items: flex-end;
-    flex-direction: row-reverse;
-}
-
-.box-user-element-card {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 170px;
-    font-size: 13px;
-    height: 230px;
-    border-radius: 10px;
-    background: white;
-    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
-}
-
-.menu-element-box {
-    display: flex;
-    font-size: 20px;
-    font-weight: 700;
-    font-family: Arial, Helvetica, sans-serif;
-    height: 40px;
-    padding: 10px;
-    align-items: center;
-    transition: background 0.3s ease;
 }
 
 .menu-element:hover
@@ -289,7 +259,7 @@ footer
     /* width: 600px; */
     min-height: 800px;
     align-items: flex-end;
-    margin: auto 10px;
+    margin: 80px auto 10px;
     flex-direction: row-reverse;
     justify-content: center;
 }
