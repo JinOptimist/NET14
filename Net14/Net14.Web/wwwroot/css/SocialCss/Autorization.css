@@ -78,3 +78,16 @@
     margin-top: 50px;
     font-size: 20px;
 }
+
+.validation-summary-errors ul {
+    padding-left: 0;
+    list-style: none;
+    color: red;
+    font-size: 15px;
+    margin: 0px;
+}
+
+.validation-summary-errors {
+    height: 20px;
+}
+

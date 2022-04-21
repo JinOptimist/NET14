@@ -93,6 +93,8 @@ namespace Net14.Web.Controllers
             {
                 ModelState.AddModelError(nameof(SocialUserAutorizationViewModel.Email), "This user is blocked");
                 return View(userViewModel);
+                ModelState.AddModelError(nameof(SocialUserAutorizationViewModel.Email), "Invalid email or password");
+                return View(userViewModel);
             }
 
             //good

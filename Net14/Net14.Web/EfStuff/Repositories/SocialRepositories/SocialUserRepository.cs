@@ -67,5 +67,6 @@ namespace Net14.Web.EfStuff.Repositories
         {
             return _webContext.Users.Any(user => user.Id == userId);
         }
+
     }
 }
