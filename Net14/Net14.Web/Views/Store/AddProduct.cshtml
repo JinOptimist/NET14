@@ -6,7 +6,7 @@
     Layout = "/Views/Shared/_LayoutStore.cshtml";
 }
 
-<form action="/Store/AddProduct" method="post">
+<form action="/Store/AddProduct" method="post" >
     <select asp-for="Brand" asp-items="Html.GetEnumSelectList<BrandСategories>()"></select>
     <div>
         Name: @Html.TextBoxFor(x => x.Name) @Html.ValidationMessageFor(x => x.Name)
@@ -23,12 +23,12 @@
     <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()"></select>
     <select asp-for="Material" asp-items="Html.GetEnumSelectList<CoolMaterial>()"></select>
     <div>
-        @Html.ValidationMessageFor(x => x.Sizes)
+       
         @foreach (var size in Model.Sizes)
-        {    <br />
+        {    
+            <div>
             <input name="CheckedSizes" type="checkbox" value="@size" /> @size
-
-            <br />
+            </div>
         }
     </div>
     <div>
