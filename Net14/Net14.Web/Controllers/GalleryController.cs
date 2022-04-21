@@ -29,11 +29,7 @@ namespace Net14.Web.Controllers
             var dbImages = _imageRepository.GetAll();
 
             var imagesViewModels = dbImages
-                .Select(dbImage => new ImageViewModel()
-                {
-                    Id = dbImage.Id,
-                    Name = dbImage.Name
-                })
+                .Select(_mapper.Map<ImageViewModel>)
                 .ToList();
 
             var viewModel = new IndexGalleryViewModel()
