@@ -5,7 +5,7 @@
 }
 <link rel="stylesheet" href="~/css/SocialCss/ShowPagesProfile.css">
 <link rel="stylesheet" href="~/css/SocialCss/SocialCss.css" />
-<div class="content-element-profile">
+@*<div class="content-element-profile">
               
         <div class="content-element-card-profile">
             <div class="time-of-posting-profile"> Now: @DateTime.Now</div>
@@ -23,8 +23,8 @@
                  Location: @Model.Country - @Model.City <br/>   
             </div>    
         </div>
-    </div>
-@* @foreach (SocialPostViewModel post in Model)
+    </div>*@
+ @foreach (SocialPostViewModel post in Model.UserPost)
 {
     <div class="content-element">
         <div class="content-element-card" id=@post.Id>
@@ -80,8 +80,8 @@
             </div>
             <div class="time-of-posting">Posted @DateTime.Now.ToLocalTime()</div>
         </div>
-    </div>*@
-    
+    </div>
+}    
     @section ProfileBoxMenu
     {                          
      <div class="box-user-element-card">
