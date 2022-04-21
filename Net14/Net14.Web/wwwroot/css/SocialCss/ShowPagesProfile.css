@@ -1,10 +1,4 @@
-﻿.content-element-profile {
-    display: flex;
-    width: 560px;
-    min-height: 500px;
-    align-items: flex-end;
-    flex-direction: row-reverse;
-}
+﻿
 .content-element-card-profile {
     display: flex;
     align-items: center;
@@ -46,7 +40,14 @@
 {
     opacity: 0.5;
 }
+.content-element-profile {
+    display: flex;
+    width: 560px;
+    min-height: 500px;
+    align-items: flex-end;
+    flex-direction: row-reverse;
 
+}
 .name-you-profile {
     display: flex;
     width: 400px;
