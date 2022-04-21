@@ -6,6 +6,7 @@ using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 
 namespace Net14.Web.EfStuff
 {
@@ -66,33 +67,33 @@ namespace Net14.Web.EfStuff
                     sizeRepository.SaveList(size);
                 }
 
-                var size35 = sizeRepository.GetName("35");
-                var size35_5 = sizeRepository.GetName("35.5");
-                var size36 = sizeRepository.GetName("36");
-                var size36_5 = sizeRepository.GetName("36.5");
-                var size37 = sizeRepository.GetName("37");
-                var size37_5 = sizeRepository.GetName("37.5");
-                var size38 = sizeRepository.GetName("38");
-                var size38_5 = sizeRepository.GetName("38.5");
-                var size39 = sizeRepository.GetName("39");
-                var size39_5 = sizeRepository.GetName("39");
-                var size40 = sizeRepository.GetName("40");
-                var size40_5 = sizeRepository.GetName("40.5");
-                var size41 = sizeRepository.GetName("41");
-                var size41_5 = sizeRepository.GetName("41.5");
-                var size42 = sizeRepository.GetName("42");
-                var size42_5 = sizeRepository.GetName("42.5");
-                var size43 = sizeRepository.GetName("43");
-                var size43_5 = sizeRepository.GetName("43.5");
-                var size44 = sizeRepository.GetName("44");
-                var size44_5 = sizeRepository.GetName("44.5");
-                var size45 = sizeRepository.GetName("45");
-                var sizeS = sizeRepository.GetName("S");
-                var sizeM = sizeRepository.GetName("M");
-                var sizeL = sizeRepository.GetName("L");
-                var size35_37 = sizeRepository.GetName("35-37");
-                var size38_41 = sizeRepository.GetName("38-41");
-                var size42_45 = sizeRepository.GetName("42-45");
+                var size35 = sizeRepository.GetByName("35");
+                var size35_5 = sizeRepository.GetByName("35.5");
+                var size36 = sizeRepository.GetByName("36");
+                var size36_5 = sizeRepository.GetByName("36.5");
+                var size37 = sizeRepository.GetByName("37");
+                var size37_5 = sizeRepository.GetByName("37.5");
+                var size38 = sizeRepository.GetByName("38");
+                var size38_5 = sizeRepository.GetByName("38.5");
+                var size39 = sizeRepository.GetByName("39");
+                var size39_5 = sizeRepository.GetByName("39");
+                var size40 = sizeRepository.GetByName("40");
+                var size40_5 = sizeRepository.GetByName("40.5");
+                var size41 = sizeRepository.GetByName("41");
+                var size41_5 = sizeRepository.GetByName("41.5");
+                var size42 = sizeRepository.GetByName("42");
+                var size42_5 = sizeRepository.GetByName("42.5");
+                var size43 = sizeRepository.GetByName("43");
+                var size43_5 = sizeRepository.GetByName("43.5");
+                var size44 = sizeRepository.GetByName("44");
+                var size44_5 = sizeRepository.GetByName("44.5");
+                var size45 = sizeRepository.GetByName("45");
+                var sizeS = sizeRepository.GetByName("S");
+                var sizeM = sizeRepository.GetByName("M");
+                var sizeL = sizeRepository.GetByName("L");
+                var size35_37 = sizeRepository.GetByName("35-37");
+                var size38_41 = sizeRepository.GetByName("38-41");
+                var size42_45 = sizeRepository.GetByName("42-45");
 
 
                 var product1 = new Product()
@@ -437,6 +438,20 @@ namespace Net14.Web.EfStuff
             var userRepository = scope.ServiceProvider.GetService<SocialUserRepository>();
             if (!userRepository.Any()) 
             {
+                var user0 = new UserSocial()
+                {
+                    FirstName = "admin",
+                    LastName = "admin",
+                    Age = 7,
+                    City = "Grodno",
+                    Country = "Russia",
+                    Email = "admin",
+                    Password = "admin",
+                    UserPhoto = "/images/Social/User.jpg",
+                    Role = SiteRole.Admin
+                };
+                userRepository.Save(user0);
+
                 var user = new UserSocial()
                 {
                     FirstName = "Aleksey",
@@ -545,16 +560,46 @@ namespace Net14.Web.EfStuff
                 postRepository.Save(groupPost);
                 commentRepository.Save(groupComment);
 
+
                 var group = new GroupSocial()
                 {
                     Description = "Cars",
                     Members = userRepository.GetAll().Where(user => user.FirstName == "Vasily").ToList(),
                     Name = "BMW Club",
                     PhotoUrl = "/images/Social/bmw.jpg",
-                    Posts = new List<PostSocial>()
+                    Posts = new List<PostSocial>(),
+                    Tags = new List<GroupTags>()
+
                 };
+
+                var tag1 = new GroupTags() { Group = group, Tag = "#cars" };
+                var tag2 = new GroupTags() { Group = group, Tag = "#bmw" };
+                group.Tags.Add(tag1);
+                group.Tags.Add(tag2);
+
                 group.Posts.Add(groupPost);
                 groupRepository.Save(group);
+
+
+                var group2 = new GroupSocial()
+                {
+                    Description = "Moto",
+                    Members = userRepository.GetAll().Where(user => user.FirstName == "Kiril").ToList(),
+                    Name = "Moto Club",
+                    PhotoUrl = "/images/Social/moto.jpeg",
+                    Posts = new List<PostSocial>(),
+                    Tags = new List<GroupTags>()
+
+                };
+
+                var tag3 = new GroupTags() { Group = group, Tag = "#moto" };
+                var tag4 = new GroupTags() { Group = group, Tag = "#bike" };
+
+                group2.Tags.Add(tag3);
+                group2.Tags.Add(tag4);
+
+
+                groupRepository.Save(group2);
             }
         }
     }

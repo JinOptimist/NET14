@@ -13,13 +13,12 @@
     <form class="hidden-form" asp-action="Autorization" asp-controller="SocialAuthentication" asp-antiforgery="true" method="post">
         <div class="inputs-validation">
             <input type="hidden" name="ReturnUrl" value=@Model.ReturnUrl>
-            <div class="validation" asp-validation-summary="ModelOnly"></div>
             <div class="inputs-validation-element">
-                <span asp-validation-for="Email" class="autorization-validation"></span>
+                @Html.ValidationMessageFor(x => x.Email)
                 <input type="text" asp-for="Email" placeholder="Enter Email" />
             </div>
             <div class="inputs-validation-element">
-                <span class="autorization-validation" asp-validation-for="Password"></span>
+                @Html.ValidationMessageFor(x => x.Password)
                 <input type="password" asp-for="Password" placeholder="Enter Password" />
             </div>
             <div>

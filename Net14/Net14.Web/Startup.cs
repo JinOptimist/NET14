@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Net14.Web.Models.gallery;
 using Net14.Web.EfStuff.DbModel;
+using Net14.Web.Models.store;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.Models;
-
 
 namespace Net14.Web
 {
@@ -41,7 +41,7 @@ namespace Net14.Web
              .AddCookie(AuthName, config =>
              {
                  config.LoginPath = "/SocialAuthentication/Autorization";
-                 config.AccessDeniedPath = "/User/AccessDenied";
+                 config.AccessDeniedPath = "/SocialAuthentication/AccessDenied";
                  config.Cookie.Name = "SocialMedeiCool";
              });
 
@@ -89,6 +89,12 @@ namespace Net14.Web
             services.AddScoped<VideoSocialRepository>(x =>
                 new VideoSocialRepository(x.GetService<WebContext>()));
 
+            services.AddScoped<RecomendationsService>(x =>
+                new RecomendationsService(
+                    x.GetService<SocialUserRepository>(),
+                    x.GetService<IMapper>(),
+                    x.GetService<UserService>(),
+                    x.GetService<SocialGroupRepository>()));
 
             services.AddScoped<YouTubeVideoService>();
 
@@ -117,11 +123,34 @@ namespace Net14.Web
             var provider = new MapperConfigurationExpression();
 
             provider.CreateMap<AddImageVewModel, Image>();
-            
+            provider.CreateMap<Basket, ProductViewModel>();
+
+            provider.CreateMap<Product, ProductViewModel>()
+                .ForMember(nameof(ProductViewModel.Images),
+                    opt => opt
+                    .MapFrom(dbProducts => 
+                        dbProducts
+                            .StoreImages
+                            .OrderBy(x => x.Odrer)
+                            .Select(x => x.Url)
+                            .ToList()
+                        )
+                    )
+                .ForMember(nameof(ProductViewModel.Sizes),
+                    opt => opt
+                    .MapFrom(dbProducts =>
+                        dbProducts
+                            .Sizes
+                            .Select(x => x.Name)
+                            .ToList()
+                        )
+                    );
+
+
             provider.CreateMap<Image, ImageUrlVewModel>()
                 .ForMember(nameof(ImageUrlVewModel.Comments),
                 opt => opt
-                    .MapFrom(dbImage => 
+                    .MapFrom(dbImage =>
                         dbImage.Comments
                             .Select(c => c.Text)
                             .ToList()));
@@ -140,7 +169,11 @@ namespace Net14.Web
                         .MapFrom(dbPost =>
                             dbPost.User.FirstName));
 
-            provider.CreateMap<GroupSocial, SocialGroupViewModel>();
+            provider.CreateMap<GroupSocial, SocialGroupViewModel>()
+                .ForMember(nameof(SocialGroupViewModel.Tags),
+                    group => group
+                        .MapFrom(dbGroup =>
+                            dbGroup.Tags.Select(tag => tag.Tag)));
 
             provider.CreateMap<SocialUserRegistrationViewModel, UserSocial>();
 
@@ -155,6 +188,14 @@ namespace Net14.Web
             provider.CreateMap<FilesViewModel, FileSocial>();
 
             provider.CreateMap<FileSocial, FilesViewModel>();
+
+            provider.CreateMap<UserSocial, SocialUserSettingsViewModel>();
+
+            provider.CreateMap<SocialUserSettingsViewModel, UserSocial>();
+
+
+
+            provider.CreateMap<UserSocial, SocialUserRecomendationViewModel>();
 
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);

@@ -15,17 +15,17 @@
             <div class="form-sections">
                 Currency
                 <select name="cur" class="select-currency">
-
-                    <option value="USD">Dollar USA (USD)</option>
-
-                    <option value="EUR">Euro (EUR)</option>
-
-                    <option value="RUB">Russian rubl (RUB)</option>
-
-                    <option value="GBP">Pound Sterling (GBP)</option>
-
-                    <option value="CNY">Yuan China (CNY)</option>
-
+                    @foreach (var cur in Model.CurNames)
+                    {
+                        if (Model.Selected == cur.Item1)
+                        {
+                            <option value=@cur.Item1 selected="selected">@cur.Item2 (@cur.Item1)</option>
+                        }
+                        else
+                        {
+                            <option value=@cur.Item1>@cur.Item2 (@cur.Item1)</option>
+                        }
+                    }
                 </select>
             </div>
             <p><input type="submit" value="Submit"  class="submit-currency"/> </p>

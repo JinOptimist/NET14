@@ -3,7 +3,30 @@
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="add-post">
+        <div class="add-post-header">Add Post</div>
 
+        <form action="/Social/Index" method="post" id="form-add-post">
+            <div class="textForInput">
+                ImageUrl
+            </div>
+            <div>
+                <input name="ImageUrl" placeholder="ImageUrl">
+            </div>
+            <div class="textForInput">
+                Comment
+            </div>
+            <div>
+                <input name="CommentOfUser" placeholder="Comment">
+            </div>
+            <div>
+                <input type="submit" value="Add" class="button-add-post">
+            </div>
+        </form>
+    </div>
+}
 @foreach (SocialPostViewModel post in Model)
 {
     <div class="content-element">
@@ -21,7 +44,7 @@
                 <img src=@post.ImageUrl class="post-image">
             </div>
             <div class="footer-of-post">
-                @post.CommentsOfUser
+                @post.CommentOfUser
             </div>
             <div class="post-operations">
                 <div class="operations" id="heart">

@@ -40,7 +40,7 @@ namespace Net14.Web.Controllers
             _friendRequestService = friendRequestService;
             _userFriendRequestRepository = userFriendRequestRepository;
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
 
@@ -49,11 +49,48 @@ namespace Net14.Web.Controllers
 
             return View(viewPost);
         }
+        [HttpPost]
+        public IActionResult Index(string ImageUrl, string CommentOfUser)
+        {
+            var user = _userService.GetCurrent();
+            var post = new PostSocial()
+            {
+                CommentOfUser = CommentOfUser,
+                ImageUrl = ImageUrl,
+                User = user
+            };
+            _socialPostRepository.Save(post);
+
+            return Redirect("Index");
+        }
 
         [Authorize]
+        [HttpGet]
         public IActionResult Settings()
         {
-            return View();
+            var currentUser = _userService.GetCurrent();
+            var model = _mapper.Map<SocialUserSettingsViewModel>(currentUser);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Settings(SocialUserSettingsViewModel socialUserSettingsViewModel) 
+        {
+            if (ModelState.IsValid) 
+            {
+                var currentUser = _userService.GetCurrent();
+
+                currentUser.Age = socialUserSettingsViewModel.Age;
+                currentUser.City = socialUserSettingsViewModel.City;
+                currentUser.Country = socialUserSettingsViewModel.Country;
+                currentUser.FirstName = socialUserSettingsViewModel.FirstName;
+                currentUser.LastName = socialUserSettingsViewModel.LastName;
+
+                _socialUserRepository.Save(currentUser);
+            }
+
+            return RedirectToAction("Settings");
         }
         [HttpGet]
         public IActionResult ShowAllUsers() 
@@ -162,16 +199,32 @@ namespace Net14.Web.Controllers
         [Authorize]
         public IActionResult Notification() 
         {
-            var user = _userService.GetCurrent();
-            var requests = _userFriendRequestRepository.GetAll().Where(req => req.Receiver == user & 
-                            req.FriendRequestStatus == FriendRequestStatus.Pending);
+            var currentUser = _userService.GetCurrent();
 
-            var model = _mapper.Map<List<FriendRequestViewModel>>(requests);
+            var recievedRequests = currentUser.FriendRequestReceived
+                .ToList();
 
-            return View(model);
+            recievedRequests.ForEach(el => el.IsViewedByReceiver = true);
+            _userFriendRequestRepository.SaveList(recievedRequests);
 
 
+            var closeSentRequests = currentUser.FriendRequestSent
+                .Where(req => req.FriendRequestStatus != FriendRequestStatus.Pending).ToList();
+
+            closeSentRequests.ForEach(el => el.IsViewedBySender = true);
+            _userFriendRequestRepository.SaveList(closeSentRequests);
+
+            var receivedModel = _mapper.Map<List<FriendRequestViewModel>>(recievedRequests);
+            receivedModel.ForEach(req => req.Type = RequestViewModelType.Received);
+
+            var sentModel = _mapper.Map<List<FriendRequestViewModel>>(closeSentRequests);
+            sentModel.ForEach(req => req.Type = RequestViewModelType.Sent);
+
+            receivedModel.AddRange(sentModel);
+
+            return View(receivedModel);
         }
+
         [Authorize]
         public IActionResult Friends() 
         {

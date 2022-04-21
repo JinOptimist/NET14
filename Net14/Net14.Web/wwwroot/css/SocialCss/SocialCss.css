@@ -382,7 +382,8 @@ footer
     border-radius: 10px;
     position: absolute;
     flex-direction: column;
-    height: 320px;
+    min-height: 200px;
+    max-height: 330px;
     width: 200px;
     top: 110px;
     right: 97px;
@@ -391,7 +392,11 @@ footer
     box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
     align-items: center;
     z-index: 999999;
+    padding-bottom: 14px;
+    padding-top: 14px;
 }
+
+
 #header-settings {
 
     display: none;

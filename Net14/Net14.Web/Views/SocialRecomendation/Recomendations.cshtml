@@ -1,0 +1,61 @@
+﻿@model List<SocialUserRecomendationViewModel>
+@{
+    Layout = "/Views/Shared/_LayoutSocial.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/SocialCss/RecomendationCss.css" />
+<div class="recomendation-header">Recomendation</div>
+<div class="select-recomendations">
+    <div class="select active">Users</div>
+    <div class="select" onclick="location.href='/SocialRecomendation/GroupRecomendations'">Group</div>
+</div>
+
+    @foreach (SocialUserRecomendationViewModel user in Model)
+    {
+        <div class="usersCenter">
+            <div class="findUsers">
+                <div class="find-recomendation-element-menu" id="recomendaton-page-element" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new { id = user.Id })'">
+
+                    <div class="user-name-and-photo">
+                        <div class="find-user-photo">
+                            <img src=@user.UserPhoto class="find-user-photo">
+                        </div>
+                        <div class="size-for-user text-indent">
+                            @user.FirstName @user.LastName
+                        </div>
+                    </div>
+                    <div class="place-of-user">
+                        <div>Age: @user.Age</div>
+                        <div>@user.Country, @user.City</div>
+                    </div>
+                    <div class="add-to-friends-button-container" id="recomendation-button-container" onclick="location.href='@Url.Action("AddFriend", "Social", new { friendId = user.Id })'">
+                        <div>
+                            @if (user.SameFriendsCount > 0)
+                            {
+                                <span>@user.SameFriendsCount common friends</span>
+
+                            }
+                            <div>
+                                @foreach (SocialUserRecomendationViewModel userRec in user.SameFriends)
+                                {
+                                    <img src=@userRec.UserPhoto class="find-user-photo" id="recomendations-users" title=@userRec.FirstName />
+                                }
+                            </div>
+                        </div>
+                        @if (user.IsFriend)
+                        {
+                            <div class="friend-status">Friend</div>
+                        }
+                        else
+                        {
+                            <div class="add-to-friends-button">Add to friends</div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+

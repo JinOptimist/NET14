@@ -63,3 +63,27 @@ $(document).ready(function () {
         }
     })
 })
+
+$(document).ready(function () {
+    $(".add-post-header").click(function () {
+        $("#form-add-post").slideToggle();
+    });
+});
+$(document).ready(function () {
+    $(".add-file-header").click(function () {
+        $("#form-add-file").slideToggle();
+    });
+});
+$(document).ready(function () {
+    $(".show-file-header").click(function () {
+        $("#form-show-files").slideToggle();
+    });
+});
+
+
+$(document).ready(function () {
+    $(".select").click(function () {
+        $(".select.active").toggleClass("active");
+        $(this).toggleClass("active");
+    })
+})

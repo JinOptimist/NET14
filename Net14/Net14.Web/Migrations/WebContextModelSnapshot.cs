@@ -19,6 +19,21 @@ namespace Net14.Web.Migrations
                 .HasAnnotation("ProductVersion", "5.0.15")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("BasketProduct", b =>
+                {
+                    b.Property<int>("BasketsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BasketsId", "ProductsId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("BasketProduct");
+                });
+
             modelBuilder.Entity("GroupSocialUserSocial", b =>
                 {
                     b.Property<int>("GroupsId")
@@ -32,6 +47,24 @@ namespace Net14.Web.Migrations
                     b.HasIndex("MembersId");
 
                     b.ToTable("GroupSocialUserSocial");
+                });
+
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Basket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Baskets");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Image", b =>
@@ -75,6 +108,57 @@ namespace Net14.Web.Migrations
                     b.ToTable("ImageComments");
                 });
 
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BrandCategories")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CoolCategories")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CoolColors")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CoolMaterial")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Size", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sizes");
+                });
+
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.FileSocial", b =>
                 {
                     b.Property<int>("Id")
@@ -115,6 +199,26 @@ namespace Net14.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("GroupSocial");
+                });
+
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupTags", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Tag")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("GroupTags");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", b =>
@@ -192,6 +296,12 @@ namespace Net14.Web.Migrations
                     b.Property<int>("FriendRequestStatus")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsViewedByReceiver")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsViewedBySender")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("ReceiverId")
                         .HasColumnType("int");
 
@@ -235,6 +345,9 @@ namespace Net14.Web.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserPhoto")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)")
@@ -243,6 +356,29 @@ namespace Net14.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.StoreImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Odrer")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("StoreImages");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Tag", b =>
@@ -260,6 +396,21 @@ namespace Net14.Web.Migrations
                     b.ToTable("Tags");
                 });
 
+            modelBuilder.Entity("ProductSize", b =>
+                {
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SizesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductsId", "SizesId");
+
+                    b.HasIndex("SizesId");
+
+                    b.ToTable("ProductSize");
+                });
+
             modelBuilder.Entity("UserSocialUserSocial", b =>
                 {
                     b.Property<int>("FriendsId")
@@ -273,6 +424,21 @@ namespace Net14.Web.Migrations
                     b.HasIndex("WhoFriendsId");
 
                     b.ToTable("UserSocialUserSocial");
+                });
+
+            modelBuilder.Entity("BasketProduct", b =>
+                {
+                    b.HasOne("Net14.Web.EfStuff.DbModel.Basket", null)
+                        .WithMany()
+                        .HasForeignKey("BasketsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Net14.Web.EfStuff.DbModel.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GroupSocialUserSocial", b =>
@@ -290,6 +456,17 @@ namespace Net14.Web.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Basket", b =>
+                {
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "User")
+                        .WithOne("Basket")
+                        .HasForeignKey("Net14.Web.EfStuff.DbModel.Basket", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.ImageComment", b =>
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.Image", "Image")
@@ -297,6 +474,15 @@ namespace Net14.Web.Migrations
                         .HasForeignKey("ImageId");
 
                     b.Navigation("Image");
+                });
+
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupTags", b =>
+                {
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupSocial", "Group")
+                        .WithMany("Tags")
+                        .HasForeignKey("GroupId");
+
+                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", b =>
@@ -342,6 +528,30 @@ namespace Net14.Web.Migrations
                     b.Navigation("Sender");
                 });
 
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.StoreImage", b =>
+                {
+                    b.HasOne("Net14.Web.EfStuff.DbModel.Product", "Product")
+                        .WithMany("StoreImages")
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ProductSize", b =>
+                {
+                    b.HasOne("Net14.Web.EfStuff.DbModel.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Net14.Web.EfStuff.DbModel.Size", null)
+                        .WithMany()
+                        .HasForeignKey("SizesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("UserSocialUserSocial", b =>
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", null)
@@ -362,9 +572,16 @@ namespace Net14.Web.Migrations
                     b.Navigation("Comments");
                 });
 
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Product", b =>
+                {
+                    b.Navigation("StoreImages");
+                });
+
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupSocial", b =>
                 {
                     b.Navigation("Posts");
+
+                    b.Navigation("Tags");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", b =>
@@ -374,6 +591,8 @@ namespace Net14.Web.Migrations
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", b =>
                 {
+                    b.Navigation("Basket");
+
                     b.Navigation("FriendRequestReceived");
 
                     b.Navigation("FriendRequestSent");
