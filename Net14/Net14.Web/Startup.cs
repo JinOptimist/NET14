@@ -94,7 +94,8 @@ namespace Net14.Web
                     x.GetService<SocialUserRepository>(),
                     x.GetService<IMapper>(),
                     x.GetService<UserService>(),
-                    x.GetService<SocialGroupRepository>()));
+                    x.GetService<SocialGroupRepository>(),
+                    x.GetService<SocialPostRepository>()));
 
             services.AddScoped<YouTubeVideoService>();
 

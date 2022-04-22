@@ -17,14 +17,17 @@ namespace Net14.Web.Services
         private IMapper _mapper;
         private UserSocial _currentUser;
         private SocialGroupRepository _socialGroupRepository;
+        private SocialPostRepository _socialPostRepository;
 
         public RecomendationsService(SocialUserRepository socialUserRepository,
-            IMapper mapper, UserService userService, SocialGroupRepository socialGroupRepository)
+            IMapper mapper, UserService userService, SocialGroupRepository socialGroupRepository,
+            SocialPostRepository socialPostRepository)
         {
             _socialGroupRepository = socialGroupRepository;
             _socialUserRepository = socialUserRepository;
             _mapper = mapper;
             _userService = userService;
+            _socialPostRepository = socialPostRepository;
             _currentUser = _userService.GetCurrent();
         }
 
@@ -84,7 +87,7 @@ namespace Net14.Web.Services
 
             foreach (SocialUserRecomendationViewModel user in users)
             {
-                if (_currentUser.Country.ToLower() == user.Country.ToLower()) 
+                if (_currentUser.Country.ToLower() == user.Country.ToLower())
                 {
                     user.RecomendationRate += (int)UserRecomendationRatesEnum.Country;
                 }
@@ -124,7 +127,7 @@ namespace Net14.Web.Services
             var dbUsers = _socialUserRepository.GetAll();
 
             List<string> dbUserGroupTags;
-            foreach (UserSocial user in dbUsers) 
+            foreach (UserSocial user in dbUsers)
             {
                 dbUserGroupTags = user
                     .Groups
@@ -142,7 +145,7 @@ namespace Net14.Web.Services
         }
 
 
-        public List<SocialUserRecomendationViewModel> GetUserRecomendation() 
+        public List<SocialUserRecomendationViewModel> GetUserRecomendation()
         {
             var dbUsers = _socialUserRepository.GetAll();
 
@@ -167,7 +170,7 @@ namespace Net14.Web.Services
         }
 
 
-        public List<SocialGroupViewModel> GetGroupsRecomendation() 
+        public List<SocialGroupViewModel> GetGroupsRecomendation()
         {
             var groupsOfriends = _currentUser.Friends
                 .SelectMany(friend => friend.Groups)
@@ -193,7 +196,7 @@ namespace Net14.Web.Services
                 .Union(groupsOfriends)
                 .Where(group => !currentUserGroupsIds.Contains(group.Id)).ToList());
 
-            if(result.Count() == 0) 
+            if (result.Count() == 0)
             {
                 return _mapper.Map<List<SocialGroupViewModel>>(_socialGroupRepository.GetAll()
                     .OrderByDescending(group => group.Members.Count()).Where(group => !currentUserGroupsIds.Contains(group.Id)).ToList());
@@ -202,6 +205,29 @@ namespace Net14.Web.Services
             return result;
         }
 
+        public List<SocialPostViewModel> GetIndexRecomendations()
+        {
+            var TopThree = _socialPostRepository.GetAll()
+                .OrderByDescending(post => post.Likes)
+                .Take(2)
+                .ToList();
 
+            var TopThreeViewModel = _mapper.Map<List<SocialPostViewModel>>(TopThree);
+
+            return TopThreeViewModel;
+        }
+
+        public List<SocialGroupViewModel> GetGroupsNavbarRecs() 
+        {
+            var dbGroups = _socialGroupRepository.GetAll()
+                .Where(group => !group.Members.Contains(_userService.GetCurrent()))
+                .OrderByDescending(group => group.Members.Count)
+                .Take(2)
+                .ToList();
+
+            var resultRecs = _mapper.Map<List<SocialGroupViewModel>>(dbGroups);
+
+            return resultRecs;
+        }
     }
 }

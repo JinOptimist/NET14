@@ -188,11 +188,10 @@ footer
     display: flex;
     align-items: center;
     margin-top: 30px;
-    padding: 0px 5px;
 }
 
 .menu-recomendation-title {
-    margin-bottom: 50px;
+    margin-bottom: 0px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     font-weight: 700;
@@ -575,4 +574,7 @@ a {
 .notifications-title {
     font-size: 25px;
     margin-bottom: 50px;
+}
+.anchor {
+    color: black;
 }
