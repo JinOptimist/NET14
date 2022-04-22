@@ -15,6 +15,7 @@
         <div class="usersCenter">
             <div class="findUsers">
                 <div class="find-recomendation-element-menu" id="recomendaton-page-element">
+
                     <div class="user-name-and-photo">
                         <div class="find-user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new { id = user.Id })'">
                             <img src=@user.UserPhoto class="find-user-photo">
@@ -47,7 +48,7 @@
                         }
                         else
                         {
-                            <div class="add-to-friends-button" onclick="location.href='@Url.Action("AddFriend", "Social", new { friendId = user.Id })'">Add to friends</div>
+                            <div class="add-to-friends-button" onclick="location.href='@Url.Action("AddFriend", "Social", new { friendId = user.Id })'" >Add to friends</div>
                         }
                     </div>
                 </div>
