@@ -47,7 +47,16 @@
                         }
                         else
                         {
-                            <div class="add-to-friends-button" onclick="location.href='@Url.Action("AddFriend", "Social", new { friendId = user.Id, targetUrl = Model.Url})'" >Add to friends</div>
+
+                            @if (user.IsRequested)
+                            {
+                                <div class="requested">Requested</div>
+
+                            }
+                            else
+                            {
+                                <div class="add-to-friends-button" onclick="location.href='@Url.Action("AddFriend", "Social", new { friendId = user.Id, targetUrl = Model.Url})'">Add to friends</div>
+                            }
                         }
                     </div>
                 </div>

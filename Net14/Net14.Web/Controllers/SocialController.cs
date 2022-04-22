@@ -116,6 +116,12 @@ namespace Net14.Web.Controllers
                         mod.IsFriend = true;
                         return mod;
                     }
+                    if (currentUser.FriendRequestSent.Exists(req => req.Receiver.Id == db.Id && req.FriendRequestStatus == FriendRequestStatus.Pending)) 
+                    {
+                        var mod = _mapper.Map<SocialUserViewModel>(db);
+                        mod.IsRequested = true;
+                        return mod;
+                    }
                     var modNotFriend = _mapper.Map<SocialUserViewModel>(db);
                     return modNotFriend;
 
