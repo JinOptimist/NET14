@@ -8,7 +8,7 @@ namespace Net14.Web.Models
 {
     public class SocialUserRecomendationUrlViewModel
     {
-        public List<SocialUserRecomendationViewModel> Recomendation;
+        public List<SocialUserRecomendationViewModel> Recomendations;
         public string Url { get; set; }
 
     }
