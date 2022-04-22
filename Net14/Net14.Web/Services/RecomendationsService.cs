@@ -96,7 +96,7 @@ namespace Net14.Web.Services
         {
             var _currentUser = _userService.GetCurrent();
             SocialUserRecomendationViewModel model;
-            var dbUsers = _socialUserRepository.GetAll();
+            var dbUsers = _socialUserRepository.GetAll().Where(user => user.IsBlocked == false);
 
             foreach (UserSocial user in dbUsers)
             {
@@ -121,7 +121,7 @@ namespace Net14.Web.Services
                 .SelectMany(group => group)
                 .Distinct()
                 .ToList();
-            var dbUsers = _socialUserRepository.GetAll();
+            var dbUsers = _socialUserRepository.GetAll().Where(user => user.IsBlocked == false);
 
             List<string> dbUserGroupTags;
             foreach (UserSocial user in dbUsers) 
@@ -144,7 +144,7 @@ namespace Net14.Web.Services
 
         public List<SocialUserRecomendationViewModel> GetUserRecomendation() 
         {
-            var dbUsers = _socialUserRepository.GetAll();
+            var dbUsers = _socialUserRepository.GetAll().Where(user => user.IsBlocked == false);
 
             var viewModelUsers = _mapper.Map<List<SocialUserRecomendationViewModel>>(dbUsers);
 
