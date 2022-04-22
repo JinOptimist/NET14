@@ -202,12 +202,16 @@ namespace Net14.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult AddFriend(int friendId)
+        public IActionResult AddFriend(int friendId, string targetUrl)
         {
             var currentUserId = _userService.GetCurrent().Id;
             _friendRequestService.CreateFriendRequest(currentUserId, friendId);
+            if (targetUrl == null) 
+            {
+                return RedirectToAction("ShowAllUsers");
+            }
+            return Redirect(targetUrl);
 
-            return RedirectToAction("ShowAllUsers");
         }
         [Authorize]
         public IActionResult Notification()
