@@ -7,6 +7,7 @@ using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.Services.Enums;
 using Net14.Web.Models;
 using AutoMapper;
+using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 
 namespace Net14.Web.Services
 {
@@ -165,6 +166,14 @@ namespace Net14.Web.Services
                 .Where(user => user.Id != _currentUser.Id)
                 .Where(user => !friendIds.Contains(user.Id))
                 .ToList();
+
+            result.ForEach(user =>
+            {
+                if (_currentUser.FriendRequestSent.Exists(req => req.Receiver.Id == user.Id && req.FriendRequestStatus == FriendRequestStatus.Pending))
+                {
+                    user.IsRequested = true;
+                }
+            });
 
             return result;
         }

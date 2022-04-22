@@ -75,7 +75,7 @@
                         <div class="add-to-friends-button-container">
                             @if (userService.IsAdmin())
                             {
-                                <div class="friend-status-blocked" onclick="location.href='@Url.Action("BlockUser", "Social", new { userId = user.Id })'">Delete</div>
+                                <div class="friend-status-blocked" onclick="location.href='@Url.Action("BlockUser", "Social", new { userId = user.Id })'">Block</div>
                             }
                             @if (user.IsFriend)
                             {
@@ -83,7 +83,14 @@
                             }
                             else
                             {
-                                <div class="add-to-friends-button" onclick="location.href='@Url.Action("AddFriend", "Social", new { friendId = user.Id })'">Add to friends</div>
+                                @if (user.IsRequested == true)
+                                {
+                                    <div class="requested">Requested</div>
+                                }
+                                else
+                                {
+                                    <div class="add-to-friends-button" onclick="location.href='@Url.Action("AddFriend", "Social", new { friendId = user.Id })'">Add to friends</div>
+                                }
                             }
                         </div>
                     </div>
