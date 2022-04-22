@@ -33,10 +33,10 @@
                 <div class="findUsers">
                     <div class="find-recomendation-element-menu blocked">
                         <div class="user-name-and-photo">
-                            <div class="find-user-photo">
+                            <div class="find-user-photo" onclick="location.href = '/Social/ShowPagesProfile?id=@user.Id'">
                                 <img src=@user.UserPhoto class="find-user-photo">
                             </div>
-                            <div class="size-for-user text-indent">
+                            <div class="size-for-user text-indent" onclick="location.href = '/Social/ShowPagesProfile?id=@user.Id'">
                                 @user.FirstName @user.LastName
                             </div>
                         </div>
@@ -62,9 +62,9 @@
                     <div class="find-recomendation-element-menu">
                         <div class="user-name-and-photo">
                             <div class="find-user-photo">
-                                <img src=@user.UserPhoto class="find-user-photo">
+                                <img src=@user.UserPhoto class="find-user-photo" onclick="location.href = '/Social/ShowPagesProfile?id=@user.Id'">
                             </div>
-                            <div class="size-for-user text-indent">
+                            <div class="size-for-user text-indent" onclick="location.href = '/Social/ShowPagesProfile?id=@user.Id'">
                                 @user.FirstName @user.LastName
                             </div>
                         </div>
