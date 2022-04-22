@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="~/css/SocialCss/findUsers.css">
     <link rel="stylesheet" href="~/css/SocialCss/SettingsSocialCss.css">
     <link rel="stylesheet" href="~/css/SocialCss/AddPost.css">
+    <link rel="stylesheet" href="~/css/Shulte/FindGame.css">
+
+
     <script language="JavaScript" type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
     @RenderSection("Scripts", required: false)
 
@@ -54,7 +57,14 @@
 
             }
             <div class="elements-from-hidden" onclick="location.href='/SocialCurrency/GetCurrency'">Currency</div>
-            <div class="elements-from-hidden" onclick="location.href='/SocialGames/FindGame';">Games</div>
+            <div class="elements-from-hidden" id="find-game"> Games </div>
+            <div class="menu-games" >
+                <div class="find-block">
+                    <div class="game">
+                        <a href="/SocialGames/ShulteGame"> Shulte</a>
+                    </div>
+                </div>
+            </div>
             <div class="elements-from-hidden" onclick="location.href='/Home/Index';"> Start page </div>
             <div class="elements-from-hidden" onclick="location.href='/SocialVideos/GetVideos';">Learn C#</div>
         </div>
@@ -69,6 +79,14 @@
                     <div class="menu-element" onclick="location.href='/SocialGroups/GetGroups';">Groups</div>
                     <div class="menu-element" onclick="location.href='/Social/ShowAllUsers';">Find user</div>
                     <div class="menu-element" onclick="location.href='/Social/Friends';">Friends</div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="menu-element" onclick="location.href='/SocialAuthentication/SignOut'">Sign out</div>
+                    }
+                    else
+                    {
+                        <div class="menu-element" onclick="location.href='/SocialAuthentication/Autorization';">Sign in</div>
+                    }
                 </div>
                 @RenderSection("NavbarRecomendations", required: false)
             </div>

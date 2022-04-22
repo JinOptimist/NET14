@@ -74,3 +74,21 @@ $(document).ready(function () {
         $("#form-show-files").slideToggle();
     });
 });
+
+$(document).ready(function () {
+    $(".select").click(function () {
+        $(".select.active").toggleClass("active");
+        $(this).toggleClass("active");
+    })
+})
+
+
+$(document).ready(function () {
+    $("#find-game").click(function () {
+        $(this)
+            .closest(".settings-div")
+            .find(".menu-games")
+            .toggle(100);
+    });
+});
+
