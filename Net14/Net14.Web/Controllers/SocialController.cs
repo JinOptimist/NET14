@@ -24,13 +24,15 @@ namespace Net14.Web.Controllers
         private IMapper _mapper;
         private FriendRequestService _friendRequestService;
         private UserFriendRequestRepository _userFriendRequestRepository;
+        private RecomendationsService _recomendationsService;
 
         public SocialController(SocialUserRepository socialUserRepository,
             SocialPostRepository socialPostRepository,
             SocialCommentRepository socialCommentRepository,
             UserService userService, IMapper mapper,
             FriendRequestService friendRequestService,
-            UserFriendRequestRepository userFriendRequestRepository)
+            UserFriendRequestRepository userFriendRequestRepository,
+            RecomendationsService recomendationsService)
         {
             _socialPostRepository = socialPostRepository;
             _socialUserRepository = socialUserRepository;
@@ -39,16 +41,26 @@ namespace Net14.Web.Controllers
             _mapper = mapper;
             _friendRequestService = friendRequestService;
             _userFriendRequestRepository = userFriendRequestRepository;
+            _recomendationsService = recomendationsService;
         }
         [HttpGet]
         public IActionResult Index()
         {
 
             var postArr = _socialPostRepository.GetAll();
+            var topThree = _mapper.Map<List<SocialPostViewModel>>(_recomendationsService.GetIndexRecomendations());
             var viewPost = _mapper.Map<List<SocialPostViewModel>>(postArr);
 
-            return View(viewPost);
+            
+            var finalModel = new SocialPostWithTopViewModel() 
+            {
+                Posts = viewPost,
+                TopThreePost = topThree
+            };
+
+            return View(finalModel);
         }
+
         [HttpPost]
         public IActionResult Index(string ImageUrl, string CommentOfUser)
         {
