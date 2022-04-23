@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 
 namespace Net14.Web.Controllers
-{
+{ 
     public class SocialFileController : Controller
 
     {

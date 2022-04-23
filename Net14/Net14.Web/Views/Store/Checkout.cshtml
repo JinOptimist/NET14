@@ -29,7 +29,7 @@
         <div class="checkout_field">
             @foreach( var item in Model) {
             <div class="title_mini"> @item.Name </div>
-            <img src = "@item.Images.First()" class="catalogProduct" />
+            <img src = "@item.Images.FirstOrDefault()" class="catalogProduct" />
             }
         </div>
 
