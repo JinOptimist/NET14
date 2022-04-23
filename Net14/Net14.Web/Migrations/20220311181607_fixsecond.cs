@@ -20,7 +20,7 @@ namespace Net14.Web.Migrations
                 table: "Users");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "CalendarUser");
 
             migrationBuilder.DropTable(
                 name: "Social");
@@ -98,7 +98,7 @@ namespace Net14.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "CalendarUser",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -127,7 +127,7 @@ namespace Net14.Web.Migrations
                     table.ForeignKey(
                         name: "FK_User_User_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "CalendarUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -155,17 +155,17 @@ namespace Net14.Web.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_settingsId",
-                table: "User",
+                table: "CalendarUser",
                 column: "settingsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_socialId",
-                table: "User",
+                table: "CalendarUser",
                 column: "socialId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_UserId",
-                table: "User",
+                table: "CalendarUser",
                 column: "UserId");
 
             migrationBuilder.AddForeignKey(

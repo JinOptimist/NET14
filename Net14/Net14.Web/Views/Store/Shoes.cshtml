@@ -18,7 +18,7 @@
         </div>
 
         <div class="centr">
-            <img src="@Model.Images.First()" class="icon1" />
+            <img src="@Model.Images.FirstOrDefault()" class="icon1" />
         </div>
 
         <div class="text">
@@ -39,7 +39,7 @@
                 <div>Материал: @Model.CoolMaterial</div>
                 <div>Страна производства: Вьетнам</div>
                 <div>Предназначение: @Model.CoolCategories</div>
-                <div>Цвет:@Model.CoolColor</div>
+                <div>Цвет:@Model.CoolColors</div>
                 <div class="buttonssize">
                     @foreach (var size in Model.Sizes)
                     {

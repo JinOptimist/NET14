@@ -5,15 +5,10 @@
     Layout = "/Views/Shared/_LayoutCalendar.cshtml";
 }
 
-<div>
-    тут Руслан что-то сделает
-</div>
+
  <form action="/Calendar/AddNote" method="post">
    <p><input placeholder="Text" @(Html.TextBoxFor(x => x.Text)) </p>
    <p><input placeholder="Event date (dd.MM.YYYY)" @(Html.TextBoxFor(x => x.EventDate)) </p>
    <p><input type="submit" value="Create"></p>
   </form>
-<div>
-    и тут Руслан что-то сделает
-</div>
-
+  

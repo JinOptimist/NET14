@@ -10,7 +10,7 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
 {
     public class UserSocial : BaseModel
     {
-        public string UserPhoto { get; set; } = "/images/Social/User.jpg";
+        public string UserPhoto { get; set; } = "/images/Social/CalendarUser.jpg";
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -25,5 +25,6 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
         public virtual List<UserSocial> WhoFriends { get; set; } = new List<UserSocial>();
         public virtual List<UserFriendRequest> FriendRequestSent { get; set; } = new List<UserFriendRequest>();
         public virtual List<UserFriendRequest> FriendRequestReceived { get; set; } = new List<UserFriendRequest>();
+        public virtual Basket Basket { get; set; }
     }
 }

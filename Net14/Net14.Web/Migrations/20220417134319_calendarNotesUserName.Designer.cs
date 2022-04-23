@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Net14.Web.EfStuff;
 
 namespace Net14.Web.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class WebContextModelSnapshot : ModelSnapshot
+    [Migration("20220417134319_calendarNotesUserName")]
+    partial class calendarNotesUserName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,21 +34,6 @@ namespace Net14.Web.Migrations
                     b.HasIndex("ProductsId");
 
                     b.ToTable("BasketProduct");
-                });
-
-            modelBuilder.Entity("GroupSocialUserSocial", b =>
-                {
-                    b.Property<int>("GroupsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MembersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GroupsId", "MembersId");
-
-                    b.HasIndex("MembersId");
-
-                    b.ToTable("GroupSocialUserSocial");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Basket", b =>
@@ -227,27 +214,6 @@ namespace Net14.Web.Migrations
                     b.ToTable("fileSocial");
                 });
 
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupSocial", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhotoUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("GroupSocial");
-                });
-
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", b =>
                 {
                     b.Property<int>("Id")
@@ -260,9 +226,6 @@ namespace Net14.Web.Migrations
 
                     b.Property<DateTime>("DateOfPosting")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("GroupSocialId")
-                        .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
@@ -277,8 +240,6 @@ namespace Net14.Web.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GroupSocialId");
 
                     b.HasIndex("UserId");
 
@@ -313,31 +274,6 @@ namespace Net14.Web.Migrations
                     b.ToTable("SocialComments");
                 });
 
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserFriendRequest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("FriendRequestStatus")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ReceiverId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SenderId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReceiverId");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("UserFriendRequests");
-                });
-
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", b =>
                 {
                     b.Property<int>("Id")
@@ -365,9 +301,6 @@ namespace Net14.Web.Migrations
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
 
                     b.Property<string>("UserPhoto")
                         .ValueGeneratedOnAdd()
@@ -432,21 +365,6 @@ namespace Net14.Web.Migrations
                     b.ToTable("ProductSize");
                 });
 
-            modelBuilder.Entity("UserSocialUserSocial", b =>
-                {
-                    b.Property<int>("FriendsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WhoFriendsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FriendsId", "WhoFriendsId");
-
-                    b.HasIndex("WhoFriendsId");
-
-                    b.ToTable("UserSocialUserSocial");
-                });
-
             modelBuilder.Entity("BasketProduct", b =>
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.Basket", null)
@@ -462,19 +380,13 @@ namespace Net14.Web.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GroupSocialUserSocial", b =>
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.DaysNote", b =>
                 {
-                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupSocial", null)
-                        .WithMany()
-                        .HasForeignKey("GroupsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Net14.Web.EfStuff.DbModel.CalendarUser", "CalendarUser")
+                        .WithMany("DaysNotes")
+                        .HasForeignKey("CalendarUserId");
 
-                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", null)
-                        .WithMany()
-                        .HasForeignKey("MembersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("CalendarUser");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.ImageComment", b =>
@@ -488,11 +400,7 @@ namespace Net14.Web.Migrations
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", b =>
                 {
-                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupSocial", null)
-                        .WithMany("Posts")
-                        .HasForeignKey("GroupSocialId");
-
-                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "User")
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "CalendarUser")
                         .WithMany("Posts")
                         .HasForeignKey("UserId");
 
@@ -512,21 +420,6 @@ namespace Net14.Web.Migrations
                     b.Navigation("Post");
 
                     b.Navigation("CalendarUser");
-                });
-
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserFriendRequest", b =>
-                {
-                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "Receiver")
-                        .WithMany("FriendRequestReceived")
-                        .HasForeignKey("ReceiverId");
-
-                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "Sender")
-                        .WithMany("FriendRequestSent")
-                        .HasForeignKey("SenderId");
-
-                    b.Navigation("Receiver");
-
-                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.StoreImage", b =>
@@ -553,19 +446,9 @@ namespace Net14.Web.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("UserSocialUserSocial", b =>
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.CalendarUser", b =>
                 {
-                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", null)
-                        .WithMany()
-                        .HasForeignKey("FriendsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", null)
-                        .WithMany()
-                        .HasForeignKey("WhoFriendsId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                    b.Navigation("DaysNotes");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Image", b =>
@@ -578,11 +461,6 @@ namespace Net14.Web.Migrations
                     b.Navigation("StoreImages");
                 });
 
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupSocial", b =>
-                {
-                    b.Navigation("Posts");
-                });
-
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", b =>
                 {
                     b.Navigation("Comments");
@@ -590,10 +468,6 @@ namespace Net14.Web.Migrations
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", b =>
                 {
-                    b.Navigation("FriendRequestReceived");
-
-                    b.Navigation("FriendRequestSent");
-
                     b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
