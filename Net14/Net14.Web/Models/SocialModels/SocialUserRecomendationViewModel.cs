@@ -19,6 +19,8 @@ namespace Net14.Web.Models
         public bool IsFriend { get; set; } = false;
         public int RecomendationRate { get; set; }
         public int SameFriendsCount { get; set; }
+        public bool IsRequested { get; set; }
+
         public List<SocialUserRecomendationViewModel> SameFriends { get; set; }
 
 

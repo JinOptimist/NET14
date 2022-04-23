@@ -31,7 +31,14 @@ namespace Net14.Web.Controllers
         public IActionResult Recomendations() 
         {
             var recomendationUsersViewModel = _recomendationsService.GetUserRecomendation();
-            return View(recomendationUsersViewModel);
+            string absoluteurl = HttpContext.Request.Path.Value;
+            var model = new SocialUserRecomendationUrlViewModel()
+            {
+                Recomendations = recomendationUsersViewModel,
+                Url = absoluteurl
+            };
+
+            return View(model);
         }
         public IActionResult GroupRecomendations()
         {
