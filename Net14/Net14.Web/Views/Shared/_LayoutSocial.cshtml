@@ -1,5 +1,6 @@
 ﻿@using Net14.Web.Services;
 @inject UserService UserService
+@inject AdvertisingService advertisingService
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,7 +51,6 @@
             @if (User.Identity.IsAuthenticated)
             {
                 <div class="elements-from-hidden" onclick="location.href='/Social/Settings'">User settings</div>
-                <div class="elements-from-hidden" onclick="location.href='/SocialFile/MyFiles';">My Files</div>
 
             }
             <div class="elements-from-hidden" onclick="location.href='/SocialCurrency/GetCurrency'">Currency</div>
@@ -63,6 +63,8 @@
         <div class="menu-container">
             <div class="menu">
                 <div class="buttons-menu">
+                    <div class="menu-element">Profile</div>
+                    <div class="menu-element" onclick="location.href='/SocialFile/MyFiles';">My Files</div>
                     <div class="menu-element" onclick="location.href='/SocialRecomendation/Recomendations';">Recomendation</div>
                     <div class="menu-element" onclick="location.href='/SocialGroups/GetGroups';">Groups</div>
                     <div class="menu-element" onclick="location.href='/Social/ShowAllUsers';">Find user</div>
@@ -81,6 +83,21 @@
         </div>
         <div class="content">
             @RenderBody()
+        </div>
+        <div class="advertising-container">
+            <div class="advertising">
+                <a href="/Store/Index" class="name-shop">
+                    <img src="/images/Store/LogoGray.png" class="logo-shop">
+                    <span class=shopox>ShopOx</span>
+                </a>
+                @foreach (var product in advertisingService.GetAdvertising())
+                {
+                    <div class="advertising-element" onclick="location.href = '/Store/Shoes?id=@product.Id';">
+                        <img src="@product.Images[2]" class="advertising-images">
+                        <div>@product.Name</div>
+                    </div>
+                }
+            </div>
         </div>
     </div>
     <footer class="footer">

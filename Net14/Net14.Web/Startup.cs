@@ -105,6 +105,13 @@ namespace Net14.Web
                     x.GetService<IHttpContextAccessor>(),
                     x.GetService<IMapper>()));
 
+            services.AddScoped<AdvertisingService>(x =>
+                new AdvertisingService(
+                    x.GetService<ProductRepository>(),
+                    x.GetService<IMapper>()));
+
+
+
             services.AddScoped<UserFriendRequestRepository>(x =>
                 new UserFriendRequestRepository(x.GetService<WebContext>()));
 
@@ -272,6 +279,13 @@ namespace Net14.Web
             provider.CreateMap<SocialUserSettingsViewModel, UserSocial>();
 
 
+
+            provider.CreateMap<Product, ProductViewModel>()
+                .ForMember(nameof(ProductViewModel.Images),
+                    product => product
+                        .MapFrom(dbProduct => dbProduct.StoreImages.Select(image => image.Url).ToList()));
+
+                
 
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);

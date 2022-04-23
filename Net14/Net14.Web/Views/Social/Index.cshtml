@@ -28,9 +28,12 @@
         </form>
     </div>
 }
+
+
 @foreach (SocialPostViewModel post in Model.Posts)
 {
-    <a name="@post.Id" class="anchor"/>
+    <a name="@post.Id" class="anchor"></a>
+
     <div class="content-element">
         <div class="content-element-card">
             <div class="user-info">
