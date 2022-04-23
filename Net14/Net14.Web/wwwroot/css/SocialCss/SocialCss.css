@@ -578,3 +578,73 @@ a {
 .anchor {
     color: black;
 }
+
+.advertising {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    min-width: 150px;
+    height: 787px;
+    padding: 5px;
+    border-radius: 20px;
+    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
+    z-index: 0;
+    padding-top: 20px;
+}
+
+.advertising-images {
+    width: 200px;
+}
+
+.advertising-container {
+    min-width: 200px;
+    height: 700px;
+}
+
+.shop-header {
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.advertising-element {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+.name-shop {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 20px;
+    border: 2px solid #212322;
+    padding: 5px;
+    border-radius: 10px;
+    margin: 5px;
+    text-decoration: none;
+    color: black;
+}
+
+    .name-shop:hover {
+        background: orange;
+    }
+
+.shopox {
+    font-family: impact, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    font-variant: small-caps;
+    padding-left: 10px;
+}
+
+
+.logo-shop {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+}

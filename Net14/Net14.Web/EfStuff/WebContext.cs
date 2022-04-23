@@ -57,6 +57,10 @@ namespace Net14.Web.EfStuff
             modelBuilder.Entity<UserSocial>()
                 .HasMany(x => x.FriendRequestSent)
                 .WithOne(x => x.Sender);
+
+            modelBuilder.Entity<UserSocial>()
+                .HasMany(x => x.Files)
+                .WithOne(x => x.Owner);
             
 
 

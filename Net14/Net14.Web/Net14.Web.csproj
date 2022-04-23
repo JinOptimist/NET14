@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\lib\woocommerce-FlexSlider-690832b\**" />
+    <Content Remove="wwwroot\lib\woocommerce-FlexSlider-690832b\**" />
+    <EmbeddedResource Remove="wwwroot\lib\woocommerce-FlexSlider-690832b\**" />
+    <None Remove="wwwroot\lib\woocommerce-FlexSlider-690832b\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="Google.Apis" Version="1.57.0" />
     <PackageReference Include="Google.Apis.YouTube.v3" Version="1.56.0.2630" />

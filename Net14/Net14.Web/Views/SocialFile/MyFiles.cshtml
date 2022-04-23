@@ -1,4 +1,4 @@
-﻿@model List<FilesViewModel>
+﻿@model FilesWithLastViewModel
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
@@ -34,14 +34,31 @@
         </div>
         <div class="button">
             <div class="show-file-header">Show Files</div>
-                <form action="/SocialFile/MyFiles" method="post" id="form-show-files">
-                    @foreach (var Files in Model)
-                    {
-                        <div>
-                            <a href="/SocialFile/ShowMyFiles?id=@Files.Id">@Files.Name</a>
-                        </div>
-                    }
-                </form>
+            <form action="/SocialFile/MyFiles" method="post" id="form-show-files">
+                @foreach (var files in Model.Files)
+                {
+                    <div>
+                        <a href="/SocialFile/ShowMyFiles?id=@files.Id">@files.Name</a>
+                    </div>
+                }
+            </form>
         </div>
     </div>
 </div>
+
+@section NavbarRecomendations{
+    <div class="menu-recomendations-user">
+        <div class="menu-recomendation-title">Last files</div>
+        @foreach (var lastFile in Model.LastFiles)
+        {
+            <div class="recomendation-element-menu" onclick="location.href='@Url.Action("ShowMyFiles", "SocialFile", new {fileId = lastFile.Id})'">
+                <div class="user-photo">
+                    <img src=@lastFile.Url class="user-photo">
+                </div>
+                <div class="recomendation-name-menu">
+                    @lastFile.Name
+                </div>
+            </div>
+        }
+    </div>
+}
