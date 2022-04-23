@@ -15,7 +15,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Net14.Web.Models.gallery;
 using Net14.Web.EfStuff.DbModel;
-
+using Net14.Web.Models.store;
+using Net14.Web.EfStuff.DbModel.SocialDbModels;
+using Net14.Web.Models;
 
 namespace Net14.Web
 {
@@ -39,7 +41,7 @@ namespace Net14.Web
              .AddCookie(AuthName, config =>
              {
                  config.LoginPath = "/SocialAuthentication/Autorization";
-                 config.AccessDeniedPath = "/CalendarUser/AccessDenied";
+                 config.AccessDeniedPath = "/SocialAuthentication/AccessDenied";
                  config.Cookie.Name = "SocialMedeiCool";
              });
 
@@ -86,16 +88,30 @@ namespace Net14.Web
             services.AddScoped<SocialCommentRepository>(x =>
                 new SocialCommentRepository(x.GetService<WebContext>()));
 
+            services.AddScoped<SocialGroupRepository>(x =>
+                new SocialGroupRepository(x.GetService<WebContext>()));
+
             services.AddScoped<VideoSocialRepository>(x =>
                 new VideoSocialRepository(x.GetService<WebContext>()));
 
-            services.AddTransient<YouTubeVideoGetter>();
+
+            services.AddScoped<YouTubeVideoService>();
 
             services.AddScoped<UserService>(x =>
                 new UserService(
                     x.GetService<SocialUserRepository>(),
-                    x.GetService<IHttpContextAccessor>()));
+                    x.GetService<IHttpContextAccessor>(),
+                    x.GetService<IMapper>()));
+                    
+            services.AddScoped<UserFriendRequestRepository>(x =>
+                new UserFriendRequestRepository(x.GetService<WebContext>()));
 
+            services.AddScoped<FriendRequestService>(x =>
+                new FriendRequestService(
+                    x.GetService<UserFriendRequestRepository>(),
+                    x.GetService<SocialUserRepository>()));
+            services.AddScoped<CurrencyService>(x =>
+                new CurrencyService());
             services.AddHttpContextAccessor();
 
             services.AddControllersWithViews();
@@ -106,14 +122,69 @@ namespace Net14.Web
             var provider = new MapperConfigurationExpression();
 
             provider.CreateMap<AddImageVewModel, Image>();
+            provider.CreateMap<Basket, ProductViewModel>();
+
+            provider.CreateMap<Product, ProductViewModel>()
+                .ForMember(nameof(ProductViewModel.Images),
+                    opt => opt
+                    .MapFrom(dbProducts => 
+                        dbProducts
+                            .StoreImages
+                            .OrderBy(x => x.Odrer)
+                            .Select(x => x.Url)
+                            .ToList()
+                        )
+                    )
+                .ForMember(nameof(ProductViewModel.Sizes),
+                    opt => opt
+                    .MapFrom(dbProducts =>
+                        dbProducts
+                            .Sizes
+                            .Select(x => x.Name)
+                            .ToList()
+                        )
+                    );
+
 
             provider.CreateMap<Image, ImageUrlVewModel>()
                 .ForMember(nameof(ImageUrlVewModel.Comments),
                 opt => opt
-                    .MapFrom(dbImage => 
+                    .MapFrom(dbImage =>
                         dbImage.Comments
                             .Select(c => c.Text)
                             .ToList()));
+
+            provider.CreateMap<PostSocial, SocialPostViewModel>()
+                .ForMember(nameof(SocialPostViewModel.UserId),
+                    post => post
+                        .MapFrom(dbPost =>
+                            dbPost.User.Id))
+            .ForMember(nameof(SocialPostViewModel.UserPhoto),
+                    post => post
+                        .MapFrom(dbPost =>
+                            dbPost.User.UserPhoto))
+            .ForMember(nameof(SocialPostViewModel.FirstName),
+                    post => post
+                        .MapFrom(dbPost =>
+                            dbPost.User.FirstName));
+
+            provider.CreateMap<GroupSocial, SocialGroupViewModel>();
+
+            provider.CreateMap<SocialUserRegistrationViewModel, UserSocial>();
+
+            provider.CreateMap<UserFriendRequest, FriendRequestViewModel>();
+
+
+            provider.CreateMap<UserSocial, SocialUserViewModel>();
+            provider.CreateMap<SocialComment, SocialCommentViewModel>();
+            provider.CreateMap<UserSocial, SocialProfileViewModel>();
+            provider.CreateMap<SocialCommentViewModel, SocialUserViewModel>();
+                
+            provider.CreateMap<FilesViewModel, FileSocial>();
+
+            provider.CreateMap<Image, ImageViewModel>(); 
+
+            provider.CreateMap<FileSocial, FilesViewModel>();
 
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);

@@ -20,6 +20,7 @@ namespace Net14.Web.EfStuff.Repositories
 
         public T Get(int id)
         {
+            
             return _dbSet.FirstOrDefault(x => x.Id == id);
         }
 

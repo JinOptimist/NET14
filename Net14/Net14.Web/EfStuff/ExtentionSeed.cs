@@ -2,8 +2,11 @@
 using Microsoft.Extensions.Hosting;
 using Net14.Web.EfStuff.DbModel;
 using Net14.Web.EfStuff.Repositories;
+using Net14.Web.EfStuff.DbModel.SocialDbModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 
 namespace Net14.Web.EfStuff
 {
@@ -15,6 +18,9 @@ namespace Net14.Web.EfStuff
             {
                 SeedProduct(scope);
 
+                SeedUser(scope);
+                SeedPostAndComm(scope);
+                GroupSeed(scope);
             }
 
             return host;
@@ -61,33 +67,33 @@ namespace Net14.Web.EfStuff
                     sizeRepository.SaveList(size);
                 }
 
-                var size35 = sizeRepository.GetName("35");
-                var size35_5 = sizeRepository.GetName("35.5");
-                var size36 = sizeRepository.GetName("36");
-                var size36_5 = sizeRepository.GetName("36.5");
-                var size37 = sizeRepository.GetName("37");
-                var size37_5 = sizeRepository.GetName("37.5");
-                var size38 = sizeRepository.GetName("38");
-                var size38_5 = sizeRepository.GetName("38.5");
-                var size39 = sizeRepository.GetName("39");
-                var size39_5 = sizeRepository.GetName("39");
-                var size40 = sizeRepository.GetName("40");
-                var size40_5 = sizeRepository.GetName("40.5");
-                var size41 = sizeRepository.GetName("41");
-                var size41_5 = sizeRepository.GetName("41.5");
-                var size42 = sizeRepository.GetName("42");
-                var size42_5 = sizeRepository.GetName("42.5");
-                var size43 = sizeRepository.GetName("43");
-                var size43_5 = sizeRepository.GetName("43.5");
-                var size44 = sizeRepository.GetName("44");
-                var size44_5 = sizeRepository.GetName("44.5");
-                var size45 = sizeRepository.GetName("45");
-                var sizeS = sizeRepository.GetName("S");
-                var sizeM = sizeRepository.GetName("M");
-                var sizeL = sizeRepository.GetName("L");
-                var size35_37 = sizeRepository.GetName("35-37");
-                var size38_41 = sizeRepository.GetName("38-41");
-                var size42_45 = sizeRepository.GetName("42-45");
+                var size35 = sizeRepository.GetByName("35");
+                var size35_5 = sizeRepository.GetByName("35.5");
+                var size36 = sizeRepository.GetByName("36");
+                var size36_5 = sizeRepository.GetByName("36.5");
+                var size37 = sizeRepository.GetByName("37");
+                var size37_5 = sizeRepository.GetByName("37.5");
+                var size38 = sizeRepository.GetByName("38");
+                var size38_5 = sizeRepository.GetByName("38.5");
+                var size39 = sizeRepository.GetByName("39");
+                var size39_5 = sizeRepository.GetByName("39");
+                var size40 = sizeRepository.GetByName("40");
+                var size40_5 = sizeRepository.GetByName("40.5");
+                var size41 = sizeRepository.GetByName("41");
+                var size41_5 = sizeRepository.GetByName("41.5");
+                var size42 = sizeRepository.GetByName("42");
+                var size42_5 = sizeRepository.GetByName("42.5");
+                var size43 = sizeRepository.GetByName("43");
+                var size43_5 = sizeRepository.GetByName("43.5");
+                var size44 = sizeRepository.GetByName("44");
+                var size44_5 = sizeRepository.GetByName("44.5");
+                var size45 = sizeRepository.GetByName("45");
+                var sizeS = sizeRepository.GetByName("S");
+                var sizeM = sizeRepository.GetByName("M");
+                var sizeL = sizeRepository.GetByName("L");
+                var size35_37 = sizeRepository.GetByName("35-37");
+                var size38_41 = sizeRepository.GetByName("38-41");
+                var size42_45 = sizeRepository.GetByName("42-45");
 
 
                 var product1 = new Product()
@@ -426,6 +432,145 @@ namespace Net14.Web.EfStuff
             };
 
 
+        }
+        private static void SeedUser(IServiceScope scope) 
+        {
+            var userRepository = scope.ServiceProvider.GetService<SocialUserRepository>();
+            if (!userRepository.Any()) 
+            {
+                var user0 = new UserSocial()
+                {
+                    FirstName = "admin",
+                    LastName = "admin",
+                    Age = 7,
+                    City = "Grodno",
+                    Country = "Russia",
+                    Email = "admin",
+                    Password = "admin",
+                    UserPhoto = "/images/Social/User.jpg",
+                    Role = SiteRole.Admin
+                };
+                userRepository.Save(user0);
+
+                var user = new UserSocial()
+                {
+                    FirstName = "Aleksey",
+                    LastName = "Guravlev",
+                    Age = 20,
+                    City = "Minsk",
+                    Country = "Belarus",
+                    Email = "email",
+                    Password = "pass",
+                    UserPhoto = "/images/Social/User.jpg"
+                };
+                userRepository.Save(user);
+
+                var user2 = new UserSocial()
+                {
+                    FirstName = "Kiril",
+                    LastName = "Perepechkin",
+                    Age = 22,
+                    City = "Vitebsk",
+                    Country = "Belarus",
+                    Email = "email2",
+                    Password = "pass2",
+                    UserPhoto = "/images/Social/User.jpg"
+                };
+                userRepository.Save(user2);
+
+                var user3 = new UserSocial()
+                {
+                    FirstName = "Vasily",
+                    LastName = "Shchur",
+                    Age = 35,
+                    City = "Grodno",
+                    Country = "Russia",
+                    Email = "email3",
+                    Password = "pass3",
+                    UserPhoto = "/images/Social/User.jpg"
+                };
+                userRepository.Save(user3);
+            }
+        }
+
+        private static void SeedPostAndComm(IServiceScope scope) 
+        {
+            var postRepository = scope.ServiceProvider.GetService<SocialPostRepository>();
+            var userRepository = scope.ServiceProvider.GetService<SocialUserRepository>();
+            var commentRepository = scope.ServiceProvider.GetService<SocialCommentRepository>();
+
+            var commentUser = userRepository.GetByEmAndPass("email3", "pass3");
+
+            if (!postRepository.Any())
+            {
+
+                var post = new PostSocial()
+                {
+                    User = commentUser,
+                    CommentOfUser = "Comment",
+                    DateOfPosting = new DateTime(),
+                    ImageUrl = "https://www.imgonline.com.ua/examples/bee-on-daisy.jpg",
+                    Likes = 20,
+                    TypePost = "no",
+                    Comments = new List<SocialComment>()
+                };
+
+                var comment = new SocialComment()
+                {
+                    DateOfPosting = DateTime.Now,
+                    Post = post,
+                    Text = "This is test comment. Try to add your.",
+                    User = commentUser
+                };
+
+                post.Comments.Add(comment);
+                postRepository.Save(post);
+                commentRepository.Save(comment);
+            }
+        }
+
+        private static void GroupSeed(IServiceScope scope) 
+        {
+            var groupRepository = scope.ServiceProvider.GetService<SocialGroupRepository>();
+            var userRepository = scope.ServiceProvider.GetService<SocialUserRepository>();
+            var commentRepository = scope.ServiceProvider.GetService<SocialCommentRepository>();
+            var postRepository = scope.ServiceProvider.GetService<SocialPostRepository>();
+
+
+            if (!groupRepository.Any())
+            {
+                var groupPost = new PostSocial()
+                {
+                    CommentOfUser = "Good car",
+                    Comments = new List<SocialComment>(),
+                    ImageUrl = "/images/Social/bmw.jpg",
+                    Likes = 10,
+                    TypePost = "no",
+                    User = userRepository.GetByEmAndPass("email", "pass")
+                };
+
+                var groupComment = new SocialComment()
+                {
+                    Post = groupPost,
+                    Text = "I wanna buy",
+                    User = userRepository.GetByEmAndPass("email2", "pass2"),
+                };
+
+                groupPost.Comments.Add(groupComment);
+                postRepository.Save(groupPost);
+                commentRepository.Save(groupComment);
+
+                var group = new GroupSocial()
+                {
+                    Description = "Cars",
+                    Members = userRepository.GetAll().Where(user => user.FirstName == "Vasily").ToList(),
+                    Name = "BMW Club",
+                    PhotoUrl = "/images/Social/bmw.jpg",
+                    Posts = new List<PostSocial>()
+                };
+                group.Posts.Add(groupPost);
+                groupRepository.Save(group);
+            }
         }
     }
 }

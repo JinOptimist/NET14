@@ -10,6 +10,12 @@ a, a:visited {
         text-decoration: none;
     }
 
+body {
+    font-family: Courier New, monospace;
+    margin: 0;
+    padding: 0;
+}
+
 .header {
     display: flex;
     font-size: 24px;
@@ -55,6 +61,7 @@ a, a:visited {
         background: orange;
     }
 
+
 .shopox {
     font-family: impact, sans-serif;
     font-size: 24px;
@@ -67,22 +74,38 @@ a, a:visited {
     justify-content: center;
     display: flex;
     flex: 1;
-    border: 2px solid #212322;
-    border-radius: 10px;
-    background: #E9ECEF;
-    padding: 3px;
     margin: 5px;
+    position: relative;
 }
 
 .search-field {
+    font-size: 24px;
+    border: 2px solid #212322;
+    font-family: Courier New, monospace;
+    outline: none;
+    border-radius: 10px;
+    background: #E9ECEF;
     flex: 1;
     justify-content: center;
+    position: relative;
 }
 
+    .search-field:hover {
+        border: 2px solid orange;
+    }
+
 .search-icon {
-    border-left: 2px solid #212322;
-    height: 32px;
+    position: absolute;
+    right: 5px;
+    bottom: 3px;
+    height: 38px;
+    width: 38px;
 }
+
+    .search-icon:hover {
+        cursor: pointer
+    }
+
 
 .account {
     display: flex;
@@ -330,11 +353,7 @@ a, a:visited {
     margin-left: 50px;
 }
 
-body {
-    font-family: Courier New, monospace;
-    margin: 0;
-    padding: 0;
-}
+
 
 .iconshoes {
     width: 152px;
@@ -426,18 +445,20 @@ body {
 }
 
 .second-header-banner {
-    font-family: Suisse Intl, Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-weight: 400;
+    font-family: Courier New,monospace;
+    font-weight: bold;
     display: inline-block;
-    padding: 0 9px;
-    font-size: 18px;
+    padding: 0 15px;
+    font-size: 22px;
     height: 44px;
     line-height: 44px;
     color: #000;
+    transition:0.1s;
 }
 
     .second-header-banner:hover {
         color: orange;
+        transform: scale(1.15)
     }
 
 .indexRunMargin {
@@ -461,6 +482,7 @@ body {
     padding: 0;
     transition: 1s;
 }
+
     .indexRun:hover {
         transform: scale(1.05)
     }
@@ -484,7 +506,7 @@ body {
 
     .titleImageRun:hover {
         color: orange;
-        padding:35px;
+        padding: 35px;
     }
 
 .containerIndex2 {
@@ -497,6 +519,7 @@ body {
     height: 600px;
     transition: 1s;
 }
+
     .womenSnkrs:hover {
         transform: scale(1.1)
     }
@@ -505,6 +528,7 @@ body {
     width: 100%;
     transition: 1s;
 }
+
     .sale:hover {
         transform: scale(1.2)
     }
@@ -513,9 +537,10 @@ body {
     width: 100%;
     transition: 1s;
 }
-.socks:hover {
-    transform: scale(1.2)
-}
+
+    .socks:hover {
+        transform: scale(1.2)
+    }
 
 .accessoriesIndex {
     position: relative;
@@ -540,10 +565,12 @@ body {
     transition-delay: 0s;
     transition-timing-function: ease;
 }
+
     .miniTitleImageRun:hover {
         color: orange;
         padding: 17px;
     }
+
     .miniTitleImageRun:hover {
         color: orange;
     }
@@ -582,7 +609,12 @@ td {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: 1s;
 }
+
+    .catalogProduct:hover {
+        transform: scale(1.11)
+    }
 
 .catalogItems {
     display: flex;

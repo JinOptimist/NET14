@@ -11,11 +11,11 @@ namespace Net14.Web.Models
         public int Id { get; set; }
         public int UserId { get; set; }
         public string ImageUrl { get; set; } = "ImageUrl";
-        public string NameOfUser { get; set; }
-        public string CommentsOfOwner { get; set; }
+        public string FirstName { get; set; }
+        public string CommentsOfUser { get; set; }
         public string TypePost { get; set; } = "Registartion";
         public int Likes { get; set; } = 0;
-        public string UserPhotoUrl { get; set; }
+        public string UserPhoto { get; set; }
         public List<SocialCommentViewModel> Comments { get; set; } = new List<SocialCommentViewModel>();
 
     }
