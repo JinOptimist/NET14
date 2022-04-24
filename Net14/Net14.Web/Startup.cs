@@ -97,7 +97,7 @@ namespace Net14.Web
                     x.GetService<SocialUserRepository>(),
                     x.GetService<IHttpContextAccessor>(),
                     x.GetService<IMapper>()));
-                    
+
             services.AddScoped<UserFriendRequestRepository>(x =>
                 new UserFriendRequestRepository(x.GetService<WebContext>()));
 
@@ -118,11 +118,86 @@ namespace Net14.Web
 
             provider.CreateMap<AddImageVewModel, Image>();
             provider.CreateMap<Basket, ProductViewModel>();
-
+            provider.CreateMap<AddProductVewModel, Product>()
+                .ForMember(nameof(Product.BrandCategories),
+                    opt => opt
+                    .MapFrom(viewModel =>
+                       viewModel.Brand))
+                .ForMember(nameof(Product.CoolCategories),
+                    opt => opt
+                    .MapFrom(viewModel =>
+                       viewModel.Category))
+                .ForMember(nameof(Product.CoolColors),
+                    opt => opt
+                    .MapFrom(viewModel =>
+                       viewModel.Color))
+                .ForMember(nameof(Product.CoolMaterial),
+                    opt => opt
+                    .MapFrom(viewModel =>
+                       viewModel.Material));
+            provider.CreateMap<Product, AddImageProductVewModel>()
+                 .ForMember(nameof(AddImageProductVewModel.BrandCategories),
+                    opt => opt
+                    .MapFrom(dbProduct =>
+                        dbProduct
+                        .BrandCategories
+                        .ToString()
+                        )
+                    )
+                 .ForMember(nameof(AddImageProductVewModel.Images),
+                    opt => opt
+                    .MapFrom(dbProduct =>
+                        dbProduct
+                        .StoreImages
+                        .OrderBy(x => x.Odrer)
+                        .Select(x =>x.Url)
+                        .ToList()
+                        )
+                    );
             provider.CreateMap<Product, ProductViewModel>()
+                .ForMember(nameof(ProductViewModel.CoolCategories),
+                    opt => opt
+                    .MapFrom(dbProducts =>
+                        dbProducts
+                            .CoolCategories
+                            .ToString()
+                        )
+                    )
+                .ForMember(nameof(ProductViewModel.CoolMaterial),
+                    opt => opt
+                    .MapFrom(dbProducts =>
+                        dbProducts
+                            .CoolMaterial
+                            .ToString()
+                        )
+                    )
+                .ForMember(nameof(ProductViewModel.CoolColors),
+                    opt => opt
+                    .MapFrom(dbProducts =>
+                        dbProducts
+                            .CoolColors
+                            .ToString()
+                        )
+                    )
+                .ForMember(nameof(ProductViewModel.Gender),
+                    opt => opt
+                    .MapFrom(dbProducts =>
+                        dbProducts
+                            .Gender
+                            .ToString()
+                        )
+                    )
+                .ForMember(nameof(ProductViewModel.BrandCategories),
+                     opt=>opt
+                     .MapFrom(dbProducts=>
+                        dbProducts
+                            .BrandCategories
+                            .ToString()
+                        )
+                     )
                 .ForMember(nameof(ProductViewModel.Images),
                     opt => opt
-                    .MapFrom(dbProducts => 
+                    .MapFrom(dbProducts =>
                         dbProducts
                             .StoreImages
                             .OrderBy(x => x.Odrer)
@@ -174,10 +249,10 @@ namespace Net14.Web
             provider.CreateMap<SocialComment, SocialCommentViewModel>();
             provider.CreateMap<UserSocial, SocialProfileViewModel>();
             provider.CreateMap<SocialCommentViewModel, SocialUserViewModel>();
-                
+
             provider.CreateMap<FilesViewModel, FileSocial>();
 
-            provider.CreateMap<Image, ImageViewModel>(); 
+            provider.CreateMap<Image, ImageViewModel>();
 
             provider.CreateMap<FileSocial, FilesViewModel>();
 
