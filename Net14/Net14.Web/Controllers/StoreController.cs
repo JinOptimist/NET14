@@ -40,15 +40,6 @@ namespace Net14.Web.Controllers
             _mapper = imapper;
             _sizeRepository = sizeRepository;
         }
-
-        [HasRole(SiteRole.StoreAdmin)]
-        public IActionResult Admin()
-        {
-            var dbProducts = _productRepository.GetAll();
-            var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
-
-            return View(viewModels);
-        }
         public IActionResult MyAccount()
         {
 
@@ -115,20 +106,7 @@ namespace Net14.Web.Controllers
         {
             var dbImages = _storeimageRepository.GetRandom(id);
             var dbProduct = _productRepository.Get(id);
-            var model = new ProductViewModel()
-            {
-                Name = dbProduct.Name,
-                Gender = dbProduct.Gender.ToString(),
-                BrandCategories = dbProduct.BrandCategories.ToString(),
-                CoolCategories = dbProduct.CoolCategories.ToString(),
-                CoolMaterial = dbProduct.CoolMaterial.ToString(),
-                Price = dbProduct.Price,
-                CoolColors = dbProduct.CoolColors.ToString(),
-                Sizes = dbProduct.Sizes.Select(x => x.Name).ToList(),
-                Images = dbProduct.StoreImages
-                .OrderBy(x => x.Odrer)
-                .Select(x => x.Url).ToList()
-            };
+            var model=_mapper.Map<ProductViewModel>(dbProduct);
             model.RandomImages = dbImages.Select(dbImage => new RandomImagesViewModel()
             {
                 Url = dbImage.Url,
@@ -150,129 +128,13 @@ namespace Net14.Web.Controllers
 
                 return View(viewModels);
             }
-            if (_category == "Run")
+            else
             {
-                var dbProducts = _productRepository.GetRun();
+                var dbProducts = _productRepository.GetCategory(_category);
                 var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
-
                 return View(viewModels);
             }
-            if (_category == "Men")
-            {
-                var dbProducts = _productRepository.GetMen();
-                var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
-
-                return View(viewModels);
-            }
-            if (_category == "Women")
-            {
-                var dbProducts = _productRepository.GetWomen();
-                var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
-
-                return View(viewModels);
-            }
-            if (_category == "Accessories")
-            {
-                var dbProducts = _productRepository.GetAccessories();
-                var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
-
-                return View(viewModels);
-            }
-            if (_category == "Bags")
-            {
-                var dbProducts = _productRepository.GetBags();
-                var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
-
-                return View(viewModels);
-            }
-            return View();
-
-
         }
-        [HttpGet]
-        [IsStoreAdmin]
-        public IActionResult AddProduct()
-        {
-            var dbSize = _sizeRepository.GetAll();
-            var model = new AddProductVewModel()
-            {
-                Sizes = dbSize.Select(x => x.Name).ToList(),
-            };
-
-
-            return View(model);
-        }
-
-        [HttpPost]
-        [IsStoreAdmin]
-        public IActionResult AddProduct( AddProductVewModel viewModel)
-        {
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(viewModel);
-            //}
-
-            var dbSized = _sizeRepository.GetByNames(viewModel.CheckedSizes);
-
-            var dbProduct = new Product()
-            {
-                BrandCategories = viewModel.Brand,
-                Name = viewModel.Name,
-                Quantity = viewModel.Quantity,
-                Price = viewModel.Price,
-                CoolCategories = viewModel.Category,
-                CoolColors = viewModel.Color,
-                CoolMaterial = viewModel.Material,
-                Gender = viewModel.Gender,
-                Sizes = dbSized
-            };
-
-            _productRepository.Save(dbProduct);
-
-
-            var dbSize = _sizeRepository.GetAll();
-            var model = new AddProductVewModel()
-            {
-                Sizes = dbSize.Select(x => x.Name).ToList(),
-            };
-
-
-            return View(model);
-        }
-        [HttpGet]
-        public IActionResult AddImageProduct(int id)
-        {
-            var dbProduct = _productRepository.Get(id);
-            var model = new AddImageProductVewModel
-            {
-                Name = dbProduct.Name,
-                BrandCategories = dbProduct.BrandCategories.ToString(),
-                Images = dbProduct.StoreImages
-                .OrderBy(x => x.Odrer)
-                .Select(x => x.Url).ToList()
-            };
-
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public IActionResult AddImageProduct(AddImageProductVewModel viewModel)
-        {
-            var dbProduct = _productRepository.Get(viewModel.Id);
-            var storeImage = new StoreImage()
-            {
-                Url = viewModel.NewImageUrl,
-                Product = dbProduct,
-                Odrer = dbProduct.StoreImages.Count() + 1
-            };
-
-            _storeimageRepository.Save(storeImage);
-
-
-
-
-            return RedirectToAction("AddImageProduct", new { id = viewModel.Id });
-        }
+       
     }
 }

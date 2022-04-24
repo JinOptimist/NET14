@@ -93,9 +93,11 @@ body {
     .search-field:hover {
         border: 2px solid orange;
     }
+
 .search-icona {
-    margin-top:9px;
+    margin-top: 9px;
 }
+
 .search-icon {
     bottom: 3px;
     height: 38px;
@@ -262,8 +264,15 @@ body {
     width: 140px;
     height: 140px;
     border-radius: 10px;
-    margin: 5px
+    margin: 5px;
+    cursor: pointer;
+    transition: 0.5s;
 }
+
+    .icon:hover {
+        transform: scale(1.07)
+    }
+
 
 .icon1 {
     border: 1px solid #5A6169;
@@ -453,7 +462,7 @@ body {
     height: 44px;
     line-height: 44px;
     color: #000;
-    transition:0.1s;
+    transition: 0.1s;
 }
 
     .second-header-banner:hover {
