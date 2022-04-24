@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
+using Net14.Web.EfStuff.DbModel.CalendarDbModels;
 using Net14.Web.Services;
 using System;
 using System.Collections.Generic;
@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Net14.Web.Controllers.AutorizeAttribute
 {
-    public class HasRoleAttribute : ActionFilterAttribute
+    public class CalendarRoleAttribute : ActionFilterAttribute
     {
-        private Roles _siteRole;
+        private Roles _roles;
 
-        public HasRoleAttribute(Roles siteRole)
+        public CalendarRoleAttribute(Roles role)
         {
-            _siteRole = siteRole;
+            _roles = role;
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)
@@ -23,15 +23,15 @@ namespace Net14.Web.Controllers.AutorizeAttribute
             var userService =
                 context.HttpContext.RequestServices.GetService(typeof(UserService)) as UserService;
 
-            if (userService.GetCurrent() == null)
+            if (userService.CalendarGetCurrent() == null)
             {
                 context.Result = new UnauthorizedResult();
                 return;
             }
 
-            if (!userService.HasRole(_siteRole))
+            if (!userService.CalendarHasRole(_roles))
             {
-                context.Result = new ForbidResult();
+                context.Result = new ForbidResult("Недостаточно прав");
                 return;
             }
 

@@ -12,7 +12,7 @@ namespace Net14.Web.Migrations
                 table: "Users",
                 type: "int",
                 nullable: false,
-                defaultValue: SiteRole.User);
+                defaultValue: Roles.User);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

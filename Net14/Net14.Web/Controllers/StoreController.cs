@@ -41,7 +41,7 @@ namespace Net14.Web.Controllers
             _sizeRepository = sizeRepository;
         }
 
-        [HasRole(SiteRole.StoreAdmin)]
+        [HasRole(Roles.StoreAdmin)]
         public IActionResult Admin()
         {
             var dbProducts = _productRepository.GetAll();

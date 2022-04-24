@@ -16,7 +16,7 @@
     <body>
         <div>
             <a href="/Home/Index">home</a>
-           @if (userService.HasRole(SiteRole.StoreAdmin))
+           @if (userService.HasRole(Roles.StoreAdmin))
         {
             <a href="/Store/Admin">Admin panel</a>
         }
