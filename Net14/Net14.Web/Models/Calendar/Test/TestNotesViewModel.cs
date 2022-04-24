@@ -12,5 +12,6 @@ namespace Net14.Web.Models.Calendar
         public string Text { get; set; }
         public DateTime EventDate { get; set; }
         public virtual CalendarUser CalendarUser { get; set; }
+        
     }
 }

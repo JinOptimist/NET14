@@ -16,6 +16,9 @@
             <div>
             @a.Text
             </div>
+            <div>
+            <a href="/Calendar/RemoveNote?text=@(a.Text)&&year=@(a.EventDate.Year)&&month=@(a.EventDate.Month)&&day=@(a.EventDate.Day)" method="post"> Remove </a>
+            </div>
         }
     }
 </div>

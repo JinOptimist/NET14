@@ -17,5 +17,7 @@ namespace Net14.Web.EfStuff.Repositories
             var user = _webContext.CalendarUsers.Single(x => x.Name == name && x.Password == pass);
             return user;
         }
+        public bool IsEmailExist(string email)
+            => _dbSet.Any(x => x.Email == email);
     }
 }

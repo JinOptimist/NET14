@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums
 {
     [Flags]
-    public enum SiteRole
+    public enum Roles
     {
         Admin = 1,
         User = 2,

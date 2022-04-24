@@ -65,8 +65,6 @@ namespace Net14.Web
             services.AddScoped<StoreImageRepository>(x =>
               new StoreImageRepository(x.GetService<WebContext>()));
 
-            services.AddScoped<DaysRepository>(x =>
-                new DaysRepository(x.GetService<WebContext>()));
             services.AddScoped<DaysNoteRepository>(x =>
                 new DaysNoteRepository(x.GetService<WebContext>()));
             services.AddScoped<ImageRepository>(x =>
@@ -100,6 +98,7 @@ namespace Net14.Web
             services.AddScoped<UserService>(x =>
                 new UserService(
                     x.GetService<SocialUserRepository>(),
+                    x.GetService<CalendarUsersRepository>(),
                     x.GetService<IHttpContextAccessor>(),
                     x.GetService<IMapper>()));
                     

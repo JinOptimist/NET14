@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Net14.Web.Controllers.AutorizeAttribute;
 using Net14.Web.EfStuff;
 using Net14.Web.EfStuff.DbModel;
+using Net14.Web.EfStuff.DbModel.CalendarDbModels;
 using Net14.Web.EfStuff.Repositories;
 using Net14.Web.Models;
 using Net14.Web.Models.Calendar;
@@ -17,14 +19,12 @@ namespace Net14.Web.Controllers
 {
     public class CalendarController : Controller
     {
-        private DaysRepository _DaysRepository;
         private DaysNoteRepository _DaysNoteRepository;
         private CalendarUsersRepository _CalendarUsersRepository;
 
-        public CalendarController(DaysNoteRepository daysNoteRepository, DaysRepository daysRepository, CalendarUsersRepository calendarUsersRepository)
+        public CalendarController(DaysNoteRepository daysNoteRepository, CalendarUsersRepository calendarUsersRepository)
         {
             _DaysNoteRepository = daysNoteRepository;
-            _DaysRepository = daysRepository;
             _CalendarUsersRepository = calendarUsersRepository;
         }
 
@@ -48,7 +48,9 @@ namespace Net14.Web.Controllers
             var dbNotes = _DaysNoteRepository.GetAll()
                 .Where(x => x.EventDate.Month == month && x.EventDate.Year == year
                  && x.CalendarUser == _CalendarUsersRepository.GetAll()
-                .FirstOrDefault(x => User.Identity.IsAuthenticated == true));
+                .FirstOrDefault(x => User.Identity.IsAuthenticated == true) &&
+                x.UserName == _CalendarUsersRepository.Get(_CalendarUsersRepository.GetAll()
+                .FirstOrDefault(x => User.Identity.IsAuthenticated == true).Id).Name);
 
             var dayses = new List<int>();
             switch (new DateTime(year, month, 1).DayOfWeek.ToString())
@@ -110,11 +112,13 @@ namespace Net14.Web.Controllers
             return View(model);
         }
         [HttpGet]
+        [CalendarRole(Roles.User)]
         public IActionResult AddNote()
         {
             return View();
         }
         [HttpPost]
+        [CalendarRole(Roles.User)]
         public IActionResult AddNote(TestNotesViewModel viewModel, int year, int month, int day)
         {
             var dbNote = new DaysNote()
@@ -123,11 +127,25 @@ namespace Net14.Web.Controllers
                 EventDate = viewModel.EventDate,
                 CalendarUser = _CalendarUsersRepository.GetAll()
                 .FirstOrDefault(x => User.Identity.IsAuthenticated == true),
+                UserName = _CalendarUsersRepository.Get(_CalendarUsersRepository.GetAll()
+                .FirstOrDefault(x => User.Identity.IsAuthenticated == true).Id).Name
             };
             _DaysNoteRepository.Save(dbNote);
             return RedirectToAction("WatchCurrentNotes", new {year = dbNote.EventDate.Year, month = dbNote.EventDate.Month,
             day = dbNote.EventDate.Day});
         }
+        public IActionResult RemoveNote(string text, int year, int month, int day)
+        {
+            var dbNote = _DaysNoteRepository.GetAll()
+                .FirstOrDefault(x => x.Text == text&&
+                x.EventDate.Year == year && 
+                x.EventDate.Month == month && 
+                x.EventDate.Day == day);
+            _DaysNoteRepository.Remove(dbNote);
+            return RedirectToAction("TestCalendar");
+        }
+        
+        [CalendarRole(Roles.Admin)]
         public IActionResult WatchAllNotes()
         {
             var dbNotes = _DaysNoteRepository.GetAll().Where(x=>x.Text != null && x.CalendarUser ==
@@ -150,7 +168,9 @@ namespace Net14.Web.Controllers
                 && x.EventDate.Day == day)
                 .Where(x => x.Text != null && x.CalendarUser ==
             _CalendarUsersRepository.GetAll()
-                .FirstOrDefault(x => User.Identity.IsAuthenticated == true));
+                .FirstOrDefault(x => User.Identity.IsAuthenticated == true)&&
+                x.UserName == _CalendarUsersRepository.Get(_CalendarUsersRepository.GetAll()
+                .FirstOrDefault(x => User.Identity.IsAuthenticated == true).Id).Name);
             var model = new TestCalendarViewModel()
             {
                 Notes = dbNotes.Select(x => new TestNotesViewModel()

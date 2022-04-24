@@ -9,9 +9,12 @@
 }
 
 <div>
-    <a href="/Calendar/AddNote">Add Notes</a>
-    <a href="/Calendar/TestCalendar?month=@(DateTime.Now.Month)&year=@(DateTime.Now.Year)">Test Calendar</a>
+    @if (User.Identity.IsAuthenticated)
+    {
     <a href="/Calendar/WatchAllNotes">Watch all notes</a>
+    }
+    <a href="/Calendar/TestCalendar?month=@(DateTime.Now.Month)&year=@(DateTime.Now.Year)">Test Calendar</a>
+
     
     @if (User.Identity.IsAuthenticated)
     {
