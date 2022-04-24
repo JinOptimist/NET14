@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Net14.Web.Models.CustomValidationAttribute;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,11 +11,11 @@ namespace Net14.Web.Models.Calendar.Test
     {
         [Required(ErrorMessage = "Enter Name!")]
         public string Name { get; set; }
-        
+
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Enter Password!")]
         public string Password { get; set; }
-
+        [CalendarEmailUniq]
         [Required(ErrorMessage = "Enter Email!")]
         public string Email { get; set; }
 

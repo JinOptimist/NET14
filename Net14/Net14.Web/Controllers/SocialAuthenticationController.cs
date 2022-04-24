@@ -37,7 +37,7 @@ namespace Net14.Web.Controllers
             if (ModelState.IsValid)
             {
                 var userDb = _mapper.Map<UserSocial>(user);
-                userDb.Role = SiteRole.User;
+                userDb.Role = Roles.User;
                 _socialUserRepository.Save(userDb);
 
                 var claims = new List<Claim>() {
