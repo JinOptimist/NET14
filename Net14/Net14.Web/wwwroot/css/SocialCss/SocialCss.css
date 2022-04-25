@@ -12,10 +12,10 @@ body {
 .header {
     display: flex;
     margin: 0 auto;
-    height: 100px;
+    height: 60px;
     background: white;
     justify-content: space-between;
-    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
     position: fixed;
     width: 100%;
     top: 0px;
@@ -50,7 +50,9 @@ body {
 .maincontent {
     display: flex;
     margin: 200px;
-    flex: 1 0 auto;
+    justify-content: center;
+    margin-top: 100px;
+    min-width: 600px;
 }
 .footer {
     height: 40px;
@@ -58,17 +60,15 @@ body {
     width: 100%;
     flex-shrink: 0;
 }
-.menu-element
-{
+.menu-element {
     display: flex;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 700;
     font-family: Arial, Helvetica, sans-serif;
-    height: 40px;
+    height: 20px;
     padding: 10px;
     align-items: center;
     transition: background 0.3s ease;
-
 }
 
 .menu-element:hover
@@ -76,35 +76,20 @@ body {
     background: rgba(122,122,122,0.1);
 }
 
-.menu-element:last-child
-{
-    display: flex;
-    justify-content: center;
-    margin: 50px 5px 5px 5px;
-    border: 2px solid red;
-    color: red;
-    border-radius: 5px;
-}
-
-.menu-element:last-child:hover
-{
-    background: rgba(255, 64, 64, 0.2);
-}
 .content {
     display: flex;
     flex-direction: column;
     align-items: center;
     min-width: 600px;
-    width :calc(100% - 200px)
+    width: 600px;
 }
 .content-element-card {
-
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 450px;
+    width: 550px;
     /* min-height: 100%; */
-    min-height: 880px;
+    min-height: 600px;
     border-radius: 10px;
     background: white;
     box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
@@ -119,13 +104,13 @@ body {
     height: 100%;
     margin-right: 20px;
 }
-.user-info
-{
+.user-info {
     display: flex;
     align-items: center;
-    justify-content: center;
-    height: 100px;
-    width: 100%;
+    justify-content: flex-start;
+    height: 65px;
+    width: 510px;
+    padding: 15px 20px 0;
 }
 
 
@@ -149,11 +134,10 @@ body {
 {
     opacity: 0.5;
 }
-.block-post-image
-{
+.block-post-image {
     display: flex;
     width: 90%;
-    height: 500px;
+    height: 350px;
     justify-content: center;
     align-items: center;
 }
@@ -171,27 +155,24 @@ footer
     justify-content: center;
 }
 
-.footer-of-post
-{
-    min-height: 100px;
+.footer-of-post {
+    min-height: 30px;
     max-height: 1000px;
     padding: 20px;
     padding-bottom: 50px;
 }
 
-.menu-recomendations-user
-{
+.menu-recomendations-user {
     display: flex;
     flex-direction: column;
-    margin-top: 50px;
-
-
+    margin-top: 25px;
+    padding: 10px;
 }
-.recomendation-element-menu
-{
+.recomendation-element-menu {
     display: flex;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 15px;
+
 }
 
 .menu-recomendation-title {
@@ -199,7 +180,6 @@ footer
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     font-weight: 700;
-    padding: 5px;
 }
 
 .logo {
@@ -260,9 +240,9 @@ footer
 .content-element {
     display: flex;
     /* width: 600px; */
-    min-height: 800px;
+    min-height: 600px;
     align-items: flex-end;
-    margin: 80px auto 10px;
+    margin: 10px auto 10px;
     flex-direction: row-reverse;
     justify-content: center;
 }
@@ -272,6 +252,7 @@ footer
     /* flex-direction: column; */
     justify-content: space-evenly;
     width: 350px;
+    margin-bottom: 10px;
 }
 
 .operations
@@ -399,9 +380,8 @@ footer
 .comments {
     display: none;
     width: 90%;
-    height: 500px;
-    padding-bottom: 30px;
-
+    height: 360px;
+    padding-bottom: 60px;
 }
 .comments-elements-container {
     width: 100%;
@@ -515,7 +495,7 @@ a {
 }
 .menu-container {
     display: flex;
-    min-width: 200px;
+    min-width: 150px;
     justify-content: center;
 }
 
