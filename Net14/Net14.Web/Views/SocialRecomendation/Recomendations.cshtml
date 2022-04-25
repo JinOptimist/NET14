@@ -14,13 +14,12 @@
     {
         <div class="usersCenter">
             <div class="findUsers">
-                <div class="find-recomendation-element-menu" id="recomendaton-page-element" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new { id = user.Id })'">
-
+                <div class="find-recomendation-element-menu" id="recomendaton-page-element">
                     <div class="user-name-and-photo">
-                        <div class="find-user-photo">
+                        <div class="find-user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new { id = user.Id })'">
                             <img src=@user.UserPhoto class="find-user-photo">
                         </div>
-                        <div class="size-for-user text-indent">
+                        <div class="size-for-user text-indent" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new { id = user.Id })'">
                             @user.FirstName @user.LastName
                         </div>
                     </div>
@@ -28,7 +27,7 @@
                         <div>Age: @user.Age</div>
                         <div>@user.Country, @user.City</div>
                     </div>
-                    <div class="add-to-friends-button-container" id="recomendation-button-container" onclick="location.href='@Url.Action("AddFriend", "Social", new { friendId = user.Id })'">
+                    <div class="add-to-friends-button-container" id="recomendation-button-container">
                         <div>
                             @if (user.SameFriendsCount > 0)
                             {
@@ -48,7 +47,7 @@
                         }
                         else
                         {
-                            <div class="add-to-friends-button">Add to friends</div>
+                            <div class="add-to-friends-button" onclick="location.href='@Url.Action("AddFriend", "Social", new { friendId = user.Id })'">Add to friends</div>
                         }
                     </div>
                 </div>

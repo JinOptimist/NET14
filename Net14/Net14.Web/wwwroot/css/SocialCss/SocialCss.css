@@ -9,8 +9,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     height: 100%;
 }
-.header
-{
+.header {
     display: flex;
     margin: 0 auto;
     height: 100px;
@@ -20,7 +19,12 @@ body {
     position: fixed;
     width: 100%;
     top: 0px;
+    transition: all .3s ease;
 }
+
+    .header.out {
+        transform: translateY(-100%);
+    }
 
 .navigation-element
 {
@@ -533,6 +537,7 @@ a {
     border-radius: 92px;
     transition: background 0.3s ease;
     transition: box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
 .add-to-friends-button:hover {
