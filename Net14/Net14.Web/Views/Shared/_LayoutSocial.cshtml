@@ -69,14 +69,6 @@
                     <div class="menu-element" onclick="location.href='/SocialGroups/GetGroups';">Groups</div>
                     <div class="menu-element" onclick="location.href='/Social/ShowAllUsers';">Find user</div>
                     <div class="menu-element" onclick="location.href='/Social/Friends';">Friends</div>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <div class="menu-element" onclick="location.href='/SocialAuthentication/SignOut'">Sign out</div>
-                    }
-                    else
-                    {
-                        <div class="menu-element" onclick="location.href='/SocialAuthentication/Autorization';">Sign in</div>
-                    }
                 </div>
                 @RenderSection("NavbarRecomendations", required: false)
             </div>
