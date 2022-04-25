@@ -20,6 +20,7 @@ form {
     overflow: hidden;
     width: 70px;
     height: 70px;
+    cursor: pointer;
 }
 
 .size-for-user {
@@ -34,6 +35,7 @@ form {
     display: flex;
     align-items: center;
     margin-left: 25px;
+    cursor: pointer;
 }
 
 

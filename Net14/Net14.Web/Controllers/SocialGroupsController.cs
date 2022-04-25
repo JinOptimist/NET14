@@ -31,6 +31,7 @@ namespace Net14.Web.Controllers
         {
             var groupArray = _socialGroupRepository.GetAll();
             var model = _mapper.Map<List<SocialGroupViewModel>>(groupArray);
+
             
             return View(model);
         }
@@ -46,17 +47,23 @@ namespace Net14.Web.Controllers
         public IActionResult GetSingleGroup(int id) 
         {
             var group = _socialGroupRepository.Get(id);
-            var model = _mapper.Map<SocialGroupViewModel>(group);
+            var groupViewModel = _mapper.Map<SocialGroupViewModel>(group);
             var currentUser = _userService.GetCurrent();
             if (group.Members.Contains(currentUser))
             {
-                model.IsCurUserIsMember = true;
+                groupViewModel.IsCurUserIsMember = true;
             }
             else 
             {
-                model.IsCurUserIsMember = false;
+                groupViewModel.IsCurUserIsMember = false;
             }
-            return View(model);
+            var finalModel = new SocialGroupWithHotViewModel()
+            {
+                Group = groupViewModel,
+                HotPosts = _mapper.Map<List<SocialPostViewModel>>(group.Posts.OrderByDescending(post => post.Likes).Take(3).ToList())
+            };
+
+            return View(finalModel);
         }
 
         [Authorize]

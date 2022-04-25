@@ -1,4 +1,4 @@
-﻿@model SocialGroupViewModel
+﻿@model SocialGroupWithHotViewModel
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
@@ -11,14 +11,14 @@
         <img src="~/images/Social/bmw.jpg" class="group-icon">
     </div>
     <div class="group-name">
-        <div>@Model.Name</div>
-        @if (Model.IsCurUserIsMember)
+        <div>@Model.Group.Name</div>
+        @if (Model.Group.IsCurUserIsMember)
         {
-            <div class="unsubscribe" onclick="location.href='@Url.Action("Unsubscribe", "SocialGroups", new {groupId = Model.Id})'">Unsubscribe</div>
+            <div class="unsubscribe" onclick="location.href='@Url.Action("Unsubscribe", "SocialGroups", new {groupId = Model.Group.Id})'">Unsubscribe</div>
         }
         else
         {
-            <div class="subscribe" onclick="location.href='@Url.Action("Subscribe", "SocialGroups", new {groupId = Model.Id})'">Subscribe</div>
+            <div class="subscribe" onclick="location.href='@Url.Action("Subscribe", "SocialGroups", new {groupId = Model.Group.Id})'">Subscribe</div>
         }
     </div>
 </div>
@@ -40,63 +40,85 @@
         </div>
         <div>
             <input type="submit" value="Add" class="button-add-post">
-            <input type="hidden" value=@Model.Id name="groupId">
+            <input type="hidden" value=@Model.Group.Id name="groupId">
         </div>
     </form>
 </div>
-@foreach (var post in Model.Posts)
+@foreach (var post in Model.Group.Posts)
 {
-    <div class="content-element-card">
-        <div class="user-info">
-            <div class="user-photo">
-                <img src=@post.UserPhoto class="user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">
-            </div>
-            <div class="user-name">
-                <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@post.FirstName</p>
-                <p>posted:</p>
-            </div>
-        </div>
-        <div class="block-post-image">
-            <img src=@post.ImageUrl class="post-image">
-        </div>
-        <div class="footer-of-post">
-            @post.CommentOfUser
-        </div>
-        <div class="post-operations">
-            <div class="operations" id="heart">
-                <img src="~/images/Social/heart.png">
-            </div>
-            <div class="operations" id="comment">
-                <img src="~/images/Social/speech-bubble.png">
-            </div>
-            <div class="operations">
-                <img src="~/images/Social/share (1).png">
-            </div>
-        </div>
-        <div class="comments">
-            <div class="comments-elements-container">
-                <div class="comment-header">Comments</div>
-                <div class="comment-elements">
-                    @foreach (var comm in post.Comments)
-                    {
-                        <div class="single-comment">
-                            <div class="comment-owner-info">
-                                <img src=@comm.User.UserPhoto class="user-photo" id="comment-photo">
-                                <div>@comm.User.FirstName @comm.User.LastName</div>
-                            </div>
-                            <div>
-                                @comm.Text
-                            </div>
-                        </div>
-                    }
+    <a name="@post.Id" class="anchor"></a>
+
+    <div class="content-element">
+        <div class="content-element-card">
+            <div class="user-info">
+                <div class="user-photo">
+                    <img src=@post.UserPhoto class="user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">
+                </div>
+                <div class="user-name">
+                    <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@post.FirstName</p>
+                    <p>posted:</p>
                 </div>
             </div>
-            <form class="input-container" asp-action="AddComment" asp-controller="Social">
-                <input name="postId" type="hidden" value="@post.Id" />
-                <input type="text" class="to-comment" name="text" placeholder="Add comment" />
-                <input type="submit" value="send" class="comm">
-            </form>
+            <div class="block-post-image">
+                <img src=@post.ImageUrl class="post-image">
+            </div>
+            <div class="footer-of-post">
+                @post.CommentOfUser
+            </div>
+            <div class="post-operations">
+                <div class="operations like">
+                    <img src="~/images/Social/heart.png">
+                </div>
+                <div class="operations comment">
+                    <img src="~/images/Social/speech-bubble.png">
+                </div>
+                <div class="operations share">
+                    <img src="~/images/Social/share (1).png">
+                </div>
+            </div>
+            <div class="comments">
+                <div class="comments-elements-container">
+                    <div class="comment-header">Comments</div>
+                    <div class="comment-elements">
+                        @foreach (var comm in post.Comments)
+                        {
+                            <div class="single-comment">
+                                <div class="comment-owner-info">
+                                    <img src=@comm.User.UserPhoto class="user-photo" id="comment-photo">
+                                    <div>@comm.User.FirstName @comm.User.LastName</div>
+                                </div>
+                                <div>
+                                    @comm.Text
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <form class="input-container" asp-action="AddComment" asp-controller="Social">
+                    <input name="postId" type="hidden" value="@post.Id" />
+                    <input type="text" class="to-comment" name="text" placeholder="Add comment" />
+                    <input type="submit" value="send" class="comm">
+                </form>
+            </div>
+            <div class="time-of-posting">Posted @DateTime.Now.ToLocalTime()</div>
         </div>
-        <div class="time-of-posting">Posted @DateTime.Now.ToLocalTime()</div>
+    </div>
+}
+
+@section NavbarRecomendations
+{
+    <div class="menu-recomendations-user">
+        <div class="menu-recomendation-title">Hot news</div>
+        @foreach (var post in Model.HotPosts)
+        {
+            <div class="recomendation-element-menu" onclick="window.location.hash=@post.Id">
+                <div class="user-photo">
+                    <img src=@post.UserPhoto class="user-photo">
+                </div>
+                <div class="recomendation-name-menu">
+                    @post.CommentOfUser
+                </div>
+            </div>
+        }
     </div>
 }
