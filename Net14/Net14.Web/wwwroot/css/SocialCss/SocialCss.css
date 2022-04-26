@@ -26,12 +26,11 @@ body {
         transform: translateY(-100%);
     }
 
-.navigation-element
-{
+.navigation-element {
     text-decoration: none;
     color: black;
     margin: auto;
-    font-size: 30px;
+    font-size: 22px;
     font-family: Arial, Helvetica, sans-serif;
 }
 .navigation
@@ -95,12 +94,11 @@ body {
     box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
     max-height: 1200px;
 }
-.user-name
-{
+.user-name {
     display: flex;
     align-items: center;
     color: black;
-    font-size: 20px;
+    font-size: 17px;
     height: 100%;
     margin-right: 20px;
 }
@@ -205,32 +203,22 @@ footer
     margin-left: 200px;
 }
 
-.header input
-{
-    height: 30px;
+.header input {
+    height: 15px;
     width: 100%;
     border-radius: 92px;
     background: rgba(122,122,122,0.1);
     border: 1px solid grey;
     padding: 7px;
-    font-size: 20px;
+    font-size: 15px;
 }
 
-.recomendation-name-menu:hover
-{
-    font-size: 18px;
-}
-.recomendation-name-menu
-{
+.recomendation-name-menu {
     height: 100%;
-    transition: font-size 0.1s ease;
-
+    font-size: 13px;
 }
 
-.user-name p.name:hover
-{
-    text-decoration: underline grey;
-}
+
 
 .name
 {
@@ -321,8 +309,8 @@ footer
     justify-content: center;
     align-items: center;
     background: url(../../images/Social/settings.png);
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     background-size: cover;
 }
 #notification-icon {
@@ -330,8 +318,8 @@ footer
     justify-content: center;
     align-items: center;
     background: url(../../images/Social/notification-bell-svgrepo-com.svg);
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     background-size: cover;
 }
 
@@ -348,8 +336,8 @@ footer
     flex-direction: column;
     min-height: 200px;
     max-height: 330px;
-    width: 200px;
-    top: 110px;
+    width: 170px;
+    top: 70px;
     right: 97px;
     background: white;
     font-size: 25px;
@@ -371,6 +359,7 @@ footer
     transition: background 0.2s ease;
     text-align: center;
     width: 80%;
+    font-size: 20px;
 }
 
 .elements-from-hidden:hover {
@@ -395,7 +384,7 @@ footer
 
 .comment-header {
     width: 90%;
-    font-size: 25px;
+    font-size: 20px;
     margin: 40px 0px;
     border-bottom: 1px solid darkgrey;
 }
@@ -570,7 +559,7 @@ a {
     align-items: center;
     background: white;
     min-width: 150px;
-    height: 787px;
+    height: 700px;
     padding: 5px;
     border-radius: 20px;
     box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
@@ -579,12 +568,13 @@ a {
 }
 
 .advertising-images {
-    width: 200px;
+    width: 140px;
+    border-radius: 10px;
 }
 
 .advertising-container {
-    min-width: 200px;
     height: 700px;
+    width: 150px;
 }
 
 .shop-header {
@@ -598,6 +588,11 @@ a {
     align-items: center;
     text-align: center;
     cursor: pointer;
+    margin-bottom: 30px;
+    border: 1px solid grey;
+    /* border: 1px solid; */
+    height: 180px;
+    border-radius: 10px;
 }
 
 
@@ -613,6 +608,7 @@ a {
     margin: 5px;
     text-decoration: none;
     color: black;
+    margin-bottom: 20px;
 }
 
     .name-shop:hover {
