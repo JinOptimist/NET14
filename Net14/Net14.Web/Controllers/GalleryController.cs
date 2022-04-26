@@ -55,6 +55,11 @@ namespace Net14.Web.Controllers
             return View(model);
         }
 
+        public IActionResult FindPair()
+        {
+            return View();
+        }
+
         [HttpGet]
         public IActionResult AddImage()
         {
