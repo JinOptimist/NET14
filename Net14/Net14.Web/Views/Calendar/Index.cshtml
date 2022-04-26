@@ -1,0 +1,38 @@
+@using Net14.Web.EfStuff.Repositories
+@using Net14.Web.Models.Calendar.Test
+
+@model DaysNoteRepository 
+
+
+@{
+    Layout = "/Views/Shared/_LayoutCalendar.cshtml";
+}
+
+<div>
+    @if (User.Identity.IsAuthenticated)
+    {
+    <a href="/Calendar/WatchAllNotes">Watch all notes</a>
+    }
+    <a href="/Calendar/TestCalendar?month=@(DateTime.Now.Month)&year=@(DateTime.Now.Year)">Test Calendar</a>
+
+    
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div>
+            Welcome!
+            
+          <div class="navigation-element"><a href="/Calendar/LogOut">LogOut</a></div>
+        </div>
+    }
+    else
+    {
+       <div>
+            please, autorize to see your notes
+       <a href="/Calendar/Registration">Registration</a>
+       <a href="/Calendar/Autorization">Autorization</a> 
+       </div>
+    }
+    
+</div>
+
+

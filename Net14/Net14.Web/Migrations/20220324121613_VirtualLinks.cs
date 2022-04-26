@@ -34,7 +34,7 @@ namespace Net14.Web.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserPhoto = table.Column<string>(type: "nvarchar(max)", nullable: true, defaultValue: "/images/Social/User.jpg"),
+                    UserPhoto = table.Column<string>(type: "nvarchar(max)", nullable: true, defaultValue: "/images/Social/CalendarUser.jpg"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),

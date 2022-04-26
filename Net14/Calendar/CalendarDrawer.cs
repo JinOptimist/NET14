@@ -12,7 +12,6 @@ namespace Calendar
         
         public void Draw(MonthLevel monthLevel)
         {
-            Console.Clear();
             Console.WriteLine($"{AddCurrentMonthUp(monthLevel)}, {monthLevel.Year}");
             AddDaysOfWeek();
             Console.WriteLine();
@@ -32,9 +31,6 @@ namespace Calendar
                 }
                 Console.WriteLine();
             }
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("use arrowLeft or arrowRight to scrolling monthes");
-            Console.ForegroundColor = ConsoleColor.White;
         }
 
         private void DrawDate(BaseDays date)
@@ -91,6 +87,20 @@ namespace Calendar
                 {"Sunday",6}
             };
             return emptyDays[DayOfWeek];
+        }
+        public void AddCountOfWeekendsAndWorkDays(MonthLevel monthLevel)
+        {
+            int daysInMonth = DateTime.DaysInMonth(monthLevel.Year, monthLevel.MonthNumber);
+            int weekendsCount = 0;
+            for (int i = 1; i <= daysInMonth; i++)
+            {
+                DateTime dt = new DateTime(monthLevel.Year, monthLevel.MonthNumber, i);
+                if (dt.DayOfWeek.ToString() == "Saturday" || dt.DayOfWeek.ToString() == "Sunday")
+                {
+                    weekendsCount++;
+                }
+            };
+            Console.WriteLine($"In this month {weekendsCount} weekends and {daysInMonth-weekendsCount} work days");
         }
     }
 }
