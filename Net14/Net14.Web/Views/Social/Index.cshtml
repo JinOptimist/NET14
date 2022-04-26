@@ -1,5 +1,6 @@
 ﻿@using Net14.Web.EfStuff.DbModel.SocialDbModels;
-@model List<SocialPostViewModel>;
+@using Net14.Web.Services;
+@model SocialPostWithTopViewModel
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
@@ -27,8 +28,12 @@
         </form>
     </div>
 }
-@foreach (SocialPostViewModel post in Model)
+
+
+@foreach (SocialPostViewModel post in Model.Posts)
 {
+    <a name="@post.Id" class="anchor"></a>
+
     <div class="content-element">
         <div class="content-element-card">
             <div class="user-info">
@@ -81,8 +86,25 @@
                     <input type="submit" value="send" class="comm">
                 </form>
             </div>
-            <div class="time-of-posting">Posted @DateTime.Now.ToLocalTime()</div>
         </div>
     </div>
 
+}
+
+@section NavbarRecomendations
+{
+    <div class="menu-recomendations-user">
+        <div class="menu-recomendation-title">Hot news</div>
+        @foreach (var post in Model.TopThreePost)
+        {
+            <div class="recomendation-element-menu" onclick="window.location.hash=@post.Id">
+                <div class="user-photo">
+                    <img src=@post.UserPhoto class="user-photo">
+                </div>
+                <div class="recomendation-name-menu">
+                    @post.CommentOfUser
+                </div>
+            </div>
+        }
+    </div>
 }
