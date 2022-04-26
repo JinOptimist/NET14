@@ -89,6 +89,12 @@ namespace Net14.Web.Controllers
                 return View(userViewModel);
             }
 
+            if (user.IsBlocked == true) 
+            {
+                ModelState.AddModelError(nameof(SocialUserAutorizationViewModel.Email), "This user is blocked");
+                return View(userViewModel);
+            }
+
             //good
 
             var claims = new List<Claim>() {

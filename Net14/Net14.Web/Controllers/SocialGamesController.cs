@@ -15,10 +15,6 @@ namespace Net14.Web.Controllers
             _webContext = webContext;
         }
         [Authorize]
-        public IActionResult FindGame()
-        {
-            return View();
-        }
         public IActionResult ShulteGame()
         {
             var random = new RandomNumberViewModel();

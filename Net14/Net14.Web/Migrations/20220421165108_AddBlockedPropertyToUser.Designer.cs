@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Net14.Web.EfStuff;
 
 namespace Net14.Web.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class WebContextModelSnapshot : ModelSnapshot
+    [Migration("20220421165108_AddBlockedPropertyToUser")]
+    partial class AddBlockedPropertyToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,14 +168,8 @@ namespace Net14.Web.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("OwnerId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
@@ -182,8 +178,6 @@ namespace Net14.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
 
                     b.ToTable("fileSocial");
                 });
@@ -487,15 +481,6 @@ namespace Net14.Web.Migrations
                     b.Navigation("Image");
                 });
 
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.FileSocial", b =>
-                {
-                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "Owner")
-                        .WithMany("Files")
-                        .HasForeignKey("OwnerId");
-
-                    b.Navigation("Owner");
-                });
-
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupTags", b =>
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupSocial", "Group")
@@ -612,8 +597,6 @@ namespace Net14.Web.Migrations
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", b =>
                 {
                     b.Navigation("Basket");
-
-                    b.Navigation("Files");
 
                     b.Navigation("FriendRequestReceived");
 

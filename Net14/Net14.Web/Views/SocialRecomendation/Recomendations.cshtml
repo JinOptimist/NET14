@@ -1,4 +1,4 @@
-﻿@model List<SocialUserRecomendationViewModel>
+﻿@model SocialUserRecomendationUrlViewModel
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
@@ -10,7 +10,7 @@
     <div class="select" onclick="location.href='/SocialRecomendation/GroupRecomendations'">Group</div>
 </div>
 
-    @foreach (SocialUserRecomendationViewModel user in Model)
+    @foreach (SocialUserRecomendationViewModel user in Model.Recomendations)
     {
         <div class="usersCenter">
             <div class="findUsers">
@@ -47,6 +47,16 @@
                         }
                         else
                         {
+
+                            @if (user.IsRequested)
+                            {
+                                <div class="requested">Requested</div>
+
+                            }
+                            else
+                            {
+                                <div class="add-to-friends-button" onclick="location.href='@Url.Action("AddFriend", "Social", new { friendId = user.Id, targetUrl = Model.Url})'">Add to friends</div>
+                            }
                             <div class="add-to-friends-button" onclick="location.href='@Url.Action("AddFriend", "Social", new { friendId = user.Id })'">Add to friends</div>
                         }
                     </div>
