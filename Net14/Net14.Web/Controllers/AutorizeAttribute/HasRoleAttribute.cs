@@ -11,9 +11,9 @@ namespace Net14.Web.Controllers.AutorizeAttribute
 {
     public class HasRoleAttribute : ActionFilterAttribute
     {
-        private Roles _siteRole;
+        private SiteRole _siteRole;
 
-        public HasRoleAttribute(Roles siteRole)
+        public HasRoleAttribute(SiteRole siteRole)
         {
             _siteRole = siteRole;
         }
