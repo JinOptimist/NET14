@@ -2,25 +2,19 @@
 
     let activeImageIndex;
 
-    const urls = [
-        'http://localhost:42059/images/gallery/girl1.webp',
-        'http://localhost:42059/images/gallery/girl2.jpg',
-        'http://localhost:42059/images/gallery/girl3.jfif',
-        'http://localhost:42059/images/gallery/girl4.png',
-        'http://localhost:42059/images/gallery/girl5.png',
-        'http://localhost:42059/images/gallery/girl6.jfif',
-    ];
-
     let imageUrls = [];
 
     init();
 
     function init() {
-        imageUrls = urls.concat(urls);
+        $.get('/Gallery/UrlsForFindPair')
+            .done(function (urls) {
+                imageUrls = urls.concat(urls);
 
-        imageUrls = shuffle(imageUrls);
+                imageUrls = shuffle(imageUrls);
 
-        createImageBlocks(imageUrls);
+                createImageBlocks(imageUrls);
+            });
     }
 
     function createImageBlocks(images) {
