@@ -21,7 +21,7 @@
 }
 
 .mainText {
-    margin: 20px 0 40px 0;
+    height: 100px;
 }
 .addFiles {
     padding: 3px 0 3px 0;
@@ -33,7 +33,7 @@
     margin: 0 0 30px 0;
     padding: 30px;
     width: 479px;
-    font-size: 50px;
+    font-size: 30px;
     border-radius: 20px;
 }
 .field-validation-error{
@@ -55,21 +55,21 @@
 
 .add-file-header {
     display: flex;
-    height: 80px;
+    height: 60px;
     width: 100%;
     justify-content: center;
     align-items: center;
-    font-size: 25px;
+    font-size: 20px;
     border-radius: 92px;
     color: black;
 }
 .show-file-header {
     display: flex;
-    height: 80px;
+    height: 60px;
     width: 100%;
     justify-content: center;
     align-items: center;
-    font-size: 25px;
+    font-size: 20px;
     border-radius: 92px;
     color: black;
 }
