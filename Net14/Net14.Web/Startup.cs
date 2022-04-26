@@ -195,6 +195,8 @@ namespace Net14.Web
                 
             provider.CreateMap<FilesViewModel, FileSocial>();
 
+            provider.CreateMap<Image, ImageViewModel>(); 
+
             provider.CreateMap<FileSocial, FilesViewModel>();
 
             provider.CreateMap<UserSocial, SocialUserSettingsViewModel>();

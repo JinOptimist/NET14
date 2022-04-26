@@ -8,18 +8,17 @@
     <link rel="stylesheet" href="~/css/gallery.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js"></script>
+    @RenderSection("Scripts", required: false)
 </head>
 <body>
     <div>
         Шаблон для галлереи
         <a href="/Home/Index">Начальная страница</a>
         <a href="/Gallery/Index">gallery</a>
+        <a href="/Gallery/FindPair">find pair</a>
     </div>
     <div class="container">
         @RenderBody()
     </div>
-
-   
-    @RenderSection("Scripts", required: false)
 </body>
 </html>

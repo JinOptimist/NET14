@@ -5,6 +5,10 @@
     Layout = "/Views/Shared/_LayoutGallery.cshtml";
 }
 
+@section Scripts{ 
+    <script src="~/js/gallery/galleryIndex.js"></script>
+}
+
 <div>
     Смотри какие есть кратинки
 </div>
@@ -13,8 +17,14 @@
     <a href="/Gallery/Index?page=@(Model.Page + 1)">next</a>
     @foreach (var image in Model.Images)
     {
-        <div>
-            <a href="/Gallery/ShowImage?id=@image.Id">@image.Name</a>
+        <div class="image-block">
+            <div>
+                <span class="image-link">Show image</span>
+                <a href="/Gallery/ShowImage?id=@image.Id">@image.Name</a>
+            </div>
+            <div class="image-toggle">
+                <img src="@image.Url" />
+            </div>
         </div>
     }
 
