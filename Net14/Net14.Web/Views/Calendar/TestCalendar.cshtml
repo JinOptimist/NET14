@@ -42,8 +42,9 @@
                             {
                                 break;
                             }
-                            else if (Model.Notes.Any() == true && Model.Notes[noteCount].EventDate.Day == Model.Days[count]
-                            && User.Identity.IsAuthenticated == true)
+                            else if (User.Identity.IsAuthenticated == true
+                                && Model.Notes.Any() == true && 
+                                Model.Notes[noteCount].EventDate.Day == Model.Days[count])
                             {
                                 <div class="day" style=color:white>
                                     <a style=color:white href="/Calendar/WatchCurrentNotes?year=@(Model.Year)&&month=@(Model.Month)&&day=@(Model.Days[count])">

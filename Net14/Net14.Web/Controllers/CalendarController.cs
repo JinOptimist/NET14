@@ -45,6 +45,7 @@ namespace Net14.Web.Controllers
                 month = 1;
                 year++;
             }
+
             var dbNotes = _DaysNoteRepository.GetAll()
                 .Where(x => x.EventDate.Month == month && x.EventDate.Year == year
                  && x.CalendarUser == _CalendarUsersRepository.GetAll()
@@ -97,19 +98,34 @@ namespace Net14.Web.Controllers
             {
                 dayses.Add(i);
             }
-            var model = new TestCalendarViewModel()
+            if (User.Identity.IsAuthenticated)
             {
-                Month = month,
-                Year = year,
-                Days = dayses,
-                Notes = dbNotes.Select(x => new TestNotesViewModel()
+                var model = new TestCalendarViewModel()
                 {
-                    Text = x.Text,
-                    EventDate = x.EventDate,
-                    CalendarUser = x.CalendarUser,
-                }).OrderBy(x=>x.EventDate).ToList(),
-            };
-            return View(model);
+                    Month = month,
+                    Year = year,
+                    Days = dayses,
+                    Notes = dbNotes.Select(x => new TestNotesViewModel()
+                    {
+                        Text = x.Text,
+                        EventDate = x.EventDate,
+                        CalendarUser = x.CalendarUser,
+                    }).OrderBy(x => x.EventDate).ToList(),
+                };
+                return View(model);
+            }
+            else
+            {
+                var model = new TestCalendarViewModel()
+                {
+                    Month = month,
+                    Year = year,
+                    Days = dayses,
+                };
+                return View(model);
+            }
+            
+            
         }
         [HttpGet]
         [CalendarRole(Roles.User)]
