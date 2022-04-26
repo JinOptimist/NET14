@@ -16,6 +16,7 @@ namespace Net14.Web.Models
         public List<SocialUserViewModel> Members { get; set; }
         public int Id { get; set; }
         public bool IsCurUserIsMember { get; set; }
+        public List<string> Tags { get; set; } 
     }
 }
 

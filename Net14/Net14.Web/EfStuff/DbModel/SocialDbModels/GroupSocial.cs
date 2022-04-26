@@ -13,5 +13,6 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
         public string PhotoUrl { get; set; }
         public virtual List<PostSocial> Posts { get; set; }
         public virtual List<UserSocial> Members { get; set; }
+        public virtual List<GroupTags> Tags { get; set; } 
     }
 }

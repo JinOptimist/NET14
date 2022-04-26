@@ -1,15 +1,16 @@
 ﻿.header-autorization {
     display: flex;
-    margin-top: 50px;
-    font-size: 25px;
+    margin-top: 10px;
+    font-size: 22px;
     background: white;
     width: 400px;
     height: 70px;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
-    margin-bottom: 30px;
+    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
+    margin-bottom: 17px;
+
 }
 
 .autorization-form-div {
@@ -78,3 +79,16 @@
     margin-top: 50px;
     font-size: 20px;
 }
+
+.validation-summary-errors ul {
+    padding-left: 0;
+    list-style: none;
+    color: red;
+    font-size: 15px;
+    margin: 0px;
+}
+
+.validation-summary-errors {
+    height: 20px;
+}
+

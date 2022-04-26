@@ -16,8 +16,9 @@ namespace Net14.Web.Models
         public int Age { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
-
         public bool IsFriend { get; set; } = false;
+        public bool IsBlocked { get; set; } = false;
+        public bool IsRequested { get; set; } = false;
     }
 }
 
