@@ -72,14 +72,14 @@ namespace Net14.Web.Services
         }
         public bool CalendarHasRole(Net14.Web.EfStuff.DbModel.CalendarDbModels.Roles role)
             => CalendarGetCurrent()?.Role.HasFlag(role) ?? false;
-        public bool HasRole(Roles role)
+        public bool HasRole(SiteRole role)
             => GetCurrent()?.Role.HasFlag(role) ?? false;
 
         public bool IsAdmin()
-            => HasRole(Roles.Admin);
+            => HasRole(SiteRole.Admin);
 
         public bool IsStoreAdmin()
-            => HasRole(Roles.StoreAdmin);
+            => HasRole(SiteRole.StoreAdmin);
 
         public int GetUsersNotifications() 
         {

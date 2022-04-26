@@ -448,7 +448,7 @@ namespace Net14.Web.EfStuff
                     Email = "admin",
                     Password = "admin",
                     UserPhoto = "/images/Social/User.jpg",
-                    Role = Roles.Admin
+                    Role = SiteRole.Admin
                 };
                 userRepository.Save(user0);
 
