@@ -4,6 +4,12 @@
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
+
+@section Scripts{
+    <script src="~/js/SocialJS/SocialIndexJs.js"></script>
+
+}
+
 @if (User.Identity.IsAuthenticated)
 {
     <div class="add-post">
@@ -34,7 +40,7 @@
 {
     <a name="@post.Id" class="anchor"></a>
 
-    <div class="content-element">
+    <div class="content-element" data-id=@post.Id>
         <div class="content-element-card">
             <div class="user-info">
                 <div class="user-photo">
@@ -66,21 +72,17 @@
                 <div class="comments-elements-container">
                     <div class="comment-header">Comments</div>
                     <div class="comment-elements">
-                        @foreach (var comm in post.Comments)
-                        {
-                            <div class="single-comment">
-                                <div class="comment-owner-info">
-                                    <img src=@comm.User.UserPhoto class="user-photo" id="comment-photo">
-                                    <div>@comm.User.FirstName @comm.User.LastName</div>
-                                </div>
-                                <div>
-                                    @comm.Text
-                                </div>
+                        <div class="single-comment template">
+                            <div class="comment-owner-info">
+                                <img  class="user-photo" id="comment-photo">
+                                <div class="user-name-comment"></div>
                             </div>
-                        }
+                            <div class="comment-text">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <form class="input-container" asp-action="AddComment" asp-controller="Social">
+                <form class="input-container" >
                     <input name="postId" type="hidden" value="@post.Id" />
                     <input type="text" class="to-comment" name="text" placeholder="Add comment" />
                     <input type="submit" value="send" class="comm">
@@ -108,3 +110,17 @@
         }
     </div>
 }
+
+@*@foreach (var comm in post.Comments)
+{
+    <div class="single-comment">
+        <div class="comment-owner-info">
+            <img src=@comm.User.UserPhoto class="user-photo" id="comment-photo">
+            <div>@comm.User.FirstName @comm.User.LastName</div>
+        </div>
+        <div>
+            @comm.Text
+        </div>
+    </div>
+}
+*@
