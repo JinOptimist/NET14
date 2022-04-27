@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="~/css/SocialCss/SettingsSocialCss.css">
     <link rel="stylesheet" href="~/css/SocialCss/AddPost.css">
     <link rel="stylesheet" href="~/css/Shulte/FindGame.css">
+    <link rel="stylesheet" href="~/css/SocialCss/NotificationsCss.css">
 
 
     <script language="JavaScript" type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -36,7 +37,8 @@
                 <li class="navigation-element"><a href="/SocialAuthentication/SignOut">Sign out</a></li>
 
 
-                <li class="navigation-element" id="notification-icon" onclick="location.href='/Social/Notification'" ;>
+                <li class="navigation-element" id="notification-icon" @*onclick="location.href='/Social/Notification'"*@ ;>
+
                     @if (UserService.GetUsersNotifications() > 0)
                     {
                         <span class="badge">@UserService.GetUsersNotifications()</span>
@@ -50,6 +52,35 @@
             }
             <li class="navigation-element" id="settings-icon"></li>
         </ul>
+        <div class="notification-block">
+            <div class="notification-header">Notifications</div>
+            <div class="flex-notification">
+                <div class="notification-container template" id="notif">
+                    <div class="notification-element">
+                        <div class="user-photo-notification">
+                            <img src="~/images/Social/User.jpg">
+                        </div>
+                        <div class="friend-user-notification">
+                            Alex zhur made a friend request
+                        </div>
+                    </div>
+                    <div class="operations-notification">
+                        <div class="accept-button" @*onclick="location.href='@Url.Action("AcceptFriend", "Social", new { friendId = requests.Sender.Id })'"*@>Accept</div>
+                        <div class="decline-button" @*onclick="location.href='@Url.Action("DeclineFriend", "Social", new { friendId = requests.Sender.Id })'"*@>Decline</div>
+                    </div>
+                </div>
+                <div class="notification-container-decline-accept template" id="notif">
+                    <div class="notification-element">
+                        <div class="user-photo-notification">
+                            <img src="~/images/Social/User.jpg">
+                        </div>
+                        <div class="friend-user-notification">
+                            You accepted a friend request from @*@requests.Sender.FirstName @requests.Sender.LastName*@Alex zhur
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="settings-div" id="header-settings">
             @if (User.Identity.IsAuthenticated)
             {
@@ -58,7 +89,7 @@
             }
             <div class="elements-from-hidden" onclick="location.href='/SocialCurrency/GetCurrency'">Currency</div>
             <div class="elements-from-hidden" id="find-game"> Games </div>
-            <div class="menu-games" >
+            <div class="menu-games">
                 <div class="find-block">
                     <div class="game">
                         <a href="/SocialGames/ShulteGame"> Shulte</a>
