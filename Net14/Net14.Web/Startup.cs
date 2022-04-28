@@ -18,6 +18,7 @@ using Net14.Web.EfStuff.DbModel;
 using Net14.Web.Models.store;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.Models;
+using Net14.Web.SignalRHubs;
 
 namespace Net14.Web
 {
@@ -128,6 +129,8 @@ namespace Net14.Web
             services.AddHttpContextAccessor();
 
             services.AddControllersWithViews();
+
+            services.AddSignalR();
         }
 
         private void RegisterMapper(IServiceCollection services)
@@ -316,6 +319,11 @@ namespace Net14.Web
 
             // Where could I go
             app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<ChatHub>("/chat");
+            });
 
             app.UseEndpoints(endpoints =>
             {
