@@ -71,7 +71,8 @@ namespace Net14.Web
                 new DaysNoteRepository(x.GetService<WebContext>()));
             services.AddScoped<ImageRepository>(x =>
                 new ImageRepository(x.GetService<WebContext>()));
-
+            services.AddScoped<CalendarUsersRepository>(x =>
+                new CalendarUsersRepository(x.GetService<WebContext>()));
             services.AddScoped<ImageCommentRepository>(x =>
                 new ImageCommentRepository(x.GetService<WebContext>()));
 
@@ -286,6 +287,8 @@ namespace Net14.Web
             provider.CreateMap<SocialUserSettingsViewModel, UserSocial>();
 
 
+
+            provider.CreateMap<UserSocial, SocialUserRecomendationViewModel>();
 
             provider.CreateMap<Product, ProductViewModel>()
                 .ForMember(nameof(ProductViewModel.Images),
