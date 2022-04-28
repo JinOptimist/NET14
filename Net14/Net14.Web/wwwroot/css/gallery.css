@@ -26,3 +26,35 @@
         .image-toggle.active img {
             width: 150px;
         }
+
+.desc {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.girl-image {
+    max-width: 150px;
+    max-height: 300px;
+}
+
+.image-block {
+    padding: 5px;
+    margin: 3px;
+    border: 1px red solid;
+    border-radius: 15px;
+    width: 160px;
+    height: 300px;
+}
+
+.image-block.complete{
+    opacity: 0.5;
+}
+
+.image-block.backside {
+    background: aliceblue;
+}
+
+        .image-block.backside .girl-image {
+            display: none;
+        }

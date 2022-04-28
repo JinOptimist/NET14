@@ -14,6 +14,9 @@ namespace Calendar
         public int Year { get; set; } = DateTime.Now.Year;
         public string EmptyDays { get; set; } = " ";
         public List<BaseDays> Month { get; set; }
+        public int WeekendsCount { get; set; }
+        public int WorkDaysCount { get; set; } 
+
         public void Scroll(DirectionForMonth left)
         {
             

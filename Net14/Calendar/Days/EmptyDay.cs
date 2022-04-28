@@ -15,7 +15,8 @@ namespace Calendar.Days
         public override int Month => throw new NotImplementedException();
 
         public override int Date => throw new NotImplementedException();
-        
+
+        public override string Note { get; set; }
     }
     
 }

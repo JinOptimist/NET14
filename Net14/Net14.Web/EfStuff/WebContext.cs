@@ -18,7 +18,8 @@ namespace Net14.Web.EfStuff
         public DbSet<GroupSocial> GroupSocial { get; set; }
 
         public DbSet<ImageComment> ImageComments { get; set; }
-
+        public DbSet<DaysNote> DaysNotes { get; set; }
+        public DbSet<CalendarUser> CalendarUsers { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<UserFriendRequest> UserFriendRequests { get; set; }
 
@@ -29,6 +30,7 @@ namespace Net14.Web.EfStuff
 
         public DbSet<StoreImage> StoreImages { get; set; }
 
+        public DbSet<GroupTags> GroupTags { get; set; }
    
 
 
@@ -45,6 +47,9 @@ namespace Net14.Web.EfStuff
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<GroupTags>()
+                .HasOne(x => x.Group)
+                .WithMany(g => g.Tags);
 
             modelBuilder.Entity<UserSocial>()
                 .HasMany(x => x.FriendRequestReceived)
@@ -53,6 +58,10 @@ namespace Net14.Web.EfStuff
             modelBuilder.Entity<UserSocial>()
                 .HasMany(x => x.FriendRequestSent)
                 .WithOne(x => x.Sender);
+
+            modelBuilder.Entity<UserSocial>()
+                .HasMany(x => x.Files)
+                .WithOne(x => x.Owner);
             
 
 
@@ -91,11 +100,7 @@ namespace Net14.Web.EfStuff
                 .HasMany(post => post.Comments)
                 .WithOne(comment => comment.Post);
 
-            modelBuilder.Entity<GroupSocial>()
-                .HasMany(group => group.Members)
-                .WithMany(user => user.Groups);
-
-            modelBuilder.Entity<UserSocial>().Property(u => u.UserPhoto).HasDefaultValue("/images/Social/User.jpg");
+            modelBuilder.Entity<UserSocial>().Property(u => u.UserPhoto).HasDefaultValue("/images/Social/CalendarUser.jpg");
 
             base.OnModelCreating(modelBuilder);
         }

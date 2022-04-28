@@ -1,0 +1,26 @@
+@using Net14.Web.Models.Calendar.Test
+@model TestCalendarViewModel
+
+
+@{
+    Layout = "/Views/Shared/_LayoutCalendar.cshtml";
+}
+
+<div>
+    @{
+        foreach(var a in Model.Notes)
+        {
+            <div>
+            @a.EventDate
+            </div>
+            <div>
+            @a.Text
+            </div>
+            <div>
+            <a href="/Calendar/RemoveNote?text=@(a.Text)&&year=@(a.EventDate.Year)&&month=@(a.EventDate.Month)&&day=@(a.EventDate.Day)" method="post"> Remove </a>
+            </div>
+        }
+    }
+</div>
+
+

@@ -11,18 +11,24 @@ using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using AutoMapper;
 using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
+using Microsoft.AspNetCore.SignalR;
+using Net14.Web.SignalRHubs;
 
 namespace Net14.Web.Controllers
 {
     public class SocialAuthenticationController : Controller
 
     {
+        private IHubContext<ChatHub> _chatHub;
         private SocialUserRepository _socialUserRepository;
         private IMapper _mapper;
-        public SocialAuthenticationController(SocialUserRepository socialUserRepository, IMapper mapper)
+        public SocialAuthenticationController(SocialUserRepository socialUserRepository, 
+            IMapper mapper, 
+            IHubContext<ChatHub> chatHub)
         {
             _mapper = mapper;
             _socialUserRepository = socialUserRepository;
+            _chatHub = chatHub;
         }
 
 
@@ -46,7 +52,7 @@ namespace Net14.Web.Controllers
                     new Claim("Name", userDb.FirstName),
                     new Claim(ClaimTypes.AuthenticationMethod, Startup.AuthName)
                 };
-            
+
 
                 var identity = new ClaimsIdentity(claims, Startup.AuthName);
 
@@ -78,16 +84,20 @@ namespace Net14.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return View(userViewModel);
             }
 
             var user = _socialUserRepository.GetByEmAndPass(userViewModel.Email, userViewModel.Password);
 
             if (user == null)
             {
-                ModelState.AddModelError(
-                    nameof(SocialUserAutorizationViewModel.Email),
-                    "Invalid email or passrowd");
+                ModelState.AddModelError(nameof(SocialUserAutorizationViewModel.Email), "Invalid email or password");
+                return View(userViewModel);
+            }
+
+            if (user.IsBlocked == true)
+            {
+                ModelState.AddModelError(nameof(SocialUserAutorizationViewModel.Email), "This user is blocked");
                 return View(userViewModel);
             }
 
@@ -105,17 +115,24 @@ namespace Net14.Web.Controllers
 
             await HttpContext.SignInAsync(principal);
 
-            if (userViewModel.ReturnUrl == null) 
+            await _chatHub
+                .Clients
+                .All
+                .SendAsync("AddMessage", 
+                    $"User {user.FirstName} loggined", 
+                    "SYSTEM");
+
+            if (userViewModel.ReturnUrl == null)
             {
                 return RedirectToRoute("default", new { controller = "Social", action = "ShowPagesProfile", id = user.Id });
             }
             return Redirect(userViewModel.ReturnUrl);
         }
 
-        public async Task<IActionResult> SignOut() 
+        public async Task<IActionResult> SignOut()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToRoute("default", new { controller = "Social", action = "Index"});
+            return RedirectToRoute("default", new { controller = "Social", action = "Index" });
         }
     }
 }
