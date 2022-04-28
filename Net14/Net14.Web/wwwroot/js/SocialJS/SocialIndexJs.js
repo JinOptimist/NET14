@@ -66,14 +66,14 @@
 })
 
 $(document).ready(function () {
-    $(".operations like").click(function () {
+    $(".operations.like").click(function () {
         let th = $(this);
         debugger;
         let id = $(this).closest(".content-element").data("id");
 
         $.get('/Social/AddLike', { postId: id })
             .done(function () {
-                $(this).addClass("active");
+                th.addClass("active");
             })
 
     })
