@@ -5,33 +5,92 @@
 @{
     Layout = "/Views/Shared/_LayoutStore.cshtml";
 }
-
-<form action="/Store/AddProduct" method="post" >
-    <select asp-for="Brand" asp-items="Html.GetEnumSelectList<BrandСategories>()"></select>
+<div class=addProductBody>
     <div>
-        Name: @Html.TextBoxFor(x => x.Name) @Html.ValidationMessageFor(x => x.Name)
-        @Html.ValidationMessageFor(x => x.Name)
-    </div>
-    <div>
-        Quantity: @Html.TextBoxFor(x => x.Quantity) @Html.ValidationMessageFor(x => x.Quantity)
-    </div>
-    <div>
-        Price: @Html.TextBoxFor(x => x.Price) @Html.ValidationMessageFor(x => x.Price)
-    </div>
-    <select asp-for="Category" asp-items="Html.GetEnumSelectList<CoolCategories>()"> </select>
-    <select asp-for="Color" asp-items="Html.GetEnumSelectList<CoolColors>()"></select>
-    <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()"></select>
-    <select asp-for="Material" asp-items="Html.GetEnumSelectList<CoolMaterial>()"></select>
-    <div>
-       
-        @foreach (var size in Model.Sizes)
-        {    
+        <form action="/Store/AddProduct" method="post">
+            <select asp-for="Brand" asp-items="Html.GetEnumSelectList<BrandСategories>()"></select>
             <div>
-            <input name="CheckedSizes" type="checkbox" value="@size" /> @size
+                Name: @Html.TextBoxFor(x => x.Name) @Html.ValidationMessageFor(x => x.Name)
+                @Html.ValidationMessageFor(x => x.Name)
             </div>
-        }
+            <div>
+                Quantity: @Html.TextBoxFor(x => x.Quantity) @Html.ValidationMessageFor(x => x.Quantity)
+            </div>
+            <div>
+                Price: @Html.TextBoxFor(x => x.Price) @Html.ValidationMessageFor(x => x.Price)
+            </div>
+            <select asp-for="Category" asp-items="Html.GetEnumSelectList<CoolCategories>()"> </select>
+            <select asp-for="Color" asp-items="Html.GetEnumSelectList<CoolColors>()"></select>
+            <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()"></select>
+            <select asp-for="Material" asp-items="Html.GetEnumSelectList<CoolMaterial>()"></select>
+            <div>
+
+                @foreach (var size in Model.Sizes)
+                {
+                    <div>
+                        <input name="CheckedSizes" type="checkbox" value="@size" /> @size
+                    </div>
+                }
+            </div>
+            <div>
+                <input type="submit" value="Add Product" />
+            </div>
+        </form>
     </div>
     <div>
-        <input type="submit" value="Add Product" />
+        <div class="foto">
+        <div class="menu">
+           
+                <div class=iconshoes>
+                    <img src="~/images/Store/Black.jpg" class="icon" />
+                </div>
+                
+                <div class=iconshoes>
+                    <img src="~/images/Store/Black.jpg" class="icon" />
+                </div>
+                
+                <div class=iconshoes>
+                    <img src="~/images/Store/Black.jpg" class="icon" />
+                </div>
+                
+                <div class=iconshoes>
+                    <img src="~/images/Store/Black.jpg" class="icon" />
+                </div>
+           
+        </div>
+
+        <div class="centr">
+            <img src="-" class="icon1" />
+        </div>
+
+        <div class="text">
+
+            <div class=brandCategories>**********</div>
+            <div class=name>*******</div>
+            <div class="stars">
+                <span><img src="/images/Store/star_black.png" class="star"></span>
+                <span><img src="/images/Store/star_black.png" class="star"></span>
+                <span><img src="/images/Store/star_black.png" class="star"></span>
+                <span><img src="/images/Store/star_black.png" class="star"></span>
+                <span><img src="/images/Store/star_black.png" class="star"></span>
+            </div>
+            <div class="cost">****** $</div>
+            <div class="instock">В наличии</div>
+            <div class="category">
+                <div class=gender>Пол:******</div>
+                <div class=coolMaterial>Материал: *******</div>
+                <div>Страна производства: Вьетнам</div>
+                <div class=coolCategories>Предназначение:******</div>
+                <div class=CoolColors>Цвет:</div>
+                <div class="buttonssize">
+                    @foreach (var size in Model.Sizes)
+                    {
+                        <a href="#" class="ButtonSize">@size</a>
+                    }
+                </div>
+            </div>
+            <a href="#" class="toBasket">В корзину</a>
+        </div>
     </div>
-</form>
+    </div>
+</div>
