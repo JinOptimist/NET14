@@ -80,8 +80,18 @@ namespace Net14.Web.Controllers
 
             return Redirect("Index");
         }
-        public IActionResult AddLike (int postId)
+        public IActionResult AddLike(int postId)
         {
+            var postLike = _socialPostRepository.Get(postId);
+            var likes = postLike.Likes;
+            var likeUsers = likes.Select(like => like.Owner.Id).ToList();
+            
+            if (likeUsers.Contains(_userService.GetCurrent().Id))
+            {
+                var liker = postLike.Likes.SingleOrDefault(like => like.Owner == _userService.GetCurrent());
+                postLike.Likes.Remove(liker);
+                return Ok();
+            }
             var post = _socialPostRepository.Get(postId);
             var like = new PostLikes()
             {
