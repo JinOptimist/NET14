@@ -6,7 +6,9 @@
     Layout = "/Views/Shared/_LayoutCalendar.cshtml";
 }
 
-
+@section Scripts{
+    <script src="~/js/Calendar/ViewCurrentNotes.js"></script>
+}
 <div class="date">
     @{
         var monthName = new DateTime(Model.Year, Model.Month, 1).ToString("MMMM");
@@ -47,9 +49,9 @@
                                 Model.Notes[noteCount].EventDate.Day == Model.Days[count])
                             {
                                 <div class="day" style=color:white>
-                                    <a style=color:white href="/Calendar/WatchCurrentNotes?year=@(Model.Year)&&month=@(Model.Month)&&day=@(Model.Days[count])">
+                                    /*<a style=color:white href="/Calendar/WatchCurrentNotes?year=@(Model.Year)&&month=@(Model.Month)&&day=@(Model.Days[count])">
                                         @Model.Days[count]
-                                    </a>
+                                    </a>*/
                                 </div>
                                 foreach (var notes in Model.Notes)
                                 {

@@ -197,7 +197,26 @@ namespace Net14.Web.Controllers
             };
             return View(model);
         }
-
+        public IActionResult ViewCurrentNotes(int year, int month, int day)
+        {
+            var dbNotes = _DaysNoteRepository.GetAll()
+                .Where(x => x.EventDate.Year == year && x.EventDate.Month == month
+                && x.EventDate.Day == day)
+                .Where(x => x.Text != null && x.CalendarUser ==
+            _CalendarUsersRepository.GetAll()
+                .FirstOrDefault(x => User.Identity.IsAuthenticated == true) &&
+                x.UserName == _CalendarUsersRepository.Get(_CalendarUsersRepository.GetAll()
+                .FirstOrDefault(x => User.Identity.IsAuthenticated == true).Id).Name);
+            var model = new TestCalendarViewModel()
+            {
+                Notes = dbNotes.Select(x => new TestNotesViewModel()
+                {
+                    Text = x.Text,
+                    EventDate = x.EventDate,
+                }).ToList(),
+            };
+            return Json(model);
+        }
         [HttpGet]
         public IActionResult Registration()
         {
@@ -263,5 +282,6 @@ namespace Net14.Web.Controllers
             await HttpContext.SignOutAsync(Startup.AuthName);
             return RedirectToRoute("default", new { controller = "Calendar", action = "Index" });
         }
+
     }
 }
