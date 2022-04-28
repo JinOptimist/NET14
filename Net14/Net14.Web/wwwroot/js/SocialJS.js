@@ -101,6 +101,7 @@ $(document).ready(function () {
     $("#notification-icon").click(() => {
         $("#header-settings").fadeOut(200);
         $(".notification-block").fadeToggle(200);
+        UpdateNotifications();
         $.get('/Social/Notification')
             .done(function (notificationData) {
                 RenderNotifications(notificationData);
@@ -164,10 +165,12 @@ $(document).ready(function () {
         $.get('/Social/Notification')
             .done(function (notificationData) {
                 RenderNotifications(notificationData);
-            });
-
-            
+            });    
     });
+
+    function UpdateNotifications() {
+        $(".badge").hide(100);
+    }
 
 })
 
