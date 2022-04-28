@@ -63,7 +63,7 @@ namespace Net14.Web.Controllers
 
         public IActionResult UrlsForFindPair()
         {
-            Thread.Sleep(3000);
+            //Thread.Sleep(3000);
             var list = new List<string>
             {
                 "http://localhost:42059/images/gallery/girl1.webp",
