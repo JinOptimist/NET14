@@ -510,7 +510,7 @@ namespace Net14.Web.EfStuff
                     CommentOfUser = "Comment",
                     DateOfPosting = new DateTime(),
                     ImageUrl = "https://www.imgonline.com.ua/examples/bee-on-daisy.jpg",
-                    Likes = 20,
+                    Likes = new List<PostLikes>(),
                     TypePost = "no",
                     Comments = new List<SocialComment>()
                 };
@@ -544,7 +544,7 @@ namespace Net14.Web.EfStuff
                     CommentOfUser = "Good car",
                     Comments = new List<SocialComment>(),
                     ImageUrl = "/images/Social/bmw.jpg",
-                    Likes = 10,
+                    Likes = new List<PostLikes>(),
                     TypePost = "no",
                     User = userRepository.GetByEmAndPass("email", "pass")
                 };

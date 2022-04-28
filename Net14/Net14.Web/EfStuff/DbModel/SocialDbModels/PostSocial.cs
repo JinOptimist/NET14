@@ -13,7 +13,7 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
         public string CommentOfUser { get; set; }
         public virtual List<SocialComment> Comments { get; set; }
         public string TypePost { get; set; } = "Registartion";
-        public int Likes { get; set; } = 0;
+        public virtual List<PostLikes> Likes { get; set; }
         public DateTime DateOfPosting { get; set; } = DateTime.Now.ToLocalTime();
 
     }

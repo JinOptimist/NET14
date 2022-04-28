@@ -21,6 +21,7 @@ namespace Net14.Web.Controllers
     {
         private SocialUserRepository _socialUserRepository;
         private SocialPostRepository _socialPostRepository;
+        private SocialPostLikeRepository _socialPostLikeRepository;
         private SocialCommentRepository _socialCommentRepository;
         private UserService _userService;
         private IMapper _mapper;
@@ -30,6 +31,7 @@ namespace Net14.Web.Controllers
 
         public SocialController(SocialUserRepository socialUserRepository,
             SocialPostRepository socialPostRepository,
+            SocialPostLikeRepository socialPostLikeRepository,
             SocialCommentRepository socialCommentRepository,
             UserService userService, IMapper mapper,
             FriendRequestService friendRequestService,
@@ -37,6 +39,7 @@ namespace Net14.Web.Controllers
             RecomendationsService recomendationsService)
         {
             _socialPostRepository = socialPostRepository;
+            _socialPostLikeRepository = socialPostLikeRepository;
             _socialUserRepository = socialUserRepository;
             _socialCommentRepository = socialCommentRepository;
             _userService = userService;
@@ -74,6 +77,18 @@ namespace Net14.Web.Controllers
                 User = user
             };
             _socialPostRepository.Save(post);
+
+            return Redirect("Index");
+        }
+        public IActionResult AddLike (int postId)
+        {
+            var post = _socialPostRepository.Get(postId);
+            var like = new PostLikes()
+            {
+                Post = post,
+                Owner = _userService.GetCurrent()
+            };
+            _socialPostLikeRepository.Save(like);
 
             return Redirect("Index");
         }

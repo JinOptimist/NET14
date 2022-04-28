@@ -217,7 +217,6 @@ namespace Net14.Web.Services
         public List<SocialPostViewModel> GetIndexRecomendations()
         {
             var TopThree = _socialPostRepository.GetAll()
-                .OrderByDescending(post => post.Likes)
                 .Take(2)
                 .ToList();
 
