@@ -53,7 +53,10 @@
             </div>
             <div class="post-operations">
                 <div class="operations like">
-                    <img src="~/images/Social/heart.png">
+                    <a method="post" name="@post.Id" asp-action="AddLike" asp-controller="Social"/>
+                    <div>
+                        @post.CountLikes
+                    </div>
                 </div>
                 <div class="operations comment">
                     <img src="~/images/Social/speech-bubble.png">

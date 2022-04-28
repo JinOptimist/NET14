@@ -12,6 +12,7 @@ namespace Net14.Web.EfStuff
     {
         public DbSet<Image> Images { get; set; }
         public DbSet<PostSocial> Posts { get; set; }
+        public DbSet<PostLikeSocial> PostLike { get; set; }
         public DbSet<UserSocial> Users { get; set; }
         public DbSet<FileSocial> fileSocial { get; set; }
         public DbSet<SocialComment> SocialComments { get; set; }

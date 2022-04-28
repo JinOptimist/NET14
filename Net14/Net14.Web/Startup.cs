@@ -77,6 +77,9 @@ namespace Net14.Web
             services.AddScoped<SocialPostRepository>(x =>
                 new SocialPostRepository(x.GetService<WebContext>()));
 
+            services.AddScoped<SocialPostLikeRepository>(x =>
+                new SocialPostLikeRepository(x.GetService<WebContext>()));
+
             services.AddScoped<SocialFileRepository>(x =>
                 new SocialFileRepository(x.GetService<WebContext>()));
 

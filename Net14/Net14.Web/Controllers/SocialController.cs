@@ -21,6 +21,7 @@ namespace Net14.Web.Controllers
     {
         private SocialUserRepository _socialUserRepository;
         private SocialPostRepository _socialPostRepository;
+        private SocialPostLikeRepository _socialPostLikeRepository;
         private SocialCommentRepository _socialCommentRepository;
         private UserService _userService;
         private IMapper _mapper;
@@ -30,6 +31,7 @@ namespace Net14.Web.Controllers
 
         public SocialController(SocialUserRepository socialUserRepository,
             SocialPostRepository socialPostRepository,
+            SocialPostLikeRepository socialPostLikeRepository,
             SocialCommentRepository socialCommentRepository,
             UserService userService, IMapper mapper,
             FriendRequestService friendRequestService,
@@ -37,6 +39,7 @@ namespace Net14.Web.Controllers
             RecomendationsService recomendationsService)
         {
             _socialPostRepository = socialPostRepository;
+            _socialPostLikeRepository = socialPostLikeRepository;
             _socialUserRepository = socialUserRepository;
             _socialCommentRepository = socialCommentRepository;
             _userService = userService;
@@ -53,8 +56,7 @@ namespace Net14.Web.Controllers
             var topThree = _mapper.Map<List<SocialPostViewModel>>(_recomendationsService.GetIndexRecomendations());
             var viewPost = _mapper.Map<List<SocialPostViewModel>>(postArr);
 
-            
-            var finalModel = new SocialPostWithTopViewModel() 
+            var finalModel = new SocialPostWithTopViewModel()
             {
                 Posts = viewPost,
                 TopThreePost = topThree
@@ -76,6 +78,20 @@ namespace Net14.Web.Controllers
             _socialPostRepository.Save(post);
 
             return Redirect("Index");
+        }
+        public IActionResult AddLike(int postId)
+        {
+            var user = _userService.GetCurrent();
+            var post = _socialPostRepository.Get(postId);
+            var like = new PostLikeSocial()
+            {
+                User = user,
+                Post = post
+            };
+
+
+
+            return RedirectToAction("Index");
         }
 
         [Authorize]
@@ -128,7 +144,7 @@ namespace Net14.Web.Controllers
                         mod.IsFriend = true;
                         return mod;
                     }
-                    if (currentUser.FriendRequestSent.Exists(req => req.Receiver.Id == db.Id && req.FriendRequestStatus == FriendRequestStatus.Pending)) 
+                    if (currentUser.FriendRequestSent.Exists(req => req.Receiver.Id == db.Id && req.FriendRequestStatus == FriendRequestStatus.Pending))
                     {
                         var mod = _mapper.Map<SocialUserViewModel>(db);
                         mod.IsRequested = true;
@@ -212,7 +228,7 @@ namespace Net14.Web.Controllers
         {
             var currentUserId = _userService.GetCurrent().Id;
             _friendRequestService.CreateFriendRequest(currentUserId, friendId);
-            if (targetUrl == null) 
+            if (targetUrl == null)
             {
                 return RedirectToAction("ShowAllUsers");
             }
@@ -279,7 +295,7 @@ namespace Net14.Web.Controllers
 
         }
         [HasRole(SiteRole.Admin)]
-        public IActionResult BlockUser(int userId) 
+        public IActionResult BlockUser(int userId)
         {
             var user = _socialUserRepository.Get(userId);
             user.IsBlocked = true;
@@ -288,7 +304,7 @@ namespace Net14.Web.Controllers
         }
 
         [HasRole(SiteRole.Admin)]
-        public IActionResult UnblockUser(int userId) 
+        public IActionResult UnblockUser(int userId)
         {
             var user = _socialUserRepository.Get(userId);
             user.IsBlocked = false;
