@@ -254,7 +254,7 @@ namespace Net14.Web.Controllers
 
             receivedModel.AddRange(sentModel);
 
-            return View(receivedModel);
+            return Json(receivedModel);
         }
 
         [Authorize]
@@ -272,10 +272,11 @@ namespace Net14.Web.Controllers
         [Authorize]
         public IActionResult AcceptFriend(int friendId)
         {
+
             var user = _userService.GetCurrent();
             _friendRequestService.Accept(friendId, user.Id);
 
-            return Redirect("Notification");
+            return Ok();
 
         }
 
@@ -284,7 +285,8 @@ namespace Net14.Web.Controllers
         {
             var user = _userService.GetCurrent();
             _friendRequestService.Decline(friendId, user.Id);
-            return Redirect("Notification");
+
+            return Ok();
 
         }
         [HasRole(SiteRole.Admin)]
