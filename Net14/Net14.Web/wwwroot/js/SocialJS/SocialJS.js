@@ -55,11 +55,6 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
-    $(".operations.comment").click(function () {
-        $(this).closest(".content-element-card").find(".comments").slideToggle(200);
-    })
-})
 
 
 

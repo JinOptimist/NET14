@@ -393,10 +393,13 @@ footer
     display: flex;
     width: 80%;
     border-bottom: 1px solid lavender;
-    margin-bottom: 40px;
+    margin-bottom: 25px;
     word-wrap: break-word;
     flex-direction: column;
 }
+    .single-comment.template {
+        display:none;
+    }
 
 .to-comment {
     width: 100%;
@@ -410,30 +413,14 @@ footer
     justify-content: space-between;
 }
 
-input[type=submit].comm{
 
-
-    border-radius: 10px;
-    background: white;
-    border: 1px solid grey;
-    height: 39px;
-    width: 100px;
-    border: 1px solid rgb(22 222 48);
-    color: rgb(22 222 48);
-    background: white;
-    transition: background 0.3s ease;
-    transition: box-shadow 0.3s ease;
-    font-size: 17px;
-}
 
 input[type=submit]:hover{
     color: white;
     background: rgb(22 222 48);
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
-.comm {
-    height:39px;
-}
+
 .comment-elements {
     width: 100%;
     height: 100%;
@@ -467,7 +454,7 @@ input[type=submit]:hover{
 .comment-owner-info {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-weight: 600;
 }
 #heart {
@@ -629,3 +616,52 @@ a {
     height: 30px;
     border-radius: 10px;
 }
+}
+
+.comment-text {
+    font-size: 15px;
+}
+
+
+input.comm:not(.active) {
+    border-radius: 10px;
+    background: white;
+    border: 1px solid grey;
+    height: 39px;
+    width: 100px;
+    border: 1px solid rgba(122,122,122,0.7);
+    color: rgba(122,122,122,0.7);
+    background: white;
+    transition: background 0.3s ease;
+    transition: box-shadow 0.3s ease;
+    font-size: 17px;
+    text-align: center;
+}
+
+    input.comm.active {
+        border-radius: 10px;
+        background: white;
+        border: 1px solid grey;
+        height: 39px;
+        width: 100px;
+        border: 1px solid rgb(22 222 48);
+        color: rgb(22 222 48);
+        background: white;
+        transition: background 0.3s ease;
+        transition: box-shadow 0.3s ease;
+        font-size: 17px;
+        text-align: center;
+    }
+
+        input.comm.active:hover {
+            border-radius: 10px;
+            background: white;
+            border: 1px solid grey;
+            height: 39px;
+            width: 100px;
+            border: 1px solid rgb(22 222 48);
+            color: rgb(22 222 48);
+            background: rgb(22 222 48);
+            color: white;
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        }

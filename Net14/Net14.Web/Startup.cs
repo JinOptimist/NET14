@@ -123,7 +123,10 @@ namespace Net14.Web
                 new CurrencyService());
             services.AddHttpContextAccessor();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
         }
 
         private void RegisterMapper(IServiceCollection services)

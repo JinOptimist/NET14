@@ -191,7 +191,7 @@ namespace Net14.Web.Controllers
         {
             if (text == null)
             {
-                return RedirectToAction("Index");
+                return StatusCode(400);
             }
             var post = _socialPostRepository.Get(postId);
             var currentUser = _userService.GetCurrent();
@@ -204,7 +204,16 @@ namespace Net14.Web.Controllers
             };
 
             _socialCommentRepository.Save(comment);
-            return RedirectToAction("Index");
+            return Json(_mapper.Map<SocialUserViewModel>(_userService.GetCurrent()));
+        }
+
+        public IActionResult GetComments(int postId) 
+        {
+            var post = _socialPostRepository.Get(postId);
+
+            var comments = _mapper.Map<List<SocialCommentViewModel>>(post.Comments);
+
+            return Json(comments);
         }
 
         [Authorize]
