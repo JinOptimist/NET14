@@ -278,8 +278,11 @@ footer
         transition: width 0.2s ease;
     }
 
-.operations img:hover
-{
+    .operations.like.active {
+        background: red;
+    }
+
+.operations img:hover {
     width: 30px;
     height: 30px;
 }

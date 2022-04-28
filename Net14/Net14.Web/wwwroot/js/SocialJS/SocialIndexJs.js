@@ -45,7 +45,7 @@
                     window.location.replace("/SocialAuthentication/Autorization?ReturnUrl=/Social/Index");
                 }
             })
-        
+
         $(this).closest(".input-container").find("input.comm").removeClass("active");
     })
 
@@ -55,8 +55,7 @@
     });
 
     $('.to-comment').on('input', function () {
-        if ($(this).val()=="")
-        {
+        if ($(this).val() == "") {
             $(this).closest(".input-container").find("input.comm").removeClass("active");
             return;
         }
@@ -64,4 +63,18 @@
     })
 
 
+})
+
+$(document).ready(function () {
+    $(".operations like").click(function () {
+        let th = $(this);
+        debugger;
+        let id = $(this).closest(".content-element").data("id");
+
+        $.get('/Social/AddLike', { postId: id })
+            .done(function () {
+                $(this).addClass("active");
+            })
+
+    })
 })

@@ -182,15 +182,3 @@ $(document).ready(function () {
     }
 
 })
-
-$(document).ready(() => {
-
-})
-
-
-$(document).ready(function () {
-    $(".operations like").click(function () {
-        $(this).find
-    })
-})
-
