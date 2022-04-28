@@ -159,14 +159,28 @@ $(document).ready(function () {
     }
 
     $(document).on('click', ".accept-button", function () {
-        var friendId = +$(this).closest(".notification-container").data("friendid");
-        $.get("/Social/AcceptFriend", { friendId: friendId });
-        $(this).closest(".notification-container").remove();
-        $.get('/Social/Notification')
-            .done(function (notificationData) {
-                RenderNotifications(notificationData);
-            });    
+        let friendId = $(this).closest(".notification-container").data("friendid") - 0;
+        $.get("/Social/AcceptFriend", { friendId: friendId })
+            .done(function () {
+                $(this).closest(".notification-container").remove();
+                $.get('/Social/Notification')
+                    .done(function (notificationData) {
+                        RenderNotifications(notificationData);
+                    });
+            });
     });
+
+    $(document).on('click', ".decline-button", function () {
+        let friendId = $(this).closest(".notification-container").data("friendid") - 0;
+        $.get("/Social/DeclineFriend", { friendId: friendId })
+            .done(function () {
+                $(this).closest(".notification-container").remove();
+                $.get('/Social/Notification')
+                    .done(function (notificationData) {
+                        RenderNotifications(notificationData);
+                    });
+            });
+    })
 
     function UpdateNotifications() {
         $(".badge").hide(100);

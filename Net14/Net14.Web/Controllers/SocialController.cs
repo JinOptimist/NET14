@@ -276,7 +276,8 @@ namespace Net14.Web.Controllers
         {
             var user = _userService.GetCurrent();
             _friendRequestService.Decline(friendId, user.Id);
-            return Redirect("Notification");
+
+            return Ok();
 
         }
         [HasRole(SiteRole.Admin)]
