@@ -92,10 +92,9 @@ namespace Net14.Web.Controllers
                 postLike.Likes.Remove(liker);
                 return Ok();
             }
-            var post = _socialPostRepository.Get(postId);
             var like = new PostLikes()
             {
-                Post = post,
+                Post = postLike,
                 Owner = _userService.GetCurrent()
             };
             _socialPostLikeRepository.Save(like);
