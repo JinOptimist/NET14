@@ -11,11 +11,11 @@ namespace Net14.Web.Migrations
                 table: "Users",
                 type: "nvarchar(max)",
                 nullable: true,
-                defaultValue: "/images/Social/User.jpg",
+                defaultValue: "/images/Social/CalendarUser.jpg",
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)",
                 oldNullable: true,
-                oldDefaultValue: "/wwwroot/images/Social/User.jpg");
+                oldDefaultValue: "/wwwroot/images/Social/CalendarUser.jpg");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -25,11 +25,11 @@ namespace Net14.Web.Migrations
                 table: "Users",
                 type: "nvarchar(max)",
                 nullable: true,
-                defaultValue: "/wwwroot/images/Social/User.jpg",
+                defaultValue: "/wwwroot/images/Social/CalendarUser.jpg",
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)",
                 oldNullable: true,
-                oldDefaultValue: "/images/Social/User.jpg");
+                oldDefaultValue: "/images/Social/CalendarUser.jpg");
         }
     }
 }

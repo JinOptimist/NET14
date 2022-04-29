@@ -19,6 +19,6 @@ namespace Calendar.Days
         {
             _monthLevel = monthLevel;
         }
-
+        public abstract string Note { get; set; }
     }
 }

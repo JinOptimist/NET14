@@ -18,6 +18,7 @@ using Net14.Web.EfStuff.DbModel;
 using Net14.Web.Models.store;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.Models;
+using Net14.Web.SignalRHubs;
 
 namespace Net14.Web
 {
@@ -65,9 +66,12 @@ namespace Net14.Web
             services.AddScoped<StoreImageRepository>(x =>
               new StoreImageRepository(x.GetService<WebContext>()));
 
+            services.AddScoped<DaysNoteRepository>(x =>
+                new DaysNoteRepository(x.GetService<WebContext>()));
             services.AddScoped<ImageRepository>(x =>
                 new ImageRepository(x.GetService<WebContext>()));
-
+            services.AddScoped<CalendarUsersRepository>(x =>
+                new CalendarUsersRepository(x.GetService<WebContext>()));
             services.AddScoped<ImageCommentRepository>(x =>
                 new ImageCommentRepository(x.GetService<WebContext>()));
 
@@ -102,6 +106,7 @@ namespace Net14.Web
             services.AddScoped<UserService>(x =>
                 new UserService(
                     x.GetService<SocialUserRepository>(),
+                    x.GetService<CalendarUsersRepository>(),
                     x.GetService<IHttpContextAccessor>(),
                     x.GetService<IMapper>()));
 
@@ -127,6 +132,9 @@ namespace Net14.Web
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
+            services.AddControllersWithViews();
+
+            services.AddSignalR();
         }
 
         private void RegisterMapper(IServiceCollection services)
@@ -242,6 +250,11 @@ namespace Net14.Web
 
             // Where could I go
             app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<ChatHub>("/chat");
+            });
 
             app.UseEndpoints(endpoints =>
             {

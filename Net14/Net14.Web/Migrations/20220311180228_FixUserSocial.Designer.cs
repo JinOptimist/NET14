@@ -93,7 +93,7 @@ namespace Net14.Web.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("SocialWeb.User", b =>
+            modelBuilder.Entity("SocialWeb.CalendarUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -141,7 +141,7 @@ namespace Net14.Web.Migrations
 
                     b.HasIndex("socialId");
 
-                    b.ToTable("User");
+                    b.ToTable("CalendarUser");
                 });
 
             modelBuilder.Entity("TeamSocial.Social", b =>
@@ -187,9 +187,9 @@ namespace Net14.Web.Migrations
                     b.Navigation("social");
                 });
 
-            modelBuilder.Entity("SocialWeb.User", b =>
+            modelBuilder.Entity("SocialWeb.CalendarUser", b =>
                 {
-                    b.HasOne("SocialWeb.User", null)
+                    b.HasOne("SocialWeb.CalendarUser", null)
                         .WithMany("friends")
                         .HasForeignKey("UserId");
 
@@ -211,7 +211,7 @@ namespace Net14.Web.Migrations
                     b.Navigation("friends");
                 });
 
-            modelBuilder.Entity("SocialWeb.User", b =>
+            modelBuilder.Entity("SocialWeb.CalendarUser", b =>
                 {
                     b.Navigation("friends");
                 });

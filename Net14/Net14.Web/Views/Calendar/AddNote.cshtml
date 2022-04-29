@@ -1,0 +1,14 @@
+@using Net14.Web.Models.Calendar
+@model TestNotesViewModel
+
+@{
+    Layout = "/Views/Shared/_LayoutCalendar.cshtml";
+}
+
+
+ <form action="/Calendar/AddNote" method="post">
+   <p><input placeholder="Text" @(Html.TextBoxFor(x => x.Text)) </p>
+   <p><input placeholder="Event date (dd.MM.YYYY)" @(Html.TextBoxFor(x => x.EventDate)) </p>
+   <p><input type="submit" value="Create"></p>
+  </form>
+  
