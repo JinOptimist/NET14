@@ -184,6 +184,20 @@ $(document).ready(function () {
 })
 
 $(document).ready(() => {
+    const hubConnection = new signalR.HubConnectionBuilder()
+        .withUrl("/notif")
+        .build();
+
+
+    hubConnection.on("SendNotif", function (message) {
+        alert(message);
+    });
+
+    $('#profile').click(function () {
+        hubConnection.invoke("SendNotif");
+    });
+
+    hubConnection.start();
 
 })
 

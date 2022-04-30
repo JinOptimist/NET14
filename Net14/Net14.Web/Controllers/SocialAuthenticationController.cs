@@ -110,6 +110,7 @@ namespace Net14.Web.Controllers
             };
 
             var identity = new ClaimsIdentity(claims, Startup.AuthName);
+            var claimss = identity.Claims.ToList();
 
             var principal = new ClaimsPrincipal(identity);
 
