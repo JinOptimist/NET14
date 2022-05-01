@@ -1,0 +1,36 @@
+﻿.title{
+    font-size:50px;
+    display:flex;
+    justify-content:center;
+    background-color:antiquewhite;
+}
+.word-cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap:wrap;
+}
+
+.card-block {
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 5px solid green;
+    max-width: 150px;
+    background-color: whitesmoke;
+    cursor: pointer;
+}
+.pressed-card-block {
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 5px solid green;
+    max-width: 150px;
+    background-color: whitesmoke;
+    opacity:0.1;
+}
