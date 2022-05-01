@@ -190,12 +190,38 @@ $(document).ready(() => {
 
 
     hubConnection.on("SendNotif", function (message) {
-        alert(message);
+        $(".notif-div-bottom").fadeIn(200);
+        $(".notif-div-bottom-content").text(message);
+
+        setTimeout(function () {
+            $(".notif-div-bottom").fadeOut(200);
+        }, 3000);
     });
 
-    $('#profile').click(function () {
-        hubConnection.invoke("SendNotif");
+    $(document).on('click', ".accept-button", function () {
+        let friendId = String($(this).closest(".notification-container").data("friendid"));
+        hubConnection.invoke("SendNotif", "accept", friendId);
     });
+
+    $(document).on('click', ".decline-button", function () {
+        let friendId = String($(this).closest(".notification-container").data("friendid"));
+        hubConnection.invoke("SendNotif", "decline", friendId);
+    });
+
+    $(document).ready(function () {
+        $(".add-to-friends-button").click(function () {
+            let button = $(this);
+            let id = String($(this).closest(".find-recomendation-element-menu").data("friend"));
+
+            $.get("/Social/AddFriend", { friendId: id })
+                .done(function () {
+                    button.addClass("requested").text("Requested");
+                });
+
+            hubConnection.invoke("SendNotif", "requested", id);
+        })
+    })
+
 
     hubConnection.start();
 

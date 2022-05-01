@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 using Net14.Web.Services;
 using System;
 using System.Collections.Generic;
@@ -7,11 +8,19 @@ using System.Threading.Tasks;
 
 namespace Net14.Web.SignalRHubs
 {
+    [Authorize]
     public class NotificationsHub : Hub
     {
-        public void SendNotif()  
+        private UserService _userService;
+
+        public NotificationsHub(UserService userService) 
         {
-            Clients.User("1").SendAsync("SendNotif", "new notification motherfucker");
+            _userService = userService;
+        }
+        public void SendNotif(string message, string friendId)  
+        {
+            var currentUser = _userService.GetCurrent();
+            Clients.User(friendId).SendAsync("SendNotif", $"{currentUser.FirstName} {currentUser.LastName} {message} friend request");
             return;
         }
 

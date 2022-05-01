@@ -124,7 +124,9 @@ namespace Net14.Web
             services.AddScoped<FriendRequestService>(x =>
                 new FriendRequestService(
                     x.GetService<UserFriendRequestRepository>(),
-                    x.GetService<SocialUserRepository>()));
+                    x.GetService<SocialUserRepository>(),
+                    x.GetService<IHubContext<NotificationsHub>>()));
+
             services.AddScoped<CurrencyService>(x =>
                 new CurrencyService());
             services.AddHttpContextAccessor();
