@@ -47,10 +47,17 @@
     width: 130px;
     height: 35px;
     border-radius: 92px;
+    cursor: pointer;
     border: 1px solid grey;
 }
 .select-currency {
     border-radius: 20px;
     font-size: 13px;
     margin-top: 5px;
+}
+
+.find {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
