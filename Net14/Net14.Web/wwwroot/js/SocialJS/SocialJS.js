@@ -189,18 +189,20 @@ $(document).ready(() => {
         .build();
 
 
-    hubConnection.on("SendNotif", function (message) {
+    hubConnection.on("SendNotif", function (message, userPhoto) {
         $(".notif-div-bottom").fadeIn(200);
         $(".notif-div-bottom-content").text(message);
-
-        setTimeout(function () {
+        let photo = $('<img>').attr("src", userPhoto);
+        $(".notif-div-bottom-content").append(photo);
+/*        setTimeout(function () {
             $(".notif-div-bottom").fadeOut(200);
-        }, 3000);
+        }, 3000);*/
     });
 
     $(document).on('click', ".accept-button", function () {
         let friendId = String($(this).closest(".notification-container").data("friendid"));
         hubConnection.invoke("SendNotif", "accept", friendId);
+
     });
 
     $(document).on('click', ".decline-button", function () {
