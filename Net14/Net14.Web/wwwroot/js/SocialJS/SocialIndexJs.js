@@ -65,16 +65,21 @@
 
 })
 
-$(document).ready(function () {
-    $(".operations.like").click(function () {
-        let th = $(this);
-        debugger;
-        let id = $(this).closest(".content-element").data("id");
+$(".operations.like").click(function () {
+    let th = $(this);
+    debugger;
+    let id = $(this).closest(".content-element").data("id");
 
-        $.get('/Social/AddLike', { postId: id })
-            .done(function () {
-                th.addClass("active");
-            })
-
-    })
+    $.get('/Social/AddLike', { postId: id })
+        .done(function () {
+            th.addClass("active");
+        })
 })
+
+/*$(document).ready(function () {
+    $("#heart").click(function () {
+        $(this).attr('src', function () {
+            return replace("~/images/Social/heart.png", "~/images/Social/heartRed.png");
+        })
+    })
+})*/

@@ -89,7 +89,7 @@ namespace Net14.Web.Controllers
             if (likeUsers.Contains(_userService.GetCurrent().Id))
             {
                 var liker = postLike.Likes.SingleOrDefault(like => like.Owner == _userService.GetCurrent());
-                postLike.Likes.Remove(liker);
+                _socialPostLikeRepository.Remove(liker);
                 return Ok();
             }
             var like = new PostLikes()

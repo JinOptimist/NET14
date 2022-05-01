@@ -243,30 +243,16 @@ footer
     margin-bottom: 10px;
 }
 
-.operations
-{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    overflow: hidden;
-    width: 50px;
-    height: 50px;
-    padding: 5px;
-    
-}
-
 .operations {
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     overflow: hidden;
-    width: 50px;
+    width: 97px;
     height: 50px;
     padding: 5px;
 }
-
 
     .operations img {
         display: inline-block;
