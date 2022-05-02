@@ -293,6 +293,10 @@ footer
     margin-top: 20px;
 }
 
+.heart-red {
+    display: none;
+}
+
 #settings-icon {
     display: flex;
     justify-content: center;

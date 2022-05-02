@@ -291,7 +291,6 @@ footer
     padding: 10px;
     transition: height 0.2s ease;
     transition: width 0.2s ease;
-
 }
 
 .operations img:hover
@@ -299,12 +298,8 @@ footer
     width: 30px;
     height: 30px;
 }
-
-.operations:hover
-{
+.operations:hover {
     background: rgba(122,122,122,0.1);
-    
-
 }
 .operations:first-child:hover
 {
