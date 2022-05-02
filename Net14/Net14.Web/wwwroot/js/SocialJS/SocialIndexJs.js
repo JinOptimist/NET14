@@ -69,6 +69,7 @@
 $(document).ready(function () {
     $(".operations.like").click(function () {
         let th = $(this);
+        let thInt = +$(this);
         let id = $(this)
             .closest(".content-element")
             .data("id");
@@ -76,12 +77,32 @@ $(document).ready(function () {
         $.get('/Social/AddLike', { postId: id })
     })
     $(".heart").click(function () {
+        
         $(this)
             .hide()
             .closest(".operations.like")
             .find(".heart-red")
             .toggle();
     })
+    $(".heart-red").click(function () {
+        $(this)
+            .hide()
+            .closest(".operations.like")
+            .find(".heart")
+            .toggle();
+    })
+    $(".heart").click(function () {
 
+        var $like = $(".count-likes");
+        $like.val(parseInt($like.val()) + 1);
+        $like.change();
+    });
+    $(".heart-red").click(function () {
+        var $like = $(".count-likes");
+        $like.val(parseInt($like.val()) - 1);
+        $like.change();
+    });
+
+    
 })
 

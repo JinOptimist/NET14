@@ -60,14 +60,17 @@
             <div class="post-operations">
                 <div class="operations like">
                     <div class="heart">
-                        <img src="~/images/Social/heart.png"/>
+                        <img src="~/images/Social/heart.png" />
                     </div>
                     <div class="heart-red">
-                        <img src="~/images/Social/heartRed.png"/>
+                        <img src="~/images/Social/heartRed.png" />
                     </div>
-                    <div class="count-likes">
+                    <div>
+                        <input type="button" class="count-likes" value="@post.Likes.Count()" />
+                    </div>
+                    @*<div class="count-likes">
                         @post.Likes.Count()
-                    </div>
+                        </div>*@
                 </div>
                 <div class="operations comment">
                     <img src="~/images/Social/speech-bubble.png">
