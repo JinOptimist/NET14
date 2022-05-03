@@ -30,6 +30,7 @@
         @if (User.Identity.IsAuthenticated)
         {
             <div class="auth-userbox">
+                @RenderSection("ProfileBoxMenu", required: false)
                 <div class="auth-userbox-img"><img src="~/images/Social/User.jpg"></div>
                 <div class="auth-userbox-name">Алексей Журавлев</div>
             </div>
