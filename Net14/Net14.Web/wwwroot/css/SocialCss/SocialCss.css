@@ -616,7 +616,7 @@ a {
     height: 30px;
     border-radius: 10px;
 }
-}
+
 
 .comment-text {
     font-size: 15px;
@@ -665,3 +665,32 @@ input.comm:not(.active) {
             color: white;
             box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
         }
+
+.auth-userbox {
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    width: 270px;
+    margin-left: 20px;
+    margin-top: 5px;
+    border: 1px black;
+}
+    .auth-userbox-img {
+        border-radius: 70px;
+        width: 90px;
+        height: 85px;
+        
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    }
+        .auth-userbox-img img {
+            width: 90px;
+            height: 100%;
+            border-radius: 70px;
+        }
+
+    .auth-userbox-name {
+        margin-top: 18px;
+        margin-left: 15px;
+        width: 180px;
+    }
+    
