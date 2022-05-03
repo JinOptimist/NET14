@@ -262,7 +262,7 @@ namespace Net14.Web.Controllers
         public IActionResult Friends()
         {
             var currentUser = _userService.GetCurrent();
-
+            
             var friends = currentUser.Friends;
 
             var model = _mapper.Map<List<SocialUserViewModel>>(friends);

@@ -106,11 +106,15 @@
             <div class="menu">
                 <div class="buttons-menu">
                     @if (User.Identity.IsAuthenticated) {
-                        <div class="menu-element">Profile</div>
-                        <div class="menu-element" onclick="location.href='/SocialFile/MyFiles';">My Files</div>}                  <div class="menu-element" onclick="location.href='/SocialRecomendation/Recomendations';">Recomendation</div>
+                        <div class="menu-element" onclick="location.href='/Social/ShowPagesProfile';">Profile</div>
+                        <div class="menu-element" onclick="location.href='/SocialFile/MyFiles';">My Files</div>
+                        <div class="menu-element" onclick="location.href='/SocialRecomendation/Recomendations';">Recomendation</div>
+                    }   
                         <div class="menu-element" onclick="location.href='/SocialGroups/GetGroups';">Groups</div>
                         <div class="menu-element" onclick="location.href='/Social/ShowAllUsers';">Find user</div>
-                    @if (User.Identity.IsAuthenticated){<div class="menu-element" onclick="location.href='/Social/Friends';">Friends</div>}
+                    @if (User.Identity.IsAuthenticated) {
+                        <div class="menu-element" onclick="location.href='/Social/Friends';">Friends</div>
+                    }
                 </div>
                 @RenderSection("NavbarRecomendations", required: false)
             </div>
