@@ -70,20 +70,17 @@ namespace Net14.Web.Controllers
         public IActionResult Subscribe(int groupId) 
         {
             var user = _userService.GetCurrent();
-            var groupTarget = _socialGroupRepository.Get(groupId);
-            user.Groups.Add(groupTarget);
-            groupTarget.Members.Add(user);
-            _webContext.SaveChanges();
-            return Redirect($"/SocialGroups/GetSingleGroup?id={groupId}");
+            _socialGroupRepository.Subscribe(groupId, user.Id);
+            return Ok();
+
         }
 
         [Authorize]
         public IActionResult Unsubscribe(int groupId) 
         {
             var user = _userService.GetCurrent();
-            _socialGroupRepository.RemoveMember(groupId, user.Id);
-
-            return Redirect($"/SocialGroups/GetSingleGroup?id={groupId}");
+            _socialGroupRepository.Unsubscribe(groupId, user.Id);
+            return Ok();
         }
 
         public IActionResult AddPost(string ImageUrl, string CommentOfUser, int groupId)
