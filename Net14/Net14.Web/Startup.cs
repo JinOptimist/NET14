@@ -19,6 +19,7 @@ using Net14.Web.Models.store;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.Models;
 using Net14.Web.SignalRHubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Net14.Web
 {
@@ -123,7 +124,9 @@ namespace Net14.Web
             services.AddScoped<FriendRequestService>(x =>
                 new FriendRequestService(
                     x.GetService<UserFriendRequestRepository>(),
-                    x.GetService<SocialUserRepository>()));
+                    x.GetService<SocialUserRepository>(),
+                    x.GetService<IHubContext<NotificationsHub>>()));
+
             services.AddScoped<CurrencyService>(x =>
                 new CurrencyService());
             services.AddHttpContextAccessor();
@@ -135,6 +138,9 @@ namespace Net14.Web
             services.AddControllersWithViews();
 
             services.AddSignalR();
+
+            services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
+
         }
 
         private void RegisterMapper(IServiceCollection services)
@@ -254,6 +260,7 @@ namespace Net14.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapHub<NotificationsHub>("/notif");
             });
 
             app.UseEndpoints(endpoints =>
