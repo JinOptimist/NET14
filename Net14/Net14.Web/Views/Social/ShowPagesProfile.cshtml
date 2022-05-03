@@ -65,15 +65,8 @@
 }    
     @section ProfileBoxMenu
     {                          
-     <div class="box-user-element-card">
-        <div>
-        <img src="@Model.UserPhoto" style="width: 150px;">
-        </div>
-        <div> 
-        Name:   @Model.LastName @Model.FirstName <br/>
-        Age:    @Model.Age <br/>        
-        E-mail: @Model.Email <br/>
-        Location: @Model.Country - @Model.City <br/> 
-        </div>
-      </div>
+     <div class="auth-userbox">          
+     <div class="auth-userbox-img"><img src="~/images/Social/User.jpg"></div>
+     <div class="auth-userbox-name">@Model.LastName @Model.FirstName</div>
+     </div>
     }
