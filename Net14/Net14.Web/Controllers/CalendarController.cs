@@ -212,10 +212,12 @@ namespace Net14.Web.Controllers
                 Notes = dbNotes.Select(x => new TestNotesViewModel()
                 {
                     Text = x.Text,
-                    EventDate = x.EventDate,
                 }).ToList(),
             };
-            return Json(model);
+            List<string> model1 = new List<string>();
+            foreach (var item in dbNotes)
+                model1.Add(item.Text);
+            return Json(model1);
         }
         [HttpGet]
         public IActionResult Registration()
