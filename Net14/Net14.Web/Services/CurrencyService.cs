@@ -28,6 +28,7 @@ namespace Net14.Web.Services
             response.Close();
 
             CurrencyViewModel model = JsonSerializer.Deserialize<CurrencyViewModel>(answer);
+            model.Selected = cur;
             return model;
         }
     }

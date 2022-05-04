@@ -4,7 +4,7 @@ form {
 }
 .find-recomendation-element-menu {
     align-items: center;
-    margin-top: 100px;
+    margin-top: 60px;
     border-radius: 15px;
     box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
     background: white;
@@ -20,6 +20,7 @@ form {
     overflow: hidden;
     width: 70px;
     height: 70px;
+    cursor: pointer;
 }
 
 .size-for-user {
@@ -34,13 +35,14 @@ form {
     display: flex;
     align-items: center;
     margin-left: 25px;
+    cursor: pointer;
 }
 
 
 .usersCenter {
     display: flex;
     justify-content: center;
-    width: 100%;
+    width: 550px;
     flex-direction: column;
 }
 
@@ -52,7 +54,7 @@ form {
 
 .AllUsersSearch {
     width: 250px;
-    height: 40px;
+    height: 30px;
     border-radius: 92px;
     border: 1px solid grey;
     padding: 5px;
@@ -70,7 +72,7 @@ form {
     border-radius: 92px;
     background: white;
     border: 1px solid grey;
-    height: 52px;
+    height: 40px;
     width: 100px;
     border: 1px solid rgb(22 222 48);
     color: rgb(22 222 48);
@@ -109,8 +111,12 @@ form {
     background: rgba(122,122,122,0.1);
 }
 
+.find-recomendation-element-menu.blocked {
+    background: rgba(122,122,122,0.1);
+}
+
 .filters {
-    margin-top: 30px;
+    margin-top: 20px;
     border-radius: 92px;
     border: 1px solid grey;
     color: grey;
@@ -122,7 +128,7 @@ form {
 }
 .filters-header {
     display: flex;
-    height: 80px;
+    height: 60px;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -169,4 +175,54 @@ form {
 .main-container {
     display: flex;
     width: 600px;
+}
+.friend-status-blocked {
+    margin-right: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 36px;
+    border: 1px solid grey;
+    border-radius: 92px;
+    transition: background 0.3s ease;
+    transition: box-shadow 0.3s ease;
+}
+
+    .friend-status-blocked:hover {
+        color: white;
+        background: rgb(255, 40, 40);
+
+    }
+
+.friend-status-unblocked {
+    margin-right: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 36px;
+    border: 1px solid grey;
+    border-radius: 92px;
+    transition: background 0.3s ease;
+    transition: box-shadow 0.3s ease;
+}
+
+
+    .friend-status-unblocked:hover {
+        background: rgb(22 222 48);
+        color: white;
+    }
+
+.requested {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    background: rgb(22 222 48);
+    height: 36px;
+    border: 1px solid grey;
+    border-radius: 92px;
+    color: white;
+    border: 1px solid grey;
 }

@@ -6,6 +6,7 @@ using Net14.Web.Models;
 using Net14.Web.Models.gallery;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Net14.Web.Controllers
 {
@@ -53,6 +54,26 @@ namespace Net14.Web.Controllers
             //};
 
             return View(model);
+        }
+
+        public IActionResult FindPair()
+        {
+            return View();
+        }
+
+        public IActionResult UrlsForFindPair()
+        {
+            //Thread.Sleep(3000);
+            var list = new List<string>
+            {
+                "http://localhost:42059/images/gallery/girl1.webp",
+                "http://localhost:42059/images/gallery/girl2.jpg",
+                "http://localhost:42059/images/gallery/girl3.jfif",
+                "http://localhost:42059/images/gallery/girl4.png",
+                "http://localhost:42059/images/gallery/girl5.png",
+                "http://localhost:42059/images/gallery/girl6.jfif",
+            };
+            return Json(list);
         }
 
         [HttpGet]

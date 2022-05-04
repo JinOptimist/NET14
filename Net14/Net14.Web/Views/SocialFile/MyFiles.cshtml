@@ -1,26 +1,64 @@
-﻿@{
+﻿@model FilesWithLastViewModel
+@{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 <div class="myFiles">
-    <div>
-        <div>
-            <div class="mainText">
-                <div class="zagolovok-myFiles">
-                    Your Files
+    <div class="mainText">
+        <div class="zagolovok-myFiles">
+            Your Files
+        </div>
+    </div>
+    <div class="items">
+
+
+        <div class="button">
+            <div class="add-file-header">Add File</div>
+
+            <form action="/SocialFile/MyFiles" method="post" id="form-add-file">
+                <div>
+                    Fill in the form
                 </div>
                 <div>
-                    Today is @DateTime.Now.ToLongDateString()
+                    <input name="Name" placeholder="Name">
                 </div>
-            </div>
-            <div>
-                <a href="/SocialFile/AddFiles"><img src="~/images/Social/add_notes.png"/></a>
-            </div>
-            <div>
-                <a href="/SocialFile/AllFiles"><img src="~/images/Social/all_files.png"/></a>
-            </div>
-            <div>
-                <a class="button-videoHosting" href="/SocialFile/VideoHosting"><img src="~/images/Social/button-videoHosting.png"/>All videos Павел Львов</a>
-            </div>
-         </div>
+                <div>
+                    <input name="Url" placeholder="Url">
+                </div>
+                <div>
+                    <input name="Text" placeholder="Text">
+                </div>
+                <div>
+                    <input type="submit" value="Add" class="button-add-post">
+                </div>
+            </form>
+        </div>
+        <div class="button">
+            <div class="show-file-header">Show Files</div>
+            <form action="/SocialFile/MyFiles" method="post" id="form-show-files">
+                @foreach (var files in Model.Files)
+                {
+                    <div>
+                        <a href="/SocialFile/ShowMyFiles?id=@files.Id">@files.Name</a>
+                    </div>
+                }
+            </form>
+        </div>
     </div>
 </div>
+
+@section NavbarRecomendations{
+    <div class="menu-recomendations-user">
+        <div class="menu-recomendation-title">Last files</div>
+        @foreach (var lastFile in Model.LastFiles)
+        {
+            <div class="recomendation-element-menu" onclick="location.href='@Url.Action("ShowMyFiles", "SocialFile", new {fileId = lastFile.Id})'">
+                <div class="user-photo">
+                    <img src=@lastFile.Url class="user-photo">
+                </div>
+                <div class="recomendation-name-menu">
+                    @lastFile.Name
+                </div>
+            </div>
+        }
+    </div>
+}

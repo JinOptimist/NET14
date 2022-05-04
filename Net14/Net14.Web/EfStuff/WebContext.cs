@@ -30,6 +30,7 @@ namespace Net14.Web.EfStuff
 
         public DbSet<StoreImage> StoreImages { get; set; }
 
+        public DbSet<GroupTags> GroupTags { get; set; }
    
 
 
@@ -46,6 +47,9 @@ namespace Net14.Web.EfStuff
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<GroupTags>()
+                .HasOne(x => x.Group)
+                .WithMany(g => g.Tags);
 
             modelBuilder.Entity<UserSocial>()
                 .HasMany(x => x.FriendRequestReceived)
@@ -54,6 +58,10 @@ namespace Net14.Web.EfStuff
             modelBuilder.Entity<UserSocial>()
                 .HasMany(x => x.FriendRequestSent)
                 .WithOne(x => x.Sender);
+
+            modelBuilder.Entity<UserSocial>()
+                .HasMany(x => x.Files)
+                .WithOne(x => x.Owner);
             
 
 

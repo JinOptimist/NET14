@@ -9,18 +9,20 @@
 }
 
 .day {
-    width:30px;
-    height:30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
     text-align: center;
-    margin: 2ch;
-    text-decoration: none;
+    border: 2px solid transparent;
 }
-.day :hover {
+    .day:hover {
         font-size: 30px;
         border: 2px solid black;
         background: blue;
-        text-decoration: none;
-}
+        cursor: pointer;
+    }
 
 .date {
     text-align: center;
@@ -39,3 +41,18 @@
     justify-content: space-between
 }
 
+.dayweek {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    width: 50px;
+    height: 50px;
+}
+
+.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+}

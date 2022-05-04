@@ -1,0 +1,14 @@
+﻿using Net14.Web.EfStuff.DbModel.SocialDbModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Net14.Web.Models
+{
+    public class SocialPostWithTopViewModel
+    {
+        public List<SocialPostViewModel> Posts { get; set; }
+        public List<SocialPostViewModel> TopThreePost { get; set; }
+    }
+}

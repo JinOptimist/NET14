@@ -18,6 +18,7 @@ using Net14.Web.EfStuff.DbModel;
 using Net14.Web.Models.store;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.Models;
+using Net14.Web.SignalRHubs;
 
 namespace Net14.Web
 {
@@ -92,6 +93,13 @@ namespace Net14.Web
             services.AddScoped<VideoSocialRepository>(x =>
                 new VideoSocialRepository(x.GetService<WebContext>()));
 
+            services.AddScoped<RecomendationsService>(x =>
+                new RecomendationsService(
+                    x.GetService<SocialUserRepository>(),
+                    x.GetService<IMapper>(),
+                    x.GetService<UserService>(),
+                    x.GetService<SocialGroupRepository>(),
+                    x.GetService<SocialPostRepository>()));
 
             services.AddScoped<YouTubeVideoService>();
 
@@ -101,7 +109,14 @@ namespace Net14.Web
                     x.GetService<CalendarUsersRepository>(),
                     x.GetService<IHttpContextAccessor>(),
                     x.GetService<IMapper>()));
-                    
+
+            services.AddScoped<AdvertisingService>(x =>
+                new AdvertisingService(
+                    x.GetService<ProductRepository>(),
+                    x.GetService<IMapper>()));
+
+
+
             services.AddScoped<UserFriendRequestRepository>(x =>
                 new UserFriendRequestRepository(x.GetService<WebContext>()));
 
@@ -114,6 +129,8 @@ namespace Net14.Web
             services.AddHttpContextAccessor();
 
             services.AddControllersWithViews();
+
+            services.AddSignalR();
         }
 
         private void RegisterMapper(IServiceCollection services)
@@ -167,7 +184,11 @@ namespace Net14.Web
                         .MapFrom(dbPost =>
                             dbPost.User.FirstName));
 
-            provider.CreateMap<GroupSocial, SocialGroupViewModel>();
+            provider.CreateMap<GroupSocial, SocialGroupViewModel>()
+                .ForMember(nameof(SocialGroupViewModel.Tags),
+                    group => group
+                        .MapFrom(dbGroup =>
+                            dbGroup.Tags.Select(tag => tag.Tag)));
 
             provider.CreateMap<SocialUserRegistrationViewModel, UserSocial>();
 
@@ -184,6 +205,21 @@ namespace Net14.Web
             provider.CreateMap<Image, ImageViewModel>(); 
 
             provider.CreateMap<FileSocial, FilesViewModel>();
+
+            provider.CreateMap<UserSocial, SocialUserSettingsViewModel>();
+
+            provider.CreateMap<SocialUserSettingsViewModel, UserSocial>();
+
+
+
+            provider.CreateMap<UserSocial, SocialUserRecomendationViewModel>();
+
+            provider.CreateMap<Product, ProductViewModel>()
+                .ForMember(nameof(ProductViewModel.Images),
+                    product => product
+                        .MapFrom(dbProduct => dbProduct.StoreImages.Select(image => image.Url).ToList()));
+
+                
 
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);
@@ -210,6 +246,11 @@ namespace Net14.Web
 
             // Where could I go
             app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<ChatHub>("/chat");
+            });
 
             app.UseEndpoints(endpoints =>
             {

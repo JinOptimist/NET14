@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Net14.Web.EfStuff.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
+using Net14.Web.Services;
 
 namespace Net14.Web.Controllers
 { 
@@ -18,59 +19,57 @@ namespace Net14.Web.Controllers
     {
         private SocialFileRepository _socialFileRepository;    
         private IMapper _mapper;
+        private UserService _userService;
         public SocialFileController(IMapper mapper, 
-            SocialFileRepository socialFileRepository)
+            SocialFileRepository socialFileRepository,
+            UserService userService)
         {
             _mapper = mapper;
             _socialFileRepository= socialFileRepository;
+            _userService = userService;
         }
 
         [Authorize]
+        [HttpGet]
         public IActionResult MyFiles()
         {
-            return View();
-        }
-        public IActionResult AllFiles()
-        {
-            var files = _socialFileRepository.GetAll().Select(x =>
-                new FilesViewModel()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Text = x.Text,
-                    Url = x.Url
-                }).ToList();
+            var dbFiles = _userService.GetCurrent().Files;
+            var lastFile = dbFiles.OrderByDescending(file => file.Date);
+            var filesViewModel = _mapper.Map<List<FilesViewModel>>(dbFiles);
 
-            return View(files);
-        }
-        public IActionResult ShowMyFiles(int id)
-        {
-            var files = _socialFileRepository.Get(id);
-            var model = _mapper.Map<FilesViewModel>(files);
+            var finalModel = new FilesWithLastViewModel()
+            {
+                Files = filesViewModel,
+                LastFiles = _mapper.Map<List<FilesViewModel>>(lastFile)
+            };
 
-            return View(model);
-        }
-        [HttpGet]
-        public IActionResult AddFiles()
-        {
-            return View();
+            return View(finalModel);
         }
         [HttpPost]
-        public IActionResult AddFiles(FilesViewModel viewModel)
+        public IActionResult MyFiles(string Name, string Url, string Text)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(viewModel);
-            }
-            
-            var dbFiles = _mapper.Map<FileSocial>(viewModel);
-            _socialFileRepository.Save(dbFiles); // Сохраняйся 
+            var currentUser = _userService.GetCurrent();
 
-            return View();
+            var file = new FileSocial()
+            {
+                Name = Name,
+                Url = Url,
+                Text = Text,
+                Owner = currentUser,
+                
+            };
+            _socialFileRepository.Save(file);
+
+            return RedirectToAction("MyFiles");
         }
-        public IActionResult VideoHosting()
+        public IActionResult ShowMyFiles(int fileId)
         {
-            return View();
+            var Dbfile = _socialFileRepository.Get(fileId);
+            var fileViewModel = _mapper.Map<FilesViewModel>(Dbfile);
+
+            return View(fileViewModel);
         }
+        
+       
     }
 }

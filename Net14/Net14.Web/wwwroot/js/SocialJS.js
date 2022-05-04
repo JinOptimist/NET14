@@ -33,6 +33,8 @@ function ViewClosedForm(el)
 
     }
 }
+
+
 $(document).ready(function () {
     $("#settings-icon").click(function () {
         if ($("#header-settings").css("display") == "flex") {
@@ -52,14 +54,43 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $("#comment").click(function () {
-        if ($(".comments").css("display") == "none") {
-            $(".content-element-card").animate({ height: '1200px' }, "fast")
-            $(".comments").show();
-        }
-        else {
-            $(".content-element-card").animate({ height: '808px' }, "fast")
-            $(".comments").hide();
-        }
+    $(".operations.comment").click(function () {
+        $(this).closest(".content-element-card").find(".comments").slideToggle(200);
     })
 })
+
+
+
+$(document).ready(function () {
+    $(".add-post-header").click(function () {
+        $("#form-add-post").slideToggle();
+    });
+});
+$(document).ready(function () {
+    $(".add-file-header").click(function () {
+        $("#form-add-file").slideToggle();
+    });
+});
+$(document).ready(function () {
+    $(".show-file-header").click(function () {
+        $("#form-show-files").slideToggle();
+    });
+});
+
+$(document).ready(function () {
+    $(".select").click(function () {
+        $(".select.active").toggleClass("active");
+        $(this).toggleClass("active");
+    })
+})
+
+
+$(document).ready(function () {
+    $("#find-game").click(function () {
+        $(this)
+            .closest(".settings-div")
+            .find(".menu-games")
+            .toggle(100);
+    });
+});
+
