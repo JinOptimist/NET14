@@ -67,7 +67,6 @@
 }
 
     .carusel .image {
-        /*margin: 5px;*/
         display: flex;
         align-items: center;
     }
@@ -79,14 +78,17 @@
 
     .carusel .current {
         width: 200px;
+        padding: 5px;
     }
 
     .carusel .prev-step-1,
     .carusel .next-step-1 {
         width: 100px;
+        padding: 3px;
     }
 
     .carusel .prev-step-2,
     .carusel .next-step-2 {
         width: 1px;
+        padding: 0px;
     }
