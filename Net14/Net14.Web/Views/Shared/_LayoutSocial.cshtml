@@ -16,11 +16,12 @@
     <link rel="stylesheet" href="~/css/Shulte/FindGame.css">
     <link rel="stylesheet" href="~/css/SocialCss/NotificationsCss.css">
 
-
     <script language="JavaScript" type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/js/SocialJS/SocialJS.js"></script>
+
     @RenderSection("Scripts", required: false)
 
-    <script src="~/js/SocialJS/SocialJS.js"></script>
 </head>
 <body>
     <header class="header">
@@ -45,6 +46,7 @@
                         <span class="badge">@UserService.GetUsersNotifications()</span>
 
                     }
+
                 </li>
             }
             else
@@ -105,6 +107,7 @@
         <div class="menu-container">
             <div class="menu">
                 <div class="buttons-menu">
+
                     @if (User.Identity.IsAuthenticated) {
                         <div class="menu-element" onclick="location.href='/Social/ShowPagesProfile';">Profile</div>
                         <div class="menu-element" onclick="location.href='/SocialFile/MyFiles';">My Files</div>
@@ -136,6 +139,11 @@
                     </div>
                 }
             </div>
+        </div>
+    </div>
+    <div class="notif-div-bottom">
+        <div class="notif-div-bottom-content">
+            <img/>
         </div>
     </div>
     <footer class="footer">

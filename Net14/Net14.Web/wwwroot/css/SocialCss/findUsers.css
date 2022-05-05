@@ -177,7 +177,7 @@ form {
     width: 600px;
 }
 .friend-status-blocked {
-    margin-right: 250px;
+    margin-right: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -215,6 +215,19 @@ form {
     }
 
 .requested {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    background: rgb(22 222 48);
+    height: 36px;
+    border: 1px solid grey;
+    border-radius: 92px;
+    color: white;
+    border: 1px solid grey;
+}
+
+add-to-friends-button.requested {
     display: flex;
     justify-content: center;
     align-items: center;

@@ -24,7 +24,7 @@ namespace Net14.Web.Controllers
         public IActionResult GetCurrency(string cur) 
         {
             var model = _currencyService.GetCurrency(cur);
-            return View(model);
+            return Json(model);
 
         }
     }
