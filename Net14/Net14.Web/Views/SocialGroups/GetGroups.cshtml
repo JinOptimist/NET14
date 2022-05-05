@@ -1,6 +1,7 @@
 ﻿@using Net14.Web.Services;
 @model List<SocialGroupViewModel>
 @inject RecomendationsService recomendationService;
+
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
@@ -50,4 +51,15 @@
             </div>
         }
     </div>
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    @section ProfileBoxMenu
+    {                          
+     <div class="auth-userbox">          
+     <div class="auth-userbox-img"><img src="~/images/Social/User.jpg"></div>
+     <div class="auth-userbox-name"></div>
+     </div>
+    }
 }
