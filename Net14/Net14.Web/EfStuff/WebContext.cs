@@ -31,6 +31,8 @@ namespace Net14.Web.EfStuff
         public DbSet<StoreImage> StoreImages { get; set; }
 
         public DbSet<GroupTags> GroupTags { get; set; }
+        
+        public DbSet<SocialMessages> SocialMessages { get; set; }
    
 
 
@@ -62,7 +64,14 @@ namespace Net14.Web.EfStuff
             modelBuilder.Entity<UserSocial>()
                 .HasMany(x => x.Files)
                 .WithOne(x => x.Owner);
-            
+
+            modelBuilder.Entity<UserSocial>()
+                .HasMany(x => x.SendMessages)
+                .WithOne(x => x.Sender);
+
+            modelBuilder.Entity<UserSocial>()
+                .HasMany(x => x.RecievedMessages)
+                .WithOne(x => x.Reciever);
 
 
             modelBuilder.Entity<Image>()
