@@ -194,9 +194,9 @@ $(document).ready(() => {
         $(".notif-div-bottom-content").text(message);
         let photo = $('<img>').attr("src", userPhoto);
         $(".notif-div-bottom-content").append(photo);
-/*        setTimeout(function () {
+        setTimeout(function () {
             $(".notif-div-bottom").fadeOut(200);
-        }, 3000);*/
+        }, 3000);
     });
 
     $(document).on('click', ".accept-button", function () {
