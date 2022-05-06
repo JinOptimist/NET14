@@ -5,7 +5,9 @@
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
-<div class="dialog-user-info">
+<link rel="stylesheet" href="~/css/SocialCss/SocialSingleDialog.css">
+
+<div class="dialog-user-info" data-id=@Model.UserOfDialog.Id>
     <img src=@Model.UserOfDialog.UserPhoto class="user-photo">
     <div class="user-name">
         @Model.UserOfDialog.FirstName @Model.UserOfDialog.LastName
@@ -45,5 +47,5 @@
     <div class="message-send-button">Send</div>
 </div>
 @section Scripts{
-    <link rel="stylesheet" href="~/css/SocialCss/SocialSingleDialog.css">
+    <script src="~/js/SocialJS/SocialMessanger.js"></script>
 }

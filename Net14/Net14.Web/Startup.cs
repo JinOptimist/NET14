@@ -265,6 +265,7 @@ namespace Net14.Web
             {
                 endpoints.MapHub<ChatHub>("/chat");
                 endpoints.MapHub<NotificationsHub>("/notif");
+                endpoints.MapHub<SocialMessangerHub>("/messages");
             });
 
             app.UseEndpoints(endpoints =>

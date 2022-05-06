@@ -10,8 +10,6 @@ namespace Net14.Web.Models
 {
     public class FilesWithLastViewModel
     {
-        internal ClaimsPrincipal infouser;
-
         public List<FilesViewModel> Files { get; set; }
         public List<FilesViewModel> LastFiles { get; set; }
         public UserSocial User { get; internal set; }

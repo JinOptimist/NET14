@@ -4,27 +4,38 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Net14.Web.EfStuff.Repositories;
+using Net14.Web.EfStuff.DbModel.SocialDbModels;
 
 namespace Net14.Web.SignalRHubs
 {
     public class SocialMessangerHub : Hub
     {
+        private SocialUserRepository _socialUserRepository;
+        private SocialMessagesRepository _socialMessagesRepository;
         private UserService _userService;
 
-        public SocialMessangerHub(UserService userService)
+        public SocialMessangerHub(SocialMessagesRepository socialMessagesRepository, 
+            SocialUserRepository socialUserRepository, UserService userService)
         {
             _userService = userService;
+            _socialMessagesRepository = socialMessagesRepository;
+            _socialUserRepository = socialUserRepository;
         }
 
-        public void OneMoreClick()
+        public void SendMessage(string message, string userId)
         {
-            Clients.All.SendAsync("OneMoreClick");
-        }
+            var messageModel = new SocialMessages()
+            {
+                Sender = _userService.GetCurrent(),
+                Reciever = _socialUserRepository.Get(Int32.Parse(userId)),
+                Text = message
+            };
 
-        public void AddMessage(string message)
-        {
-            var name = _userService.GetCurrent()?.FirstName ?? "GUEST";
-            Clients.All.SendAsync("AddMessage", message, name);
+            _socialMessagesRepository.Save(messageModel);
+
+
+            Clients.User(userId).SendAsync("SendMessage", message);
         }
     }
 }
