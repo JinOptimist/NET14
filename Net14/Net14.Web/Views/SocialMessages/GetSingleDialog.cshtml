@@ -5,29 +5,42 @@
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
+<div class="message-main">
+    <div class="messages-overflow">
+        @foreach (var message in Model)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                <div class="single-message-container">
+                    <div class="user-message-info">
+                        @if (message.MessageType == MessageType.Recieved)
+                        {
+                            <img src=@message.Sender.UserPhoto class="user-photo">
+                            <div>
+                                @message.Sender.FirstName
+                            </div>
 
-@foreach(var message in Model) 
-{
-    <div>
-        <div class="">
-            @if (message.MessageType == MessageType.Recieved)
-            {
-                <img src=@message.Sender.UserPhoto class="user-photo">
-                <span>@message.Sender.FirstName</span>
+                        }
+                        else
+                        {
+                            <img src=@message.Reciever>
+                            <div>
+                                @message.Reciever.FirstName
+                            </div>
+                        }
+                    </div>
+                    <div class="message-text">
+                        @message.Text
+                    </div>
+                </div>
             }
-            else
-            {
-                <img src=@message.Reciever>
-                <span>@message.Reciever.FirstName</span>
-            }
-        </div>
-        <div>
-            @message.Text
-        </div>
+        }
     </div>
-}
-
-
+    <div class="input-container-message">
+        <input type="text" class="message-input">
+        <div class="send-button"></div>
+    </div>
+</div>
 @section Scripts{
     <link rel="stylesheet" href="~/css/SocialCss/SocialSingleDialog.css">
 }

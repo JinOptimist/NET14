@@ -1,1 +1,47 @@
-﻿
+﻿.message-main {
+    overflow-y: scroll;
+}
+
+.messages-overflow {
+    min-width: 550px;
+    height: 600px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.single-message-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 50px;
+    margin-bottom: 20px;
+}
+
+.user-message-info {
+    display: flex;
+    align-items: center;
+    height: 70px;
+    color: #2a5885;
+}
+
+.message-text {
+}
+
+.message-input {
+    width: 60%;
+}
+
+.input-container-message {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.send-button {
+    width: 20px;
+    height: 40px;
+    background: green;
+    margin-left: 20px;
+}
