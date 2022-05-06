@@ -59,7 +59,7 @@
         {
             <div class="usersCenter">
                 <div class="findUsers">
-                    <div class="find-recomendation-element-menu">
+                    <div class="find-recomendation-element-menu" data-friend=@user.Id>
                         <div class="user-name-and-photo">
                             <div class="find-user-photo">
                                 <img src=@user.UserPhoto class="find-user-photo" onclick="location.href = '/Social/ShowPagesProfile?id=@user.Id'">
@@ -83,13 +83,13 @@
                             }
                             else
                             {
-                                @if (user.IsRequested == true)
+                                @if (user.IsRequested)
                                 {
                                     <div class="requested">Requested</div>
                                 }
                                 else
                                 {
-                                    <div class="add-to-friends-button" onclick="location.href='@Url.Action("AddFriend", "Social", new { friendId = user.Id })'">Add to friends</div>
+                                    <div class="add-to-friends-button">Add to friends</div>
                                 }
                             }
                         </div>
@@ -99,6 +99,18 @@
         }
     }
 </div>
+@if (User.Identity.IsAuthenticated)
+{
+    @section ProfileBoxMenu
+    {                          
+     <div class="auth-userbox">          
+     <div class="auth-userbox-img"><img src="~/images/Social/User.jpg"></div>
+     <div class="auth-userbox-name"></div>
+     </div>
+    }
+}
 
 
-
+@section Scripts{ 
+    <script src="~/js/SocialJS/ShowAllUsersJs.js"></script>
+}

@@ -13,6 +13,8 @@ using Net14.Web.Services;
 using AutoMapper;
 using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using Net14.Web.Controllers.AutorizeAttribute;
+using Microsoft.AspNetCore.SignalR;
+using Net14.Web.SignalRHubs;
 
 namespace Net14.Web.Controllers
 {
@@ -27,6 +29,7 @@ namespace Net14.Web.Controllers
         private FriendRequestService _friendRequestService;
         private UserFriendRequestRepository _userFriendRequestRepository;
         private RecomendationsService _recomendationsService;
+        private IHubContext<NotificationsHub> _notificationsHub;
 
         public SocialController(SocialUserRepository socialUserRepository,
             SocialPostRepository socialPostRepository,
@@ -34,8 +37,10 @@ namespace Net14.Web.Controllers
             UserService userService, IMapper mapper,
             FriendRequestService friendRequestService,
             UserFriendRequestRepository userFriendRequestRepository,
-            RecomendationsService recomendationsService)
+            RecomendationsService recomendationsService,
+            IHubContext<NotificationsHub> hubContext)
         {
+            _notificationsHub = hubContext;
             _socialPostRepository = socialPostRepository;
             _socialUserRepository = socialUserRepository;
             _socialCommentRepository = socialCommentRepository;
@@ -168,11 +173,12 @@ namespace Net14.Web.Controllers
             return View(user);
         }
 
-        public IActionResult ShowPagesProfile(int id)
+        public IActionResult ShowPagesProfile()
         {
-
-            var user = _socialUserRepository.Get(id);
+            var postUser = _mapper.Map<List<SocialPostViewModel>>(_userService.GetCurrent().Posts);
+            var user = _userService.GetCurrent();
             var model = _mapper.Map<SocialProfileViewModel>(user);
+            model.UserPost = postUser;
 
             return View(model);
         }
@@ -217,15 +223,11 @@ namespace Net14.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult AddFriend(int friendId, string targetUrl)
+        public IActionResult AddFriend(int friendId)
         {
             var currentUserId = _userService.GetCurrent().Id;
             _friendRequestService.CreateFriendRequest(currentUserId, friendId);
-            if (targetUrl == null) 
-            {
-                return RedirectToAction("ShowAllUsers");
-            }
-            return Redirect(targetUrl);
+            return Ok();
 
         }
         [Authorize]
@@ -261,7 +263,7 @@ namespace Net14.Web.Controllers
         public IActionResult Friends()
         {
             var currentUser = _userService.GetCurrent();
-
+            
             var friends = currentUser.Friends;
 
             var model = _mapper.Map<List<SocialUserViewModel>>(friends);
