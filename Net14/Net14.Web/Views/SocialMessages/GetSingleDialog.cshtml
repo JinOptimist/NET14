@@ -1,45 +1,48 @@
 ﻿@using Net14.Web.Models.SocialModels.Enums;
-@model List<SocialMessageViewModel>
+@model SocialMessageWithUserViewModel
 
 
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
-<div class="message-main">
-    <div class="messages-overflow">
-        @foreach (var message in Model)
+<div class="dialog-user-info">
+    <img src=@Model.UserOfDialog.UserPhoto class="user-photo">
+    <div class="user-name">
+        @Model.UserOfDialog.FirstName @Model.UserOfDialog.LastName
+    </div>
+</div>
+<div class="main-message-container">
+    @foreach (var message in Model.Messages)
+    {
+        for (int i = 0; i < 20; i++)
         {
-            for (int i = 0; i < 10; i++)
+            @if (message.MessageType == MessageType.Recieved)
             {
-                <div class="single-message-container">
-                    <div class="user-message-info">
-                        @if (message.MessageType == MessageType.Recieved)
-                        {
-                            <img src=@message.Sender.UserPhoto class="user-photo">
-                            <div>
-                                @message.Sender.FirstName
-                            </div>
-
-                        }
-                        else
-                        {
-                            <img src=@message.Reciever>
-                            <div>
-                                @message.Reciever.FirstName
-                            </div>
-                        }
+                <div class="single-message recieved">
+                    <div class="message-text-recieved">
+                        @message.Text
                     </div>
-                    <div class="message-text">
+                </div>
+            }
+            else
+            {
+                <div class="single-message sent">
+                    <div class="message-text-sent">
                         @message.Text
                     </div>
                 </div>
             }
         }
+    }
+    <div class="single-message sent">
+        <div class="message-text-sent">
+            Bye
+        </div>
     </div>
-    <div class="input-container-message">
-        <input type="text" class="message-input">
-        <div class="send-button"></div>
-    </div>
+</div>
+<div class="message-inputs">
+    <input type="text" class="message-input">
+    <div class="message-send-button">Send</div>
 </div>
 @section Scripts{
     <link rel="stylesheet" href="~/css/SocialCss/SocialSingleDialog.css">

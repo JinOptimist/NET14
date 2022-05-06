@@ -14,5 +14,7 @@ namespace Net14.Web.Models
         public DateTime Date { get; set; }
         public MessageType MessageType { get; set; }
 
+        public SocialUserViewModel UserOfDialog { get; set; }
+
     }
 }
