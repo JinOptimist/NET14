@@ -1,0 +1,33 @@
+﻿@using Net14.Web.Models.SocialModels.Enums;
+@model List<SocialMessageViewModel>
+
+
+@{
+    Layout = "/Views/Shared/_LayoutSocial.cshtml";
+}
+
+@foreach(var message in Model) 
+{
+    <div>
+        <div class="">
+            @if (message.MessageType == MessageType.Recieved)
+            {
+                <img src=@message.Sender.UserPhoto class="user-photo">
+                <span>@message.Sender.FirstName</span>
+            }
+            else
+            {
+                <img src=@message.Reciever>
+                <span>@message.Reciever.FirstName</span>
+            }
+        </div>
+        <div>
+            @message.Text
+        </div>
+    </div>
+}
+
+
+@section Scripts{
+    <link rel="stylesheet" href="~/css/SocialCss/SocialSingleDialog.css">
+}

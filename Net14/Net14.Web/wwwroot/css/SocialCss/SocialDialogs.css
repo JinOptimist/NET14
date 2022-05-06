@@ -1,0 +1,19 @@
+﻿.dialog-element {
+    display: flex;
+    align-items: center;
+    width: 550px;
+    justify-content: flex-start;
+    border: 1px solid grey;
+    padding: 10px;
+    border-radius: 20px;
+    background: white;
+}
+
+.user-information {
+    margin-left: 50px;
+}
+
+.user-name-dialog {
+    font-weight: 700;
+    margin-bottom: 20px;
+}

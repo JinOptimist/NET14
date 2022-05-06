@@ -1,20 +1,37 @@
-﻿@model List<UserDialogViewModel> 
+﻿@using Net14.Web.Models.SocialModels.Enums;
+@model List<UserDialogViewModel>
+
 
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 
-@foreach(var dialog in Model) 
+@foreach (var dialog in Model)
 {
     <div class="dialog-element">
         <div class="user-photo">
             <img src=@dialog.User.UserPhoto>
         </div>
         <div class="user-information">
-            @dialog.User.FirstName @dialog.User.LastName
-        </div>
-        <div class="last-message">
-            @dialog.LastMessage.Text
+            <div class="user-name-dialog">
+                @dialog.User.FirstName @dialog.User.LastName
+            </div>
+            <div class="last-message">
+                @if (dialog.LastMessageType == MessageType.Recieved)
+                {
+                    <span>@dialog.User.FirstName:</span>
+                }
+                else
+                {
+                    <span>You:</span>
+                }
+                @dialog.LastMessage.Text
+            </div>
         </div>
     </div>
+}
+
+@section Scripts{
+    <link rel="stylesheet" href="~/css/SocialCss/SocialDialogs.css">
+
 }
