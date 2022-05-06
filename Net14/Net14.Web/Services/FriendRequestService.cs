@@ -37,7 +37,7 @@ namespace Net14.Web.Services
             }
         }
 
-        public async void Accept(int senderId, int receiverId)
+        public void Accept(int senderId, int receiverId)
         {
             if (Exists(senderId, receiverId) && _socialUserRepository.Exists(senderId) && _socialUserRepository.Exists(receiverId))
             {

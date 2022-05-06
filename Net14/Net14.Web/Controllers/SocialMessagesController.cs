@@ -33,12 +33,13 @@ namespace Net14.Web.Controllers
 
         public IActionResult GetDialogs()
         {
+            List<UserDialogViewModel> dialogViewModels = new List<UserDialogViewModel>();
             var currentUser = _userService.GetCurrent();
+            var currentUserViewModel = _mapper.Map<SocialUserViewModel>(currentUser);
 
             var recievedMessagesUsers = currentUser.RecievedMessages
                 .Select(user =>
                 user.Sender).ToList();
-
 
             var sentMessagesUsers = currentUser.SendMessages
                 .Select(user =>
@@ -46,7 +47,25 @@ namespace Net14.Web.Controllers
 
             var dialogsUsers = recievedMessagesUsers.Union(sentMessagesUsers).ToList();
 
-            return Json(messages);
+            foreach (var user in dialogsUsers) 
+            {
+                var mes = _socialMessagesRepository
+                    .GetAll()
+                    .Where(message => message.Sender == currentUser && message.Reciever == user
+                    || message.Reciever == currentUser && message.Sender == user).OrderByDescending(message => message.Date).First();
+
+                var message = _mapper.Map<SocialMessageViewModel>(mes);
+
+                dialogViewModels.Add(new UserDialogViewModel()
+                {
+                    CurrentUser = currentUserViewModel,
+                    User = _mapper.Map<SocialUserViewModel>(user),
+                    LastMessage = message
+                    
+                });
+            }
+
+            return View(dialogViewModels);
         }
 
     }

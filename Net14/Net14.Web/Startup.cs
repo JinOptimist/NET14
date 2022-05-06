@@ -95,8 +95,7 @@ namespace Net14.Web
 
             services.AddScoped<VideoSocialRepository>(x =>
                 new VideoSocialRepository(x.GetService<WebContext>()));
-            services.AddScoped<SocialDialogRepository>(x =>
-                new SocialDialogRepository(x.GetService<WebContext>()));
+
 
             services.AddScoped<RecomendationsService>(x =>
                 new RecomendationsService(
@@ -220,6 +219,8 @@ namespace Net14.Web
             provider.CreateMap<SocialUserSettingsViewModel, UserSocial>();
 
             provider.CreateMap<UserSocial, SocialUserRecomendationViewModel>();
+
+            provider.CreateMap<SocialMessages, SocialMessageViewModel>();
 
             provider.CreateMap<Product, ProductViewModel>()
                 .ForMember(nameof(ProductViewModel.Images),

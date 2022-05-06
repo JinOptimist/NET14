@@ -1,0 +1,20 @@
+﻿@model List<UserDialogViewModel> 
+
+@{
+    Layout = "/Views/Shared/_LayoutSocial.cshtml";
+}
+
+@foreach(var dialog in Model) 
+{
+    <div class="dialog-element">
+        <div class="user-photo">
+            <img src=@dialog.User.UserPhoto>
+        </div>
+        <div class="user-information">
+            @dialog.User.FirstName @dialog.User.LastName
+        </div>
+        <div class="last-message">
+            @dialog.LastMessage.Text
+        </div>
+    </div>
+}
