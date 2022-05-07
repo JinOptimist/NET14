@@ -148,7 +148,7 @@ body {
 
 .text {
     margin-left: 80px;
-    margin-right: 80px;
+    margin-right: 30px;
     font-size: 43px;
 }
 
@@ -182,7 +182,7 @@ body {
     color: #ffffff;
     font-family: Courier New, monospace;
     font-size: 15px;
-    padding: 6px 200px;
+    padding: 6px 190px;
     text-decoration: none;
     text-shadow: 0px 1px 0px #2b665e;
 }
@@ -295,9 +295,9 @@ body {
     cursor: pointer;
     color: #666666;
     font-family: Courier New, monospace;
-    font-size: 15px;
+    font-size: 10px;
     font-weight: bold;
-    padding: 20px 20px;
+    padding: 15px 15px;
     text-decoration: none;
     text-shadow: 0px 1px 0px #ffffff;
 }
@@ -305,6 +305,7 @@ body {
 .buttonssize {
     margin-top: 25px;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .similarproduct {
@@ -691,4 +692,44 @@ section__account {
     flex-direction: column;
     padding: 10vw 20vw 8vw;
     background: rgba(0,0,0,.03);
+}
+.addProductBody {
+    padding-top: 50px;
+    display: flex;
+}
+.addProductBlock1{
+    padding-left:50px;
+}
+
+.addProductBlock2 {
+    margin-left: 30px;
+    margin-right: 10px;
+    border: 1px solid #5A6169;
+}
+.iconAddProduct {
+    border: 1px solid #5A6169;
+    width: 110px;
+    height: 110px;
+    border-radius: 10px;
+    margin: 5px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.icon1AddProduct {
+    border: 1px solid #5A6169;
+    display: flex;
+    flex: 1;
+    border-radius: 10px;
+    width: 480px;
+    height: 480px;
+    margin: 5px
+}
+.iconshoesAddProduct {
+    width: 123px;
+    height: 123px;
+}
+.fotoAddProduct {
+    display: flex;
+    margin-top: 15px;
+    margin-left: 30px;
 }
