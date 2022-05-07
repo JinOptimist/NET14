@@ -47,14 +47,48 @@
     height: 300px;
 }
 
-.image-block.complete{
-    opacity: 0.5;
-}
+    .image-block.complete {
+        opacity: 0.5;
+    }
 
-.image-block.backside {
-    background: aliceblue;
-}
+    .image-block.backside {
+        background: aliceblue;
+    }
 
         .image-block.backside .girl-image {
             display: none;
         }
+
+.carusel {
+    display: flex;
+    height: 400px;
+    align-items: center;
+    justify-content: center;
+}
+
+    .carusel .image {
+        display: flex;
+        align-items: center;
+    }
+
+        .carusel .image img {
+            border-radius: 5px;
+            width: 100%;
+        }
+
+    .carusel .current {
+        width: 200px;
+        padding: 5px;
+    }
+
+    .carusel .prev-step-1,
+    .carusel .next-step-1 {
+        width: 100px;
+        padding: 3px;
+    }
+
+    .carusel .prev-step-2,
+    .carusel .next-step-2 {
+        width: 1px;
+        padding: 0px;
+    }
