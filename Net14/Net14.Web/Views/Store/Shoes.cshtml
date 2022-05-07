@@ -37,13 +37,13 @@
                 <span><img src="/images/Store/star_black.png" class="star"></span>
             </div>
             <div class="cost">@Model.Price $</div>
-            <div class="instock">В наличии</div>
+            <div class="instock">In stock</div>
             <div class="category">
-                <div>Пол:@Model.Gender</div>
-                <div>Материал: @Model.CoolMaterial</div>
-                <div>Страна производства: Вьетнам</div>
-                <div>Предназначение: @Model.CoolCategories</div>
-                <div>Цвет:@Model.CoolColors</div>
+                <div>Gender:@Model.Gender</div>
+                <div>Material: @Model.CoolMaterial</div>
+                <div>Сountry of production:Vietnam </div>
+                <div>Category: @Model.CoolCategories</div>
+                <div>Color:@Model.CoolColors</div>
                 <div class="buttonssize">
                     @foreach (var size in Model.Sizes)
                     {
@@ -51,12 +51,12 @@
                     }
                 </div>
             </div>
-            <a href="#" class="toBasket">В корзину</a>
+            <a href="#" class="toBasket">Add to Basket</a>
         </div>
 
     </div>
     <div class="similar">
-        <div class="similartext"> Похожие товары </div>
+        <div class="similartext"> Similar products </div>
         <div class="similarproducts">
             @foreach (var image in Model.RandomImages)
             {
