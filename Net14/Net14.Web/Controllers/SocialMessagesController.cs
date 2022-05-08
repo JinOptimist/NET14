@@ -64,7 +64,7 @@ namespace Net14.Web.Controllers
                     CurrentUser = currentUserViewModel,
                     User = _mapper.Map<SocialUserViewModel>(user),
                     LastMessage = message,
-                    LastMessageType = message.Sender == currentUserViewModel ? MessageType.Sent : MessageType.Recieved
+                    LastMessageType = message.Sender.Id == currentUserViewModel.Id ? MessageType.Sent : MessageType.Recieved
 
                 });
 

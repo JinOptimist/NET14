@@ -6,9 +6,11 @@
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 
+
+<div class="dialog-header">Dialogs</div>
 @foreach (var dialog in Model)
 {
-    <div class="dialog-element">
+    <div class="dialog-element" onclick="location.href = '/SocialMessages/GetSingleDialog?dialogFriendId=@dialog.User.Id'">
         <div class="user-photo">
             <img src=@dialog.User.UserPhoto>
         </div>

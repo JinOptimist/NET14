@@ -1,16 +1,31 @@
-﻿.single-message.recieved {
+﻿.single-message-recieved {
     display: flex;
     align-items: flex-start;
     flex-direction: column;
     margin-bottom: 30px;
+    animation: show 1s;
 }
 
-.single-message.sent {
+.single-message-sent {
     display: flex;
     align-items: flex-end;
     flex-direction: column;
     margin-bottom: 30px;
+    animation: show 1s;
 }
+
+@keyframes show {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
 
 .main-message-container {
     width: 80%;
@@ -29,8 +44,9 @@
     border: 1px solid;
     padding: 10px;
     border-radius: 20px;
-    background: rgb(59 53 67);
+    background-color: rgb(45 45 45);
     color: white;
+    word-break: break-all;
 }
 
 .message-text-sent {
@@ -40,6 +56,7 @@
     border-radius: 20px;
     background: rgb(118 106 200);
     color: white;
+    word-break: break-all;
 }
 
 .dialog-user-info {
@@ -63,6 +80,7 @@
 .message-input {
     width: 70%;
     padding: 5px;
+    height: 36px;
     border-radius: 20px;
 }
 
@@ -75,4 +93,13 @@
     border-radius: 20px;
     width: 100px;
     height: 50px;
+    border: none;
+}
+
+.single-message-sent.template {
+    display: none;
+}
+
+.single-message-recieved.template {
+    display: none;
 }

@@ -16,36 +16,39 @@
 <div class="main-message-container">
     @foreach (var message in Model.Messages)
     {
-        for (int i = 0; i < 20; i++)
+        @if (message.MessageType == MessageType.Recieved)
         {
-            @if (message.MessageType == MessageType.Recieved)
-            {
-                <div class="single-message recieved">
-                    <div class="message-text-recieved">
-                        @message.Text
-                    </div>
+            <div class="single-message-recieved">
+                <div class="message-text-recieved">
+                    @message.Text
                 </div>
-            }
-            else
-            {
-                <div class="single-message sent">
-                    <div class="message-text-sent">
-                        @message.Text
-                    </div>
+            </div>
+        }
+        else
+        {
+            <div class="single-message-sent">
+                <div class="message-text-sent">
+                    @message.Text
                 </div>
-            }
+            </div>
         }
     }
-    <div class="single-message sent">
-        <div class="message-text-sent">
-            Bye
-        </div>
+</div>
+
+<div class="single-message-sent template">
+    <div class="message-text-sent">
     </div>
 </div>
-<div class="message-inputs">
-    <input type="text" class="message-input">
-    <div class="message-send-button">Send</div>
+
+<div class="single-message-recieved template">
+    <div class="message-text-recieved">
+    </div>
 </div>
+
+<form class="message-inputs">
+    <input type="text" class="message-input">
+    <input type="submit" class="message-send-button" value="Send">
+</form>
 @section Scripts{
     <script src="~/js/SocialJS/SocialMessanger.js"></script>
 }

@@ -68,6 +68,7 @@ body {
     padding: 10px;
     align-items: center;
     transition: background 0.3s ease;
+    cursor: pointer;
 }
 
 .menu-element:hover
