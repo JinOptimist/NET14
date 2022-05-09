@@ -13,8 +13,8 @@ namespace Net14.Web.Models
         public string Text { get; set; }
         public DateTime Date { get; set; }
         public MessageType MessageType { get; set; }
-
         public SocialUserViewModel UserOfDialog { get; set; }
+        public bool IsViewdByReciever { get; set; }
 
     }
 }

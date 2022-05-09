@@ -14,6 +14,8 @@ using AutoMapper;
 using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using Net14.Web.Controllers.AutorizeAttribute;
 using Net14.Web.Models.SocialModels.Enums;
+using Net14.Web.SignalRHubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Net14.Web.Controllers
 {
@@ -24,14 +26,18 @@ namespace Net14.Web.Controllers
         private SocialUserRepository _socialUserRepository;
         private UserService _userService;
         private IMapper _mapper;
+        private IHubContext<SocialMessangerHub> _messageHub;
+
 
         public SocialMessagesController(SocialMessagesRepository socialMessagesRepository,
-            IMapper mapper, UserService userService, SocialUserRepository socialUserRepository)
+            IMapper mapper, UserService userService, SocialUserRepository socialUserRepository,
+            IHubContext<SocialMessangerHub> hubContext)
         {
             _socialUserRepository = socialUserRepository;
             _socialMessagesRepository = socialMessagesRepository;
             _userService = userService;
             _mapper = mapper;
+            _messageHub = hubContext;
         }
 
         public IActionResult GetDialogs()
@@ -52,10 +58,7 @@ namespace Net14.Web.Controllers
 
             foreach (var user in dialogsUsers)
             {
-                var mes = _socialMessagesRepository
-                    .GetAll()
-                    .Where(message => message.Sender == currentUser && message.Reciever == user
-                    || message.Reciever == currentUser && message.Sender == user).OrderByDescending(message => message.Date).First();
+                var mes = _socialMessagesRepository.GetLastMessage(currentUser.Id, user.Id);
 
                 var message = _mapper.Map<SocialMessageViewModel>(mes);
 
@@ -73,18 +76,24 @@ namespace Net14.Web.Controllers
             return View(dialogViewModels);
         }
 
-        public IActionResult GetSingleDialog(int dialogFriendId)
+        public async Task<IActionResult> GetSingleDialog(int dialogFriendId)
         {
             var user = _socialUserRepository.Get(dialogFriendId);
 
             var userViewModel = _mapper.Map<SocialUserViewModel>(user);
             var currentUser = _userService.GetCurrent();
 
-            var dbMessages = _socialMessagesRepository
-                .GetAll()
-                .Where(message => message.Sender == user && message.Reciever == currentUser
-                        ||
-                        message.Reciever == user && message.Sender == currentUser).ToList();
+            var dbMessages = _socialMessagesRepository.GetMessagesOfTwoUsers(dialogFriendId, currentUser.Id);
+
+            dbMessages.ForEach(message =>
+            {
+                if (message.Reciever.Id == currentUser.Id)
+                {
+                    message.IsViewdByReciever = true;
+                }
+            });
+
+            _socialMessagesRepository.SaveList(dbMessages);
 
             var messagesViewModel = _mapper.Map<List<SocialMessageViewModel>>(dbMessages);
 
@@ -105,7 +114,11 @@ namespace Net14.Web.Controllers
                 Messages = messagesViewModel,
                 UserOfDialog = userViewModel
             };
-            
+
+            await _messageHub.Clients.User(dialogFriendId.ToString()).SendAsync("MessagesAreViewed");
+
+
+
             return View(finalModel);
         }
 

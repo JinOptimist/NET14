@@ -12,6 +12,7 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
         public virtual UserSocial Reciever { get; set; }
         public string Text { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
+        public bool IsViewdByReciever { get; set; } = false;
 
     }
 }

@@ -5,6 +5,7 @@
         .withUrl("/messages")
         .build();
 
+
     $(".message-send-button").click(function (e) {
         e.preventDefault();
         var time = new Date();
@@ -34,6 +35,10 @@
         messageRecieved.removeClass("template");
         $(".main-message-container").scrollTop($(".main-message-container").prop('scrollHeight'));
     });
+
+    hubConnection.on("MessagesAreViewed", function () {
+    });
+
 
     hubConnection.start();
 });
