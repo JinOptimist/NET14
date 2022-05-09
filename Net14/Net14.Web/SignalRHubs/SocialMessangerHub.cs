@@ -35,7 +35,7 @@ namespace Net14.Web.SignalRHubs
             _socialMessagesRepository.Save(messageModel);
 
 
-            Clients.User(userId).SendAsync("RecievedMessage", message);
+            Clients.User(userId).SendAsync("RecievedMessage", message, messageModel.Date.ToShortTimeString());
             
         }
     }

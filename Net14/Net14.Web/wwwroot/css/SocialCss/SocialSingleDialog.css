@@ -40,7 +40,8 @@
 }
 
 .message-text-recieved {
-    max-width: 50%;
+    display: flex;
+    max-width: 70%;
     border: 1px solid;
     padding: 10px;
     border-radius: 20px;
@@ -50,7 +51,8 @@
 }
 
 .message-text-sent {
-    max-width: 50%;
+    display: flex;
+    max-width: 70%;
     border: 1px solid;
     padding: 10px;
     border-radius: 20px;
@@ -102,4 +104,24 @@
 
 .single-message-recieved.template {
     display: none;
+}
+
+.recieved-time {
+    font-size: 10px;
+    min-width: 27px;
+    display: flex;
+    align-items: end;
+    margin-left: 5px;
+}
+
+.sent-time {
+    font-size: 10px;
+    min-width: 27px;
+    display: flex;
+    align-items: end;
+    margin-left: 5px;
+}
+
+.txt {
+    padding-bottom: 5px;
 }

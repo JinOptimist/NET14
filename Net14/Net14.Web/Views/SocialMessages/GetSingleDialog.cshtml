@@ -20,7 +20,8 @@
         {
             <div class="single-message-recieved">
                 <div class="message-text-recieved">
-                    @message.Text
+                    <div class="txt">@message.Text</div>
+                    <div class="recieved-time">@message.Date.ToShortTimeString()</div>
                 </div>
             </div>
         }
@@ -28,7 +29,8 @@
         {
             <div class="single-message-sent">
                 <div class="message-text-sent">
-                    @message.Text
+                    <div class="txt">@message.Text</div>
+                    <div class="sent-time">@message.Date.ToShortTimeString()</div>
                 </div>
             </div>
         }
@@ -37,11 +39,15 @@
 
 <div class="single-message-sent template">
     <div class="message-text-sent">
+        <div class="txt"></div>
+        <div class="sent-time"></div>
     </div>
 </div>
 
 <div class="single-message-recieved template">
     <div class="message-text-recieved">
+        <div class="txt"></div>
+        <div class="recieved-time"></div>
     </div>
 </div>
 
