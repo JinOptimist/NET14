@@ -12,5 +12,6 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums
         User = 2,
         StoreAdmin = 4,
         ImageAdmin = 8,
+        CalendarAdmin = 16,
     }
 }

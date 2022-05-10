@@ -28,6 +28,7 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
         public virtual List<UserFriendRequest> FriendRequestReceived { get; set; } = new List<UserFriendRequest>();
         public virtual Basket Basket { get; set; }
         public bool IsBlocked { get; set; }
+        public virtual List<DaysNote> DaysNotes { get; set; }
 
     }
 }

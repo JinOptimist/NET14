@@ -490,6 +490,20 @@ namespace Net14.Web.EfStuff
                     UserPhoto = "/images/Social/User.jpg"
                 };
                 userRepository.Save(user3);
+                
+                var user4 = new UserSocial()
+                {
+                    FirstName = "cadmin",
+                    LastName = "cadmin",
+                    Age = 27,
+                    City = "Minsk",
+                    Country = "Belarus",
+                    Email = "cadmin",
+                    Password = "cadmin",
+                    UserPhoto = "/images/Social/User.jpg",
+                    Role = SiteRole.CalendarAdmin
+                };
+                userRepository.Save(user4);
             }
         }
 
