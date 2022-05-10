@@ -26,10 +26,14 @@
 <body>
     <header class="header">
         <div class="logo">
-            <img src="~/images/Social/j.png">                
+            <img src="~/images/Social/j.png">
         </div>
-        @if (User.Identity.IsAuthenticated) {
-            @RenderSection("ProfileBoxMenu", required: false)            
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="auth-userbox">
+                <div class="auth-userbox-img" onclick="location.href='/Social/MyProfile';"><img src="~/images/Social/User.jpg"></div>
+                <div class="auth-userbox-name">@UserService.GetCurrent().LastName @UserService.GetCurrent().FirstName</div>
+            </div>
         }
         <div class="header-search">
             <input placeholder="Search">
@@ -37,7 +41,8 @@
         <ul class="navigation">
             <li class="navigation-element"><a href="/Social/Index">Home</a></li>
 
-            @if (User.Identity.IsAuthenticated) {
+            @if (User.Identity.IsAuthenticated)
+            {
                 <li class="navigation-element"><a href="/SocialAuthentication/SignOut">Sign out</a></li>
                 <li class="navigation-element" id="notification-icon" @*onclick="location.href='/Social/Notification'"*@ ;>
 
@@ -110,7 +115,7 @@
 
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <div class="menu-element" onclick="location.href='/Social/ShowPagesProfile';">Profile</div>
+                        <div class="menu-element" onclick="location.href='/Social/ShowPagesProfile';">My Posted</div>
                         <div class="menu-element" onclick="location.href='/SocialFile/MyFiles';">My Files</div>
                         <div class="menu-element" onclick="location.href='/SocialRecomendation/Recomendations';">Recomendation</div>
                         <div class="menu-element" onclick="location.href='/SocialMessages/GetDialogs';">Messages</div>
@@ -148,7 +153,7 @@
     </div>
     <div class="notif-div-bottom">
         <div class="notif-div-bottom-content">
-            <img/>
+            <img />
         </div>
     </div>
     <footer class="footer">
