@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Net14.Web.EfStuff.DbModel;
 using Net14.Web.EfStuff.Repositories;
 using Net14.Web.Models;
 using Net14.Web.Models.gallery;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 
@@ -15,14 +17,17 @@ namespace Net14.Web.Controllers
         private ImageRepository _imageRepository;
         private ImageCommentRepository _commentRepository;
         private IMapper _mapper;
+        private IWebHostEnvironment _webHostEnvironment;
 
         public GalleryController(ImageRepository imageRepository,
-            ImageCommentRepository commentRepository, 
-            IMapper mapper)
+            ImageCommentRepository commentRepository,
+            IMapper mapper,
+            IWebHostEnvironment webHostEnvironment)
         {
             _imageRepository = imageRepository;
             _commentRepository = commentRepository;
             _mapper = mapper;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Index(int page = 1)
@@ -91,20 +96,27 @@ namespace Net14.Web.Controllers
             }
 
             var dbImage = _mapper.Map<Image>(viewModel);
-            //var dbImage = new Image()
-            //{
-            //    Name = viewModel.Name,
-            //    Rate = viewModel.Rate,
-            //    Url = viewModel.Url
-            //};
-
             var adminComment = new ImageComment()
             {
                 Text = "First comment"
             };
-
             dbImage.Comments = new List<ImageComment>() { adminComment };
 
+            _imageRepository.Save(dbImage);
+
+            var extension = Path.GetExtension(viewModel.GirlImage.FileName);
+            var fileName = $"girl{dbImage.Id}{extension}";
+            var path = Path.Combine(
+                _webHostEnvironment.WebRootPath,
+                "images",
+                "gallery",
+                fileName);
+            using (var fs = new FileStream(path, FileMode.CreateNew))
+            {
+                viewModel.GirlImage.CopyTo(fs);
+            }
+
+            dbImage.Url = $"/images/gallery/{fileName}";
             _imageRepository.Save(dbImage);
 
             return View();

@@ -33,12 +33,10 @@
 
     $('.carusel').mouseover(function () {
         isHovered = true;
-        console.log('mouseover');
     });
 
     $('.carusel').mouseout(function () {
         isHovered = false;
-        console.log('mouseout');
     });
 
     $('.next-step-1').click(function () {
