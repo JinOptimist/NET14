@@ -1,7 +1,8 @@
 @using Net14.Web.EfStuff.Repositories
 @using Net14.Web.Models.Calendar.Test
+@using Net14.Web.Services
 
-@model DaysNoteRepository 
+@model UserService;
 
 
 @{
@@ -20,7 +21,7 @@
     {
         <div>
             Welcome!
-            
+            @Model.GetCurrent().FirstName
           <div class="navigation-element"><a href="/Calendar/LogOut">LogOut</a></div>
         </div>
     }
@@ -28,8 +29,8 @@
     {
        <div>
             please, autorize to see your notes
-       <a href="/Calendar/Registration">Registration</a>
-       <a href="/Calendar/Autorization">Autorization</a> 
+       <a href="/SocialAuthentication/Registration">Registration</a>
+       <a href="/SocialAuthentication/Autorization">Autorization</a> 
        </div>
     }
     

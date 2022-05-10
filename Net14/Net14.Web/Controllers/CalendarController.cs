@@ -1,13 +1,18 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Net14.Web.Controllers.AutorizeAttribute;
 using Net14.Web.EfStuff;
 using Net14.Web.EfStuff.DbModel;
-using Net14.Web.EfStuff.DbModel.CalendarDbModels;
+using Net14.Web.EfStuff.DbModel.SocialDbModels;
+using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using Net14.Web.EfStuff.Repositories;
 using Net14.Web.Models;
 using Net14.Web.Models.Calendar;
 using Net14.Web.Models.Calendar.Test;
+using Net14.Web.Services;
+using Net14.Web.SignalRHubs;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -20,17 +25,23 @@ namespace Net14.Web.Controllers
     public class CalendarController : Controller
     {
         private DaysNoteRepository _DaysNoteRepository;
-        private CalendarUsersRepository _CalendarUsersRepository;
-
-        public CalendarController(DaysNoteRepository daysNoteRepository, CalendarUsersRepository calendarUsersRepository)
+        private SocialUserRepository _SocialUserRepository;
+        private UserService _UserService;
+        private IMapper _mapper;
+        private IHubContext<ChatHub> _chatHub;
+        public CalendarController(DaysNoteRepository daysNoteRepository, SocialUserRepository socialUserRepository,
+            UserService userService, IMapper mapper, IHubContext<ChatHub> chatHub)
         {
             _DaysNoteRepository = daysNoteRepository;
-            _CalendarUsersRepository = calendarUsersRepository;
+            _SocialUserRepository = socialUserRepository;
+            _UserService = userService;
+            _mapper = mapper;
+            _chatHub = chatHub;
         }
 
         public IActionResult Index()
         {
-            return View();
+            return View(_UserService);
         }
 
         public IActionResult TestCalendar(int year=2022,int month=4)
@@ -47,11 +58,8 @@ namespace Net14.Web.Controllers
             }
 
             var dbNotes = _DaysNoteRepository.GetAll()
-                .Where(x => x.EventDate.Month == month && x.EventDate.Year == year
-                 && x.CalendarUser == _CalendarUsersRepository.GetAll()
-                .FirstOrDefault(x => User.Identity.IsAuthenticated == true) &&
-                x.UserName == _CalendarUsersRepository.Get(_CalendarUsersRepository.GetAll()
-                .FirstOrDefault(x => User.Identity.IsAuthenticated == true).Id).Name);
+                .Where(x=>x.EventDate.Month == month && x.EventDate.Year == year 
+                && x.CalendarUser == _UserService.GetCurrent());
 
             var dayses = new List<int>();
             switch (new DateTime(year, month, 1).DayOfWeek.ToString())
@@ -128,23 +136,18 @@ namespace Net14.Web.Controllers
             
         }
         [HttpGet]
-        [CalendarRole(Roles.User)]
         public IActionResult AddNote()
         {
             return View();
         }
         [HttpPost]
-        [CalendarRole(Roles.User)]
         public IActionResult AddNote(TestNotesViewModel viewModel, int year, int month, int day)
         {
             var dbNote = new DaysNote()
             {
                 Text = viewModel.Text,
                 EventDate = viewModel.EventDate,
-                CalendarUser = _CalendarUsersRepository.GetAll()
-                .FirstOrDefault(x => User.Identity.IsAuthenticated == true),
-                UserName = _CalendarUsersRepository.Get(_CalendarUsersRepository.GetAll()
-                .FirstOrDefault(x => User.Identity.IsAuthenticated == true).Id).Name
+                CalendarUser = _UserService.GetCurrent()
             };
             _DaysNoteRepository.Save(dbNote);
             return RedirectToAction("WatchCurrentNotes", new {year = dbNote.EventDate.Year, month = dbNote.EventDate.Month,
@@ -161,12 +164,10 @@ namespace Net14.Web.Controllers
             return RedirectToAction("TestCalendar");
         }
         
-        [CalendarRole(Roles.Admin)]
         public IActionResult WatchAllNotes()
         {
             var dbNotes = _DaysNoteRepository.GetAll().Where(x=>x.Text != null && x.CalendarUser ==
-            _CalendarUsersRepository.GetAll()
-                .FirstOrDefault(x => User.Identity.IsAuthenticated == true));
+            _UserService.GetCurrent());
             var model = new TestCalendarViewModel()
             {
                 Notes = dbNotes.Select(x => new TestNotesViewModel()
@@ -183,10 +184,7 @@ namespace Net14.Web.Controllers
                 .Where(x => x.EventDate.Year == year && x.EventDate.Month == month
                 && x.EventDate.Day == day)
                 .Where(x => x.Text != null && x.CalendarUser ==
-            _CalendarUsersRepository.GetAll()
-                .FirstOrDefault(x => User.Identity.IsAuthenticated == true)&&
-                x.UserName == _CalendarUsersRepository.Get(_CalendarUsersRepository.GetAll()
-                .FirstOrDefault(x => User.Identity.IsAuthenticated == true).Id).Name);
+            _UserService.GetCurrent());
             var model = new TestCalendarViewModel()
             {
                 Notes = dbNotes.Select(x => new TestNotesViewModel()
@@ -203,10 +201,7 @@ namespace Net14.Web.Controllers
                 .Where(x => x.EventDate.Year == year && x.EventDate.Month == month
                 && x.EventDate.Day == day)
                 .Where(x => x.Text != null && x.CalendarUser ==
-            _CalendarUsersRepository.GetAll()
-                .FirstOrDefault(x => User.Identity.IsAuthenticated == true) &&
-                x.UserName == _CalendarUsersRepository.Get(_CalendarUsersRepository.GetAll()
-                .FirstOrDefault(x => User.Identity.IsAuthenticated == true).Id).Name);
+            _UserService.GetCurrent());
             var model = new TestCalendarViewModel()
             {
                 Notes = dbNotes.Select(x => new TestNotesViewModel()
@@ -220,65 +215,6 @@ namespace Net14.Web.Controllers
             return Json(model1);
         }
         [HttpGet]
-        public IActionResult Registration()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Registration(TestCalendarUserRegistration user)
-        {
-            if (ModelState.IsValid)
-            {
-                var userdb = new CalendarUser()
-                {
-                    Name = user.Name,
-                    Password = user.Password,
-                    Email = user.Email,
-                };
-                _CalendarUsersRepository.Save(userdb);
-
-                return RedirectToRoute("default", new { controller = "Calendar", action = "TestCalendar", id = userdb.Id });
-            }
-            else
-            {
-                return View();
-
-            }
-        }
-        [HttpGet]
-        public IActionResult Autorization()
-        {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Autorization(TestCalendarUserAutorization userViewModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
-
-            var user = _CalendarUsersRepository.GetByNameAndPass(userViewModel.Name, userViewModel.Password);
-
-            if (user == null)
-            {
-                return View();
-            }
-
-            var claims = new List<Claim>() {
-                new Claim("Id", user.Id.ToString()),
-                new Claim("Name", user.Name),
-                new Claim(ClaimTypes.AuthenticationMethod, Startup.AuthName)
-            };
-
-            var identity = new ClaimsIdentity(claims, Startup.AuthName);
-
-            var principal = new ClaimsPrincipal(identity);
-
-            await HttpContext.SignInAsync(principal);
-
-            return RedirectToRoute("default", new { controller = "Calendar", action = "TestCalendar", id = user.Id });
-        }
         public async Task<IActionResult> LogOut()
         {
             await HttpContext.SignOutAsync(Startup.AuthName);

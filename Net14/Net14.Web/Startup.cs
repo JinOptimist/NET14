@@ -70,8 +70,6 @@ namespace Net14.Web
                 new DaysNoteRepository(x.GetService<WebContext>()));
             services.AddScoped<ImageRepository>(x =>
                 new ImageRepository(x.GetService<WebContext>()));
-            services.AddScoped<CalendarUsersRepository>(x =>
-                new CalendarUsersRepository(x.GetService<WebContext>()));
             services.AddScoped<ImageCommentRepository>(x =>
                 new ImageCommentRepository(x.GetService<WebContext>()));
 
@@ -106,7 +104,6 @@ namespace Net14.Web
             services.AddScoped<UserService>(x =>
                 new UserService(
                     x.GetService<SocialUserRepository>(),
-                    x.GetService<CalendarUsersRepository>(),
                     x.GetService<IHttpContextAccessor>(),
                     x.GetService<IMapper>()));
 
