@@ -1,0 +1,27 @@
+﻿.carusel {
+    display: flex;
+    justify-content: center;
+}
+
+
+.current img {
+    width: 400px;
+    border-radius: 20px;
+    border: 2px solid black;
+    margin: 10px;
+}
+.prev-step-1 img,
+.next-step-1 img {
+    width: 200px;
+    border-radius: 20px;
+    border: 2px solid black;
+    margin: 10px;
+}
+
+.prev-step-2 img,
+.next-step-2 img {
+    width: 0;
+    border-radius: 20px;
+    border: 2px solid black;
+    margin: 10px;
+}
