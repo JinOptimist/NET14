@@ -688,6 +688,11 @@ input.comm:not(.active) {
             border-radius: 70px;
         }
 
+        .auth-userbox-img:hover {
+            cursor: pointer;
+            box-shadow: 0 0 30px, 0 0 0 #b5b5b5;
+        }
+
     .auth-userbox-name {
         margin-top: 18px;
         margin-left: 15px;
