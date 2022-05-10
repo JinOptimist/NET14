@@ -88,11 +88,15 @@ namespace Net14.Web
             services.AddScoped<SocialCommentRepository>(x =>
                 new SocialCommentRepository(x.GetService<WebContext>()));
 
+            services.AddScoped<SocialMessagesRepository>(x =>
+                new SocialMessagesRepository(x.GetService<WebContext>())); 
+
             services.AddScoped<SocialGroupRepository>(x =>
                 new SocialGroupRepository(x.GetService<WebContext>()));
 
             services.AddScoped<VideoSocialRepository>(x =>
                 new VideoSocialRepository(x.GetService<WebContext>()));
+
 
             services.AddScoped<RecomendationsService>(x =>
                 new RecomendationsService(
@@ -220,9 +224,9 @@ namespace Net14.Web
 
             provider.CreateMap<SocialUserSettingsViewModel, UserSocial>();
 
-
-
             provider.CreateMap<UserSocial, SocialUserRecomendationViewModel>();
+
+            provider.CreateMap<SocialMessages, SocialMessageViewModel>();
 
             provider.CreateMap<Product, ProductViewModel>()
                 .ForMember(nameof(ProductViewModel.Images),
@@ -261,6 +265,7 @@ namespace Net14.Web
             {
                 endpoints.MapHub<ChatHub>("/chat");
                 endpoints.MapHub<NotificationsHub>("/notif");
+                endpoints.MapHub<SocialMessangerHub>("/messages");
             });
 
             app.UseEndpoints(endpoints =>

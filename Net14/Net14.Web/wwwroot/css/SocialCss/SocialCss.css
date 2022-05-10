@@ -48,7 +48,7 @@ body {
 
 .maincontent {
     display: flex;
-    margin: 200px;
+    margin: 200px 200px 50px 200px;
     justify-content: center;
     margin-top: 100px;
     min-width: 600px;
@@ -68,6 +68,7 @@ body {
     padding: 10px;
     align-items: center;
     transition: background 0.3s ease;
+    cursor: pointer;
 }
 
 .menu-element:hover
