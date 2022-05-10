@@ -6,6 +6,9 @@ namespace Net14.Web.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_DaysNotes_CalendarUsers_CalendarUserId",
+                table: "DaysNotes");
             migrationBuilder.DropTable(
                 name: "CalendarUsers");
 
