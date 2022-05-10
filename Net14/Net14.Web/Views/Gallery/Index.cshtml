@@ -5,12 +5,34 @@
     Layout = "/Views/Shared/_LayoutGallery.cshtml";
 }
 
-@section Scripts{ 
+@section Scripts{
     <script src="~/js/gallery/galleryIndex.js"></script>
+    <script src="~/js/gallery/carusel.js"></script>
 }
 
 <div>
     Смотри какие есть кратинки
+</div>
+
+<div>
+    Карусель будет здесь!
+    <div class="carusel">
+        <div class="prev-step-2 image">
+            <img />
+        </div>
+        <div class="prev-step-1 image">
+            <img />
+        </div>
+        <div class="current image">
+            <img />
+        </div>
+        <div class="next-step-1 image">
+            <img />
+        </div>
+        <div class="next-step-2 image">
+            <img />
+        </div>
+    </div>
 </div>
 <div>
     <a href="/Gallery/Index?page=@(Model.Page - 1)">prev</a>
