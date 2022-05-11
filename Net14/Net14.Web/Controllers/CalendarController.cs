@@ -62,42 +62,43 @@ namespace Net14.Web.Controllers
                 && x.CalendarUser == _UserService.GetCurrent());
 
             var dayses = new List<int>();
+            int prevMonthDays = DateTime.DaysInMonth(year, month - 1);
             switch (new DateTime(year, month, 1).DayOfWeek.ToString())
             {
                 case "Monday":
                     break;
                 case "Tuesday":
-                    dayses.Add(0);
+                    dayses.Add(prevMonthDays);
                     break;
                 case "Wednesday":
-                    dayses.Add(0);
-                    dayses.Add(0);
+                    dayses.Add(prevMonthDays-1);
+                    dayses.Add(prevMonthDays);
                     break;
                 case "Thursday":
-                    dayses.Add(0);
-                    dayses.Add(0);
-                    dayses.Add(0);
+                    dayses.Add(prevMonthDays - 2);
+                    dayses.Add(prevMonthDays - 1);
+                    dayses.Add(prevMonthDays);
                     break;
                 case "Friday":
-                    dayses.Add(0);
-                    dayses.Add(0);
-                    dayses.Add(0);
-                    dayses.Add(0);
+                    dayses.Add(prevMonthDays - 3);
+                    dayses.Add(prevMonthDays - 2);
+                    dayses.Add(prevMonthDays - 1);
+                    dayses.Add(prevMonthDays);
                     break;
                 case "Saturday":
-                    dayses.Add(0);
-                    dayses.Add(0);
-                    dayses.Add(0);
-                    dayses.Add(0);
-                    dayses.Add(0);
+                    dayses.Add(prevMonthDays-4);
+                    dayses.Add(prevMonthDays-3);
+                    dayses.Add(prevMonthDays-2);
+                    dayses.Add(prevMonthDays-1);
+                    dayses.Add(prevMonthDays);
                     break;
                 case "Sunday":
-                    dayses.Add(0);
-                    dayses.Add(0);
-                    dayses.Add(0);
-                    dayses.Add(0);
-                    dayses.Add(0);
-                    dayses.Add(0);
+                    dayses.Add(prevMonthDays-5);
+                    dayses.Add(prevMonthDays-4);
+                    dayses.Add(prevMonthDays-3);
+                    dayses.Add(prevMonthDays-2);
+                    dayses.Add(prevMonthDays-1);
+                    dayses.Add(prevMonthDays);
                     break;
                 default:
                     break;
@@ -161,7 +162,7 @@ namespace Net14.Web.Controllers
                 x.EventDate.Month == month && 
                 x.EventDate.Day == day);
             _DaysNoteRepository.Remove(dbNote);
-            return RedirectToAction("TestCalendar");
+            return RedirectToAction("TestCalendar", new { year = dbNote.EventDate.Year, month = dbNote.EventDate.Month });
         }
         
         public IActionResult WatchAllNotes()
