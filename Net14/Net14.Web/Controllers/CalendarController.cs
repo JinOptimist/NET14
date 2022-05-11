@@ -44,7 +44,7 @@ namespace Net14.Web.Controllers
             return View(_UserService);
         }
 
-        public IActionResult TestCalendar(int year=2022,int month=4)
+        public IActionResult TestCalendar(int year=2022,int month=5)
         {
             if (month < 1)
             {
@@ -60,9 +60,13 @@ namespace Net14.Web.Controllers
             var dbNotes = _DaysNoteRepository.GetAll()
                 .Where(x=>x.EventDate.Month == month && x.EventDate.Year == year 
                 && x.CalendarUser == _UserService.GetCurrent());
-
-            var dayses = new List<int>();
-            int prevMonthDays = DateTime.DaysInMonth(year, month - 1);
+            var prevMonth = month - 1;
+            if (month == 1)
+            {
+                prevMonth = 12;
+            }
+             var dayses = new List<int>();
+            int prevMonthDays = DateTime.DaysInMonth(year, prevMonth);
             switch (new DateTime(year, month, 1).DayOfWeek.ToString())
             {
                 case "Monday":
@@ -106,6 +110,47 @@ namespace Net14.Web.Controllers
             for (int i = 1; i <= DateTime.DaysInMonth(year, month); i++)
             {
                 dayses.Add(i);
+            }
+            int nextMonthDays = 1;
+            switch (new DateTime(year, month, DateTime.DaysInMonth(year,month)).DayOfWeek.ToString())
+            {
+                case "Monday":
+                    dayses.Add(nextMonthDays);
+                    dayses.Add(nextMonthDays+1);
+                    dayses.Add(nextMonthDays+2);
+                    dayses.Add(nextMonthDays+3);
+                    dayses.Add(nextMonthDays+4);
+                    dayses.Add(nextMonthDays+5);
+                    break;
+                case "Tuesday":
+                    dayses.Add(nextMonthDays);
+                    dayses.Add(nextMonthDays + 1);
+                    dayses.Add(nextMonthDays + 2);
+                    dayses.Add(nextMonthDays + 3);
+                    dayses.Add(nextMonthDays + 4);
+                    break;
+                case "Wednesday":
+                    dayses.Add(nextMonthDays);
+                    dayses.Add(nextMonthDays + 1);
+                    dayses.Add(nextMonthDays + 2);
+                    dayses.Add(nextMonthDays + 3);
+                    break;
+                case "Thursday":
+                    dayses.Add(nextMonthDays);
+                    dayses.Add(nextMonthDays + 1);
+                    dayses.Add(nextMonthDays + 2);
+                    break;
+                case "Friday":
+                    dayses.Add(nextMonthDays);
+                    dayses.Add(nextMonthDays + 1);
+                    break;
+                case "Saturday":
+                    dayses.Add(nextMonthDays);
+                    break;
+                case "Sunday":
+                    break;
+                default:
+                    break;
             }
             if (User.Identity.IsAuthenticated)
             {
