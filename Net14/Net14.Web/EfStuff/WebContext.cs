@@ -31,7 +31,9 @@ namespace Net14.Web.EfStuff
         public DbSet<StoreImage> StoreImages { get; set; }
 
         public DbSet<GroupTags> GroupTags { get; set; }
-   
+        public DbSet<PersonDbModel> PersonDbModel { get; set; }
+
+
 
 
 

@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSite</title>
+    <link rel="stylesheet" href="~/css/WebSite/header.css" />
+    <link rel="stylesheet" href="~/css/WebSite/ourProduct.css" />
+    <link rel="stylesheet" href="~/css/WebSite/ourTeam.css" />
+
+
+    <script language="JavaScript" type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    @*<script src="~/js/SocialJS/SocialJS.js"></script>*@
+    @*
+        @RenderSection("Scripts", required: false)*@
+
+</head>
+<body>
+    <header class="header">
+        <div class="links">
+            <div>
+                <a href="/WebSite/OurTeam"> Our Team</a>
+            </div>
+            <div>
+                <a href="/WebSite/OurProduct"> Our Product</a>
+            </div>
+        </div>
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

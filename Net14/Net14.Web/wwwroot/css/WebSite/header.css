@@ -1,0 +1,16 @@
+﻿.links{
+    display:flex;
+}
+
+header{
+    background-color:red;
+    height:100px;
+    padding: 20px;
+}
+div a{
+    padding: 20px;
+    font-size:50px;     
+}
+body{
+    margin:0;
+}
