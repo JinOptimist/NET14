@@ -86,9 +86,12 @@
                                 </div>
                                 count++;
                             }
-                            else if (count < Model.Days.IndexOf(1))
+                            else if (count >= Model.Days.LastIndexOf(1) && Model.Days.LastIndexOf(1) != Model.Days.IndexOf(1))
                             {
-                                
+                                <div class="day" style=color:grey>
+                                    @Model.Days[count]
+                                </div>
+                                count++;
                             }
                             else if (new DateTime(Model.Year, Model.Month, Model.Days[count]).DayOfWeek.ToString() == "Saturday"
                             || new DateTime(Model.Year, Model.Month, Model.Days[count]).DayOfWeek.ToString() == "Sunday")
