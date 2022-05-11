@@ -1,4 +1,5 @@
-﻿using Net14.Web.Models.CustomValidationAttribute;
+﻿using Microsoft.AspNetCore.Http;
+using Net14.Web.Models.CustomValidationAttribute;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,7 +16,9 @@ namespace Net14.Web.Models.gallery
         [MyRange(0 , 100)]
         public int Rate { get; set; }
 
-        [Required]
-        public string Url { get; set; }
+        //[Required]
+        //public string Url { get; set; }
+
+        public IFormFile GirlImage { get; set; }
     }
 }
