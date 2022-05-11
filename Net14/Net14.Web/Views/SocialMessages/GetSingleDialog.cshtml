@@ -30,7 +30,18 @@
             <div class="single-message-sent">
                 <div class="message-text-sent">
                     <div class="txt">@message.Text</div>
-                    <div class="sent-time">@message.Date.ToShortTimeString()</div>
+                    <div class="sent-time">
+                        <span class="text-time">@message.Date.ToShortTimeString()</span>
+                        @if (!message.IsViewdByReciever)
+                        {
+                            <img src="~/images/Social/check_mark.svg" class="check-mark-left">
+                        }
+                        else
+                        {
+                            <img src="~/images/Social/check_mark.svg" class="check-mark-left">
+                            <img src="~/images/Social/check_mark.svg" class="check-mark-right">
+                        }
+                    </div>
                 </div>
             </div>
         }
@@ -40,7 +51,11 @@
 <div class="single-message-sent template">
     <div class="message-text-sent">
         <div class="txt"></div>
-        <div class="sent-time"></div>
+        <div class="sent-time">
+            <span class="text-time"></span>
+            <img src="~/images/Social/check_mark.svg" class="check-mark-left template">
+            <img src="~/images/Social/check_mark.svg" class="check-mark-right template">
+        </div>
     </div>
 </div>
 
@@ -58,3 +73,7 @@
 @section Scripts{
     <script src="~/js/SocialJS/SocialMessanger.js"></script>
 }
+
+
+@*            <img src="~/images/Social/check_mark.svg" class="check-mark-right">
+*@

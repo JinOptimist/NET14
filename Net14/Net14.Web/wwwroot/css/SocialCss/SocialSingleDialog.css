@@ -116,7 +116,7 @@
 
 .sent-time {
     font-size: 10px;
-    min-width: 27px;
+    min-width: 59px;
     display: flex;
     align-items: end;
     margin-left: 5px;
@@ -124,4 +124,23 @@
 
 .txt {
     padding-bottom: 5px;
+}
+
+.check-mark-left {
+    width: 15px;
+    margin-left: 3px;
+}
+
+.check-mark-right {
+    animation: show;
+    position: relative;
+    width: 15px;
+    right: 10px;
+}
+.check-mark-left.template {
+    display: none;
+}
+
+.check-mark-right.template {
+    display: none;
 }

@@ -16,9 +16,11 @@ using Net14.Web.Controllers.AutorizeAttribute;
 using Net14.Web.Models.SocialModels.Enums;
 using Net14.Web.SignalRHubs;
 using Microsoft.AspNetCore.SignalR;
+using System.Threading;
 
 namespace Net14.Web.Controllers
 {
+    [Authorize]
     public class SocialMessagesController : Controller
 
     {
@@ -39,7 +41,6 @@ namespace Net14.Web.Controllers
             _mapper = mapper;
             _messageHub = hubContext;
         }
-
         public IActionResult GetDialogs()
         {
             List<UserDialogViewModel> dialogViewModels = new List<UserDialogViewModel>();
@@ -122,5 +123,34 @@ namespace Net14.Web.Controllers
             return View(finalModel);
         }
 
+        public IActionResult SendMessage(string message, string userId) 
+        {
+            var messageModel = new SocialMessages()
+            {
+                Sender = _userService.GetCurrent(),
+                Reciever = _socialUserRepository.Get(Int32.Parse(userId)),
+                Text = message
+            };
+
+            _socialMessagesRepository.Save(messageModel);
+
+            return Ok();
+        }
+
+        public IActionResult ViewMessage(int userId) 
+        {
+            var currentUser = _userService.GetCurrent();
+
+            var messages = _socialMessagesRepository
+                .GetMessagesOfTwoUsers(currentUser.Id, userId)
+                .Where(message => !message.IsViewdByReciever)
+                .ToList();
+
+            messages.ForEach(message => message.IsViewdByReciever = true);
+
+            _socialMessagesRepository.SaveList(messages);
+
+            return Ok();
+        }
     }
 }
