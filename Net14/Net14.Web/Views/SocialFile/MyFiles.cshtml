@@ -14,7 +14,7 @@
         <div class="button">
             <div class="add-file-header">Add File</div>
 
-            <form action="/SocialFile/MyFiles" method="post" id="form-add-file">
+            <form action="/SocialFile/MyFiles" method="post" id="form-add-file" enctype="multipart/form-data">
                 <div>
                     Fill in the form
                 </div>
@@ -23,6 +23,9 @@
                 </div>
                 <div>
                     <input name="Url" placeholder="Url">
+                </div>
+                <div>
+                    <input type ="file" name="FileImage"/>
                 </div>
                 <div>
                     <input name="Text" placeholder="Text">
@@ -38,7 +41,7 @@
                 @foreach (var files in Model.Files)
                 {
                     <div>
-                        <a href="/SocialFile/ShowMyFiles?id=@files.Id">@files.Name</a>
+                        <a href="/SocialFile/ShowMyFiles?fileId=@files.Id">@files.Name</a>
                     </div>
                 }
             </form>

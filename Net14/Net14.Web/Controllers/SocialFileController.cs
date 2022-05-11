@@ -11,6 +11,8 @@ using Net14.Web.EfStuff.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using Net14.Web.Services;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace Net14.Web.Controllers
 { 
@@ -20,13 +22,16 @@ namespace Net14.Web.Controllers
         private SocialFileRepository _socialFileRepository;    
         private IMapper _mapper;
         private UserService _userService;
+        private IWebHostEnvironment _webHostEnvironment; 
         public SocialFileController(IMapper mapper, 
             SocialFileRepository socialFileRepository,
-            UserService userService)
+            UserService userService,
+            IWebHostEnvironment webHostEnvironment)
         {
             _mapper = mapper;
             _socialFileRepository= socialFileRepository;
             _userService = userService;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [Authorize]
@@ -48,19 +53,59 @@ namespace Net14.Web.Controllers
             return View(finalModel);
         }
         [HttpPost]
-        public IActionResult MyFiles(string Name, string Url, string Text)
+        public IActionResult MyFiles(FilesViewModel viewModel)
         {
-            var currentUser = _userService.GetCurrent();
-
-            var file = new FileSocial()
-            {
+            // приходит все данные кроме url и если url нет то беру из файлика,
+            // если  url есть , то подставляю url
+            var dbNewFile = new FileSocial()
+            /*{
                 Name = Name,
-                Url = Url,
                 Text = Text,
                 Owner = currentUser,
-                
+
             };
-            _socialFileRepository.Save(file);
+            if( Url = null,){
+
+
+             
+             
+             */
+
+            if (string.IsNullOrEmpty(viewModel.Url))
+            {
+                var dbFile = new FileSocial(); //??
+
+                var extention = Path.GetExtension(viewModel.FileImage.FileName);
+                var fileName = $"file{dbFile.Id}{extention}";
+                var path = Path.Combine(
+                    _webHostEnvironment.WebRootPath,
+                    "images",
+                    "Social",
+                    "SocialFilesImages",
+                    fileName);
+
+                using (var fs = new FileStream(path, FileMode.CreateNew))
+                {
+                    viewModel.FileImage.CopyTo(fs);
+                }
+
+                dbFile.Url = $"/images/Social/SocialFilesImages/{fileName}";
+                _socialFileRepository.Save(dbFile);
+            }
+            else
+            {
+                var currentUser = _userService.GetCurrent();
+
+                var dbNewFile = new FileSocial()
+                {
+                    Name = Name,
+                    Url = Url,
+                    Text = Text,
+                    Owner = currentUser,
+
+                };
+                _socialFileRepository.Save(dbNewFile);
+            }
 
             return RedirectToAction("MyFiles");
         }
@@ -68,6 +113,7 @@ namespace Net14.Web.Controllers
         {
             var Dbfile = _socialFileRepository.Get(fileId);
             var fileViewModel = _mapper.Map<FilesViewModel>(Dbfile);
+
 
             return View(fileViewModel);
         }

@@ -31,4 +31,8 @@
     <ProjectReference Include="..\TeamSocial\TeamSocial.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\Social\SocialFilesImages\" />
+  </ItemGroup>
+
 </Project>
