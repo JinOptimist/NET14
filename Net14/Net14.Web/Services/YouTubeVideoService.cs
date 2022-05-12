@@ -13,6 +13,8 @@ namespace Net14.Web.Services
     public class YouTubeVideoService
     {
         private VideoSocialRepository _videoSocialRepository;
+        
+        [AutoRegister]
         public YouTubeVideoService(VideoSocialRepository videoSocialRepository) 
         {
             _videoSocialRepository = videoSocialRepository; 
