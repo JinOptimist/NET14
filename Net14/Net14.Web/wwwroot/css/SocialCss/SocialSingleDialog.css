@@ -32,6 +32,10 @@
     overflow-y: scroll;
     height: 500px;
     padding: 0 50px 0 65px;
+    background-image: url(/images/Social/background-message.jpg);
+    background-size: cover;
+    border-radius: 20px;
+    margin-bottom: 20px;
 }
 
 .user-info-message {
@@ -64,7 +68,7 @@
 .dialog-user-info {
     display: flex;
     align-items: center;
-    width: 95%;
+    width: 97%;
     padding: 5px;
     border-radius: 20px;
     height: 60px;
@@ -76,11 +80,11 @@
 }
 .message-inputs {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 100%;
 }
 .message-input {
-    width: 70%;
+    width: 75%;
     padding: 5px;
     height: 36px;
     border-radius: 20px;
@@ -116,7 +120,7 @@
 
 .sent-time {
     font-size: 10px;
-    min-width: 27px;
+    min-width: 59px;
     display: flex;
     align-items: end;
     margin-left: 5px;
@@ -124,4 +128,23 @@
 
 .txt {
     padding-bottom: 5px;
+}
+
+.check-mark-left {
+    width: 15px;
+    margin-left: 3px;
+}
+
+.check-mark-right {
+    animation: show;
+    position: relative;
+    width: 15px;
+    right: 10px;
+}
+.check-mark-left.template {
+    display: none;
+}
+
+.check-mark-right.template {
+    display: none;
 }
