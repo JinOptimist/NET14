@@ -1,6 +1,91 @@
-﻿namespace Net14.Web.wwwroot.css.WebSite
-{
-    public class header
-    {
+﻿.container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 700px;
+}
+
+.potion {
+    margin-left: 150px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.potion-name {
+    font-size: 40px;
+    color: green;
+    margin-bottom: 20px;
+}
+
+.elements {
+    font-size: 40px;
+    color: black;
+}
+
+.image-div {
+    display: flex;
+    margin-top: 100px;
+    align-items: flex-start;
+}
+
+
+.ingridients {
+    font-size: 25px;
+    background-image: linear-gradient(0deg,rgba(53,143,100,.95),rgba(18,109,115,.95));
+    padding: 10px;
+    border-radius: 20px;
+    color: white;
+    margin-bottom: 25px;
+}
+
+.unlock {
+    height: 50px;
+    background: #241d66;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background linear 0.3s;
+}
+
+    .unlock:hover {
+        background: black;
     }
+
+.pass {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: #241d66;
+    height: 50px;
+    color: white;
+    border-radius: 20px;
+}
+
+.password {
+    width: 70%;
+    height: 50%;
+    border-radius: 30px;
+    padding-left: 20px;
+}
+
+.try {
+    height: 50%;
+    border-radius: 30px;
+    width: 15%;
+    background-color: chartreuse;
+}
+
+.pass.template {
+    background: #241d66;
+}
+
+.trytoguess.template {
+    display: none;
+}
+
+.trytoguess {
+    display: block;
 }

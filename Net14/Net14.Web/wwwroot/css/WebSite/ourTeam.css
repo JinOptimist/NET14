@@ -1,65 +1,74 @@
 ﻿.body {
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
     height: 100%;
-    background: #0e0e0e;
+    background: white;
+    font-family: Arial, Helvetica, sans-serif;
 }
+
 .team {
     margin-top: 20px;
     max-height: 100%;
     min-width: 90%;
     /*background: linear-gradient(315deg, rgb(33, 33, 37), rgb(58, 156, 56)); -- синий*/
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
 }
+
 .people {
-    display:flex;
-    flex-direction:column;
-    margin-top:20px;
+    flex-direction: column;
+    margin-top: 20px;
     font-size: 20px;
     color: white;
-    
 }
+
     .people img {
-        width: 200px;
-        height: 240px;
-        margin-left: 40px;
-        margin-top: 40px;
+        width: 160px;
+        height: 200px;
         border-radius: 30%;
         background: #343434;
     }
 
 .person {
     display: flex;
+    align-items: center;
     background-image: linear-gradient(0deg,rgba(53,143,100,.95),rgba(18,109,115,.95));
-    backdrop-filter: blur(5px);
-    padding: 70px;
+    padding: 20px;
+    padding-left: 50px;
+    border-radius: 30px;
+    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
 }
+
 .person-desription {
     display: flex;
     flex-direction: column;
-    padding-left: 76px;
 }
+
 .person-name {
     margin-top: 42px;
     margin-left: 30px;
-    font-size: 45px;
+    font-size: 30px;
     color: #b1b1b1;
 }
+
 .person-race {
     margin-top: 15px;
     margin-left: 30px;
-    font-size: 45px;
+    font-size: 30px;
     color: #b1b1b1;
 }
+
 .person-age {
     margin-top: 15px;
     margin-left: 30px;
-    font-size: 45px;
+    font-size: 30px;
     color: #b1b1b1;
 }
+
 .person-number {
     margin-top: 15px;
     margin-left: 30px;
-    font-size: 57px;
+    font-size: 47px;
     color: white;
 }
 
@@ -74,7 +83,6 @@
     display: flex;
     justify-content: center;
     height: 648px;
-    background: #0e0e0e;
 }
 
 .team1 {
@@ -94,14 +102,14 @@
     color: white;
 }
 
-.people1 img {
-    width: 360px;
-    height: 400px;
-    margin-left: 95px;
-    margin-top: 40px;
-    border-radius: 30%;
-    background: #343434;
-}
+    .people1 img {
+        width: 360px;
+        height: 400px;
+        margin-left: 95px;
+        margin-top: 40px;
+        border-radius: 30%;
+        background: #343434;
+    }
 
 .person1 {
     display: flex;
@@ -139,9 +147,3 @@
     font-size: 47px;
     color: white;
 }
-
-
-
-
-
-
