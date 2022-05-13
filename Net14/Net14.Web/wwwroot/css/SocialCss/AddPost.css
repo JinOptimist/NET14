@@ -1,67 +1,47 @@
 .add-post {
     margin-top: 30px;
-    border-radius: 92px;
-    border: 1px solid grey;
+    border-radius: 10px;
     color: grey;
-    width: 450px;
+    padding: 10px;
+    width: 530px;
+    min-height: 55px;
     background: white;
     display: flex;
-    flex-direction: column;
     align-items: center;
     margin-bottom: 15px;
+    max-height: 1000px;
 }
 
-.add-post-header {
+
+.new-post-photo {
     display: flex;
-    height: 60px;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    font-size: 25px;
-    border-radius: 92px;
-    color: black;
+    align-self: flex-start;
 }
 
-
-.add-post form {
-    margin-top: 30px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    margin-bottom: 100px;
-    display: none;
+.new-post-photo img{
+    max-height: 50px;
 }
 
-    .add-post form input {
-        border-radius: 92px;
-        border: 1px solid grey;
-        padding: 24px;
-        width: 80%;
-        margin-top: 7px;
+.post-input {
+    resize: none;
+    overflow: hidden;
+    border: none;
+    width: 70%;
+    height: 20px;
+    max-height: 700px;
+}
+
+    .post-input:focus {
+        border: none;
+        outline: none;
     }
 
-        .add-post form input[type="submit"] {
-            border: 1px solid rgb(22 222 48);
-            color: rgb(22 222 48);
-            background: white;
-            transition: background 0.3s ease;
-            transition: box-shadow 0.3s ease;
-            font-size: 17px;
-            margin-top: 70px;
-            min-width: 294px;
-        }
-
-            .add-post form input[type="submit"]:hover {
-                color: white;
-                background: rgb(22 222 48);
-                box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-            }
-
-.textForInput {
+.add-image {
     display: flex;
-    justify-content: center;
-    color: black;
-    padding: 5px;
-    margin:5px;
+    align-items: center;
+    height: 100%;
 }
+
+    .add-image img {
+        max-width: 20px;
+    }

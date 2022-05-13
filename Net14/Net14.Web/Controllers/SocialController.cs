@@ -308,5 +308,20 @@ namespace Net14.Web.Controllers
             _socialUserRepository.Save(user);
             return Redirect($"/Social/ShowAllUsers");
         }
+
+        public IActionResult AddPost(string text, string ImageUrl) 
+        {
+            var postDb = new PostSocial()
+            {
+                User = _userService.GetCurrent(),
+                CommentOfUser = text,
+                ImageUrl = ImageUrl,
+            };
+
+            _socialPostRepository.Save(postDb);
+
+            return Json(_mapper.Map<SocialPostViewModel>(postDb));
+
+        }
     }
 }
