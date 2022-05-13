@@ -6,15 +6,15 @@ $(document).ready(function () {
 
     $(document).on('click', ".try", function () {
         let text = $(".password").val();
-        if (text === "password") {
+        if (text === "12345") {
             $(".password").val(" ");
             //Тут удаляем все ?? ингредиенты
             $(".undefenit").remove();
             //Тут создаем новые ингредиенты
-            let first = $("<li>").text("1");
-            let second = $("<li>").text("2");
-            let third = $("<li>").text("3");
-            let four = $("<li>").text("4");
+            let first = $("<li>").text("Кольцо Мальца");
+            let second = $("<li>").text("Слюна Лягушки");
+            let third = $("<li>").text("Зуб Анашкина");
+            let four = $("<li>").text("Ресница Соловей Виктории Александровны");
             //Тут мы их добавляем в список
             $(".list").append(first);
             $(".list").append(second);
