@@ -16,6 +16,7 @@ namespace Net14.Web.Services
         private SocialUserRepository _socialUserRepository;
         private IHubContext<NotificationsHub> _notificationHub;
 
+        [AutoRegister]
         public FriendRequestService( UserFriendRequestRepository userFriendRequestRepository,
             SocialUserRepository socialUserRepository, IHubContext<NotificationsHub> hub)
         {
