@@ -11,10 +11,10 @@ $(document).ready(function () {
             //Тут удаляем все ?? ингредиенты
             $(".undefenit").remove();
             //Тут создаем новые ингредиенты
-            let first = $("<li>").text("Кольцо Мальца");
-            let second = $("<li>").text("Слюна Лягушки");
-            let third = $("<li>").text("Зуб Анашкина");
-            let four = $("<li>").text("Ресница Соловей Виктории Александровны");
+            let first = $("<li>").text("Anashkin tooth");
+            let second = $("<li>").text("Solovey eyelash");
+            let third = $("<li>").text("Blood");
+            let four = $("<li>").text("Land");
             //Тут мы их добавляем в список
             $(".list").append(first);
             $(".list").append(second);
