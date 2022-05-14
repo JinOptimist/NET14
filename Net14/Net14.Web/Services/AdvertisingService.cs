@@ -13,6 +13,7 @@ namespace Net14.Web.Services
         private ProductRepository _productRepository;
         private IMapper _mapper;
 
+        [AutoRegister]
         public AdvertisingService(ProductRepository productRepository, IMapper mapper) 
         {
             _mapper = mapper;

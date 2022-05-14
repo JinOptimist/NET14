@@ -13,6 +13,7 @@ namespace Net14.Web.Services
         private UserFriendRequestRepository _userFriendRequestRepository;
         private SocialUserRepository _socialUserRepository;
 
+        [AutoRegister]
         public FriendRequestService( UserFriendRequestRepository userFriendRequestRepository,
             SocialUserRepository socialUserRepository)
         {

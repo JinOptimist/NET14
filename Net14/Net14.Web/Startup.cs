@@ -19,6 +19,7 @@ using Net14.Web.Models.store;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.Models;
 using Net14.Web.SignalRHubs;
+using System.Reflection;
 
 namespace Net14.Web
 {
@@ -39,99 +40,89 @@ namespace Net14.Web
             services.AddDbContext<WebContext>(x => x.UseSqlServer(connectString));
 
             services.AddAuthentication(AuthName)
-             .AddCookie(AuthName, config =>
-             {
-                 config.LoginPath = "/SocialAuthentication/Autorization";
-                 config.AccessDeniedPath = "/CalendarUser/AccessDenied";
-                 config.Cookie.Name = "SocialMedeiCool";
-             });
+                 .AddCookie(AuthName, config =>
+                 {
+                     config.LoginPath = "/SocialAuthentication/Autorization";
+                     config.AccessDeniedPath = "/SocialAuthentication/AccessDenied";
+                     config.Cookie.Name = "SocialMedeiCool";
+                 });
 
             RegisterMapper(services);
 
-            services.AddScoped<ImageRepository>(x =>
-                new ImageRepository(x.GetService<WebContext>()));
-            services.AddScoped<CalendarUsersRepository>(x =>
-                new CalendarUsersRepository(x.GetService<WebContext>()));
-            services.AddScoped<ImageCommentRepository>(x =>
-                new ImageCommentRepository(x.GetService<WebContext>()));
+            RegisterRepositories(services);
 
-            services.AddScoped<ProductRepository>(x =>
-               new ProductRepository(x.GetService<WebContext>()));
+            RegisterServices(services);
 
-            services.AddScoped<SizeRepository>(x =>
-              new SizeRepository(x.GetService<WebContext>()));
-            services.AddScoped<BasketRepository>(x =>
-
-              new BasketRepository(x.GetService<WebContext>()));
-
-            services.AddScoped<StoreImageRepository>(x =>
-              new StoreImageRepository(x.GetService<WebContext>()));
-
-            services.AddScoped<DaysNoteRepository>(x =>
-                new DaysNoteRepository(x.GetService<WebContext>()));
-            services.AddScoped<ImageRepository>(x =>
-                new ImageRepository(x.GetService<WebContext>()));
-            services.AddScoped<CalendarUsersRepository>(x =>
-                new CalendarUsersRepository(x.GetService<WebContext>()));
-            services.AddScoped<ImageCommentRepository>(x =>
-                new ImageCommentRepository(x.GetService<WebContext>()));
-
-            services.AddScoped<SocialUserRepository>(x =>
-                new SocialUserRepository(x.GetService<WebContext>()));
-
-            services.AddScoped<SocialPostRepository>(x =>
-                new SocialPostRepository(x.GetService<WebContext>()));
-
-            services.AddScoped<SocialFileRepository>(x =>
-                new SocialFileRepository(x.GetService<WebContext>()));
-
-            services.AddScoped<SocialCommentRepository>(x =>
-                new SocialCommentRepository(x.GetService<WebContext>()));
-
-            services.AddScoped<SocialGroupRepository>(x =>
-                new SocialGroupRepository(x.GetService<WebContext>()));
-
-            services.AddScoped<VideoSocialRepository>(x =>
-                new VideoSocialRepository(x.GetService<WebContext>()));
-
-            services.AddScoped<RecomendationsService>(x =>
-                new RecomendationsService(
-                    x.GetService<SocialUserRepository>(),
-                    x.GetService<IMapper>(),
-                    x.GetService<UserService>(),
-                    x.GetService<SocialGroupRepository>(),
-                    x.GetService<SocialPostRepository>()));
-
-            services.AddScoped<YouTubeVideoService>();
-
-            services.AddScoped<UserService>(x =>
-                new UserService(
-                    x.GetService<SocialUserRepository>(),
-                    x.GetService<CalendarUsersRepository>(),
-                    x.GetService<IHttpContextAccessor>(),
-                    x.GetService<IMapper>()));
-
-            services.AddScoped<AdvertisingService>(x =>
-                new AdvertisingService(
-                    x.GetService<ProductRepository>(),
-                    x.GetService<IMapper>()));
-
-
-
-            services.AddScoped<UserFriendRequestRepository>(x =>
-                new UserFriendRequestRepository(x.GetService<WebContext>()));
-
-            services.AddScoped<FriendRequestService>(x =>
-                new FriendRequestService(
-                    x.GetService<UserFriendRequestRepository>(),
-                    x.GetService<SocialUserRepository>()));
-            services.AddScoped<CurrencyService>(x =>
-                new CurrencyService());
             services.AddHttpContextAccessor();
 
             services.AddControllersWithViews();
 
             services.AddSignalR();
+        }
+
+        private void RegisterServices(IServiceCollection services)
+        {
+            var autoRegisterType = typeof(AutoRegister);
+            Assembly
+                .GetAssembly(autoRegisterType)
+                .GetTypes()
+                .Where(type =>
+                    type
+                        .CustomAttributes
+                        .Any(attribute => attribute.AttributeType == autoRegisterType)
+                    || type
+                        .GetConstructors()
+                        .Any(constructor => constructor
+                            .CustomAttributes
+                            .Any(attribute => attribute.AttributeType == autoRegisterType)))
+                .ToList()
+                .ForEach(x => SmartRegister(x, services));
+        }
+
+        private void RegisterRepositories(IServiceCollection services)
+        {
+            var baseRepositoryType = typeof(BaseRepository<>);
+            Assembly
+                .GetAssembly(baseRepositoryType)
+                .GetTypes()
+                .Where(type => type.BaseType?.IsGenericType ?? false)
+                .Where(type => type.BaseType.GetGenericTypeDefinition() == baseRepositoryType)
+                .ToList()
+                .ForEach(repositoryType => SmartRegister(repositoryType, services));
+        }
+
+        private void SmartRegister<T>(IServiceCollection services)
+        {
+            var type = typeof(T);
+            SmartRegister(type, services);
+        }
+
+        private void SmartRegister(Type type, IServiceCollection services)
+        {
+            var constructors = type.GetConstructors();
+
+            var constructor = constructors
+                .SingleOrDefault(x => x
+                    .CustomAttributes
+                    .Any(a => a.AttributeType == typeof(AutoRegister)));
+            if (constructor == null)
+            {
+                constructor = constructors
+                    .OrderBy(methodInfo => methodInfo.GetParameters().Length)
+                    .Last();
+            }
+
+            services.AddScoped(
+                type,
+                serviceProvider =>
+                {
+                    var parametersData = constructor
+                        .GetParameters()
+                        .Select(parameter => serviceProvider.GetService(parameter.ParameterType))
+                        .ToArray();
+
+                    return constructor.Invoke(parametersData);
+                });
         }
 
         private void RegisterMapper(IServiceCollection services)
@@ -290,8 +281,12 @@ namespace Net14.Web
 
             provider.CreateMap<UserSocial, SocialUserRecomendationViewModel>();
 
-            
-                
+            provider.CreateMap<Product, ProductViewModel>()
+                .ForMember(nameof(ProductViewModel.Images),
+                    product => product
+                        .MapFrom(dbProduct => dbProduct.StoreImages.Select(image => image.Url).ToList()));
+
+
 
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);

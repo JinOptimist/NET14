@@ -5,16 +5,19 @@
     Layout = "/Views/Shared/_LayoutGallery.cshtml";
 }
 
-<form action="/Gallery/AddImage" method="post">
+<form action="/Gallery/AddImage" method="post" enctype="multipart/form-data">
     <div>
         Name: 
         @Html.TextBoxFor(x => x.Name)
         @Html.ValidationMessageFor(x => x.Name)
     </div>
-    <div>
+    @*<div>
         Url:
         @Html.TextBoxFor(x => x.Url)
         @Html.ValidationMessageFor(x => x.Url)
+    </div>*@
+    <div>
+        <input  type="file" name="GirlImage" />
     </div>
     <div>
         Rate:

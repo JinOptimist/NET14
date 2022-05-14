@@ -20,6 +20,7 @@ namespace Net14.Web.Services
         private IHttpContextAccessor _httpContextAccessor;
         private IMapper _mapper;
 
+        [AutoRegister]
         public UserService(
             SocialUserRepository socialUserRepository,
             CalendarUsersRepository calendarUsersRepository,

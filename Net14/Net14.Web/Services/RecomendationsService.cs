@@ -20,6 +20,7 @@ namespace Net14.Web.Services
         private SocialGroupRepository _socialGroupRepository;
         private SocialPostRepository _socialPostRepository;
 
+        [AutoRegister]
         public RecomendationsService(SocialUserRepository socialUserRepository,
             IMapper mapper, UserService userService, SocialGroupRepository socialGroupRepository,
             SocialPostRepository socialPostRepository)
