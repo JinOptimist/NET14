@@ -1,4 +1,4 @@
-﻿@model List<ProductViewModel>
+﻿@model CatalogPageViewModel
 @using Net14.Web.Models.store
 @{
     Layout = "/Views/Shared/_LayoutStore.cshtml";
@@ -7,30 +7,34 @@
 <div class="header_catalog ">
     <center><h1>Catalog</h1></center>
 </div>
- <div class="catalogItems">
- @foreach(var product in Model){
-     <div class="catalogItem">
-                <a href="/Store/Shoes?id=@product.Id"><div class="catalogImages">
+<div class="catalogItems">
+    @foreach (var product in Model.Products)
+    {
+        <div class="catalogItem">
+            <a href="/Store/Shoes?id=@product.Id">
+                <div class="catalogImages">
                     <img src="@product.Images.FirstOrDefault()" class="catalogProduct" />
                 </div>
                 <div class="catalogMiniTitle">
-                   @product.BrandCategories
+                    @product.BrandCategories
                 </div>
                 <div class="catalogMiniTitle">
-                   @product.Name
-                </div>  
-                </a>
-                 <div class="catalogMiniTitle">
-                   @product.Price $
+                    @product.Name
                 </div>
-                <div class="buttonCatalog">
-                    <span>
-                     <a class="buttonCatalogToBasket" href="/Store/AddProductToBasket?productId=@product.Id">Add to Basket </a>  
-                    </span>
-                </div>
+            </a>
+            <div class="catalogMiniTitle">
+                @product.Price $
             </div>
-            }
-</div>       
+            <div class="buttonCatalog">
+                <span>
+                    <a class="buttonCatalogToBasket" href="/Store/AddProductToBasket?productId=@product.Id">Add to Basket </a>
+                </span>
+            </div>
+        </div>
+    }
+</div>
+<div>   
+ <a href="/Store/Catalog?page=@(Model.Page-1)">prev</a><a href="/Store/Catalog?page=@(Model.Page+1)">next</a>
+</div>
 
 
- 

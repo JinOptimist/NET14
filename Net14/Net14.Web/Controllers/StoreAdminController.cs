@@ -61,16 +61,17 @@ namespace Net14.Web.Controllers
         [HttpPost]
         public IActionResult AddProduct( AddProductVewModel viewModel)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(viewModel);
-            //}
+            var dbSize = _sizeRepository.GetAll();
+            if (!ModelState.IsValid)
+            {
+                viewModel.Sizes = dbSize.Select(x => x.Name).ToList();
+                return View(viewModel);
+            }
 
             var dbSized = _sizeRepository.GetByNames(viewModel.CheckedSizes);
             var dbProduct=_mapper.Map<Product>(viewModel);
             dbProduct.Sizes = dbSized;
             _productRepository.Save(dbProduct);
-            var dbSize = _sizeRepository.GetAll();
             var model = new AddProductVewModel()
             {
                 Sizes = dbSize.Select(x => x.Name).ToList(),
@@ -88,6 +89,10 @@ namespace Net14.Web.Controllers
         [HttpPost]
         public IActionResult AddImageProduct(AddImageProductVewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
             var dbProduct = _productRepository.Get(viewModel.Id);
             var storeImage = new StoreImage()
             {

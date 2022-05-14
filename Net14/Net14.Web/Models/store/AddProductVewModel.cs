@@ -20,9 +20,8 @@ namespace Net14.Web.Models
         [Required]
         [MyRange(1, 10000)]
         public int Price { get; set; }
-
+        [Required]
         public List<string> Sizes { get; set; }
-
         public List<string> CheckedSizes { get; set; }
 
         public CoolMaterial Material { get; set; }

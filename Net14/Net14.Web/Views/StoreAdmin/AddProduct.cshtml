@@ -12,21 +12,24 @@
     <div class=addProductBlock1>
         <form action="/StoreAdmin/AddProduct" method="post">
             <select asp-for="Brand" asp-items="Html.GetEnumSelectList<BrandСategories>()" id=brand1></select>
-            <div>
-                Name:<span> @Html.TextBoxFor(x => x.Name , new { id = "addNameProduct" })</span> @Html.ValidationMessageFor(x => x.Name)
+            <div class="validationField">
+                Name:<span> @Html.TextBoxFor(x => x.Name , new { id = "addNameProduct" })</span> 
+                @Html.ValidationMessageFor(x => x.Name)
             </div>
-            <div>
-                Quantity: @Html.TextBoxFor(x => x.Quantity) @Html.ValidationMessageFor(x => x.Quantity)
+            <div class="validationField">
+                Quantity: @Html.TextBoxFor(x => x.Quantity) 
+                @Html.ValidationMessageFor(x => x.Quantity)
             </div>
-            <div>
-                Price: @Html.TextBoxFor(x => x.Price,new { id = "addPrice" }) @Html.ValidationMessageFor(x => x.Price)
+            <div class="validationField">
+                Price: @Html.TextBoxFor(x => x.Price,new { id = "addPrice" })
+                @Html.ValidationMessageFor(x => x.Price)
             </div>
             <select asp-for="Category" asp-items="Html.GetEnumSelectList<CoolCategories>()" id=category1> </select>
             <select asp-for="Color" asp-items="Html.GetEnumSelectList<CoolColors>()" id=color1></select>
             <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" id=gender1></select>
             <select asp-for="Material" asp-items="Html.GetEnumSelectList<CoolMaterial>()"id=material1 ></select>
             <div>
-
+                @Html.ValidationMessageFor(x => x.Sizes)
                 @foreach (var size in Model.Sizes)
                 {
                     <div>
