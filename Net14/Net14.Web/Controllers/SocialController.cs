@@ -15,6 +15,9 @@ using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using Net14.Web.Controllers.AutorizeAttribute;
 using Microsoft.AspNetCore.SignalR;
 using Net14.Web.SignalRHubs;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Net14.Web.Controllers
 {
@@ -30,6 +33,8 @@ namespace Net14.Web.Controllers
         private UserFriendRequestRepository _userFriendRequestRepository;
         private RecomendationsService _recomendationsService;
         private IHubContext<NotificationsHub> _notificationsHub;
+        private IWebHostEnvironment _webHostEnvironment;
+
 
         public SocialController(SocialUserRepository socialUserRepository,
             SocialPostRepository socialPostRepository,
@@ -38,7 +43,8 @@ namespace Net14.Web.Controllers
             FriendRequestService friendRequestService,
             UserFriendRequestRepository userFriendRequestRepository,
             RecomendationsService recomendationsService,
-            IHubContext<NotificationsHub> hubContext)
+            IHubContext<NotificationsHub> hubContext,
+            IWebHostEnvironment webHostEnvironment)
         {
             _notificationsHub = hubContext;
             _socialPostRepository = socialPostRepository;
@@ -49,6 +55,7 @@ namespace Net14.Web.Controllers
             _friendRequestService = friendRequestService;
             _userFriendRequestRepository = userFriendRequestRepository;
             _recomendationsService = recomendationsService;
+            _webHostEnvironment = webHostEnvironment;
         }
         [HttpGet]
         public IActionResult Index()
@@ -308,19 +315,35 @@ namespace Net14.Web.Controllers
             _socialUserRepository.Save(user);
             return Redirect($"/Social/ShowAllUsers");
         }
-
-        public IActionResult AddPost(string text, string ImageUrl) 
+        [HttpPost]
+        public IActionResult AddPost(string text, IFormFile ImageUrl)
         {
-            var postDb = new PostSocial()
+
+            var post = new PostSocial()
             {
-                User = _userService.GetCurrent(),
                 CommentOfUser = text,
-                ImageUrl = ImageUrl,
+                User = _userService.GetCurrent()
             };
 
-            _socialPostRepository.Save(postDb);
+            _socialPostRepository.Save(post);
 
-            return Json(_mapper.Map<SocialPostViewModel>(postDb));
+            var extension = Path.GetExtension(ImageUrl.FileName);
+            var fileName = $"post{post.Id}{extension}";
+            var path = Path.Combine(
+                _webHostEnvironment.WebRootPath,
+                "images",
+                "Social",
+                "PostImages",
+                fileName);
+            using (var fs = new FileStream(path, FileMode.CreateNew))
+            {
+                ImageUrl.CopyTo(fs);
+            }
+
+            post.ImageUrl = $"/images/Social/gallery/{fileName}";
+            _socialPostRepository.Save(post);
+
+            return View();
 
         }
     }

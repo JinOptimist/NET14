@@ -1,4 +1,30 @@
-﻿
+﻿$(document).ready(function () {
+    $(".add-post-form").submit(function (e) {
+        e.preventDefault();
+        let text = $(".post-input").val();
+        var file = $("#file1")[0];
+        let formData = new FormData();
+        formData.append("file", file.files[0]);
+
+        data = {
+            text: text,
+            ImageUrl: formData
+        };
+
+        debugger;
+
+
+        $.ajax({
+            url: "/Social/AddPost",
+            type: 'POST',
+            data: ({ text: text, ImageUrl: formData },
+            processData: false,
+            dataType: "json",
+        }).done(function () {
+            alert("Yes");
+        });
+    })
+});
 
 function ViewClosedForm(el)
 {

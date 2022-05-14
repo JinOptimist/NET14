@@ -12,13 +12,15 @@
     max-height: 1000px;
 }
 
-
+    .add-post form {
+        width: 100%;
+    }
 .new-post-photo {
     display: flex;
     align-self: flex-start;
 }
 
-.new-post-photo img{
+.new-post-photo img {
     max-height: 50px;
 }
 
@@ -26,7 +28,7 @@
     resize: none;
     overflow: hidden;
     border: none;
-    width: 70%;
+    width: 80%;
     height: 20px;
     max-height: 700px;
 }
@@ -39,9 +41,21 @@
 .add-image {
     display: flex;
     align-items: center;
-    height: 100%;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border: 1px solid grey;
 }
+
+    .add-image:hover {
+        background: rgba(122,122,122,0.1);
+    }
 
     .add-image img {
         max-width: 20px;
     }
+
+input[type=file] {
+    display: none;
+}
