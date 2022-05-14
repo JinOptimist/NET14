@@ -281,13 +281,7 @@ namespace Net14.Web
 
             provider.CreateMap<UserSocial, SocialUserRecomendationViewModel>();
 
-            provider.CreateMap<Product, ProductViewModel>()
-                .ForMember(nameof(ProductViewModel.Images),
-                    product => product
-                        .MapFrom(dbProduct => dbProduct.StoreImages.Select(image => image.Url).ToList()));
-
-
-
+           
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);
             services.AddSingleton<IMapper>(x => mapper);
