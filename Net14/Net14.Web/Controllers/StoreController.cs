@@ -40,10 +40,23 @@ namespace Net14.Web.Controllers
             _mapper = imapper;
             _sizeRepository = sizeRepository;
         }
+        [Authorize]
         public IActionResult MyAccount()
         {
-
-            return View();
+            var user = _userService.GetCurrent();
+            var basket = user.Basket ?? new Basket();
+            var ProductModel = _mapper.Map<List<ProductViewModel>>(basket.Products);
+            var userAccountModel = new UserAccountViewModel()
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                City = user.City,
+                Products = ProductModel
+            };
+            return View(userAccountModel);
+            
         }
 
         public IActionResult Index()
@@ -51,6 +64,7 @@ namespace Net14.Web.Controllers
 
             return View();
         }
+
         [Authorize]
         public IActionResult Basket()
         {
@@ -58,7 +72,7 @@ namespace Net14.Web.Controllers
             var basket = user.Basket ?? new Basket();
 
             var ProductModel = _mapper.Map<List<ProductViewModel>>(basket.Products);
-
+            
             return View(ProductModel);
         }
 
@@ -85,8 +99,11 @@ namespace Net14.Web.Controllers
             var product = _productRepository.Get(productId);
             basket.Products.Remove(product);
             _basketRepository.Save(basket);
-            return RedirectToAction("Basket", "Store");
+            var prevUrl = Request.Headers.First(x => x.Key == "Referer").Value;
+            return Redirect(prevUrl);
+            //return RedirectToAction("Basket", "Store");
         }
+
         public IActionResult Checkout(int userId)
         {
             var basket = _basketRepository.GetAll().FirstOrDefault(x => x.UserId == userId);
@@ -100,7 +117,6 @@ namespace Net14.Web.Controllers
 
             return View(ViewModel);
         }
-
 
         public IActionResult Shoes(int id)
         {
@@ -118,21 +134,31 @@ namespace Net14.Web.Controllers
             return View(model);
         }
 
-        public IActionResult Catalog(string category)
+        public IActionResult Catalog(string category, int page=1)
         {
             var _category = category;
+            var perPage = 8;
             if (string.IsNullOrEmpty(_category))
             {
-                var dbProducts = _productRepository.GetAll();
+                var dbProducts = _productRepository.GetAll().Skip((page-1)*perPage).Take(perPage);
                 var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
-
-                return View(viewModels);
+                var viewModel = new CatalogPageViewModel()
+                {
+                    Page = page,
+                    Products = viewModels
+                };
+                return View(viewModel);
             }
             else
             {
                 var dbProducts = _productRepository.GetCategory(_category);
                 var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
-                return View(viewModels);
+                var viewModel = new CatalogPageViewModel()
+                {
+                    Page = page,
+                    Products = viewModels
+                };
+                return View(viewModel);
             }
         }
        
