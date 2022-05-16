@@ -7,13 +7,15 @@
     <title>Net14.Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/Calendar.css"/>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/site.js"></script>
+    @section Scripts{
+    <script src="~/js/Calendar/CalendarGlobalNotifications.js"></script>
+}
 </head>
 <body>
    
     <div>
-        Шаблон для календаря
         <a href="/Home/Index">Начальная страница</a>
         <a href="/Gallery/Index">gallery</a>
         <a href="/Calendar/Index">Calendar</a>
