@@ -71,13 +71,15 @@ namespace Net14.Web.Controllers
 
             var dbNotes = _DaysNoteRepository.GetAll()
                 .Where(x=>x.EventDate.Month == month && x.EventDate.Year == year 
-                && x.CalendarUser == _UserService.GetCurrent());
+                && x.CalendarUser == _UserService.GetCurrent() || 
+                x.EventDate.Month == month && x.EventDate.Year == year 
+                && x.CalendarUser.Role == SiteRole.CalendarAdmin);
             var prevMonth = month - 1;
             if (month == 1)
             {
                 prevMonth = 12;
             }
-             var dayses = new List<int>();
+            var dayses = new List<int>();
             int prevMonthDays = DateTime.DaysInMonth(year, prevMonth);
             switch (new DateTime(year, month, 1).DayOfWeek.ToString())
             {

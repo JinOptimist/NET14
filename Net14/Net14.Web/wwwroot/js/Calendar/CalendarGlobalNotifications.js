@@ -7,13 +7,13 @@
     //React on server send info about message
     hubConnection.on("AdminsHello", function () {
         let span = $('<span>');
-        span.text('Hello! ');
+        span.text(' Hello! ');
         $('.messages').append(span);
     });
 
     hubConnection.on("UserEntered", function (name) {
         let span = $('<span>');
-        span.text('someone try to enter ');
+        span.text(' someone try to enter ('+name+') ');
         $('.messages').append(span);
     });
 
