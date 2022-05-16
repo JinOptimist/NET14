@@ -97,7 +97,7 @@ $(document).ready(function () {
         $("#header-settings").fadeOut(200);
         $(".notification-block").fadeToggle(200);
         UpdateNotifications();
-        $.get('/Social/Notification')
+        $.get('/api/Social/Notification')
             .done(function (notificationData) {
                 RenderNotifications(notificationData);
             });
@@ -155,7 +155,7 @@ $(document).ready(function () {
 
     $(document).on('click', ".accept-button", function () {
         let friendId = $(this).closest(".notification-container").data("friendid") - 0;
-        $.get("/Social/AcceptFriend", { friendId: friendId })
+        $.get("/api/Social/AcceptFriend", { friendId: friendId })
             .done(function () {
                 $(this).closest(".notification-container").remove();
                 $.get('/Social/Notification')
@@ -167,7 +167,7 @@ $(document).ready(function () {
 
     $(document).on('click', ".decline-button", function () {
         let friendId = $(this).closest(".notification-container").data("friendid") - 0;
-        $.get("/Social/DeclineFriend", { friendId: friendId })
+        $.get("/api/Social/DeclineFriend", { friendId: friendId })
             .done(function () {
                 $(this).closest(".notification-container").remove();
                 $.get('/Social/Notification')
@@ -215,7 +215,7 @@ $(document).ready(() => {
             let button = $(this);
             let id = String($(this).closest(".find-recomendation-element-menu").data("friend"));
 
-            $.get("/Social/AddFriend", { friendId: id })
+            $.get("/api/Social/AddFriend", { friendId: id })
                 .done(function () {
                     button.addClass("requested").text("Requested");
                 });

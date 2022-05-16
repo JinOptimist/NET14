@@ -18,14 +18,12 @@ namespace Net14.Web.Controllers
         private SocialGroupRepository _socialGroupRepository;
         private IMapper _mapper;
         private UserService _userService;
-        private WebContext _webContext;
         public SocialGroupsController(SocialGroupRepository socialGroupRepository, 
-            IMapper mapper, UserService userService, WebContext webContext) 
-        {
+            IMapper mapper, UserService userService) 
+        {   
             _mapper = mapper;
             _socialGroupRepository = socialGroupRepository;
             _userService = userService;
-            _webContext = webContext;
         }
         public IActionResult GetGroups()
         {
@@ -64,23 +62,6 @@ namespace Net14.Web.Controllers
             };
 
             return View(finalModel);
-        }
-
-        [Authorize]
-        public IActionResult Subscribe(int groupId) 
-        {
-            var user = _userService.GetCurrent();
-            _socialGroupRepository.Subscribe(groupId, user.Id);
-            return Ok();
-
-        }
-
-        [Authorize]
-        public IActionResult Unsubscribe(int groupId) 
-        {
-            var user = _userService.GetCurrent();
-            _socialGroupRepository.Unsubscribe(groupId, user.Id);
-            return Ok();
         }
 
         public IActionResult AddPost(string ImageUrl, string CommentOfUser, int groupId)

@@ -122,35 +122,5 @@ namespace Net14.Web.Controllers
 
             return View(finalModel);
         }
-
-        public IActionResult SendMessage(string message, string userId) 
-        {
-            var messageModel = new SocialMessages()
-            {
-                Sender = _userService.GetCurrent(),
-                Reciever = _socialUserRepository.Get(Int32.Parse(userId)),
-                Text = message
-            };
-
-            _socialMessagesRepository.Save(messageModel);
-
-            return Ok();
-        }
-
-        public IActionResult ViewMessage(int userId) 
-        {
-            var currentUser = _userService.GetCurrent();
-
-            var messages = _socialMessagesRepository
-                .GetMessagesOfTwoUsers(currentUser.Id, userId)
-                .Where(message => !message.IsViewdByReciever)
-                .ToList();
-
-            messages.ForEach(message => message.IsViewdByReciever = true);
-
-            _socialMessagesRepository.SaveList(messages);
-
-            return Ok();
-        }
     }
 }

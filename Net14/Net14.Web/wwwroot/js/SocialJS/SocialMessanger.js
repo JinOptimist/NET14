@@ -17,7 +17,7 @@
         $(".message-input").val('');
 
         let userId = $(".dialog-user-info").attr("data-id");
-        $.post("/SocialMessages/SendMessage", { message: message, userId: parseInt(userId) })
+        $.get("/api/SocialMessages/SendMessage", { message: message, userId: userId })
             .done(function () {
                 sentMessage.find(".check-mark-left.template").removeClass("template");
             });
@@ -34,6 +34,7 @@
 
 
     hubConnection.on("RecievedMessage", function (recievedMessage, date) {
+        debugger;
         let dialogFriendId = $(".dialog-user-info").attr("data-id");
         let messageRecieved = $(".single-message-recieved.template").clone();
         messageRecieved.find(".txt").text(recievedMessage);
@@ -41,7 +42,7 @@
         messageRecieved.appendTo(".main-message-container");
         messageRecieved.removeClass("template");
         $(".main-message-container").scrollTop($(".main-message-container").prop('scrollHeight'));
-        $.get("/SocialMessages/ViewMessage", { userId: parseInt(dialogFriendId)})
+        $.get("/api/SocialMessages/ViewMessage", { userId: parseInt(dialogFriendId)})
             .done(function () {
                 hubConnection.invoke("MessagesAreViewed", dialogFriendId);
             });

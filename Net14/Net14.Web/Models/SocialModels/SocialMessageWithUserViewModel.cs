@@ -10,6 +10,8 @@ namespace Net14.Web.Models
     {
         public List<SocialMessageViewModel> Messages { get; set; }
         public SocialUserViewModel UserOfDialog { get; set; }
+        
+        public SocialMessageViewModel SendMessage { get; set; }
 
     }
 }
