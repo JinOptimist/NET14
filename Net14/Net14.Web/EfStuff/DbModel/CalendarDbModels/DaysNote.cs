@@ -12,5 +12,6 @@ namespace Net14.Web.EfStuff.DbModel
         public DateTime EventDate { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public virtual UserSocial CalendarUser { get; set; }
+        public virtual bool IsImportent { get; set; } = false;
     }
 }

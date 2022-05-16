@@ -13,6 +13,7 @@ namespace Net14.Web.Models.Calendar
         public string Text { get; set; }
         public DateTime EventDate { get; set; }
         public virtual UserSocial CalendarUser { get; set; }
+        public virtual bool IsImportent { get; set; }
         
     }
 }

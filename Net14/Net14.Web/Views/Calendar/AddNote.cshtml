@@ -5,10 +5,16 @@
     Layout = "/Views/Shared/_LayoutCalendar.cshtml";
 }
 
-
  <form action="/Calendar/AddNote" method="post">
    <p><input placeholder="Text" @(Html.TextBoxFor(x => x.Text)) </p>
    <p><input placeholder="Event date (dd.MM.YYYY)" @(Html.TextBoxFor(x => x.EventDate)) </p>
+   <p><input @(Html.CheckBoxFor(x => x.IsImportent)) is this an important event?</p>
    <p><input type="submit" value="Create"></p>
   </form>
   
+  <div>
+      select "important event" so that it is not deleted 10 days after execution 
+  </div>
+  <div>
+  <a href="/Calendar/TestCalendar?month=@(DateTime.Now.Month)&year=@(DateTime.Now.Year)">Test Calendar</a>
+  </div>    
