@@ -10,6 +10,7 @@ using Net14.Web.Models.SocialModels;
 
 namespace Net14.Web.Services
 {
+    [AutoRegister]
     public class CurrencyService
     {
         public CurrencyViewModel GetCurrency(string cur)
