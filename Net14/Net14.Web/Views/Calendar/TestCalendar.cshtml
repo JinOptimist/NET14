@@ -130,6 +130,20 @@
                         <div>
                             @note.Text
                         </div>
+                        <div>
+                            @{
+                                var daysBefore = note.EventDate - DateTime.Now;
+                                string answer = "";
+                                if (daysBefore.Days < 0)
+                                {
+                                    @(answer = "the event is over");
+                                }
+                                else
+                                {
+                                    @(answer = $"time before the event:{daysBefore.Days} days and {Convert.ToInt32(daysBefore.TotalHours) - daysBefore.Days*24} hours");
+                                }
+                            }
+                        </div>
                     </div>
                     <div>
                     <a href="/Calendar/RemoveNote?text=@(note.Text)&&year=@(note.EventDate.Year)&&month=@(note.EventDate.Month)&&day=@(note.EventDate.Day)" method="post"> Remove </a>
