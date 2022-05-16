@@ -4,11 +4,23 @@
 
 @model UserService;
 
+@section Scripts{
+    <script src="~/js/Calendar/CalendarGlobalNotifications.js"></script>
+}
 
 @{
     Layout = "/Views/Shared/_LayoutCalendar.cshtml";
 }
 
+<div class="AdminsHello">
+    <div>Global Notification</div>
+    <div class="messages">
+
+    </div>
+    <div>
+        <input class="funButton" type="button" value="Click me" />
+    </div>
+</div>
 <div>
     @if (User.Identity.IsAuthenticated)
     {
@@ -30,7 +42,7 @@
        <div>
             please, autorize to see your notes
        <a href="/SocialAuthentication/Registration">Registration</a>
-       <a href="/SocialAuthentication/Autorization">Autorization</a> 
+       <a class="test" href="/SocialAuthentication/Autorization">Autorization</a> 
        </div>
     }
     

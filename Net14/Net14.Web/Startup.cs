@@ -246,6 +246,11 @@ namespace Net14.Web
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<CalendarGlobalNotifications>("/CalendarGlobalNotifications");
+            });
+
+            app.UseEndpoints(endpoints =>
+            {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
