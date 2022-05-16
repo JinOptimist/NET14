@@ -43,9 +43,21 @@ namespace Net14.Web.Controllers
         {
             return View(_UserService);
         }
-
+        public void DeleteOldNotes()
+        {
+            var dbNotes = _DaysNoteRepository.GetAll()
+                .Where(x => x.EventDate.Day - DateTime.Now.Day < -10)
+                .Where(x => x.CalendarUser.Role == SiteRole.User)
+                .Where(x => x.IsImportent == false)
+                .ToList();
+            foreach (var dbNote in dbNotes)
+            {
+                _DaysNoteRepository.Remove(dbNote);
+            }
+        }
         public IActionResult TestCalendar(int year=2022,int month=5)
         {
+            DeleteOldNotes();
             if (month < 1)
             {
                 month = 12;
@@ -193,7 +205,8 @@ namespace Net14.Web.Controllers
             {
                 Text = viewModel.Text,
                 EventDate = viewModel.EventDate,
-                CalendarUser = _UserService.GetCurrent()
+                CalendarUser = _UserService.GetCurrent(),
+                IsImportent = viewModel.IsImportent
             };
             _DaysNoteRepository.Save(dbNote);
             return RedirectToAction("WatchCurrentNotes", new {year = dbNote.EventDate.Year, month = dbNote.EventDate.Month,
@@ -208,8 +221,7 @@ namespace Net14.Web.Controllers
                 x.EventDate.Day == day);
             _DaysNoteRepository.Remove(dbNote);
             return RedirectToAction("TestCalendar", new { year = dbNote.EventDate.Year, month = dbNote.EventDate.Month });
-        }
-        
+        }        
         public IActionResult WatchAllNotes()
         {
             var dbNotes = _DaysNoteRepository.GetAll().Where(x=>x.Text != null && x.CalendarUser ==
