@@ -11,8 +11,9 @@
 @{
     Layout = "/Views/Shared/_LayoutCalendar.cshtml";
 }
-
-<div class="AdminsHello">
+@if (Model.GetCurrent()?.Role == Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums.SiteRole.CalendarAdmin)
+{
+    <div class="AdminsHello">
     <div>Global Notification</div>
     <div class="messages">
 
@@ -20,7 +21,9 @@
     <div>
         <input class="funButton" type="button" value="Click me" />
     </div>
-</div>
+    </div>
+}
+
 <div>
     @if (User.Identity.IsAuthenticated)
     {
