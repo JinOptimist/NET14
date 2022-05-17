@@ -55,26 +55,25 @@ namespace Net14.Web.Controllers
         [HttpPost]
         public IActionResult MyFiles(FilesViewModel viewModel)
         {
-            // приходит все данные кроме url и если url нет то беру из файлика,
-            // если  url есть , то подставляю url
-            var dbNewFile = new FileSocial()
-            /*{
-                Name = Name,
-                Text = Text,
-                Owner = currentUser,
+            var dbFile = new FileSocial();
 
-            };
-            if( Url = null,){
-
-
-             
-             
-             */
 
             if (string.IsNullOrEmpty(viewModel.Url))
             {
-                var dbFile = new FileSocial(); //??
+                var currentUser = _userService.GetCurrent();
 
+                var dbNewFile = new FileSocial()
+                {
+                    Name = viewModel.Name,
+                    Url = viewModel.Url,
+                    Text = viewModel.Text,
+                    Owner = currentUser,
+
+                };
+                _socialFileRepository.Save(dbNewFile);
+            }
+            else
+            {
                 var extention = Path.GetExtension(viewModel.FileImage.FileName);
                 var fileName = $"file{dbFile.Id}{extention}";
                 var path = Path.Combine(
@@ -91,20 +90,6 @@ namespace Net14.Web.Controllers
 
                 dbFile.Url = $"/images/Social/SocialFilesImages/{fileName}";
                 _socialFileRepository.Save(dbFile);
-            }
-            else
-            {
-                var currentUser = _userService.GetCurrent();
-
-                var dbNewFile = new FileSocial()
-                {
-                    Name = Name,
-                    Url = Url,
-                    Text = Text,
-                    Owner = currentUser,
-
-                };
-                _socialFileRepository.Save(dbNewFile);
             }
 
             return RedirectToAction("MyFiles");
