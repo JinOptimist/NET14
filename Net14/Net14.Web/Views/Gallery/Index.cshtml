@@ -1,4 +1,5 @@
 @using Net14.Web.Models.gallery
+@using Net14.Web.Localize
 @model IndexGalleryViewModel
 
 @{
@@ -11,11 +12,11 @@
 }
 
 <div>
-    Смотри какие есть кратинки
+    @Gallery.Gallery_Greetings
 </div>
 
 <div>
-    Карусель будет здесь!
+    @Gallery.Gallery_Carusel
     <div class="carusel">
         <div class="prev-step-2 image">
             <img />
