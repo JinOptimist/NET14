@@ -20,6 +20,7 @@ using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.Models;
 using Net14.Web.SignalRHubs;
 using System.Reflection;
+using Net14.Web.Localize;
 
 namespace Net14.Web
 {
@@ -238,6 +239,8 @@ namespace Net14.Web
 
             // Where could I go
             app.UseAuthorization();
+
+            app.UseMiddleware<LocalizeMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
