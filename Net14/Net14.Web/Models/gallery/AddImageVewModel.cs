@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Net14.Web.Localize;
 using Net14.Web.Models.CustomValidationAttribute;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Net14.Web.Models.gallery
 {
@@ -13,7 +10,9 @@ namespace Net14.Web.Models.gallery
         [Required]
         public string Name { get; set; }
 
-        [MyRange(0 , 100)]
+        [MyRange(0, 100,
+            ErrorMessageResourceType = typeof(Gallery),
+            ErrorMessageResourceName = nameof(Gallery.Gallery_RateError))]
         public int Rate { get; set; }
 
         //[Required]

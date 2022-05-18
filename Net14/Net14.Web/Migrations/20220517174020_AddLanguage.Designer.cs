@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Net14.Web.EfStuff;
 
 namespace Net14.Web.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class WebContextModelSnapshot : ModelSnapshot
+    [Migration("20220517174020_AddLanguage")]
+    partial class AddLanguage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -111,6 +113,9 @@ namespace Net14.Web.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -682,8 +687,6 @@ namespace Net14.Web.Migrations
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", b =>
                 {
                     b.Navigation("Basket");
-
-                    b.Navigation("DaysNotes");
 
                     b.Navigation("Files");
 
