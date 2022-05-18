@@ -9,32 +9,38 @@
     $(".message-send-button").click(function (e) {
         e.preventDefault();
         var time = new Date();
-        let message = $(".message-input").val();
-        if (isEmpty(message))
+        let messageText = $(".message-input").val().toString();
+        if (isEmpty(messageText))
         {
             return;
         }
         $(".message-input").val('');
+        let userId = $(".dialog-user-info").data("id");
+        let data = { Message: messageText, UserId: userId };
 
-        let userId = $(".dialog-user-info").attr("data-id");
-        $.get("/api/SocialMessages/SendMessage", { message: message, userId: userId })
-            .done(function () {
-                sentMessage.find(".check-mark-left.template").removeClass("template");
-            });
-            hubConnection.invoke("SendMessage", message, userId);
-            let sentMessage = $(".single-message-sent.template").clone();
-            let text = $("<span>").text(message);
-            sentMessage.find(".txt").append(text);
-            sentMessage.find(".text-time").text(time.toLocaleTimeString().slice(0, -3));
-            sentMessage.appendTo(".main-message-container");
-            sentMessage.removeClass("template");
-            $(".main-message-container").scrollTop($(".main-message-container").prop('scrollHeight'));
+        jQuery.ajax({
+            url: "/api/SocialMessages/SendMessage",
+            type: "POST",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+        }).done(function () {
+            sentMessage.find(".check-mark-left.template").removeClass("template");
+        });
 
+        hubConnection.invoke("SendMessage", messageText, userId.toString());
+        let sentMessage = $(".single-message-sent.template").clone();
+        let text = $("<span>").text(messageText);
+        sentMessage.find(".txt").append(text);
+        sentMessage.find(".text-time").text(time.toLocaleTimeString().slice(0, -3));
+        sentMessage.appendTo(".main-message-container");
+        sentMessage.removeClass("template");
+        $(".main-message-container").scrollTop($(".main-message-container").prop('scrollHeight'));
     });
 
 
     hubConnection.on("RecievedMessage", function (recievedMessage, date) {
-        debugger;
+        alert("Reciev!!");
         let dialogFriendId = $(".dialog-user-info").attr("data-id");
         let messageRecieved = $(".single-message-recieved.template").clone();
         messageRecieved.find(".txt").text(recievedMessage);

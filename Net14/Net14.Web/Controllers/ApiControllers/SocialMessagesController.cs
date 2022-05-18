@@ -23,7 +23,7 @@ namespace Net14.Web.Controllers.ApiControllers
     [Route("api/[controller]/[action]")]
     [ApiController]
     [Authorize]
-    public class SocialMessagesController : Controller
+    public class SocialMessagesController : ControllerBase
 
     {
         private SocialMessagesRepository _socialMessagesRepository;
@@ -38,21 +38,23 @@ namespace Net14.Web.Controllers.ApiControllers
             _socialMessagesRepository = socialMessagesRepository;
             _userService = userService;
         }
-        public IActionResult SendMessage(string message, string userId) 
+
+        [HttpPost]
+        public bool SendMessage( SendMessageViewModel message) 
         {
             var messageModel = new SocialMessages()
             {
                 Sender = _userService.GetCurrent(),
-                Reciever = _socialUserRepository.Get(Int32.Parse(userId)),
-                Text = message
+                Reciever = _socialUserRepository.Get(message.UserId),
+                Text = message.Message
             };
 
             _socialMessagesRepository.Save(messageModel);
 
-            return Ok();
+            return true;
         }
 
-        public IActionResult ViewMessage(int userId) 
+        public void ViewMessage(int userId) 
         {
             var currentUser = _userService.GetCurrent();
 
@@ -64,8 +66,6 @@ namespace Net14.Web.Controllers.ApiControllers
             messages.ForEach(message => message.IsViewdByReciever = true);
 
             _socialMessagesRepository.SaveList(messages);
-
-            return Ok();
         }
     }
 }
