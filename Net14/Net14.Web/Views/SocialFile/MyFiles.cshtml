@@ -1,11 +1,12 @@
 ﻿@model FilesWithLastViewModel
+@using Net14.Web.Localize.Social
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 <div class="myFiles">
     <div class="mainText">
         <div class="zagolovok-myFiles">
-            Your Files
+            @MyFiles.My_files
         </div>
     </div>
     <div class="items">
