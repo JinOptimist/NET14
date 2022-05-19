@@ -10,31 +10,29 @@
         </div>
     </div>
     <div class="items">
-
-
         <div class="button">
-            <div class="add-file-header">Add File</div>
+            <div class="add-file-header">@MyFiles.Add_file</div>
 
             <form action="/SocialFile/MyFiles" method="post" id="form-add-file">
                 <div>
-                    Fill in the form
+                    @MyFiles.Fill_in
                 </div>
                 <div>
-                    <input name="Name" placeholder="Name">
+                    <input name="Name" placeholder="@MyFiles.Name">
                 </div>
                 <div>
-                    <input name="Url" placeholder="Url">
+                    <input name="Url" placeholder="@MyFiles.Url">
                 </div>
                 <div>
-                    <input name="Text" placeholder="Text">
+                    <input name="Text" placeholder="@MyFiles.Text">
                 </div>
                 <div>
-                    <input type="submit" value="Add" class="button-add-post">
+                    <input type="submit" value="@MyFiles.Add" class="button-add-post">
                 </div>
             </form>
         </div>
         <div class="button">
-            <div class="show-file-header">Show Files</div>
+            <div class="show-file-header">@MyFiles.Show_files</div>
             <form action="/SocialFile/MyFiles" method="post" id="form-show-files">
                 @foreach (var files in Model.Files)
                 {
@@ -49,7 +47,7 @@
 
 @section NavbarRecomendations{
     <div class="menu-recomendations-user">
-        <div class="menu-recomendation-title">Last files</div>
+        <div class="menu-recomendation-title">@MyFiles.Last_files</div>
         @foreach (var lastFile in Model.LastFiles)
         {
             <div class="recomendation-element-menu" onclick="location.href='@Url.Action("ShowMyFiles", "SocialFile", new {fileId = lastFile.Id})'">

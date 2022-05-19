@@ -117,7 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="My_files" xml:space="preserve">
-    <value>Мои файлы</value>
+  <data name="Enter_age" xml:space="preserve">
+    <value>Enter age</value>
+  </data>
+  <data name="Enter_city" xml:space="preserve">
+    <value>Enter city</value>
+  </data>
+  <data name="Enter_country" xml:space="preserve">
+    <value>Enter country</value>
+  </data>
+  <data name="Enter_email" xml:space="preserve">
+    <value>Enter email</value>
+  </data>
+  <data name="Enter_firstname" xml:space="preserve">
+    <value>Enter firstname</value>
+  </data>
+  <data name="Enter_lastname" xml:space="preserve">
+    <value>Enter lastname</value>
+  </data>
+  <data name="Enter_password" xml:space="preserve">
+    <value>Enter password</value>
+  </data>
+  <data name="Repeat_password" xml:space="preserve">
+    <value>Repeat password</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Sign_up" xml:space="preserve">
+    <value>Sign up</value>
   </data>
 </root>

@@ -117,31 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>Добавить</value>
+  <data name="Rules" xml:space="preserve">
+    <value>Правила:</value>
   </data>
-  <data name="Add_file" xml:space="preserve">
-    <value>Добавить файл</value>
+  <data name="Rules_click" xml:space="preserve">
+    <value>Правила (нажми на меня)</value>
   </data>
-  <data name="Fill_in" xml:space="preserve">
-    <value>Заполните форму</value>
-  </data>
-  <data name="Last_files" xml:space="preserve">
-    <value>Последние файлы</value>
-  </data>
-  <data name="My_files" xml:space="preserve">
-    <value>Мои файлы</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Имя</value>
-  </data>
-  <data name="Show_files" xml:space="preserve">
-    <value>Показать файлы</value>
-  </data>
-  <data name="Text" xml:space="preserve">
-    <value>Текст</value>
-  </data>
-  <data name="Url" xml:space="preserve">
-    <value>Url картинки</value>
+  <data name="Text_of_Rules" xml:space="preserve">
+    <value>В этой игре тебе нужно как можно быстрее найти все числа по порядку. Очень важно использовать именно периферическое зрение: удерживай взгляд только в центре таблицы!</value>
   </data>
 </root>

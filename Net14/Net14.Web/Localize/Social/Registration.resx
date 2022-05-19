@@ -117,31 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>Добавить</value>
+  <data name="Enter_age" xml:space="preserve">
+    <value>Введите возраст </value>
   </data>
-  <data name="Add_file" xml:space="preserve">
-    <value>Добавить файл</value>
+  <data name="Enter_city" xml:space="preserve">
+    <value>Введите город</value>
   </data>
-  <data name="Fill_in" xml:space="preserve">
-    <value>Заполните форму</value>
+  <data name="Enter_country" xml:space="preserve">
+    <value>Введите страну</value>
   </data>
-  <data name="Last_files" xml:space="preserve">
-    <value>Последние файлы</value>
+  <data name="Enter_email" xml:space="preserve">
+    <value>Введите почту</value>
   </data>
-  <data name="My_files" xml:space="preserve">
-    <value>Мои файлы</value>
+  <data name="Enter_firstname" xml:space="preserve">
+    <value>Введите имя</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Имя</value>
+  <data name="Enter_lastname" xml:space="preserve">
+    <value>Введите фамилию</value>
   </data>
-  <data name="Show_files" xml:space="preserve">
-    <value>Показать файлы</value>
+  <data name="Enter_password" xml:space="preserve">
+    <value>Введите пароль</value>
   </data>
-  <data name="Text" xml:space="preserve">
-    <value>Текст</value>
+  <data name="Repeat_password" xml:space="preserve">
+    <value>Повторите пароль</value>
   </data>
-  <data name="Url" xml:space="preserve">
-    <value>Url картинки</value>
+  <data name="Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Sign_up" xml:space="preserve">
+    <value>Регистрация</value>
   </data>
 </root>

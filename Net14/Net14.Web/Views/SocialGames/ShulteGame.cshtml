@@ -1,11 +1,11 @@
 ﻿@model List<int>;
-
+@using Net14.Web.Localize.Social
 @{
     Layout = "/Views/Shared/_LayoutShulte.cshtml";
 }
 <div class="main">
     <div class="navigator clickedelement">
-        Rules (Click on me)
+        @ShulteGame.Rules_click
         <img src="~/images/Shulte/outline.png" class="outline" />
     </div>
     <div class="game">
@@ -156,10 +156,10 @@
 </div>
 <div class="rules"> 
     <div class="main-text-rules">
-        Rules:
+        @ShulteGame.Rules
     </div>
     <div class="text-rules">
-        В этой игре тебе нужно как можно быстрее найти все числа по порядку. 
-        Очень важно использовать именно периферическое зрение: удерживай взгляд только в центре <img src="~/images/Shulte/eye.png" class="good-eye"> таблицы!
+        @ShulteGame.Text_of_Rules
+       <img src="~/images/Shulte/eye.png" class="good-eye"> 
     </div>
 </div>

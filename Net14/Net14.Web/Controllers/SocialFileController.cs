@@ -33,9 +33,6 @@ namespace Net14.Web.Controllers
         [HttpGet]
         public IActionResult MyFiles()
         {
-            CultureInfo.DefaultThreadCurrentUICulture 
-                = new CultureInfo("en-EN");
-
             var currentUser = _userService.GetCurrent();
             var dbFiles = _userService.GetCurrent().Files;
             var lastFile = dbFiles.OrderByDescending(file => file.Date);
@@ -53,9 +50,6 @@ namespace Net14.Web.Controllers
         [HttpPost]
         public IActionResult MyFiles(string Name, string Url, string Text)
         {
-
-
-
             var currentUser = _userService.GetCurrent();
 
             var file = new FileSocial()

@@ -118,30 +118,30 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Add" xml:space="preserve">
-    <value>Добавить</value>
+    <value>Add</value>
   </data>
   <data name="Add_file" xml:space="preserve">
-    <value>Добавить файл</value>
+    <value>Add File</value>
   </data>
   <data name="Fill_in" xml:space="preserve">
-    <value>Заполните форму</value>
+    <value>Fill in the form</value>
   </data>
   <data name="Last_files" xml:space="preserve">
-    <value>Последние файлы</value>
+    <value>Last files</value>
   </data>
   <data name="My_files" xml:space="preserve">
-    <value>Мои файлы</value>
+    <value>My files</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Имя</value>
+    <value>Name</value>
   </data>
   <data name="Show_files" xml:space="preserve">
-    <value>Показать файлы</value>
+    <value>Show Files</value>
   </data>
   <data name="Text" xml:space="preserve">
-    <value>Текст</value>
+    <value>Text</value>
   </data>
   <data name="Url" xml:space="preserve">
-    <value>Url картинки</value>
+    <value>Url</value>
   </data>
 </root>

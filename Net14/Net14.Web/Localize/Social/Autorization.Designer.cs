@@ -22,14 +22,14 @@ namespace Net14.Web.Localize.Social {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class MyFiles {
+    public class Autorization {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal MyFiles() {
+        internal Autorization() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Net14.Web.Localize.Social {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Net14.Web.Localize.Social.MyFiles", typeof(MyFiles).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Net14.Web.Localize.Social.Autorization", typeof(Autorization).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,83 +61,56 @@ namespace Net14.Web.Localize.Social {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Добавить.
+        ///   Ищет локализованную строку, похожую на Войти.
         /// </summary>
-        public static string Add {
+        public static string Come_in {
             get {
-                return ResourceManager.GetString("Add", resourceCulture);
+                return ResourceManager.GetString("Come_in", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Добавить файл.
+        ///   Ищет локализованную строку, похожую на создайте аккаунт.
         /// </summary>
-        public static string Add_file {
+        public static string create_acount {
             get {
-                return ResourceManager.GetString("Add_file", resourceCulture);
+                return ResourceManager.GetString("create_acount", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Заполните форму.
+        ///   Ищет локализованную строку, похожую на Введите почту.
         /// </summary>
-        public static string Fill_in {
+        public static string Enter_email {
             get {
-                return ResourceManager.GetString("Fill_in", resourceCulture);
+                return ResourceManager.GetString("Enter_email", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Последние файлы.
+        ///   Ищет локализованную строку, похожую на Введите пароль.
         /// </summary>
-        public static string Last_files {
+        public static string Enter_password {
             get {
-                return ResourceManager.GetString("Last_files", resourceCulture);
+                return ResourceManager.GetString("Enter_password", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Мои файлы.
+        ///   Ищет локализованную строку, похожую на Или.
         /// </summary>
-        public static string My_files {
+        public static string Or {
             get {
-                return ResourceManager.GetString("My_files", resourceCulture);
+                return ResourceManager.GetString("Or", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Имя.
+        ///   Ищет локализованную строку, похожую на Войти.
         /// </summary>
-        public static string Name {
+        public static string Sign_in {
             get {
-                return ResourceManager.GetString("Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Показать файлы.
-        /// </summary>
-        public static string Show_files {
-            get {
-                return ResourceManager.GetString("Show_files", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Текст.
-        /// </summary>
-        public static string Text {
-            get {
-                return ResourceManager.GetString("Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Url картинки.
-        /// </summary>
-        public static string Url {
-            get {
-                return ResourceManager.GetString("Url", resourceCulture);
+                return ResourceManager.GetString("Sign_in", resourceCulture);
             }
         }
     }

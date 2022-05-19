@@ -117,31 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>Добавить</value>
+  <data name="Come_in" xml:space="preserve">
+    <value>Войти</value>
   </data>
-  <data name="Add_file" xml:space="preserve">
-    <value>Добавить файл</value>
+  <data name="create_acount" xml:space="preserve">
+    <value>создайте аккаунт</value>
   </data>
-  <data name="Fill_in" xml:space="preserve">
-    <value>Заполните форму</value>
+  <data name="Enter_email" xml:space="preserve">
+    <value>Введите почту</value>
   </data>
-  <data name="Last_files" xml:space="preserve">
-    <value>Последние файлы</value>
+  <data name="Enter_password" xml:space="preserve">
+    <value>Введите пароль</value>
   </data>
-  <data name="My_files" xml:space="preserve">
-    <value>Мои файлы</value>
+  <data name="Or" xml:space="preserve">
+    <value>Или</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Имя</value>
-  </data>
-  <data name="Show_files" xml:space="preserve">
-    <value>Показать файлы</value>
-  </data>
-  <data name="Text" xml:space="preserve">
-    <value>Текст</value>
-  </data>
-  <data name="Url" xml:space="preserve">
-    <value>Url картинки</value>
+  <data name="Sign_in" xml:space="preserve">
+    <value>Войти</value>
   </data>
 </root>
