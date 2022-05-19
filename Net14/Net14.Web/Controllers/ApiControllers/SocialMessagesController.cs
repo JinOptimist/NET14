@@ -17,12 +17,15 @@ using Net14.Web.Models.SocialModels.Enums;
 using Net14.Web.SignalRHubs;
 using Microsoft.AspNetCore.SignalR;
 using System.Threading;
+using Net14.Web.Models.SocialModels.Attributes;
 
 namespace Net14.Web.Controllers.ApiControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
     [Authorize]
+    [SocialAPI]
+
     public class SocialMessagesController : ControllerBase
 
     {

@@ -12,11 +12,13 @@ using AutoMapper;
 using Net14.Web.Models;
 using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using Net14.Web.Controllers.AutorizeAttribute;
+using Net14.Web.Models.SocialModels.Attributes;
 
 namespace Net14.Web.Controllers.ApiControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [SocialAPI]
     public class SocialController : ControllerBase
     {
         private UserService _userService;

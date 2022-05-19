@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Net14.Web.Services;
+using Net14.Web.Models.SocialModels.Attributes;
 
 namespace Net14.Web.Controllers.ApiControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [SocialAPI]
+
     public class SocialCurrencyController : Controller
     {
         private CurrencyService _currencyService;

@@ -10,11 +10,14 @@ using AutoMapper;
 using Net14.Web.Services;
 using Net14.Web.EfStuff;
 using Microsoft.AspNetCore.Authorization;
+using Net14.Web.Models.SocialModels.Attributes;
 
 namespace Net14.Web.Controllers.ApiControllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [SocialAPI]
+
     public class SocialGroupsController : ControllerBase
     {
         private SocialGroupRepository _socialGroupRepository;

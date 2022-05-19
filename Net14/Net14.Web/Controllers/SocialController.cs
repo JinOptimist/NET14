@@ -15,6 +15,8 @@ using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using Net14.Web.Controllers.AutorizeAttribute;
 using Microsoft.AspNetCore.SignalR;
 using Net14.Web.SignalRHubs;
+using Net14.Web.Models.SocialModels.Attributes;
+using System.Reflection;
 
 namespace Net14.Web.Controllers
 {
@@ -46,8 +48,8 @@ namespace Net14.Web.Controllers
             var topThree = _mapper.Map<List<SocialPostViewModel>>(_recomendationsService.GetIndexRecomendations());
             var viewPost = _mapper.Map<List<SocialPostViewModel>>(postArr);
 
-            
-            var finalModel = new SocialPostWithTopViewModel() 
+
+            var finalModel = new SocialPostWithTopViewModel()
             {
                 Posts = viewPost,
                 TopThreePost = topThree
@@ -121,7 +123,7 @@ namespace Net14.Web.Controllers
                         mod.IsFriend = true;
                         return mod;
                     }
-                    if (currentUser.FriendRequestSent.Exists(req => req.Receiver.Id == db.Id && req.FriendRequestStatus == FriendRequestStatus.Pending)) 
+                    if (currentUser.FriendRequestSent.Exists(req => req.Receiver.Id == db.Id && req.FriendRequestStatus == FriendRequestStatus.Pending))
                     {
                         var mod = _mapper.Map<SocialUserViewModel>(db);
                         mod.IsRequested = true;
@@ -185,12 +187,41 @@ namespace Net14.Web.Controllers
         public IActionResult Friends()
         {
             var currentUser = _userService.GetCurrent();
-            
+
             var friends = currentUser.Friends;
 
             var model = _mapper.Map<List<SocialUserViewModel>>(friends);
 
             return View(model);
         }
+
+        [Authorize]
+        [HasRole(SiteRole.Admin)]
+        public IActionResult GetAPIs() 
+        {
+            var typeWithAttributes = typeof(SocialAPIAttribute);
+            var apis = Assembly
+                .GetAssembly(typeWithAttributes)
+                .GetTypes()
+                .Where(type => type.CustomAttributes.Any(attribute => attribute.AttributeType == typeWithAttributes))
+                .Select(x => new SocialAPIViewModel()
+                {
+                    Name = x.Name,
+                    Methods = x.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
+                    .Select(method => new SocialAPIMethodViewModel()
+                    {
+                        Name = method.Name,
+                        Parametres = method.GetParameters().Select(par => new SocialParameterViewModel()
+                        {
+                            Name = par.Name,
+                            Type = par.ParameterType.Name
+
+                        }).ToList()
+                    })
+                }).ToList();
+
+            return View(apis);
+        }
+        
     }
 }
