@@ -19,7 +19,7 @@ namespace Net14.Web.Localize {
     // с помощью такого средства, как ResGen или Visual Studio.
     // Чтобы добавить или удалить член, измените файл .ResX и снова запустите ResGen
     // с параметром /str или перестройте свой проект VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Gallery {
@@ -93,6 +93,15 @@ namespace Net14.Web.Localize {
         public static string HomePage_Gallery {
             get {
                 return ResourceManager.GetString("HomePage_Gallery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Привет {0} друг. Ах да я рад что ты {0} ты работаещь {1}.
+        /// </summary>
+        public static string HomePage_Greetings {
+            get {
+                return ResourceManager.GetString("HomePage_Greetings", resourceCulture);
             }
         }
     }

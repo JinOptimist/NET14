@@ -42,36 +42,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Localize\Social\Autorization.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Autorization.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Localize\Social\Indexx.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Indexx.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Localize\Social\LayoutSocial.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>LayoutSocial.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Localize\Social\MyFiles.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>MyFiles.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Localize\Social\Registration.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Registration.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Localize\Social\ShulteGame.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ShulteGame.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -85,48 +55,6 @@
     <EmbeddedResource Update="Localize\Resource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Social\Autorization.en.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Social\Autorization.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Autorization.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Social\Indexx.en.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Social\Indexx.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Indexx.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Social\LayoutSocial.en.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Social\LayoutSocial.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>LayoutSocial.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Social\MyFiles.en.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Social\MyFiles.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>MyFiles.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Social\Registration.en.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Social\Registration.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Registration.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Social\ShulteGame.en.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Social\ShulteGame.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ShulteGame.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

@@ -35,17 +35,21 @@ namespace Net14.Web.Controllers
             _userService = userService;
         }
 
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(int page = 1, int perPage = 3)
         {
             var dbImages = _imageRepository.GetAll();
 
             var imagesViewModels = dbImages
+                .Skip((page - 1) * perPage)
+                .Take(perPage)
                 .Select(_mapper.Map<ImageViewModel>)
                 .ToList();
 
             var viewModel = new IndexGalleryViewModel()
             {
                 Page = page,
+                PerPage = perPage,
+                TotalCount = dbImages.Count,
                 Images = imagesViewModels
             };
             return View(viewModel);

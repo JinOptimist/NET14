@@ -92,3 +92,35 @@
         width: 1px;
         padding: 0px;
     }
+
+.images-gallery {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+    .images-gallery .image-block {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .images-gallery .image-toggle {
+        border: none;
+        flex: 1;
+        display: flex;
+        align-items: center;
+    }
+
+        .images-gallery .image-toggle img {
+            max-width: 150px;
+            width: auto;
+        }
+
+.paginator-button {
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+    .paginator-button.active {
+        font-weight: bold;
+    }

@@ -66,7 +66,7 @@ namespace Net14.Web
 
         private void RegisterServices(IServiceCollection services)
         {
-            var autoRegisterType = typeof(AutoRegister);
+            var autoRegisterType = typeof(AutoRegisterAttribute);
             Assembly
                 .GetAssembly(autoRegisterType)
                 .GetTypes()
@@ -108,7 +108,7 @@ namespace Net14.Web
             var constructor = constructors
                 .SingleOrDefault(x => x
                     .CustomAttributes
-                    .Any(a => a.AttributeType == typeof(AutoRegister)));
+                    .Any(a => a.AttributeType == typeof(AutoRegisterAttribute)));
             if (constructor == null)
             {
                 constructor = constructors
