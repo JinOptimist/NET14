@@ -7,7 +7,7 @@
         let commentDiv = $(this).closest(".content-element").find(".comment-elements");
         let comment;
 
-        $.get('/Social/GetComments', { postId: divWithId })
+        $.get('/api/Social/GetComments', { postId: divWithId })
             .done(function (comments) {
                 for (let i = 0; i < comments.length; i++) {
                     comment = elementToClone.clone();
@@ -29,8 +29,7 @@
         let commentDiv = $(this).closest(".content-element").find(".comment-elements");
         let commmentInput = $(this).closest(".input-container").find(".to-comment").val();
         $(this).closest(".input-container").find(".to-comment").val("");
-
-        $.post("/Social/AddComment", { postId: id, text: commmentInput })
+        $.get("/api/Social/AddComment", { postId: id, text: commmentInput })
             .done(function (user) {
                 comment = elementToClone.clone();
                 comment.removeClass("template");
