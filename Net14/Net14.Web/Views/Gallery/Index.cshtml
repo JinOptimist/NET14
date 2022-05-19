@@ -36,24 +36,27 @@
     </div>
 </div>
 <div>
-    <a class="paginator-button" href="/Gallery/Index?page=@(Model.Page - 1)">prev</a>
+    <a class="paginator-button" href="/Gallery/Index?page=@(Model.Page - 1)&perPage=@Model.PerPage">prev</a>
     @for (int i = 1; i <= Model.PageCount; i++)
     {
-        <a class="paginator-button @(i == Model.Page ? "active" : "")" href="/Gallery/Index?page=@i">@i</a>
+        <a class="paginator-button @(i == Model.Page ? "active" : "")" 
+           href="/Gallery/Index?page=@i&perPage=@Model.PerPage">@i</a>
     }
-    <a class="paginator-button" href="/Gallery/Index?page=@(Model.Page + 1)">next</a>
-    @foreach (var image in Model.Images)
-    {
-        <div class="image-block">
-            <div>
-                <span class="image-link">Show image</span>
-                <a href="/Gallery/ShowImage?id=@image.Id">@image.Name</a>
+    <a class="paginator-button" href="/Gallery/Index?page=@(Model.Page + 1)&perPage=@Model.PerPage">next</a>
+    <div class="images-gallery">
+        @foreach (var image in Model.Images)
+        {
+            <div class="image-block">
+                <div>
+                    <span class="image-link">Show image</span>
+                    <a href="/Gallery/ShowImage?id=@image.Id">@image.Name</a>
+                </div>
+                <div class="image-toggle">
+                    <img src="@image.Url" />
+                </div>
             </div>
-            <div class="image-toggle">
-                <img src="@image.Url" />
-            </div>
-        </div>
-    }
+        }
+    </div>
 
     <a href="/Gallery/AddImage">Add image</a>
 </div>
