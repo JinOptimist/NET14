@@ -40,7 +40,6 @@
 
 
     hubConnection.on("RecievedMessage", function (recievedMessage, date) {
-        alert("Reciev!!");
         let dialogFriendId = $(".dialog-user-info").attr("data-id");
         let messageRecieved = $(".single-message-recieved.template").clone();
         messageRecieved.find(".txt").text(recievedMessage);

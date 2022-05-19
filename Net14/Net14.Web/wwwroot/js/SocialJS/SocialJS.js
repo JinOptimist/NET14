@@ -158,7 +158,7 @@ $(document).ready(function () {
         $.get("/api/Social/AcceptFriend", { friendId: friendId })
             .done(function () {
                 $(this).closest(".notification-container").remove();
-                $.get('/Social/Notification')
+                $.get('/api/Social/Notification')
                     .done(function (notificationData) {
                         RenderNotifications(notificationData);
                     });
@@ -170,7 +170,7 @@ $(document).ready(function () {
         $.get("/api/Social/DeclineFriend", { friendId: friendId })
             .done(function () {
                 $(this).closest(".notification-container").remove();
-                $.get('/Social/Notification')
+                $.get('api/Social/Notification')
                     .done(function (notificationData) {
                         RenderNotifications(notificationData);
                     });

@@ -40,7 +40,7 @@ namespace Net14.Web.Controllers.ApiControllers
         }
 
         [HttpPost]
-        public bool SendMessage( SendMessageViewModel message) 
+        public bool SendMessage(SendMessageViewModel message) 
         {
             var messageModel = new SocialMessages()
             {

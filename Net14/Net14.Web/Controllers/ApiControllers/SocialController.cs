@@ -11,7 +11,7 @@ using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using AutoMapper;
 using Net14.Web.Models;
 using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
-using Net14.Web.Services;
+using Net14.Web.Controllers.AutorizeAttribute;
 
 namespace Net14.Web.Controllers.ApiControllers
 {
@@ -25,9 +25,11 @@ namespace Net14.Web.Controllers.ApiControllers
         private IMapper _mapper;
         private UserFriendRequestRepository _userFriendRequestRepository;
         private FriendRequestService _friendRequestService;
+        private SocialUserRepository _socialUserRepository;
         public SocialController(UserService userService,
-            SocialPostRepository socialPostRepository, SocialCommentRepository socialCommentRepository, 
-            IMapper mapper, UserFriendRequestRepository userFriendRequestRepository, FriendRequestService friendRequestService)
+            SocialPostRepository socialPostRepository, SocialCommentRepository socialCommentRepository,
+            IMapper mapper, UserFriendRequestRepository userFriendRequestRepository, FriendRequestService friendRequestService,
+            SocialUserRepository socialUserRepository)
         {
             _userService = userService;
             _socialPostRepository = socialPostRepository;
@@ -35,6 +37,7 @@ namespace Net14.Web.Controllers.ApiControllers
             _mapper = mapper;
             _userFriendRequestRepository = userFriendRequestRepository;
             _friendRequestService = friendRequestService;
+            _socialUserRepository = socialUserRepository;
 
         }
 
@@ -108,21 +111,41 @@ namespace Net14.Web.Controllers.ApiControllers
         }
 
         [Authorize]
-        public IActionResult AcceptFriend(int friendId)
+        public bool AcceptFriend(int friendId)
         {
             var user = _userService.GetCurrent();
             _friendRequestService.Accept(friendId, user.Id);
 
-            return Ok();
+            return true;
         }
 
         [Authorize]
-        public IActionResult DeclineFriend(int friendId)
+        public bool DeclineFriend(int friendId)
         {
+
             var user = _userService.GetCurrent();
             _friendRequestService.Decline(friendId, user.Id);
 
-            return Ok();
+            return true;
+        }
+
+        [HasRole(SiteRole.Admin)]
+        [HttpGet]
+        public void BlockUser(int userId)
+        {
+            var user = _socialUserRepository.Get(userId);
+            user.IsBlocked = true;
+            _socialUserRepository.Save(user);
+        }
+
+        [HasRole(SiteRole.Admin)]
+        [HttpGet]
+        public void UnblockUser(int userId)
+        {
+
+            var user = _socialUserRepository.Get(userId);
+            user.IsBlocked = false;
+            _socialUserRepository.Save(user);
         }
 
     }

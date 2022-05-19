@@ -59,6 +59,8 @@ namespace Net14.Web
             services.AddControllersWithViews();
 
             services.AddSignalR();
+
+            services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
         }
 
         private void RegisterServices(IServiceCollection services)

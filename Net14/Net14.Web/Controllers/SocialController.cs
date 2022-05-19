@@ -192,23 +192,5 @@ namespace Net14.Web.Controllers
 
             return View(model);
         }
-
-        [HasRole(SiteRole.Admin)]
-        public IActionResult BlockUser(int userId) 
-        {
-            var user = _socialUserRepository.Get(userId);
-            user.IsBlocked = true;
-            _socialUserRepository.Save(user);
-            return Redirect($"/Social/ShowAllUsers");
-        }
-
-        [HasRole(SiteRole.Admin)]
-        public IActionResult UnblockUser(int userId) 
-        {
-            var user = _socialUserRepository.Get(userId);
-            user.IsBlocked = false;
-            _socialUserRepository.Save(user);
-            return Redirect($"/Social/ShowAllUsers");
-        }
     }
 }

@@ -10,56 +10,60 @@
     <div class="select" onclick="location.href='/SocialRecomendation/GroupRecomendations'">Group</div>
 </div>
 
-    @foreach (SocialUserRecomendationViewModel user in Model.Recomendations)
-    {
-        <div class="usersCenter">
-            <div class="findUsers">
-                <div class="find-recomendation-element-menu" id="recomendaton-page-element">
-                    <div class="user-name-and-photo">
-                        <div class="find-user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new { id = user.Id })'">
-                            <img src=@user.UserPhoto class="find-user-photo">
-                        </div>
-                        <div class="size-for-user text-indent" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new { id = user.Id })'">
-                            @user.FirstName @user.LastName
-                        </div>
+@foreach (SocialUserRecomendationViewModel user in Model.Recomendations)
+{
+    <div class="usersCenter">
+        <div class="findUsers">
+            <div class="find-recomendation-element-menu" id="recomendaton-page-element" data-friend=@user.Id>
+                <div class="user-name-and-photo">
+                    <div class="find-user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new { id = user.Id })'">
+                        <img src=@user.UserPhoto class="find-user-photo">
                     </div>
-                    <div class="place-of-user">
-                        <div>Age: @user.Age</div>
-                        <div>@user.Country, @user.City</div>
+                    <div class="size-for-user text-indent" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new { id = user.Id })'">
+                        @user.FirstName @user.LastName
                     </div>
-                    <div class="add-to-friends-button-container" id="recomendation-button-container">
-                        <div>
-                            @if (user.SameFriendsCount > 0)
-                            {
-                                <span>@user.SameFriendsCount common friends</span>
-
-                            }
-                            <div>
-                                @foreach (SocialUserRecomendationViewModel userRec in user.SameFriends)
-                                {
-                                    <img src=@userRec.UserPhoto class="find-user-photo" id="recomendations-users" title=@userRec.FirstName />
-                                }
-                            </div>
-                        </div>
-                        @if (user.IsFriend)
+                </div>
+                <div class="place-of-user">
+                    <div>Age: @user.Age</div>
+                    <div>@user.Country, @user.City</div>
+                </div>
+                <div class="add-to-friends-button-container" id="recomendation-button-container">
+                    <div>
+                        @if (user.SameFriendsCount > 0)
                         {
-                            <div class="friend-status">Friend</div>
+                            <span>@user.SameFriendsCount common friends</span>
+
+                        }
+                        <div>
+                            @foreach (SocialUserRecomendationViewModel userRec in user.SameFriends)
+                            {
+                                <img src=@userRec.UserPhoto class="find-user-photo" id="recomendations-users" title=@userRec.FirstName />
+                            }
+                        </div>
+                    </div>
+                    @if (user.IsFriend)
+                    {
+                        <div class="friend-status">Friend</div>
+                    }
+                    else
+                    {
+
+                        @if (user.IsRequested)
+                        {
+                            <div class="requested">Requested</div>
+
                         }
                         else
                         {
-
-                            @if (user.IsRequested)
-                            {
-                                <div class="requested">Requested</div>
-
-                            }
-                            else
-                            {
-                                <div class="add-to-friends-button" onclick="location.href='@Url.Action("AddFriend", "Social", new { friendId = user.Id, targetUrl = Model.Url})'">Add to friends</div>
-                            }
+                            <div class="add-to-friends-button">Add to friends</div>
                         }
-                    </div>
+                    }
                 </div>
             </div>
         </div>
-    }
+    </div>
+}
+
+@section Scripts{
+    <script src="~/js/SocialJS/SocialJS.js"></script>
+}
