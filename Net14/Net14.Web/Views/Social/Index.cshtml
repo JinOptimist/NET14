@@ -1,5 +1,6 @@
 ﻿@using Net14.Web.EfStuff.DbModel.SocialDbModels;
 @using Net14.Web.Services;
+@using Net14.Web.Localize.Social
 @model SocialPostWithTopViewModel
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
@@ -13,23 +14,23 @@
 @if (User.Identity.IsAuthenticated)
 {
     <div class="add-post">
-        <div class="add-post-header">Add Post</div>
+        <div class="add-post-header">@Indexx.Add_post</div>
 
         <form action="/Social/Index" method="post" id="form-add-post">
             <div class="textForInput">
-                ImageUrl
+                @Indexx.ImageUrl
             </div>
             <div>
-                <input name="ImageUrl" placeholder="ImageUrl">
+                <input name="ImageUrl" placeholder="@Indexx.ImageUrl">
             </div>
             <div class="textForInput">
-                Comment
+                @Indexx.Comment
             </div>
             <div>
-                <input name="CommentOfUser" placeholder="Comment">
+                <input name="CommentOfUser" placeholder="@Indexx.Comment">
             </div>
             <div>
-                <input type="submit" value="Add" class="button-add-post">
+                <input type="submit" value="@Indexx.Add" class="button-add-post">
             </div>
         </form>
     </div>
@@ -47,8 +48,11 @@
                     <img src=@post.UserPhoto class="user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">
                 </div>
                 <div class="user-name">
-                    <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@post.FirstName</p>
-                    <p>posted:</p>
+                    @{
+                        var whoPosted = @post.FirstName;
+                        <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@string.Format(@Indexx.Posted, whoPosted)</p>
+                    }
+                    
                 </div>
             </div>
             <div class="block-post-image">
@@ -70,7 +74,7 @@
             </div>
             <div class="comments">
                 <div class="comments-elements-container">
-                    <div class="comment-header">Comments</div>
+                    <div class="comment-header">@Indexx.Comments</div>
                     <div class="comment-elements">
                         <div class="single-comment template">
                             <div class="comment-owner-info">
@@ -84,8 +88,8 @@
                 </div>
                 <form class="input-container" >
                     <input name="postId" type="hidden" value="@post.Id" />
-                    <input type="text" class="to-comment" name="text" placeholder="Add comment" />
-                    <input type="submit" value="send" class="comm">
+                    <input type="text" class="to-comment" name="text" placeholder="@Indexx.Add_comment" />
+                    <input type="submit" value="@Indexx.Send" class="comm">
                 </form>
             </div>
         </div>
@@ -96,7 +100,7 @@
 @section NavbarRecomendations
 {
     <div class="menu-recomendations-user">
-        <div class="menu-recomendation-title">Hot news</div>
+        <div class="menu-recomendation-title">@Indexx.Hot_news</div>
         @foreach (var post in Model.TopThreePost)
         {
             <div class="recomendation-element-menu" onclick="window.location.hash=@post.Id">
