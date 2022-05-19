@@ -21,10 +21,34 @@ namespace Net14.Web.EfStuff
                 SeedUser(scope);
                 SeedPostAndComm(scope);
                 GroupSeed(scope);
+
+                SeedImages(scope);
             }
 
             return host;
         }
+
+        private static void SeedImages(IServiceScope scope)
+        {
+            var imageRepository = scope.ServiceProvider.GetService<ImageRepository>();
+
+            if (imageRepository.Any())
+            {
+                return;
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                var image = new Image
+                {
+                    Name = $"Girl {i}",
+                    Url = $"/images/gallery/girl{i}.png"
+                };
+
+                imageRepository.Save(image);
+            }
+        }
+
         private static void SeedProduct(IServiceScope scope)
         {
             var productRepository = scope.ServiceProvider.GetService<ProductRepository>();

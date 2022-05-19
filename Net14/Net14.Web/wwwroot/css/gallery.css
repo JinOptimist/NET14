@@ -92,3 +92,14 @@
         width: 1px;
         padding: 0px;
     }
+
+
+.paginator-button {
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+    .paginator-button.active {
+        font-weight: bold;
+    }

@@ -2,7 +2,7 @@
 
 namespace Net14.Web.Services
 {
-    public class AutoRegister : Attribute
+    public class AutoRegisterAttribute : Attribute
     {
     }
 }

@@ -12,7 +12,7 @@
 }
 
 <div>
-    @Gallery.Gallery_Greetings
+    @string.Format(Gallery.HomePage_Greetings, "Ivan", "Dev")
 </div>
 
 <div>
@@ -36,8 +36,12 @@
     </div>
 </div>
 <div>
-    <a href="/Gallery/Index?page=@(Model.Page - 1)">prev</a>
-    <a href="/Gallery/Index?page=@(Model.Page + 1)">next</a>
+    <a class="paginator-button" href="/Gallery/Index?page=@(Model.Page - 1)">prev</a>
+    @for (int i = 1; i <= Model.PageCount; i++)
+    {
+        <a class="paginator-button @(i == Model.Page ? "active" : "")" href="/Gallery/Index?page=@i">@i</a>
+    }
+    <a class="paginator-button" href="/Gallery/Index?page=@(Model.Page + 1)">next</a>
     @foreach (var image in Model.Images)
     {
         <div class="image-block">
