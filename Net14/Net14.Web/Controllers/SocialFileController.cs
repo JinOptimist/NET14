@@ -54,6 +54,7 @@ namespace Net14.Web.Controllers
 
             var file = new FileSocial()
             {
+
                 Name = Name,
                 Url = Url,
                 Text = Text,
