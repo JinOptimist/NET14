@@ -33,6 +33,7 @@ namespace Net14.Web.Controllers
         [HttpGet]
         public IActionResult MyFiles()
         {
+            var currentUser = _userService.GetCurrent();
             var dbFiles = _userService.GetCurrent().Files;
             var lastFile = dbFiles.OrderByDescending(file => file.Date);
             var filesViewModel = _mapper.Map<List<FilesViewModel>>(dbFiles);
@@ -42,6 +43,7 @@ namespace Net14.Web.Controllers
                 Files = filesViewModel,
                 LastFiles = _mapper.Map<List<FilesViewModel>>(lastFile)
             };
+            finalModel.User = currentUser;
 
             return View(finalModel);
         }
@@ -52,6 +54,7 @@ namespace Net14.Web.Controllers
 
             var file = new FileSocial()
             {
+
                 Name = Name,
                 Url = Url,
                 Text = Text,

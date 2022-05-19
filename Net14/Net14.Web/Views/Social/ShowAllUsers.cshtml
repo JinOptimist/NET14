@@ -27,11 +27,11 @@
     </div>
     @foreach (SocialUserViewModel user in Model)
     {
-        if (user.IsBlocked == true)
+        if (user.IsBlocked)
         {
             <div class="usersCenter">
                 <div class="findUsers">
-                    <div class="find-recomendation-element-menu blocked">
+                    <div class="find-recomendation-element-menu blocked" data-friend=@user.Id>
                         <div class="user-name-and-photo">
                             <div class="find-user-photo" onclick="location.href = '/Social/ShowPagesProfile?id=@user.Id'">
                                 <img src=@user.UserPhoto class="find-user-photo">
@@ -47,7 +47,7 @@
                         <div class="add-to-friends-button-container" @*onclick="location.href='@Url.Action("AddFriend", "Social", new { friendId = user.Id })'"*@>
                             @if (userService.IsAdmin())
                             {
-                                <div class="friend-status-unblocked" onclick="location.href='@Url.Action("UnblockUser", "Social", new { userId = user.Id })'">Unblock</div>
+                                <div class="friend-status-unblocked">Unblock</div>
                             }
                             <div class="friend-status">Blocked</div>
                         </div>
@@ -59,7 +59,7 @@
         {
             <div class="usersCenter">
                 <div class="findUsers">
-                    <div class="find-recomendation-element-menu">
+                    <div class="find-recomendation-element-menu" data-friend=@user.Id>
                         <div class="user-name-and-photo">
                             <div class="find-user-photo">
                                 <img src=@user.UserPhoto class="find-user-photo" onclick="location.href = '/Social/ShowPagesProfile?id=@user.Id'">
@@ -75,7 +75,7 @@
                         <div class="add-to-friends-button-container">
                             @if (userService.IsAdmin())
                             {
-                                <div class="friend-status-blocked" onclick="location.href='@Url.Action("BlockUser", "Social", new { userId = user.Id })'">Block</div>
+                                <div class="friend-status-blocked">Block</div>
                             }
                             @if (user.IsFriend)
                             {
@@ -83,13 +83,13 @@
                             }
                             else
                             {
-                                @if (user.IsRequested == true)
+                                @if (user.IsRequested)
                                 {
                                     <div class="requested">Requested</div>
                                 }
                                 else
                                 {
-                                    <div class="add-to-friends-button" onclick="location.href='@Url.Action("AddFriend", "Social", new { friendId = user.Id })'">Add to friends</div>
+                                    <div class="add-to-friends-button">Add to friends</div>
                                 }
                             }
                         </div>
@@ -101,4 +101,6 @@
 </div>
 
 
-
+@section Scripts{ 
+    <script src="~/js/SocialJS/ShowAllUsersJs.js"></script>
+}

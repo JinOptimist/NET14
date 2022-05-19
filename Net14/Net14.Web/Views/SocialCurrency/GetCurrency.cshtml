@@ -6,10 +6,10 @@
 <link rel="stylesheet" href="~/css/SocialCss/CurrencyCss.css"> 
 <div class="currency-info">
     <div class="currency-result">
-        <div>1 @Model.Cur_Abbreviation</div>
-        <div>@Model.Cur_OfficialRate BYN</div>
+        <div class="currency">1 @Model.Cur_Abbreviation</div>
+        <div class="byn">@Model.Cur_OfficialRate BYN</div>
     </div>
-    <form action="/SocialCurrency/GetCurrency" method="post" class="form-currency">
+    <form class="form-currency">
 
         <fieldset>
             <div class="form-sections">
@@ -28,9 +28,15 @@
                     }
                 </select>
             </div>
-            <p><input type="submit" value="Submit"  class="submit-currency"/> </p>
-
+            <div class="find">
+                <input value="Submit" type="button" class="submit-currency" />
+            </div>
         </fieldset>
 
     </form>
 </div>
+
+
+@section Scripts{ 
+    <script src="~/js/SocialJS/CurrencyJs.js"></script>
+}

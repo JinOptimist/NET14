@@ -487,6 +487,16 @@ namespace Net14.Web.EfStuff
                     Password = "pass",
                     UserPhoto = "/images/Social/User.jpg"
                 };
+
+                var message = new SocialMessages()
+                {
+                    Sender = user0,
+                    Reciever = user,
+                    Text = "Hello!",
+                    Date = DateTime.Now
+                };
+
+                user.RecievedMessages.Add(message);
                 userRepository.Save(user);
 
                 var user2 = new UserSocial()
