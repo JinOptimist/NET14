@@ -175,10 +175,10 @@ namespace Net14.Web
                     post => post
                         .MapFrom(dbPost =>
                             dbPost.User.UserPhoto))
-            .ForMember(nameof(SocialPostViewModel.FirstName),
+            .ForMember(nameof(SocialPostViewModel.UserName),
                     post => post
                         .MapFrom(dbPost =>
-                            dbPost.User.FirstName));
+                            dbPost.User.FirstName + " " + dbPost.User.LastName));
 
             provider.CreateMap<GroupSocial, SocialGroupViewModel>()
                 .ForMember(nameof(SocialGroupViewModel.Tags),

@@ -214,10 +214,11 @@ $(document).ready(() => {
         $(".add-to-friends-button").click(function () {
             let button = $(this);
             let id = String($(this).closest(".find-recomendation-element-menu").data("friend"));
+            let buttonReplace = $(".add-to-friends-button.requested.template").clone();
 
             $.get("/api/Social/AddFriend", { friendId: id })
                 .done(function () {
-                    button.addClass("requested").text("Requested");
+                    button.replaceWith(buttonReplace.removeClass("template"));
                 });
 
             hubConnection.invoke("SendNotif", "requested", id);
