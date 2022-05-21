@@ -1,4 +1,5 @@
 ﻿@using Net14.Web.Models.SocialModels.Enums;
+@using Net14.Web.Localize.Social 
 @model List<UserDialogViewModel>
 
 
@@ -7,7 +8,7 @@
 }
 
 
-<div class="dialog-header">Dialogs</div>
+<div class="dialog-header">@Messages.Dialogs_Header</div>
 @foreach (var dialog in Model)
 {
     <div class="dialog-element" onclick="location.href = '/SocialMessages/GetSingleDialog?dialogFriendId=@dialog.User.Id'">
@@ -25,7 +26,7 @@
                 }
                 else
                 {
-                    <span>You:</span>
+                    <span>@Messages.You_sent:</span>
                 }
                 @dialog.LastMessage.Text
             </div>

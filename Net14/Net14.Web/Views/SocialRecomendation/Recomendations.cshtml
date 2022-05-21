@@ -1,13 +1,14 @@
 ﻿@model SocialUserRecomendationUrlViewModel
+@using Net14.Web.Localize.Social; 
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 
 <link rel="stylesheet" href="~/css/SocialCss/RecomendationCss.css" />
-<div class="recomendation-header">Recomendation</div>
+<div class="recomendation-header">@Recomendations.Header</div>
 <div class="select-recomendations">
-    <div class="select active">Users</div>
-    <div class="select" onclick="location.href='/SocialRecomendation/GroupRecomendations'">Group</div>
+    <div class="select active">@Recomendations.Users</div>
+    <div class="select" onclick="location.href='/SocialRecomendation/GroupRecomendations'">@Recomendations.Groups</div>
 </div>
 
 @foreach (SocialUserRecomendationViewModel user in Model.Recomendations)
@@ -24,14 +25,29 @@
                     </div>
                 </div>
                 <div class="place-of-user">
-                    <div>Age: @user.Age</div>
+                    <div>@Recomendations.User_Age: @user.Age</div>
                     <div>@user.Country, @user.City</div>
                 </div>
                 <div class="add-to-friends-button-container" id="recomendation-button-container">
                     <div>
                         @if (user.SameFriendsCount > 0)
                         {
-                            <span>@user.SameFriendsCount common friends</span>
+                            <span>
+                                @user.SameFriendsCount
+                                @if (user.SameFriendsCount % 10 == 1)
+                                {
+                                    @Recomendations.Same_Friends_End1
+                                }
+                                else if (2 <= user.SameFriendsCount % 10 && user.SameFriendsCount <= 4)
+                                {
+                                    @Recomendations.Same_Friends_End2_4
+                                }
+                                else 
+                                {
+                                    @Recomendations.Same_Friends
+                                }
+
+                            </span>
 
                         }
                         <div>
@@ -43,24 +59,28 @@
                     </div>
                     @if (user.IsFriend)
                     {
-                        <div class="friend-status">Friend</div>
+                        <div class="friend-status">@Recomendations.Friend_Status</div>
                     }
                     else
                     {
 
                         @if (user.IsRequested)
                         {
-                            <div class="requested">Requested</div>
+                            <div class="requested">@Recomendations.Friend_Request</div>
 
                         }
                         else
                         {
-                            <div class="add-to-friends-button">Add to friends</div>
+                            <div class="add-to-friends-button">@Recomendations.Add_To_Friends</div>
                         }
                     }
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="add-to-friends-button requested template">
+        @Recomendations.Friend_Request
     </div>
 }
 

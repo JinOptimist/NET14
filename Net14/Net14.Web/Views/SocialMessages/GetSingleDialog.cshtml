@@ -1,4 +1,5 @@
 ﻿@using Net14.Web.Models.SocialModels.Enums;
+@using Net14.Web.Localize.Social 
 @model SocialMessageWithUserViewModel
 
 
@@ -68,7 +69,7 @@
 
 <form class="message-inputs">
     <input type="text" class="message-input" name="Message"> 
-    <input type="submit" class="message-send-button" value="Send">
+    <input type="submit" class="message-send-button" value=@Messages.Send>
 </form>
 @section Scripts{
     <script src="~/js/SocialJS/SocialMessanger.js"></script>

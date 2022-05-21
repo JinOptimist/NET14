@@ -11,7 +11,7 @@ namespace Net14.Web.Models
         public int Id { get; set; }
         public int UserId { get; set; }
         public string ImageUrl { get; set; } = "ImageUrl";
-        public string FirstName { get; set; }
+        public string UserName { get; set; }
         public string CommentOfUser { get; set; }
         public string TypePost { get; set; } = "Registartion";
         public int Likes { get; set; } = 0;
