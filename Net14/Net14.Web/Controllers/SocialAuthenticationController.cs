@@ -60,7 +60,7 @@ namespace Net14.Web.Controllers
 
                 await HttpContext.SignInAsync(principal);
 
-                return RedirectToRoute("default", new { controller = "Social", action = "ShowPagesProfile", id = userDb.Id });
+                return RedirectToRoute("default", new { controller = "Social", action = "MyProfile" });
             }
             else
             {
@@ -124,7 +124,7 @@ namespace Net14.Web.Controllers
 
             if (userViewModel.ReturnUrl == null)
             {
-                return RedirectToRoute("default", new { controller = "Social", action = "ShowPagesProfile", id = user.Id });
+                return RedirectToRoute("default", new { controller = "Social", action = "MyProfile"});
             }
             return Redirect(userViewModel.ReturnUrl);
         }

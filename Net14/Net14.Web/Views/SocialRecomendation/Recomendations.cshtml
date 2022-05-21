@@ -17,10 +17,10 @@
         <div class="findUsers">
             <div class="find-recomendation-element-menu" id="recomendaton-page-element" data-friend=@user.Id>
                 <div class="user-name-and-photo">
-                    <div class="find-user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new { id = user.Id })'">
+                    <div class="find-user-photo" onclick="location.href='@Url.Action("ShowProfile", "Social", new { userId = user.Id })'">
                         <img src=@user.UserPhoto class="find-user-photo">
                     </div>
-                    <div class="size-for-user text-indent" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new { id = user.Id })'">
+                    <div class="size-for-user text-indent" onclick="location.href='@Url.Action("ShowProfile", "Social", new { userId = user.Id })'">
                         @user.FirstName @user.LastName
                     </div>
                 </div>

@@ -32,7 +32,7 @@
         @if (User.Identity.IsAuthenticated)
         {
             <div class="auth-userbox">
-                <div class="auth-userbox-img" onclick="location.href='/Social/MyProfile';"><img src="~/images/Social/User.jpg"></div>
+                <div class="auth-userbox-img" onclick="location.href='/Social/MyProfile';"><img src=@UserService.GetCurrent().UserPhoto></div>
                 <div class="auth-userbox-name">@UserService.GetCurrent().LastName @UserService.GetCurrent().FirstName</div>
             </div>
         }
@@ -120,7 +120,7 @@
 
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <div class="menu-element" onclick="location.href='/Social/ShowPagesProfile';">@LayoutSocial.My_Posted</div>
+                        <div class="menu-element" onclick="location.href='/Social/MyProfile';">@LayoutSocial.My_Posted</div>
                         <div class="menu-element" onclick="location.href='/SocialFile/MyFiles';">@LayoutSocial.My_Files</div>
                         <div class="menu-element" onclick="location.href='/SocialRecomendation/Recomendations';">@LayoutSocial.Recomendation</div>
                         <div class="menu-element" onclick="location.href='/SocialMessages/GetDialogs';">@LayoutSocial.Messages</div>

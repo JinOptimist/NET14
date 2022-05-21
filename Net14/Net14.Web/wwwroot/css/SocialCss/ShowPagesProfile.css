@@ -63,3 +63,127 @@
     padding-left:150px;
     justify-content:end;
 }
+
+
+.user-info-prof {
+    display: flex;
+    width: 100%;
+    padding-bottom: 15px;
+}
+.profile-user-photo {
+    display: flex;
+    justify-content: flex-start;
+}
+
+    .profile-user-photo img {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+    }
+
+.settings-profile-icon {
+    width: 15px;
+    height: 15px;
+}
+
+.user-settings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    border-radius: 50%;
+    margin-left: 3px;
+    transition: background 0.3s ease;
+}
+
+.user-settings:hover{
+    background-color: rgba(122,122,122,0.1);
+}
+
+.profile-user-info {
+
+}
+
+.profile-wrapper {
+    width: 80%;
+}
+.user-groups-friends {
+    padding-top: 60px;
+    margin-left: 30px;
+}
+
+    .user-groups-friends div {
+        margin-bottom: 5px;
+    }
+
+.profile-user-name {
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    font-size: 20px;
+    margin-bottom: 25px;
+}
+
+.profile-wrapper {
+    border-bottom: 2px solid grey;
+    margin-bottom: 50px;
+}
+
+.profile-status {
+    font-size: 12px;
+    padding: 5px;
+    background: rgba(122,122,122,0.1);
+    border-radius: 20px;
+    margin-right: 20px;
+    margin-top: 5px;
+    border: 1px solid grey;
+}
+
+.user-name {
+    font-size: 20px;
+}
+
+.profile-user-info-and-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttons {
+    display: flex;
+}
+
+.send-message-profile {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    border: 1px solid grey;
+    border-radius: 20px;
+    padding: 5px;
+    margin-bottom: 5px;
+    transition: background 0.3s ease;
+    cursor: pointer;
+}
+
+    .send-message-profile:hover {
+        background-color: rgba(122,122,122,0.1);
+    }
+
+.add-to-friends-profile {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    border: 1px solid grey;
+    border-radius: 20px;
+    padding: 5px;
+    margin-bottom: 5px;
+    transition: background 0.3s ease;
+    cursor: pointer;
+}
+
+    .add-to-friends-profile:hover {
+        background: rgb(22 222 48);
+        color: white;
+    }
