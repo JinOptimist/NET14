@@ -698,10 +698,11 @@ input.comm:not(.active) {
         margin-left: 15px;
         width: 180px;
     }
-    
+
 .notif-div-bottom {
     position: fixed;
-    width: 300px;
+    min-width: 300px;
+    max-width: 400px;
     height: 100px;
     border: 1px solid grey;
     bottom: 70px;
