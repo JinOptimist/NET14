@@ -201,10 +201,16 @@ $(document).ready(() => {
 
     hubConnection.on("SendMessageNotificaton", function (message, userName, userPhoto, userId) {
         if (window.location.pathname + window.location.search == "/SocialMessages/GetSingleDialog?dialogFriendId=" + userId) {
-            alert("No");
+            return;
         }
         else
         {
+            if (message.length > 22)
+            {
+                debugger;
+                message = message.slice(0, 21);
+                message += "...";
+            }
             $(".notif-div-bottom").fadeIn(200);
             $(".notif-text").text(message);
             $(".user-message-name").text(userName + " send message");
