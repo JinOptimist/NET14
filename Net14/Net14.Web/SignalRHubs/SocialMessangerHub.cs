@@ -11,16 +11,12 @@ namespace Net14.Web.SignalRHubs
 {
     public class SocialMessangerHub : Hub
     {
-        private SocialUserRepository _socialUserRepository;
-        private SocialMessagesRepository _socialMessagesRepository;
         private UserService _userService;
 
         public SocialMessangerHub(SocialMessagesRepository socialMessagesRepository, 
             SocialUserRepository socialUserRepository, UserService userService)
         {
             _userService = userService;
-            _socialMessagesRepository = socialMessagesRepository;
-            _socialUserRepository = socialUserRepository;
         }
 
         public void SendMessage(string message, string userId)

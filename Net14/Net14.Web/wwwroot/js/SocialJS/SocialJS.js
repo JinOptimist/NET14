@@ -191,12 +191,35 @@ $(document).ready(() => {
 
     hubConnection.on("SendNotif", function (message, userPhoto) {
         $(".notif-div-bottom").fadeIn(200);
-        $(".notif-div-bottom-content").text(message);
+        $(".notif-text").text(message);
         let photo = $('<img>').attr("src", userPhoto);
         $(".notif-div-bottom-content").append(photo);
         setTimeout(function () {
             $(".notif-div-bottom").fadeOut(200);
         }, 3000);
+    });
+
+    hubConnection.on("SendMessageNotificaton", function (message, userName, userPhoto, userId) {
+        if (window.location.pathname + window.location.search == "/SocialMessages/GetSingleDialog?dialogFriendId=" + userId) {
+            return;
+        }
+        else
+        {
+            if (message.length > 22)
+            {
+                debugger;
+                message = message.slice(0, 21);
+                message += "...";
+            }
+            $(".notif-div-bottom").fadeIn(200);
+            $(".notif-text").text(message);
+            $(".user-message-name").text(userName + " send message");
+            let photo = $('<img>').attr("src", userPhoto);
+            $(".notif-div-bottom-content").append(photo);
+            setTimeout(function () {
+                $(".notif-div-bottom").fadeOut(200);
+            }, 3000);
+        }
     });
 
     $(document).on('click', ".accept-button", function () {
