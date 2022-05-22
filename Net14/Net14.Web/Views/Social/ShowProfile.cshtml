@@ -4,7 +4,33 @@
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 <link rel="stylesheet" href="~/css/SocialCss/ShowPagesProfile.css">
-
+<div id="zatemnenie">
+    <div id="okno">
+        <div class="pop-wrapper">
+            <div class="pop-header">
+                <div class="send-header">Send message</div>
+                <div class="go-and-cancel">
+                    <div class="go-to-dialog">Go to the dialog</div>
+                    <img class="close-pop" src="~/images/Social/free-icon-cancel-130887.png">
+                </div>
+            </div>
+            <div class="user-message-info-wrapper">
+                <div class="user-message-info">
+                    <img src=@Model.UserPhoto>
+                </div>
+                <div>
+                    @Model.FirstName @Model.LastName
+                </div>
+            </div>
+            <div class="send-message-pop">
+                <textarea placeholder="Send message" class="texarea-profile"></textarea>
+            </div>
+            <div class="send-message-profile-container">
+                <div class="send-message-profile-pop">Send message</div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="profile-wrapper">
     <div class="user-info-prof">
         <div class="profile-user-photo">
@@ -14,9 +40,6 @@
             <div class="name-and-status">
                 <div class="user-name">
                     @Model.FirstName @Model.LastName
-                    <div class="user-settings" onclick="location.href='/Social/Settings'">
-                        <img src="~/images/Social/pencil-svgrepo-com.svg" class="settings-profile-icon">
-                    </div>
                 </div>
                 <input type="text" class="profile-status" placeholder="Status">
             </div>
@@ -36,7 +59,6 @@
             <div class="add-to-friends-profile">Add to friends</div>
         </div>
     </div>
-
 </div>
 
 
@@ -97,4 +119,9 @@
             <div class="time-of-posting">Posted @DateTime.Now.ToLocalTime()</div>
         </div>
     </div>
+}
+
+
+@section Scripts{
+    <script src="~/js/SocialJS/SocialProfileJs.js"></script>
 }

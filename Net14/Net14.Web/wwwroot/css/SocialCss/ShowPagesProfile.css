@@ -187,3 +187,133 @@
         background: rgb(22 222 48);
         color: white;
     }
+
+#zatemnenie {
+    display: none;
+    background: rgba(102, 102, 102, 0.5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#okno {
+    width: 500px;
+    height: 300px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid black;
+    color: #0000cc;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    background: #fff;
+}
+
+#zatemnenie:target {
+    display: block;
+}
+
+.close {
+    display: inline-block;
+    border: 1px solid #0000cc;
+    color: #0000cc;
+    padding: 0 12px;
+    margin: 10px;
+    text-decoration: none;
+    background: #f2f2f2;
+    font-size: 14pt;
+    cursor: pointer;
+}
+
+    .close:hover {
+        background: #e6e6ff;
+    }
+
+.pop-header {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid;
+    align-items: center;
+    justify-content: space-between;
+}
+.send-message-pop {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+}
+
+.texarea-profile {
+    width: 85%;
+    height: 120px;
+    resize: none;
+}
+
+.user-message-info img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.user-message-info-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 86%;
+}
+
+.pop-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.send-header {
+    margin-left: 30px;
+}
+
+.go-to-dialog {
+    margin-right: 30px;
+}
+.send-message-profile-container {
+    width: 86%;
+    margin-top: 20px;
+    display: flex;
+    justify-content:flex-end;
+}
+
+.send-message-profile-pop {
+    display: flex;
+    width: 150px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid grey;
+    border-radius: 20px;
+    transition: background 0.3s ease;
+    cursor: pointer;
+}
+
+
+    .send-message-profile-pop:hover {
+        background: #e6e6ff;
+    }
+
+.close-pop {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.go-and-cancel {
+    display: flex;
+    align-items: center;
+}
