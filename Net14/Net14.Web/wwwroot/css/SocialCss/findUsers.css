@@ -239,3 +239,7 @@ add-to-friends-button.requested {
     color: white;
     border: 1px solid grey;
 }
+
+.add-to-friends-button.requested.template {
+    display: none;
+}

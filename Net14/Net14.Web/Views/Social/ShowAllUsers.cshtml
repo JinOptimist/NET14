@@ -1,4 +1,5 @@
 ﻿@using Net14.Web.Services; 
+@using Net14.Web.Localize.Social; 
 @model List<SocialUserViewModel>
 @inject UserService userService
 
@@ -98,6 +99,10 @@
             </div>
         }
     }
+</div>
+
+<div class="add-to-friends-button requested template">
+    @Recomendations.Friend_Request
 </div>
 
 
