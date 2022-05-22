@@ -1,5 +1,5 @@
 ﻿@model SocialUserRecomendationUrlViewModel
-@using Net14.Web.Localize.Social; 
+@using Net14.Web.Localize.Social;
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
@@ -42,7 +42,7 @@
                                 {
                                     @Recomendations.Same_Friends_End2_4
                                 }
-                                else 
+                                else
                                 {
                                     @Recomendations.Same_Friends
                                 }
@@ -78,11 +78,10 @@
             </div>
         </div>
     </div>
-
-    <div class="add-to-friends-button requested template">
-        @Recomendations.Friend_Request
-    </div>
 }
+<div class="add-to-friends-button requested template">
+    @Recomendations.Friend_Request
+</div>
 
 @section Scripts{
     <script src="~/js/SocialJS/SocialJS.js"></script>
