@@ -174,7 +174,9 @@
 .add-to-friends-profile {
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-right: 20px;
+    width: 110px;
     border: 1px solid grey;
     border-radius: 20px;
     padding: 5px;
@@ -281,6 +283,7 @@
 }
 
 .go-to-dialog {
+    cursor: pointer;
     margin-right: 30px;
 }
 .send-message-profile-container {
@@ -316,4 +319,11 @@
 .go-and-cancel {
     display: flex;
     align-items: center;
+}
+
+#profile {
+    margin-right: 20px;
+    margin-bottom: 5px;
+    width: 120px;
+    height: 30px;
 }

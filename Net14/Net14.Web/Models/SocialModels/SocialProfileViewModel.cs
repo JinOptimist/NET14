@@ -8,6 +8,9 @@ namespace Net14.Web.Models
 {
     public class SocialProfileViewModel
     {
+        public int Id { get; set; }
+        public bool IsFriend { get; set; }
+        public bool IsRequested { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
         public int Age { get; set; }

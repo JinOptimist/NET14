@@ -1,4 +1,5 @@
 ﻿@model SocialProfileViewModel
+@using Net14.Web.Localize.Social;
 
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
@@ -10,7 +11,7 @@
             <div class="pop-header">
                 <div class="send-header">Send message</div>
                 <div class="go-and-cancel">
-                    <div class="go-to-dialog">Go to the dialog</div>
+                    <div class="go-to-dialog"  onclick="location.href='/SocialMessages/GetSingleDialog?dialogFriendId=@Model.Id';">Go to the dialog</div>
                     <img class="close-pop" src="~/images/Social/free-icon-cancel-130887.png">
                 </div>
             </div>
@@ -31,7 +32,7 @@
         </div>
     </div>
 </div>
-<div class="profile-wrapper">
+<div class="profile-wrapper" data-id=@Model.Id>
     <div class="user-info-prof">
         <div class="profile-user-photo">
             <img src=@Model.UserPhoto>
@@ -56,7 +57,19 @@
         </div>
         <div class="buttons">
             <div class="send-message-profile">Send message</div>
-            <div class="add-to-friends-profile">Add to friends</div>
+            @if (!Model.IsFriend)
+            {
+                @if (Model.IsRequested)
+                {
+                    <div class="add-to-friends-button requested" id="profile">
+                        @Recomendations.Friend_Request
+                    </div>
+                }
+                else
+                {
+                    <div class="add-to-friends-profile">Add to friends</div>
+                }
+            }
         </div>
     </div>
 </div>
@@ -120,6 +133,10 @@
         </div>
     </div>
 }
+
+<div class="add-to-friends-button requested template" id="profile">
+    @Recomendations.Friend_Request
+</div>
 
 
 @section Scripts{
