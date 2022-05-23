@@ -62,5 +62,9 @@
         $(this).closest(".input-container").find("input.comm").addClass("active");
     })
 
+    $(".like-container").click(function () {
+
+    })
 
 })
+

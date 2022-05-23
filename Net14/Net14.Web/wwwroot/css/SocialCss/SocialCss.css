@@ -291,11 +291,9 @@ footer
     
 
 }
-.operations:first-child:hover
-{
-    background: rgba(245, 19, 19, 0.2);
-    
-}
+    .operations:not(.comment):not(.share):hover {
+        background: rgba(245, 19, 19, 0.2);
+    }
 
 .time-of-posting {
     display: flex;
@@ -729,3 +727,24 @@ input.comm:not(.active) {
         margin-right: 15px;
         margin-left: 10px;
     }
+
+.likes-count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.like-container {
+    display: flex;
+}
+
+.comm-container {
+    display: flex;
+}
+
+.comm-count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
