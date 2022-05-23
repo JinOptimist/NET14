@@ -28,5 +28,10 @@ namespace Net14.Web.SignalRHubs
         {
             Clients.User(dialogFriendId.ToString()).SendAsync("MessagesAreViewed");
         }
+
+        public void IsTyping(string userId) 
+        {
+            Clients.User(userId).SendAsync("IsTyping");
+        }
     }
 }
