@@ -237,6 +237,8 @@ namespace Net14.Web
 
             app.UseRouting();
 
+            app.UseCors(builder => builder.AllowAnyOrigin());
+
             //Who I am
             app.UseAuthentication();
 
