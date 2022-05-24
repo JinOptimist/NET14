@@ -44,6 +44,34 @@ namespace Net14.Web.Controllers.ApiControllers
         }
 
         [Authorize]
+        public bool AddLike(int postId) 
+        {
+            var post = _socialPostRepository.Get(postId);
+            var currentUser = _userService.GetCurrent();
+
+            if (_socialPostRepository.AddLike(post, currentUser))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        [Authorize]
+        public bool RemoveLike(int postId) 
+        {
+            var post = _socialPostRepository.Get(postId);
+            var currentUser = _userService.GetCurrent();
+
+            if (_socialPostRepository.RemoveLike(post, currentUser)) 
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        [Authorize]
         public SocialUserViewModel AddComment(int postId, string text)
         {
 
