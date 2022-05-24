@@ -40,6 +40,10 @@ namespace Net14.Web.EfStuff
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<PostSocial>()
+                .HasMany(x => x.Likes)
+                .WithOne(u => u.Post);
+
             modelBuilder.Entity<GroupTags>()
                 .HasOne(x => x.Group)
                 .WithMany(g => g.Tags);

@@ -48,7 +48,7 @@
                     <img src=@post.UserPhoto class="user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">
                 </div>
                 <div class="user-name">
-                        <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@string.Format(@Indexx.Posted, post.UserName)</p>
+                    <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@string.Format(@Indexx.Posted, post.UserName)</p>
                 </div>
             </div>
             <div class="block-post-image">
@@ -58,11 +58,26 @@
                 @post.CommentOfUser
             </div>
             <div class="post-operations">
-                <div class="operations like">
-                    <img src="~/images/Social/heart.png">
+                <div class="like-container">
+                    @if (post.IsLikedCurrentUser)
+                    {
+                        <div class="operations like active">
+                            <img src="~/images/Social/heartRed.png">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="operations like" id="disable">
+                            <img src="~/images/Social/heart.png">
+                        </div>
+                    }
+                    <div class="likes-count">@post.Likes</div>
                 </div>
-                <div class="operations comment">
-                    <img src="~/images/Social/speech-bubble.png">
+                <div class="comm-container">
+                    <div class="operations comment">
+                        <img src="~/images/Social/speech-bubble.png">
+                    </div>
+                    <div class="comm-count">@post.Comments.Count</div>
                 </div>
                 <div class="operations share">
                     <img src="~/images/Social/share (1).png">
@@ -74,7 +89,7 @@
                     <div class="comment-elements">
                         <div class="single-comment template">
                             <div class="comment-owner-info">
-                                <img  class="user-photo" id="comment-photo">
+                                <img class="user-photo" id="comment-photo">
                                 <div class="user-name-comment"></div>
                             </div>
                             <div class="comment-text">
@@ -82,7 +97,7 @@
                         </div>
                     </div>
                 </div>
-                <form class="input-container" >
+                <form class="input-container">
                     <input name="postId" type="hidden" value="@post.Id" />
                     <input type="text" class="to-comment" name="text" placeholder="@Indexx.Add_comment" />
                     <input type="submit" value="@Indexx.Send" class="comm">
@@ -92,6 +107,15 @@
     </div>
 
 }
+
+
+<div class="operations like active template">
+    <img src="~/images/Social/heartRed.png">
+</div>
+
+<div class="operations like template" id="disable">
+    <img src="~/images/Social/heart.png">
+</div>
 
 @section NavbarRecomendations
 {
@@ -111,16 +135,3 @@
     </div>
 }
 
-@*@foreach (var comm in post.Comments)
-{
-    <div class="single-comment">
-        <div class="comment-owner-info">
-            <img src=@comm.User.UserPhoto class="user-photo" id="comment-photo">
-            <div>@comm.User.FirstName @comm.User.LastName</div>
-        </div>
-        <div>
-            @comm.Text
-        </div>
-    </div>
-}
-*@
