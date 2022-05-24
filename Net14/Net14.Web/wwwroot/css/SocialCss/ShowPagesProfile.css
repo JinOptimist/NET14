@@ -195,7 +195,7 @@
     background: rgba(102, 102, 102, 0.5);
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
 }
@@ -207,7 +207,7 @@
     border-radius: 10px;
     border: 1px solid black;
     color: #0000cc;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
