@@ -169,19 +169,19 @@ namespace Net14.Web.Controllers
         }
 
 
-        public IActionResult ShowProfile()
+        public IActionResult ShowProfile(int userId)
         {
-            var user = new UserSocial();
+            var user = _socialUserRepository.Get(userId);
+            var currentUser = _userService.GetCurrent();
 
-            return View(user);
-        }
-
-        public IActionResult ShowPagesProfile()
-        {
-            var postUser = _mapper.Map<List<SocialPostViewModel>>(_userService.GetCurrent().Posts);
-            var user = _userService.GetCurrent();
+            var postUser = _mapper.Map<List<SocialPostViewModel>>(user.Posts);
             var model = _mapper.Map<SocialProfileViewModel>(user);
             model.UserPost = postUser;
+            model.UserFriendsCount = user.Friends.Count;
+            model.UserGroupsCount = user.Groups.Count;
+            model.IsRequested = currentUser.FriendRequestSent.Any(x => x.Receiver.Id == userId) ? true : false;
+            model.IsFriend = currentUser.Friends.Any(x => x.Id == user.Id) ? true : false;
+
 
             return View(model);
         }
@@ -189,8 +189,13 @@ namespace Net14.Web.Controllers
         [Authorize]
         public IActionResult MyProfile()
         {
-            var user = _userService.GetCurrent();
-            var model = _mapper.Map<SocialProfileViewModel>(user);
+            var currentUser = _userService.GetCurrent();
+
+            var postUser = _mapper.Map<List<SocialPostViewModel>>(currentUser.Posts);
+            var model = _mapper.Map<SocialProfileViewModel>(currentUser);
+            model.UserPost = postUser;
+            model.UserFriendsCount = currentUser.Friends.Count;
+            model.UserGroupsCount = currentUser.Groups.Count;
 
             return View(model);
         }

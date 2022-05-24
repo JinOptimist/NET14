@@ -1,11 +1,12 @@
-﻿@using Net14.Web.Services; 
-@using Net14.Web.Localize.Social; 
+﻿@using Net14.Web.Services;
+@using Net14.Web.Localize.Social;
 @model List<SocialUserViewModel>
 @inject UserService userService
 
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
+<link rel="stylesheet" href="~/css/SocialCss/findUsers.css">
 
 
 <div class="Conteyner">
@@ -34,10 +35,10 @@
                 <div class="findUsers">
                     <div class="find-recomendation-element-menu blocked" data-friend=@user.Id>
                         <div class="user-name-and-photo">
-                            <div class="find-user-photo" onclick="location.href = '/Social/ShowPagesProfile?id=@user.Id'">
+                            <div class="find-user-photo" onclick="location.href = '/Social/ShowProfile?userId=@user.Id'">
                                 <img src=@user.UserPhoto class="find-user-photo">
                             </div>
-                            <div class="size-for-user text-indent" onclick="location.href = '/Social/ShowPagesProfile?id=@user.Id'">
+                            <div class="size-for-user text-indent" onclick="location.href = '/Social/ShowProfile?userId=@user.Id'">
                                 @user.FirstName @user.LastName
                             </div>
                         </div>
@@ -63,9 +64,9 @@
                     <div class="find-recomendation-element-menu" data-friend=@user.Id>
                         <div class="user-name-and-photo">
                             <div class="find-user-photo">
-                                <img src=@user.UserPhoto class="find-user-photo" onclick="location.href = '/Social/ShowPagesProfile?id=@user.Id'">
+                                <img src=@user.UserPhoto class="find-user-photo" onclick="location.href = '/Social/ShowProfile?userId=@user.Id'">
                             </div>
-                            <div class="size-for-user text-indent" onclick="location.href = '/Social/ShowPagesProfile?id=@user.Id'">
+                            <div class="size-for-user text-indent" onclick="location.href = '/Social/ShowProfile?userId=@user.Id'">
                                 @user.FirstName @user.LastName
                             </div>
                         </div>
@@ -106,6 +107,6 @@
 </div>
 
 
-@section Scripts{ 
+@section Scripts{
     <script src="~/js/SocialJS/ShowAllUsersJs.js"></script>
 }
