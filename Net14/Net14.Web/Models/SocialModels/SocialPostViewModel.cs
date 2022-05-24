@@ -16,6 +16,7 @@ namespace Net14.Web.Models
         public string TypePost { get; set; } = "Registartion";
         public int Likes { get; set; } = 0;
         public string UserPhoto { get; set; }
+        public bool IsLikedCurrentUser { get; set; } = false;
         public List<SocialCommentViewModel> Comments { get; set; } = new List<SocialCommentViewModel>();
 
     }

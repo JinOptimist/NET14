@@ -43,17 +43,30 @@ namespace Net14.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
             var postArr = _socialPostRepository.GetAll();
+
             var topThree = _mapper.Map<List<SocialPostViewModel>>(_recomendationsService.GetIndexRecomendations());
             var viewPost = _mapper.Map<List<SocialPostViewModel>>(postArr);
 
+            if (_userService.GetCurrent() != null) 
 
+            {
+                var currentUser = _userService.GetCurrent();
+                viewPost.ForEach(x =>
+                {
+                    if (postArr.Single(dbPost => dbPost.Id == x.Id).Likes.Any(like => like.User.Id == currentUser.Id))
+                    {
+                        x.IsLikedCurrentUser = true;
+                    }
+                });
+
+            }
             var finalModel = new SocialPostWithTopViewModel()
             {
                 Posts = viewPost,
                 TopThreePost = topThree
             };
+
 
             return View(finalModel);
         }

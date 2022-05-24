@@ -59,9 +59,18 @@
             </div>
             <div class="post-operations">
                 <div class="like-container">
-                    <div class="operations like">
-                        <img src="~/images/Social/heart.png">
-                    </div>
+                    @if (post.IsLikedCurrentUser)
+                    {
+                        <div class="operations like active">
+                            <img src="~/images/Social/heartRed.png">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="operations like" id="disable">
+                            <img src="~/images/Social/heart.png">
+                        </div>
+                    }
                     <div class="likes-count">@post.Likes</div>
                 </div>
                 <div class="comm-container">
@@ -98,6 +107,15 @@
     </div>
 
 }
+
+
+<div class="operations like active template">
+    <img src="~/images/Social/heartRed.png">
+</div>
+
+<div class="operations like template" id="disable">
+    <img src="~/images/Social/heart.png">
+</div>
 
 @section NavbarRecomendations
 {

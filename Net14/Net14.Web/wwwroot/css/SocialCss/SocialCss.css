@@ -748,3 +748,9 @@ input.comm:not(.active) {
     align-items: center;
 }
 
+.operations.like.active.template {
+    display: none;
+}
+.operations.like.template {
+    display: none;
+}
