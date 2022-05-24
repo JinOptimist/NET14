@@ -149,3 +149,9 @@
 .check-mark-right.template {
     display: none;
 }
+
+.is-typing {
+    display: none;
+    font-size: 12px;
+    color: white;
+}
