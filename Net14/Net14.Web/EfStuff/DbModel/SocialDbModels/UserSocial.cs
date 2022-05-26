@@ -18,8 +18,10 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
         public string Password { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
-        public virtual List<FileSocial> Files { get; set;}
+        public bool IsBlocked { get; set; }
         public SiteRole Role { get; set; }
+        public Language Language { get; set; }
+        public virtual List<FileSocial> Files { get; set; }
         public virtual List<PostSocial> Posts { get; set; }
         public virtual List<GroupSocial> Groups { get; set; }
         public virtual List<UserSocial> Friends { get; set; } = new List<UserSocial>();
@@ -27,7 +29,8 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
         public virtual List<UserFriendRequest> FriendRequestSent { get; set; } = new List<UserFriendRequest>();
         public virtual List<UserFriendRequest> FriendRequestReceived { get; set; } = new List<UserFriendRequest>();
         public virtual Basket Basket { get; set; }
-        public bool IsBlocked { get; set; }
+        public virtual List<SocialMessages> SendMessages { get; set; } = new List<SocialMessages>();
+        public virtual List<SocialMessages> RecievedMessages { get; set; } = new List<SocialMessages>();
 
     }
 }

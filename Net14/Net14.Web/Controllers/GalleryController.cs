@@ -5,7 +5,9 @@ using Net14.Web.EfStuff.DbModel;
 using Net14.Web.EfStuff.Repositories;
 using Net14.Web.Models;
 using Net14.Web.Models.gallery;
+using Net14.Web.Services;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -16,31 +18,38 @@ namespace Net14.Web.Controllers
     {
         private ImageRepository _imageRepository;
         private ImageCommentRepository _commentRepository;
+        private UserService _userService;
         private IMapper _mapper;
         private IWebHostEnvironment _webHostEnvironment;
 
         public GalleryController(ImageRepository imageRepository,
             ImageCommentRepository commentRepository,
             IMapper mapper,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment webHostEnvironment, 
+            UserService userService)
         {
             _imageRepository = imageRepository;
             _commentRepository = commentRepository;
             _mapper = mapper;
             _webHostEnvironment = webHostEnvironment;
+            _userService = userService;
         }
 
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(int page = 1, int perPage = 3)
         {
             var dbImages = _imageRepository.GetAll();
 
             var imagesViewModels = dbImages
+                .Skip((page - 1) * perPage)
+                .Take(perPage)
                 .Select(_mapper.Map<ImageViewModel>)
                 .ToList();
 
             var viewModel = new IndexGalleryViewModel()
             {
                 Page = page,
+                PerPage = perPage,
+                TotalCount = dbImages.Count,
                 Images = imagesViewModels
             };
             return View(viewModel);

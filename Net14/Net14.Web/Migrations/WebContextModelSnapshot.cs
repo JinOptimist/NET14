@@ -350,6 +350,37 @@ namespace Net14.Web.Migrations
                     b.ToTable("SocialComments");
                 });
 
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.SocialMessages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsViewdByReciever")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("RecieverId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SenderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecieverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("SocialMessages");
+                });
+
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserFriendRequest", b =>
                 {
                     b.Property<int>("Id")
@@ -405,6 +436,9 @@ namespace Net14.Web.Migrations
 
                     b.Property<bool>("IsBlocked")
                         .HasColumnType("bit");
+
+                    b.Property<int>("Language")
+                        .HasColumnType("int");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
@@ -601,6 +635,21 @@ namespace Net14.Web.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.SocialMessages", b =>
+                {
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "Reciever")
+                        .WithMany("RecievedMessages")
+                        .HasForeignKey("RecieverId");
+
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "Sender")
+                        .WithMany("SendMessages")
+                        .HasForeignKey("SenderId");
+
+                    b.Navigation("Reciever");
+
+                    b.Navigation("Sender");
+                });
+
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserFriendRequest", b =>
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "Receiver")
@@ -693,6 +742,10 @@ namespace Net14.Web.Migrations
                     b.Navigation("FriendRequestSent");
 
                     b.Navigation("Posts");
+
+                    b.Navigation("RecievedMessages");
+
+                    b.Navigation("SendMessages");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,8 @@
+<p>left-menu works!</p>
+<div class="link-container">
+    <a *ngFor="let link of links" class="link" (click)="removeLink(link.text)">{{link.text}}</a>
+    <div class="footer">
+        footer menu
+        <button (click)="addLink()">add link</button>
+    </div>
+</div>

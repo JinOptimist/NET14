@@ -1,0 +1,76 @@
+﻿@using Net14.Web.Models.SocialModels.Enums;
+@model SocialMessageWithUserViewModel
+
+
+@{
+    Layout = "/Views/Shared/_LayoutSocial.cshtml";
+}
+<link rel="stylesheet" href="~/css/SocialCss/SocialSingleDialog.css">
+
+<div class="dialog-user-info" data-id=@Model.UserOfDialog.Id>
+    <img src=@Model.UserOfDialog.UserPhoto class="user-photo">
+    <div class="user-name">
+        @Model.UserOfDialog.FirstName @Model.UserOfDialog.LastName
+    </div>
+</div>
+<div class="main-message-container">
+    @foreach (var message in Model.Messages)
+    {
+        @if (message.MessageType == MessageType.Recieved)
+        {
+            <div class="single-message-recieved">
+                <div class="message-text-recieved">
+                    <div class="txt">@message.Text</div>
+                    <div class="recieved-time">@message.Date.ToShortTimeString()</div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="single-message-sent">
+                <div class="message-text-sent">
+                    <div class="txt">@message.Text</div>
+                    <div class="sent-time">
+                        <span class="text-time">@message.Date.ToShortTimeString()</span>
+                        @if (!message.IsViewdByReciever)
+                        {
+                            <img src="~/images/Social/check_mark.svg" class="check-mark-left">
+                        }
+                        else
+                        {
+                            <img src="~/images/Social/check_mark.svg" class="check-mark-left">
+                            <img src="~/images/Social/check_mark.svg" class="check-mark-right">
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+<div class="single-message-sent template">
+    <div class="message-text-sent">
+        <div class="txt"></div>
+        <div class="sent-time">
+            <span class="text-time"></span>
+            <img src="~/images/Social/check_mark.svg" class="check-mark-left template">
+            <img src="~/images/Social/check_mark.svg" class="check-mark-right template">
+        </div>
+    </div>
+</div>
+
+<div class="single-message-recieved template">
+    <div class="message-text-recieved">
+        <div class="txt"></div>
+        <div class="recieved-time"></div>
+    </div>
+</div>
+
+<form class="message-inputs">
+    <input type="text" class="message-input" name="Message"> 
+    <input type="submit" class="message-send-button" value="Send">
+</form>
+@section Scripts{
+    <script src="~/js/SocialJS/SocialMessanger.js"></script>
+}
+
