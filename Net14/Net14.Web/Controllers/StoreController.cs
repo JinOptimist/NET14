@@ -16,6 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Net14.Web.Controllers.AutorizeAttribute;
 using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Net14.Web.Controllers
 {
@@ -162,5 +163,18 @@ namespace Net14.Web.Controllers
             }
         }
        
+        public IActionResult RemoveProduct(int id)
+        {
+            var basket = _userService.GetCurrent().Basket;
+            var product = basket.Products.First(x => x.Id == id);
+            basket.Products.Remove(product);
+            _basketRepository.Save(basket);
+            return Json(true);
+        }
+        public async Task<IActionResult> SignOut()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToRoute("default", new { controller = "Store", action = "Index" });
+        }
     }
 }

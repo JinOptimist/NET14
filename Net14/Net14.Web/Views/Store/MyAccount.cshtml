@@ -34,6 +34,10 @@
 
                 </tbody>
             </table>
+            <a href="#" id="changeMasterData" class="goToBasket">Change master data</a>
+            <a href="#" id="changePassword" class="goToBasket">Change password</a>
+            <a href="/Store/Basket" class="goToBasket">My address book</a>
+            <a href="/Store/SignOut" class="goToBasket">Exit</a>
         </div>
     </div>
     <div class="myAccountLitleBlock1">
@@ -64,18 +68,18 @@
                         </tr>
                         @foreach (var product in Model.Products)
                         {
-                            
-                            <tr>
-                                <td><a href="/Store/Shoes?id=@product.Id"><img src="@product.Images.FirstOrDefault()" class="imageProductAccount"  /></a></td>
+
+                            <tr class='product-row'>
+                                <td><a href="/Store/Shoes?id=@product.Id"><img src="@product.Images.FirstOrDefault()" class="imageProductAccount" /></a></td>
                                 <td><a href="/Store/Shoes?id=@product.Id">@product.BrandCategories @product.Name</a></td>
                                 <td>@product.Price $</td>
-                                <td><a href="/Store/DeleteProductFromBasket?productId=@product.Id&userId=1"> <img src=~/images/Store/delete_forever_FILL0.svg class="myAccountLitleLogo myAccountDeleteProduct" /></a></td>
+                                <td><a href="#" class='remove-product' data-id='@product.Id'> <img src=~/images/Store/delete_forever_FILL0.svg class="myAccountLitleLogo myAccountDeleteProduct" /></a></td>
                             </tr>
-                            
+
                         }
                     </tbody>
                 </table>
-                <a href="/Store/Basket" class="toBasket goToBasket">Go to basket</a>
+                <a href="/Store/Basket" class="goToBasket">Go to basket</a>
             }
 
         </div>
@@ -145,6 +149,56 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div id="popupAccount1" class="popup">
+        <div class="popupBody">
+            <div class="popupContent">
+                <a href="#" class="popupClose">X</a>
+                <div class="popupTitle">Учетная запись</div>
+                <form>
+                <div class="popupText">
+                    <div>
+                        <div class="popupTextMini">Имя:</div>
+                        <div class="popupTextMini">Фамилия:</div>
+                        <div class="popupTextMini">E-mail:</div>
+                        <div class="popupTextMini">Телефон: </div>
+                    </div>
+                    <div>
+                        <div class="popupTextImput"><input id="Name" name="Name" type="text" value=@Model.FirstName /></div>
+                        <div class="popupTextImput"><input id="Name" name="Name" type="text" value=@Model.LastName /></div>
+                        <div class="popupTextImput"><input id="Name" name="Name" type="text" value=@Model.Email /></div>
+                        <div class="popupTextImput"><input id="Name" name="Name" type="text" value="number" /></div>
+                    </div>
+                </div>
+                <div>
+                    <input type="submit" value="Refresh" />
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="popupAccount2" class="popup">
+        <div class="popupBody">
+            <div class="popupContent">
+                <a href="#" class="popupClose">X</a>
+                <div class="popupTitle">Смена пароля</div>
+                <form>
+                <div class="popupText">
+                    <div>
+                        <div class="popupTextMini">Пароль:</div>
+                        <div class="popupTextMini">Подтвердить:</div>
+                    </div>
+                    <div>
+                        <div class="popupTextImput"><input id="Name" name="Name" type="text" placeholder="Пароль" /></div>
+                        <div class="popupTextImput"><input id="Name" name="Name" type="text" placeholder="Подтвердить" /></div>
+                    </div>
+                </div>
+                <div>
+                    <input type="submit" value="Change" />
+                </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
