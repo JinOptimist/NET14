@@ -800,9 +800,75 @@ td {
 }
 
 .goToBasket {
-    margin-top: 0px;
-    font-size: 15px;
-    padding: 5px 165px;
+    box-shadow: inset 0px 1px 0px 0px #5A6169;
+    background: linear-gradient(to bottom, #5A6169 5%, #5A6169 100%);
+    background-color: #5A6169;
+    border-radius: 3px;
+    border: 1px solid #5A6169;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Courier New, monospace;
     text-decoration: none;
     text-shadow: 0px 1px 0px #2b665e;
+    margin-top: 5px;
+    font-size: 15px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #2b665e;
+    display: block;
+    padding: 4px 0px 4px 15px;
+}
+
+    .goToBasket:hover {
+        background: black;
+        color: orange;
+    }
+
+.popup {
+    position: fixed;
+    z-index: 1043;
+    width: 100%;
+    height: 100%;
+    background-color: #000000e0;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.popupBody {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 10px;
+}
+
+.popupContent {
+    background-color: #ffffff;
+    color: #000;
+    max-width: 800px;
+    padding: 30px;
+    position: relative;
+}
+
+.popupClose {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    color: black;
+}
+
+.popupTitle {
+    font-size: 40px;
+    margin: 0px 0px 20px 0px;
+}
+
+.popupText {
+    display:flex;
+}
+.popupTextMini{
+    padding:4px;
+}
+.popupTextImput{
+    padding:2px;
 }
