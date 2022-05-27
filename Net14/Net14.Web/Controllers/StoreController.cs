@@ -54,6 +54,7 @@ namespace Net14.Web.Controllers
                 LastName = user.LastName,
                 Email = user.Email,
                 City = user.City,
+                PhoneNumber = user.PhoneNumber,
                 Products = ProductModel
             };
             return View(userAccountModel);
