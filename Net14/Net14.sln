@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net14.Web", "Net14.Web\Net1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendar", "Calendar\Calendar.csproj", "{3060716E-1A9E-448F-BA65-60B980F96E81}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialTests", "SocialTests\SocialTests.csproj", "{1533EE38-6C2F-4E09-BFE6-3B25C07A8558}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{3060716E-1A9E-448F-BA65-60B980F96E81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3060716E-1A9E-448F-BA65-60B980F96E81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3060716E-1A9E-448F-BA65-60B980F96E81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1533EE38-6C2F-4E09-BFE6-3B25C07A8558}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1533EE38-6C2F-4E09-BFE6-3B25C07A8558}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1533EE38-6C2F-4E09-BFE6-3B25C07A8558}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1533EE38-6C2F-4E09-BFE6-3B25C07A8558}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

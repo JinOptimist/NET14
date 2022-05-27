@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
+using Net14.Web.EfStuff.Repositories.SocialRepositories;
+
 namespace Net14.Web.EfStuff.Repositories
 {
-    public class SocialPostRepository : BaseRepository<PostSocial>
+    public class SocialPostRepository : BaseRepository<PostSocial>, ISocialPostRepository
     {
         public SocialPostRepository(WebContext context) : base(context)
         {

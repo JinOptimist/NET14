@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Net14.Web.EfStuff.Repositories
 {
-    public abstract class BaseRepository<T> where T : BaseModel
+    public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseModel
     {
         protected WebContext _webContext;
         protected DbSet<T> _dbSet;

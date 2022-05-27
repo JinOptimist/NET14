@@ -13,7 +13,7 @@ using Net14.Web.EfStuff.DbModel;
 
 namespace Net14.Web.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private SocialUserRepository _socialUserRepository;
         private CalendarUsersRepository _calendarUsersRepository;
