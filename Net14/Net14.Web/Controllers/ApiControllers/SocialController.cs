@@ -178,5 +178,14 @@ namespace Net14.Web.Controllers.ApiControllers
             _socialUserRepository.Save(user);
         }
 
+        [HttpGet]
+        public List<SocialUserViewModel> GetUsers()
+        {
+            var users = _socialUserRepository.GetAll();
+
+            return _mapper.Map<List<SocialUserViewModel>>(users);
+        }
+
+
     }
 }
