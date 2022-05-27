@@ -21,12 +21,12 @@ namespace SocialTests
             var socialGroupRepository = new Mock<ISocialGroupRepository>();
             var socialPostRepository = new Mock<ISocialPostRepository>();
 
-            _recomendationsService = new RecomendationsService(socialUserRepository.Object,
+/*            _recomendationsService = new RecomendationsService(socialUserRepository.Object,
                 mapper.Object,
                 userService.Object,
                 socialGroupRepository.Object,
                 socialPostRepository.Object
-                ); 
+                ); */
         }
 
         [Test]
