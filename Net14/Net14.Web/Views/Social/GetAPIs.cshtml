@@ -16,12 +16,19 @@
             @foreach (var methods in apiController.Methods)
             {
 
-                @foreach (var par in methods.Parametres)
-                {
-                    <div>@methods.Name (@par.Type @par.Name)</div>
 
+                <div class="api-method">
+                    @methods.Name (
+                @foreach (var per in methods.Parametres)
+                {
+                    <span>@per.Type @per.Name</span>
                 }
-            }
+                    )
+                </div>
+
+
+
+        }
         </div>
     </div>
 }

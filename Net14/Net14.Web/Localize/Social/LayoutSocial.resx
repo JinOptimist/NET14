@@ -127,7 +127,7 @@
     <value>Отклонить</value>
   </data>
   <data name="Find user" xml:space="preserve">
-    <value>Найти пользователя</value>
+    <value>Пользователи</value>
   </data>
   <data name="Friends" xml:space="preserve">
     <value>Друзья </value>
@@ -175,6 +175,6 @@
     <value>Стартовая страница</value>
   </data>
   <data name="User_settings" xml:space="preserve">
-    <value>Настройки пользователя</value>
+    <value>Настройки аккаунта</value>
   </data>
 </root>

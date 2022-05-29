@@ -32,11 +32,12 @@ namespace Net14.Web.Controllers.ApiControllers
         private SocialMessagesRepository _socialMessagesRepository;
         private SocialUserRepository _socialUserRepository;
         private UserService _userService;
-
+        private IHubContext<NotificationsHub> _hubContext;
 
         public SocialMessagesController(SocialMessagesRepository socialMessagesRepository,
-               UserService userService, SocialUserRepository socialUserRepository)
+               UserService userService, SocialUserRepository socialUserRepository, IHubContext<NotificationsHub> hub)
         {
+            _hubContext = hub;
             _socialUserRepository = socialUserRepository;
             _socialMessagesRepository = socialMessagesRepository;
             _userService = userService;
@@ -45,14 +46,17 @@ namespace Net14.Web.Controllers.ApiControllers
         [HttpPost]
         public bool SendMessage(SendMessageViewModel message) 
         {
+            var sender = _userService.GetCurrent();
             var messageModel = new SocialMessages()
             {
-                Sender = _userService.GetCurrent(),
+                Sender = sender,
                 Reciever = _socialUserRepository.Get(message.UserId),
                 Text = message.Message
             };
 
             _socialMessagesRepository.Save(messageModel);
+
+            _hubContext.Clients.User(message.UserId.ToString()).SendAsync("SendMessageNotificaton", message.Message, $"{sender.FirstName} {sender.LastName}", sender.UserPhoto, sender.Id.ToString());
 
             return true;
         }

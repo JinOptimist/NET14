@@ -1,4 +1,5 @@
 ﻿@using Net14.Web.Services;
+@using Net14.Web.Localize.Social 
 @model List<SocialGroupViewModel>
 @inject RecomendationsService recomendationService;
 
@@ -8,10 +9,10 @@
 <link rel="stylesheet" href="~/css/SocialCss/SocialGroups.css">
 
 
-<div class="groups-header">Groups</div>
+<div class="groups-header">@Groups.Group_Header</div>
 <form action="/SocialGroups/GetGroups" method="post">
-    <input type="text" placeholder="Find group" class="find-group" name="name">
-    <input type="submit" placeholder="find" class="group-submit" value="Find">
+    <input type="text" placeholder=@Groups.Search_Groups class="find-group" name="name">
+    <input type="submit" placeholder=@Groups.Submin_Search class="group-submit" value="Find">
 </form>
 @foreach (var group in Model)
 {
@@ -23,7 +24,21 @@
             <div class="descriptions">
                 <div class="group-name">@group.Name</div>
                 <div>Cars</div>
-                <div>@group.Members.Count members</div>
+                <div>
+                    @group.Members.Count
+                    @if (group.Members.Count % 10 == 1)
+                    {
+                        @Groups.Members_End1
+                    }
+                    else if (2 <= group.Members.Count % 10 && group.Members.Count <= 4)
+                    {
+                        @Groups.Members_End2_4
+                    }
+                    else
+                    {
+                        @Groups.Members
+                    }
+                </div>
                 <div>
                     @foreach (var tag in group.Tags)
                     {
@@ -38,7 +53,7 @@
 @section NavbarRecomendations
 {
     <div class="menu-recomendations-user">
-        <div class="menu-recomendation-title">Top groups</div>
+        <div class="menu-recomendation-title">@Groups.Top_Groups</div>
         @foreach (var group in recomendationService.GetGroupsNavbarRecs())
         {
             <div class="recomendation-element-menu" onclick="location.href='@Url.Action("GetSingleGroup", "SocialGroups", new {id = group.Id})'">
