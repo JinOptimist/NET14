@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IGirl } from 'src/models/IGirl';
+import { ApiService } from 'src/app/sevices/apiService';
 
 @Component({
   selector: 'app-girls-gallery',
@@ -10,12 +11,15 @@ import { IGirl } from 'src/models/IGirl';
 export class GirlsGalleryComponent implements OnInit {
   girls: IGirl[] = [];
 
-  constructor(private http: HttpClient) {
-    http
-      .get<IGirl[]>('http://localhost:42059/api/Gallery/GetGirls')
-      .subscribe(response => this.girls = response);
-  }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
+    this.apiService
+      .getGirls()
+      .subscribe(girls => this.girls = girls);
+  }
+
+  parentRemoveGirl(girlId: number) {
+    this.girls = this.girls.filter(x => x.id != girlId);
   }
 }

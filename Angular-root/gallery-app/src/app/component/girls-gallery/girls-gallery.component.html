@@ -1,5 +1,7 @@
 <div class="gallery">
-    <div *ngFor="let girl of girls">
-        <app-girl-block [girl]="girl"></app-girl-block>
-    </div>
+    <a mat-raised-button href="/add-girl">Добавить</a>
+    <girl-block 
+        *ngFor="let girl of girls" 
+        [girl]="girl"
+        (onRemoveGirl)="parentRemoveGirl($event)"></girl-block>
 </div>
