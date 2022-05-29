@@ -1,0 +1,25 @@
+﻿.dialog-element {
+    display: flex;
+    align-items: center;
+    width: 550px;
+    justify-content: flex-start;
+    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
+    padding: 10px;
+    border-radius: 20px;
+    background: white;
+    cursor: pointer;
+    margin-bottom: 50px;
+}
+
+.user-information {
+    margin-left: 50px;
+}
+
+.user-name-dialog {
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.dialog-header {
+    font-size: 25px;
+    margin-bottom: 50px;
+}

@@ -9,8 +9,9 @@ namespace Net14.Web.EfStuff.Repositories
 {
     public class SocialGroupRepository : BaseRepository<GroupSocial>
     {
-        public SocialGroupRepository(WebContext context):base(context)
+        public SocialGroupRepository(WebContext context) :base(context)
         {
+
         }
 
         public void RemoveMember(int groupId, int userId) 
@@ -38,6 +39,22 @@ namespace Net14.Web.EfStuff.Repositories
                 .Where(group => group.Name.ToLower() == name.ToLower()).ToList();
 
             return groups;
+        }
+
+        public void Subscribe(int groupId, int userId) 
+        {
+            var group = _webContext.GroupSocial.SingleOrDefault(group => group.Id == groupId);
+            var user = _webContext.Users.SingleOrDefault(user => user.Id == userId);
+            group.Members.Add(user);
+            _webContext.SaveChanges();
+        }
+
+        public void Unsubscribe(int groupId, int userId) 
+        {
+            var group = _webContext.GroupSocial.SingleOrDefault(group => group.Id == groupId);
+            var user = _webContext.Users.SingleOrDefault(user => user.Id == userId);
+            group.Members.Remove(user);
+            _webContext.SaveChanges();
         }
     }
 }

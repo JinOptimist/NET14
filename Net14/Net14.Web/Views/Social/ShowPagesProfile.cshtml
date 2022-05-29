@@ -5,24 +5,61 @@
 }
 <link rel="stylesheet" href="~/css/SocialCss/ShowPagesProfile.css">
 
-    <div class="content-element-profile">
-              
-        <div class="content-element-card-profile">
-            <div class="time-of-posting-profile"> Now: @DateTime.Now</div>
-            <div class="name-you-profile">
-                You profile:
-            </div>         
-            
-            <div class="user-photo-profile">
-                    <img src="@Model.UserPhoto"/>
-            </div>                         
-            <div class="user-info-profile">
-                 Name:   @Model.LastName @Model.FirstName <br/>
-                 Age:    @Model.Age <br/>
-                 E-mail: @Model.Email <br/>
-                 Location: @Model.Country - @Model.City <br/>   
-            </div>            
-                       
+ @foreach (SocialPostViewModel post in Model.UserPost)
+{
+    <div class="content-element">
+        <div class="content-element-card" id=@post.Id>
+            <div class="user-info">
+                <div class="user-photo">
+                    <img src=@post.UserPhoto class="user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">
+                </div>
+                <div class="user-name">
+                    <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@post.FirstName</p>
+                    <p>posted:</p>
+                </div>
+            </div>
+            <div class="block-post-image">
+                <img src=@post.ImageUrl class="post-image">
+            </div>
+            <div class="footer-of-post">
+                @post.CommentOfUser
+            </div>
+            <div class="post-operations">
+                <div class="operations" id="heart">
+                    <img src="~/images/Social/heart.png">
+                </div>
+                <div class="operations" id="comment">
+                    <img src="~/images/Social/speech-bubble.png">
+                </div>
+                <div class="operations">
+                    <img src="~/images/Social/share (1).png">
+                </div>
+            </div>
+            <div class="comments">
+                <div class="comments-elements-container">
+                    <div class="comment-header">Comments</div>
+                    <div class="comment-elements">
+                        @foreach (var comm in post.Comments)
+                        {
+                            <div class="single-comment">
+                                <div class="comment-owner-info">
+                                    <img src=@comm.User.UserPhoto class="user-photo" id="comment-photo">
+                                    <div>@comm.User.FirstName @comm.User.LastName</div>
+                                </div>
+                                <div>
+                                    @comm.Text
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <form class="input-container" asp-action="AddComment" asp-controller="Social">
+                    <input name="postId" type="hidden" value="@post.Id" />
+                    <input type="text" class="to-comment" name="text" placeholder="Add comment" />
+                    <input type="submit" value="send" class="comm">
+                </form>
+            </div>
+            <div class="time-of-posting">Posted @DateTime.Now.ToLocalTime()</div>
         </div>
     </div>
-
+}    

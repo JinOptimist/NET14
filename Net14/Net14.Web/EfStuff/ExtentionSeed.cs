@@ -21,10 +21,34 @@ namespace Net14.Web.EfStuff
                 SeedUser(scope);
                 SeedPostAndComm(scope);
                 GroupSeed(scope);
+
+                SeedImages(scope);
             }
 
             return host;
         }
+
+        private static void SeedImages(IServiceScope scope)
+        {
+            var imageRepository = scope.ServiceProvider.GetService<ImageRepository>();
+
+            if (imageRepository.Any())
+            {
+                return;
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                var image = new Image
+                {
+                    Name = $"Girl {i}",
+                    Url = $"/images/gallery/girl{i}.png"
+                };
+
+                imageRepository.Save(image);
+            }
+        }
+
         private static void SeedProduct(IServiceScope scope)
         {
             var productRepository = scope.ServiceProvider.GetService<ProductRepository>();
@@ -463,6 +487,16 @@ namespace Net14.Web.EfStuff
                     Password = "pass",
                     UserPhoto = "/images/Social/User.jpg"
                 };
+
+                var message = new SocialMessages()
+                {
+                    Sender = user0,
+                    Reciever = user,
+                    Text = "Hello!",
+                    Date = DateTime.Now
+                };
+
+                user.RecievedMessages.Add(message);
                 userRepository.Save(user);
 
                 var user2 = new UserSocial()

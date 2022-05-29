@@ -21,15 +21,18 @@ namespace Net14.Web.Controllers
         private RecomendationsService _recomendationsService;
         private SocialGroupRepository _socialGroupRepository;
         private IMapper _mapper;
+        private UserService _userService;
         public SocialRecomendationController(RecomendationsService recomendationsService,
-            SocialGroupRepository socialGroupRepository, IMapper mapper) 
+            SocialGroupRepository socialGroupRepository, IMapper mapper, UserService userService)
         {
             _mapper = mapper;
             _socialGroupRepository = socialGroupRepository;
             _recomendationsService = recomendationsService;
+            _userService = userService;
         }
         public IActionResult Recomendations() 
         {
+            var currentUser = _userService.GetCurrent();
             var recomendationUsersViewModel = _recomendationsService.GetUserRecomendation();
             string absoluteurl = HttpContext.Request.Path.Value;
             var model = new SocialUserRecomendationUrlViewModel()
@@ -37,13 +40,15 @@ namespace Net14.Web.Controllers
                 Recomendations = recomendationUsersViewModel,
                 Url = absoluteurl
             };
+            model.User = currentUser;
 
             return View(model);
         }
         public IActionResult GroupRecomendations()
         {
+            var currentUser = _userService.GetCurrent();
             var recomendations = _recomendationsService.GetGroupsRecomendation();
-
+            
             return View(recomendations);
         }
     }

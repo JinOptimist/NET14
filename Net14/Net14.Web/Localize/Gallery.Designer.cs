@@ -95,5 +95,14 @@ namespace Net14.Web.Localize {
                 return ResourceManager.GetString("HomePage_Gallery", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Привет {0} друг. Ах да я рад что ты {0} ты работаещь {1}.
+        /// </summary>
+        public static string HomePage_Greetings {
+            get {
+                return ResourceManager.GetString("HomePage_Greetings", resourceCulture);
+            }
+        }
     }
 }

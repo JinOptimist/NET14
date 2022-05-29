@@ -129,4 +129,7 @@
   <data name="HomePage_Gallery" xml:space="preserve">
     <value>Галлерея</value>
   </data>
+  <data name="HomePage_Greetings" xml:space="preserve">
+    <value>Привет {0} друг. Ах да я рад что ты {0} ты работаещь {1}</value>
+  </data>
 </root>

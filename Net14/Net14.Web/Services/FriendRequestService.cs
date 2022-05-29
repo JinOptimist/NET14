@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using Net14.Web.EfStuff.Repositories;
+using Net14.Web.SignalRHubs;
 
 namespace Net14.Web.Services
 {
@@ -12,11 +14,13 @@ namespace Net14.Web.Services
     {
         private UserFriendRequestRepository _userFriendRequestRepository;
         private SocialUserRepository _socialUserRepository;
+        private IHubContext<NotificationsHub> _notificationHub;
 
         [AutoRegister]
         public FriendRequestService( UserFriendRequestRepository userFriendRequestRepository,
-            SocialUserRepository socialUserRepository)
+            SocialUserRepository socialUserRepository, IHubContext<NotificationsHub> hub)
         {
+            _notificationHub = hub;
             _userFriendRequestRepository = userFriendRequestRepository;
             _socialUserRepository = socialUserRepository;
         }
@@ -46,7 +50,6 @@ namespace Net14.Web.Services
                 var send = _socialUserRepository.Get(senderId);
                 var friendRequest = _userFriendRequestRepository.GetAll().FirstOrDefault(fr => fr.Receiver.Id == rec.Id && fr.Sender.Id == send.Id);
                 friendRequest.FriendRequestStatus = FriendRequestStatus.Accepted;
-
                 _userFriendRequestRepository.Save(friendRequest);
                 MakeFriends(senderId, receiverId);
 
