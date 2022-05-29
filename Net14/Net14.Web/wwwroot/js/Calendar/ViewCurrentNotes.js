@@ -5,17 +5,11 @@
     let day
     $('.day').on('click', createNotesBlocks)
 
-
-
-    
-
-    function createNotesBlocks() {
-        
+    function createNotesBlocks() {    
         if (day === $(this).text()) {
             $('.notes-block').detach()
             day = 0
         } else {
-
             $('.notes-block').detach()
             day = $(this).text()
             $.get(`/Calendar/ViewCurrentNotes?year=${year}&&month=${month}&&day=${day}`)
@@ -26,7 +20,6 @@
                         notesBlock.html(notes[i])
                         $('.wrapper').after(notesBlock)
                     }
-
                 });
         }
     }
