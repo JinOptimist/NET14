@@ -246,6 +246,8 @@ namespace Net14.Web
 
             app.UseCors(builder => builder.AllowAnyOrigin());
 
+            app.UseCors(builder => builder.AllowAnyOrigin());
+
             //Who I am
             app.UseAuthentication();
 

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IIssue } from 'src/models/IIssue';
+import { HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'main-content',
@@ -7,25 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainContentComponent implements OnInit {
 
-  issues: any[];
-  constructor() { 
-    this.issues = [
-      {text:"to do my best"},
-      {text:"to do 1"},
-      {text:"to do my homework"},
-      {text:"go to work"}
-    ];
+  issues: IIssue[] = [];
+
+  constructor(private http: HttpClient) { 
+    http
+      .get<IIssue[]>('http://localhost:42059/api/ToDoList/GetIssues')
+      .subscribe(response => this.issues = response);
+      
+
   }
 
   ngOnInit(): void {
   }
 
-  addIssue(){
-    this.issues.push({text:`to do ${this.issues.length}`})
-  }
-  deleteIssue(issue: any){
-    this.issues = this.issues.filter(x => x.text != issue);
-  }
 
 
 }
