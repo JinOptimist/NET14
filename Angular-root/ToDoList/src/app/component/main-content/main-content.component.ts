@@ -7,17 +7,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainContentComponent implements OnInit {
 
-  issues: string[];
+  issues: any[];
   constructor() { 
     this.issues = [
-      'to do my best',
-      'to do',
-      'to do',
-      'have a rest for 4 hours'
+      {text:"to do my best"},
+      {text:"to do 1"},
+      {text:"to do my homework"},
+      {text:"go to work"}
     ];
   }
 
   ngOnInit(): void {
   }
+
+  addIssue(){
+    this.issues.push({text:`to do ${this.issues.length}`})
+  }
+  deleteIssue(issue: any){
+    this.issues = this.issues.filter(x => x.text != issue);
+  }
+
 
 }

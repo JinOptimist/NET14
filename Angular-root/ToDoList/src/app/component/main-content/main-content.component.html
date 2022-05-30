@@ -3,10 +3,17 @@
         English
     </div>
     <div class="issues">
-        <div *ngFor="let issue of issues"  class="block-issue">
+        <div *ngFor="let issue of issues" class="block-issue">
+            <button (click)="deleteIssue(issue.text)" class="button-delete">
+                delete
+            </button>
             <div class="issue">
-                {{issue}}
+                {{issue.text}}
             </div>
         </div>
+    </div>
+    <div class="block-for-add-issue">
+        <input type="text" class="text-issue" placeholder="Add a task"/>
+        <input type="submit"  (click)="addIssue()" />
     </div>
 </div>
