@@ -11,16 +11,23 @@ namespace Net14.Web.Controllers.ApiControllers
     public class ToDoListController : ControllerBase
     {
         private IssueForToDoRepository _issueForToDoRepository;
+        private FoldersForToDoRepository _foldersForToDoRepository;
         private IMapper _mapper;
 
-        public ToDoListController(IssueForToDoRepository issueForToDoRepository, IMapper mapper)
+        public ToDoListController(
+            IssueForToDoRepository issueForToDoRepository,
+            FoldersForToDoRepository foldersForToDoRepository,
+            IMapper mapper)
         {
             _issueForToDoRepository = issueForToDoRepository;
+            _foldersForToDoRepository = foldersForToDoRepository;
             _mapper = mapper;
         }
 
         public List<IssuesForToDoViewModel> GetIssues() 
-            => _mapper.Map<List<IssuesForToDoViewModel>>(_issueForToDoRepository.GetAll()); 
+            => _mapper.Map<List<IssuesForToDoViewModel>>(_issueForToDoRepository.GetAll());
+        public List<FoldersForToDoViewModel> GetFolders()
+            => _mapper.Map<List<FoldersForToDoViewModel>>(_foldersForToDoRepository.GetAll());
         
         
     }
