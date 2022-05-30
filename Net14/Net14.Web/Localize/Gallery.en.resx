@@ -123,4 +123,7 @@
   <data name="HomePage_Gallery" xml:space="preserve">
     <value>Gallery</value>
   </data>
+  <data name="HomePage_Greetings" xml:space="preserve">
+    <value>Hi bro {0}, you are {1}</value>
+  </data>
 </root>

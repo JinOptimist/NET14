@@ -16,23 +16,16 @@ namespace Net14.Web.EfStuff
         public DbSet<FileSocial> fileSocial { get; set; }
         public DbSet<SocialComment> SocialComments { get; set; }
         public DbSet<GroupSocial> GroupSocial { get; set; }
-
         public DbSet<ImageComment> ImageComments { get; set; }
         public DbSet<DaysNote> DaysNotes { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<UserFriendRequest> UserFriendRequests { get; set; }
-
         public DbSet<Product> Products { get; set; }
-
         public DbSet<Size> Sizes { get; set; }
         public DbSet<Basket> Baskets { get; set; }
-
         public DbSet<StoreImage> StoreImages { get; set; }
-
         public DbSet<GroupTags> GroupTags { get; set; }
-   
-
-
+        public DbSet<SocialMessages> SocialMessages { get; set; }
 
         public WebContext(DbContextOptions options) : base(options)
         {
@@ -61,7 +54,14 @@ namespace Net14.Web.EfStuff
             modelBuilder.Entity<UserSocial>()
                 .HasMany(x => x.Files)
                 .WithOne(x => x.Owner);
-            
+
+            modelBuilder.Entity<UserSocial>()
+                .HasMany(x => x.SendMessages)
+                .WithOne(x => x.Sender);
+
+            modelBuilder.Entity<UserSocial>()
+                .HasMany(x => x.RecievedMessages)
+                .WithOne(x => x.Reciever);
 
 
             modelBuilder.Entity<Image>()

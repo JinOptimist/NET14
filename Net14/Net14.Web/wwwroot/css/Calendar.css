@@ -2,10 +2,54 @@
     margin: 0;
     padding: 0
 }
+.container {
+    display:flex;
+}
 
 .calendar {
     background: aqua;
     display:flex;
+}
+.dayses-block {
+    color:black;
+}
+.dayses-month {
+    display: grid;
+    grid-template-columns: repeat(7,100px);
+    gap:1px;
+    margin-right: 20px;
+}
+.dayses-day:hover {
+    cursor: pointer;
+    background: #F0F0F0;
+}
+.another-day:hover {
+    cursor: default;
+    background: inherit;
+}
+
+.dayses-day {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+}
+.another-day {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    color: gray;
 }
 
 .day {
@@ -63,3 +107,75 @@
     width: 50px;
     height: 50px;
 }
+.notes-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 30%;
+    background: aquamarine;
+    border: 1px solid black;
+    padding: 10px;
+    height: 605px;
+    overflow-y: auto;
+}
+.month-notes {
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+}
+.month-notes-text {
+    overflow-wrap: anywhere;
+    margin-right: 20px;
+}
+.empty-notes {
+    text-align: center;
+    text-decoration:underline;
+}
+.button {
+    width: 230px;
+    height: 30px;
+    background: #a8a8d7;
+    color: black;
+}
+.button:hover {
+        background-color: #aeaed0;
+        color:white;
+}
+.buttons-wrapper {
+    margin-top: 40px;
+}
+.current-button {
+    width: 246px;
+    background: #c5c5ff;
+}
+.current-button:hover {
+    background:#cdcdf9;
+    color: white;
+}
+
+.dayses-month .noted:hover {
+    background: #00ffa9;
+}
+
+.dayses-month .noted {
+    background-color: aquamarine;
+}
+.current-notes-text{
+    font-size: 25px;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    text-align:center;
+    margin-bottom: 10px;
+}
+.day-of-week {
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+    .day-of-week:nth-child(7n), .day-of-week:nth-child(6n) {
+        color: red;
+    }

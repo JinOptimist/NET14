@@ -43,6 +43,10 @@ namespace Net14.Web.Controllers
         {
             return View(_UserService);
         }
+        public IActionResult TestCalendar2()
+        {
+            return View();
+        }
         public void DeleteOldNotes()
         {
             var dbNotes = _DaysNoteRepository.GetAll()

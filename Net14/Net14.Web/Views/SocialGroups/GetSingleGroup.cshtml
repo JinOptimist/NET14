@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="~/css/SocialCss/SocialSingleGroup.css">
 
 
-<div class="head-info">
+<div class="head-info" data-id=@Model.Group.Id>
     <div class="group-icon-container">
         <img src="~/images/Social/bmw.jpg" class="group-icon">
     </div>
@@ -14,11 +14,11 @@
         <div>@Model.Group.Name</div>
         @if (Model.Group.IsCurUserIsMember)
         {
-            <div class="unsubscribe" onclick="location.href='@Url.Action("Unsubscribe", "SocialGroups", new {groupId = Model.Group.Id})'">Unsubscribe</div>
+            <div class="unsubscribe" >Unsubscribe</div>
         }
         else
         {
-            <div class="subscribe" onclick="location.href='@Url.Action("Subscribe", "SocialGroups", new {groupId = Model.Group.Id})'">Subscribe</div>
+            <div class="subscribe" @*onclick="location.href='@Url.Action("Subscribe", "SocialGroups", new {groupId = Model.Group.Id})'"*@>Subscribe</div>
         }
     </div>
 </div>
@@ -120,4 +120,8 @@
             </div>
         }
     </div>
+}
+
+@section Scripts{ 
+    <script src="~/js/SocialJS/SocialGroupsJs.js"></script>
 }

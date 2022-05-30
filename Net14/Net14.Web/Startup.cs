@@ -21,6 +21,7 @@ using Net14.Web.Models;
 using Net14.Web.SignalRHubs;
 using System.Reflection;
 using Net14.Web.Localize;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Net14.Web
 {
@@ -59,11 +60,13 @@ namespace Net14.Web
             services.AddControllersWithViews();
 
             services.AddSignalR();
+
+            services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
         }
 
         private void RegisterServices(IServiceCollection services)
         {
-            var autoRegisterType = typeof(AutoRegister);
+            var autoRegisterType = typeof(AutoRegisterAttribute);
             Assembly
                 .GetAssembly(autoRegisterType)
                 .GetTypes()
@@ -105,7 +108,7 @@ namespace Net14.Web
             var constructor = constructors
                 .SingleOrDefault(x => x
                     .CustomAttributes
-                    .Any(a => a.AttributeType == typeof(AutoRegister)));
+                    .Any(a => a.AttributeType == typeof(AutoRegisterAttribute)));
             if (constructor == null)
             {
                 constructor = constructors
@@ -192,7 +195,7 @@ namespace Net14.Web
             provider.CreateMap<SocialComment, SocialCommentViewModel>();
             provider.CreateMap<UserSocial, SocialProfileViewModel>();
             provider.CreateMap<SocialCommentViewModel, SocialUserViewModel>();
-
+                
             provider.CreateMap<FilesViewModel, FileSocial>();
 
             provider.CreateMap<Image, ImageViewModel>();
@@ -203,9 +206,9 @@ namespace Net14.Web
 
             provider.CreateMap<SocialUserSettingsViewModel, UserSocial>();
 
-
-
             provider.CreateMap<UserSocial, SocialUserRecomendationViewModel>();
+
+            provider.CreateMap<SocialMessages, SocialMessageViewModel>();
 
             provider.CreateMap<Product, ProductViewModel>()
                 .ForMember(nameof(ProductViewModel.Images),
@@ -234,6 +237,8 @@ namespace Net14.Web
 
             app.UseRouting();
 
+            app.UseCors(builder => builder.AllowAnyOrigin());
+
             //Who I am
             app.UseAuthentication();
 
@@ -245,6 +250,8 @@ namespace Net14.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapHub<NotificationsHub>("/notif");
+                endpoints.MapHub<SocialMessangerHub>("/messages");
             });
 
             app.UseEndpoints(endpoints =>
