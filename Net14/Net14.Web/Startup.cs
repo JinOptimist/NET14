@@ -22,6 +22,7 @@ using Net14.Web.SignalRHubs;
 using System.Reflection;
 using Net14.Web.Localize;
 using Microsoft.AspNetCore.SignalR;
+using Net14.Web.Models.SocialModels;
 
 namespace Net14.Web
 {
@@ -213,6 +214,8 @@ namespace Net14.Web
             provider.CreateMap<UserSocial, SocialUserRecomendationViewModel>();
 
             provider.CreateMap<SocialMessages, SocialMessageViewModel>();
+
+            provider.CreateMap<IssuesForToDo, IssuesForToDoViewModel> ();
 
             provider.CreateMap<Product, ProductViewModel>()
                 .ForMember(nameof(ProductViewModel.Images),
