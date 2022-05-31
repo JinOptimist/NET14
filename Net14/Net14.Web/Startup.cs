@@ -195,7 +195,12 @@ namespace Net14.Web
             provider.CreateMap<UserFriendRequest, FriendRequestViewModel>();
 
 
-            provider.CreateMap<UserSocial, SocialUserViewModel>();
+            provider.CreateMap<UserSocial, SocialUserViewModel>()
+                .ForMember(nameof(SocialUserViewModel.Role),
+                user => user
+                    .MapFrom(dbUser =>
+                        dbUser.Role.ToString()));
+
             provider.CreateMap<SocialComment, SocialCommentViewModel>();
             provider.CreateMap<UserSocial, SocialProfileViewModel>();
             provider.CreateMap<SocialCommentViewModel, SocialUserViewModel>();

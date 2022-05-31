@@ -44,7 +44,7 @@ namespace Net14.Web.Controllers.ApiControllers
         }
 
         [Authorize]
-        public bool AddLike(int postId) 
+        public bool AddLike(int postId)
         {
             var post = _socialPostRepository.Get(postId);
             var currentUser = _userService.GetCurrent();
@@ -58,12 +58,12 @@ namespace Net14.Web.Controllers.ApiControllers
         }
 
         [Authorize]
-        public bool RemoveLike(int postId) 
+        public bool RemoveLike(int postId)
         {
             var post = _socialPostRepository.Get(postId);
             var currentUser = _userService.GetCurrent();
 
-            if (_socialPostRepository.RemoveLike(post, currentUser)) 
+            if (_socialPostRepository.RemoveLike(post, currentUser))
             {
                 return true;
             }
@@ -167,6 +167,14 @@ namespace Net14.Web.Controllers.ApiControllers
             user.IsBlocked = true;
             _socialUserRepository.Save(user);
         }
+        [HttpPost]
+        public bool BlockUserApi(int id)
+        {
+            var user = _socialUserRepository.Get(id);
+            user.IsBlocked = true;
+            _socialUserRepository.Save(user);
+            return true;
+        }
 
         [HasRole(SiteRole.Admin)]
         [HttpGet]
@@ -186,6 +194,9 @@ namespace Net14.Web.Controllers.ApiControllers
             return _mapper.Map<List<SocialUserViewModel>>(users);
         }
 
+        [HttpGet("{id}")]
+        public SocialUserViewModel GetUser(int id)
+            => _mapper.Map<SocialUserViewModel>(_socialUserRepository.Get(id));
 
     }
 }

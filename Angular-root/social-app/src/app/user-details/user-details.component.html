@@ -1,0 +1,22 @@
+<div class="user-container" *ngIf="[user]">
+    <div class="user-main-info">
+        <div class="user-photo">
+            <img src={{serverUrl}}{{user.userPhoto}} class="user-img"/>
+        </div>
+        <div class="user-name">{{user.firstName}} {{user.lastName}}</div>
+        <button mat-raised-button color="warn" class="block-user" (click)="blockUser(user.id)">Block</button>
+    </div>
+    <mat-tab-group mat-align-tabs="center" class="selects">
+        <mat-tab label="Manage">
+            <div class="swith-roles">
+                <mat-slide-toggle>Slide me!</mat-slide-toggle>
+            </div>
+        </mat-tab>
+        <mat-tab label="Info">
+            <div class="user-info">
+                <div>Location:</div> 
+                <div>{{user.country}} {{user.city}}</div>
+            </div>
+        </mat-tab>
+      </mat-tab-group>
+</div>

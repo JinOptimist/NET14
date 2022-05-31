@@ -1,0 +1,12 @@
+<div class="single-user" (click)="redirect(user.id)">
+        <div class="user-image">
+            <img src="http://localhost:42059/{{user.userPhoto}}"/>
+        </div>
+        <div class="user-info">
+            <div class="user-name">{{user.firstName}} {{user.lastName}}</div>
+            <div class="other-info">Age: {{user.age}}</div>
+        </div>
+        <div class="user-role">
+            {{user.role == '0' ? "User" : user.role}}
+        </div>
+</div>
