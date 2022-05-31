@@ -1,10 +1,35 @@
-.girl{
-    width: 300px;
-    height: 500px;
-    border: 1px solid saddlebrown;
+@import "../../scss/variables.scss";
 
-    img{
-        max-width: 300px;
-        max-height: 400px;
+.girl {
+    display: flex;
+    flex-direction: column;
+    
+    width: $girl-block-width;
+    height: $girl-block-height;
+    @include girl-block-border;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        font-size: $girl-name-font-size;
+        padding-top: 10px;
+    }
+
+    .image-block {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+
+        img {
+            max-width: $girl-block-width;
+            max-height: 400px;
+        }
+    }
+
+
+
+    &.draft {
+        background-color: gray;
     }
 }

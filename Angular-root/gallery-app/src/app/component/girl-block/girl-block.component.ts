@@ -10,7 +10,7 @@ export class GirlBlockComponent implements OnInit {
 
   @Input() girl!: IGirl;
   @Input() showControlls: boolean = true;
-
+  @Input() isDraft: boolean = false;
   @Output() onRemoveGirl = new EventEmitter<number>();
 
   constructor() {

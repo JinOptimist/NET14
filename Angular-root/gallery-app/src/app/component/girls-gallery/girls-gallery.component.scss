@@ -1,4 +1,12 @@
+@import "../../scss/variables.scss";
+
 .gallery{
     display: flex;
     flex-wrap: wrap;
+
+    .new-girl{
+        width: $girl-block-width;
+        height: $girl-block-height;
+        @include girl-block-border;
+    }
 }

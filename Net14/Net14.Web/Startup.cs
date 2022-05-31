@@ -195,7 +195,7 @@ namespace Net14.Web
             provider.CreateMap<SocialComment, SocialCommentViewModel>();
             provider.CreateMap<UserSocial, SocialProfileViewModel>();
             provider.CreateMap<SocialCommentViewModel, SocialUserViewModel>();
-                
+
             provider.CreateMap<FilesViewModel, FileSocial>();
 
             provider.CreateMap<Image, ImageViewModel>();
@@ -237,7 +237,12 @@ namespace Net14.Web
 
             app.UseRouting();
 
-            app.UseCors(builder => builder.AllowAnyOrigin());
+            app.UseCors(option =>
+            {
+                option.AllowAnyOrigin();
+                option.AllowAnyHeader();
+                option.AllowAnyMethod();
+            });
 
             //Who I am
             app.UseAuthentication();
