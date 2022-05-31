@@ -167,7 +167,7 @@ namespace Net14.Web.Controllers.ApiControllers
             user.IsBlocked = true;
             _socialUserRepository.Save(user);
         }
-        [HttpPost]
+        [HttpGet]
         public bool BlockUserApi(int id)
         {
             var user = _socialUserRepository.Get(id);

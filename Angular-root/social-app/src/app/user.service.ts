@@ -23,7 +23,10 @@ export class UserService {
     return this.http.get<IUser>(this.userUrl + "/Social/GetUser/" + id);
   }
 
-  blockUser(id : number) : Observable<any>{
-    return this.http.post<any>(this.userUrl + "/Social/BlockUserApi?id=" + id, id,  this.httpOptions);
+  blockUser(id : number){
+    var url = this.userUrl + "/Social/BlockUserApi?id=" + id;
+    return this.http.get(url)
+    .subscribe(resp => console.log("hey"));
+
   }
 }
