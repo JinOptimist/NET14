@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Net14.Web.Services.Enums
 {
-    enum UserRecomendationRatesEnum
+    public enum UserRecomendationRatesEnum
     {
         Age = 20,
         Country = 40,

@@ -8,22 +8,23 @@ using Net14.Web.Services.Enums;
 using Net14.Web.Models;
 using AutoMapper;
 using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
+using Net14.Web.EfStuff.Repositories.SocialRepositories;
 
 namespace Net14.Web.Services
 {
     public class RecomendationsService
     {
-        private SocialUserRepository _socialUserRepository;
-        private UserService _userService;
+        private ISocialUserRepository _socialUserRepository;
+        private IUserService _userService;
         private IMapper _mapper;
         private UserSocial _currentUser;
-        private SocialGroupRepository _socialGroupRepository;
-        private SocialPostRepository _socialPostRepository;
+        private ISocialGroupRepository _socialGroupRepository;
+        private ISocialPostRepository _socialPostRepository;
 
         [AutoRegister]
-        public RecomendationsService(SocialUserRepository socialUserRepository,
-            IMapper mapper, UserService userService, SocialGroupRepository socialGroupRepository,
-            SocialPostRepository socialPostRepository)
+        public RecomendationsService(ISocialUserRepository socialUserRepository,
+            IMapper mapper, IUserService userService, ISocialGroupRepository socialGroupRepository,
+            ISocialPostRepository socialPostRepository)
         {
             _socialGroupRepository = socialGroupRepository;
             _socialUserRepository = socialUserRepository;
@@ -33,7 +34,7 @@ namespace Net14.Web.Services
             _currentUser = _userService.GetCurrent();
         }
 
-        private List<SocialUserRecomendationViewModel> GetAgeRate(List<SocialUserRecomendationViewModel> users) //Рейтинг по возрасту
+        public  List<SocialUserRecomendationViewModel> GetAgeRate(List<SocialUserRecomendationViewModel> users) //Рейтинг по возрасту
         {
             var _currentUser = _userService.GetCurrent();
             const int fiveYearsDifferent = 2;
@@ -66,7 +67,7 @@ namespace Net14.Web.Services
             return users;
         }
 
-        private List<SocialUserRecomendationViewModel> GetCityRate(List<SocialUserRecomendationViewModel> users)
+        public List<SocialUserRecomendationViewModel> GetCityRate(List<SocialUserRecomendationViewModel> users)
         {
             var _currentUser = _userService.GetCurrent();
 
@@ -83,7 +84,7 @@ namespace Net14.Web.Services
 
 
 
-        private List<SocialUserRecomendationViewModel> GetCountryRate(List<SocialUserRecomendationViewModel> users)
+        public List<SocialUserRecomendationViewModel> GetCountryRate(List<SocialUserRecomendationViewModel> users)
         {
             var _currentUser = _userService.GetCurrent();
 
@@ -97,7 +98,7 @@ namespace Net14.Web.Services
             return users;
         }
 
-        private List<SocialUserRecomendationViewModel> GetSameFriendRate(List<SocialUserRecomendationViewModel> users)
+        public List<SocialUserRecomendationViewModel> GetSameFriendRate(List<SocialUserRecomendationViewModel> users)
         {
             var _currentUser = _userService.GetCurrent();
             SocialUserRecomendationViewModel model;
@@ -115,7 +116,7 @@ namespace Net14.Web.Services
             return users;
         }
 
-        private List<SocialUserRecomendationViewModel> GetGroupsRate(List<SocialUserRecomendationViewModel> users)
+        public List<SocialUserRecomendationViewModel> GetGroupsRate(List<SocialUserRecomendationViewModel> users)
         {
             int sameGroupTagsCount;
             SocialUserRecomendationViewModel model;
