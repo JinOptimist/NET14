@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 
@@ -8,9 +9,16 @@ import {MatButtonModule} from '@angular/material/button';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  currentUrl : string = "";
+  constructor(private router : Router) { }
 
   ngOnInit(): void {
+    this.currentUrl = this.router.url;
   }
+
+  getCurrentRoute(url : string) : boolean{
+    return this.router.url === url;
+  }
+
 
 }

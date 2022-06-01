@@ -17,6 +17,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatInputModule} from '@angular/material/input';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { Router } from '@angular/router';
 
 
 

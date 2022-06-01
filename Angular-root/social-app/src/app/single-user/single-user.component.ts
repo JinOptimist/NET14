@@ -1,3 +1,4 @@
+import { SiteRole } from './../models/enums/SiteRole';
 import { IUser } from './../models/IUser';
 import { Component, Input, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
@@ -10,6 +11,7 @@ import {Router} from '@angular/router';
 export class SingleUserComponent implements OnInit {
 
   @Input() user! : IUser 
+  SiteRole = SiteRole;
   constructor(private router : Router) { }
 
   ngOnInit(): void {

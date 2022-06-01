@@ -176,6 +176,15 @@ namespace Net14.Web.Controllers.ApiControllers
             return true;
         }
 
+        [HttpGet]
+        public bool UnblockUserApi(int id)
+        {
+            var user = _socialUserRepository.Get(id);
+            user.IsBlocked = false;
+            _socialUserRepository.Save(user);
+            return true;
+        }
+
         [HasRole(SiteRole.Admin)]
         [HttpGet]
         public void UnblockUser(int userId)
@@ -198,5 +207,16 @@ namespace Net14.Web.Controllers.ApiControllers
         public SocialUserViewModel GetUser(int id)
             => _mapper.Map<SocialUserViewModel>(_socialUserRepository.Get(id));
 
+        [HttpGet]
+        public bool ChangeRole(int id, SiteRole role) 
+        {
+            var user = _socialUserRepository.Get(id);
+            if (user == null) 
+            {
+                return false;
+            }
+            _socialUserRepository.ManageRole(id, role);
+            return true;
+        }
     }
 }

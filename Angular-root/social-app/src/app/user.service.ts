@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { SiteRole } from './models/enums/SiteRole';
 import { IUser } from './models/IUser';
 
 @Injectable({
@@ -23,10 +24,16 @@ export class UserService {
     return this.http.get<IUser>(this.userUrl + "/Social/GetUser/" + id);
   }
 
-  blockUser(id : number){
+  blockUser(id : number) : Observable<boolean>{
     var url = this.userUrl + "/Social/BlockUserApi?id=" + id;
-    return this.http.get(url)
-    .subscribe(resp => console.log("hey"));
+    return this.http.get<boolean>(url);
+  }
 
+  unblockUser(id : number) : Observable<Boolean>{
+    return this.http.get<boolean>(this.userUrl + "/Social/UnblockUserApi?id=" + id);
+  }
+
+  changeUserRole(id : number, role : string ){
+    return this.http.get<boolean>(this.userUrl + `/Social/ChangeRole?id=${id}&role=${role}`);
   }
 }

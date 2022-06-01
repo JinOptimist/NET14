@@ -1,21 +1,30 @@
-<div class="user-container" *ngIf="[user]">
+<div class="user-container" *ngIf="user">
     <div class="user-main-info">
         <div class="user-photo">
             <img src={{serverUrl}}{{user.userPhoto}} class="user-img"/>
         </div>
         <div class="user-name">{{user.firstName}} {{user.lastName}}</div>
-        <button mat-raised-button color="warn" class="block-user" (click)="blockUser(user.id)">Block</button>
+        <button mat-raised-button color="warn" class="block-user" (click)="blockUser(user.id)" *ngIf="!user.isBlocked">Block</button>
+        <button mat-raised-button color="primary" class="block-user" (click)="unblockUser(user.id)" *ngIf="user.isBlocked">Unblock</button>
     </div>
     <mat-tab-group mat-align-tabs="center" class="selects">
         <mat-tab label="Manage">
             <div class="swith-roles">
-                <mat-slide-toggle>Slide me!</mat-slide-toggle>
+                <div class="slider-container">
+                    <mat-slide-toggle color="warn" [checked]="enumToBitValues(SiteRole[SiteRole.Admin])" class="slider" (change)="adminRole(user.id, SiteRole[SiteRole.Admin].toString())">Admin</mat-slide-toggle>
+                </div>
+                <div class="slider-container">
+                    <mat-slide-toggle color="warn" [checked]="enumToBitValues(SiteRole[SiteRole.StoreAdmin])" class="slider" (change)="adminRole(user.id, SiteRole[SiteRole.StoreAdmin].toString())">StoreAdmin</mat-slide-toggle>
+                </div>
+                <div class="slider-container">
+                    <mat-slide-toggle color="warn" [checked]="enumToBitValues(SiteRole[SiteRole.ImageAdmin])" class="slider" (change)="adminRole(user.id, SiteRole[SiteRole.ImageAdmin].toString())">ImageAdmin</mat-slide-toggle>
+                </div>
             </div>
         </mat-tab>
         <mat-tab label="Info">
-            <div class="user-info">
-                <div>Location:</div> 
-                <div>{{user.country}} {{user.city}}</div>
+            <div class="swith-roles">
+                <div>Location: {{user.country}} {{user.city}}</div> 
+                <div>Age: {{user.age}}</div>
             </div>
         </mat-tab>
       </mat-tab-group>

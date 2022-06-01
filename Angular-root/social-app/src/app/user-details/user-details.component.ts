@@ -3,6 +3,7 @@ import { IUser } from './../models/IUser';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {ThemePalette} from '@angular/material/core';
+import { SiteRole } from '../models/enums/SiteRole';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class UserDetailsComponent implements OnInit {
 
   user! : IUser;
   serverUrl : string = "http://localhost:42059/";
+  SiteRole = SiteRole;
 
   constructor(private _activatedroute : ActivatedRoute,
     private _userService : UserService) { }
@@ -29,7 +31,44 @@ export class UserDetailsComponent implements OnInit {
   }
 
   blockUser(id : number){
-    this._userService.blockUser(id);
+    this._userService.blockUser(id)
+    .subscribe(resp => {
+      if(resp){
+        this.user.isBlocked = true;
+      }
+      else{
+        console.log("User block error");
+      }
+    });
+  }
+
+  unblockUser(id : number){
+    this._userService.unblockUser(id)
+    .subscribe(resp => {
+      if(resp){
+        this.user.isBlocked = false;
+      }
+      else{
+        console.log("User unblock error");
+      }
+    });
+  }
+
+  adminRole(id: number, role : string){
+    this._userService.changeUserRole(id, role)
+    .subscribe(resp => {
+      if(resp){
+        this.GetUser();
+      }
+      else{
+        console.log("Admin role erorr");
+      }
+    })
+  }
+
+  enumToBitValues(checRole: string){
+    var roles = this.user.role.toString().split(", ");
+    return roles.indexOf(checRole.toString()) != -1;
   }
 
 }

@@ -1,9 +1,13 @@
 .single-user:hover{
     background-color: #e6e6e6;
 }
+.single-user.blocked{
+    background-color: #e6e6e6;
+}
 
 .single-user{
     display: flex;
+    cursor: pointer;
     align-items: center;
     height: 100px;
     width: 300px;
@@ -15,6 +19,7 @@
     -webkit-transition: background-color 100ms linear;
     -ms-transition: background-color 100ms linear;
     transition: background-color 100ms linear;
+    box-shadow: 0 2px 10px 0 rgb(0 0 0 / 12%);
     .user-image{
         display: flex;
         align-items: center;
