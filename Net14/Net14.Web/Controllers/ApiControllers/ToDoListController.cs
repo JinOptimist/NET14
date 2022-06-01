@@ -25,8 +25,10 @@ namespace Net14.Web.Controllers.ApiControllers
             _mapper = mapper;
         }
 
-        public List<IssuesForToDoViewModel> GetIssues() 
+        public List<IssuesForToDoViewModel> GetIssues()
             => _mapper.Map<List<IssuesForToDoViewModel>>(_issueForToDoRepository.GetAll());
+
+        
         public List<FoldersForToDoViewModel> GetFolders()
             => _mapper.Map<List<FoldersForToDoViewModel>>(_foldersForToDoRepository.GetAll());
         public bool AddIssue(string issue)

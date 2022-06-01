@@ -1,12 +1,23 @@
 .main-content{
     background-color: #3f51b5;
-    min-height: 753px;
+    min-height: 725px;
     border-top-left-radius: 7px;
+    .folder{
+        font-size: 35px;
+        padding-left: 50px;
+        padding-top: 50px;
+        padding-bottom:50px;
+        color:white;
+    }
     .issues{
         display: flex;
         flex-direction: column;
         align-items: center;
-        
+        height: 504px;
+        overflow: auto;
+    }
+    ::-webkit-scrollbar {
+        width: 1px;
     }
     .block-for-add-issue{
         position: fixed;
