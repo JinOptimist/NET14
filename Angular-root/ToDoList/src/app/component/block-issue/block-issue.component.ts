@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IIssue } from 'src/models/IIssue';
 
 @Component({
@@ -9,11 +9,16 @@ import { IIssue } from 'src/models/IIssue';
 export class BlockIssueComponent implements OnInit {
 
   @Input() issue!: IIssue;
+  @Output() onRemoveIssue = new EventEmitter<number>();
   constructor() {
     
    }
 
   ngOnInit(): void {
+  }
+
+  removeIssue(issueId: number){
+    this.onRemoveIssue.emit(issueId);
   }
 
 }

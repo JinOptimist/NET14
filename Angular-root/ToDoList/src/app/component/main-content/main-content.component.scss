@@ -1,14 +1,7 @@
 .main-content{
-    background-color: #00BFFF;
+    background-color: #3f51b5;
     min-height: 753px;
     border-top-left-radius: 7px;
-    .name-of-folder{
-        font-size: 35px;
-        padding-left: 50px;
-        padding-top: 50px;
-        padding-bottom:50px;
-        color:white;
-    }
     .issues{
         display: flex;
         flex-direction: column;
@@ -34,6 +27,9 @@
           
         }
         
+    }
+    button{
+        margin-left:10px;
     }
 }
 input::placeholder{

@@ -217,6 +217,8 @@ namespace Net14.Web
 
             provider.CreateMap<IssuesForToDo, IssuesForToDoViewModel> ();
 
+            provider.CreateMap<IssuesForToDoViewModel, IssuesForToDo>();
+
             provider.CreateMap<FoldersForToDo, FoldersForToDoViewModel>();
 
             provider.CreateMap<Product, ProductViewModel>()

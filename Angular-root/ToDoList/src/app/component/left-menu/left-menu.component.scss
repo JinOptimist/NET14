@@ -11,9 +11,13 @@
         margin-bottom: 20px;
     }
     .main-folders{
+        display: flex;
+        flex-direction: column;
         .folder{
-            padding-bottom: 20px;
-            padding-left: 50px;
+            display: flex;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 40px;
             font-size: 20px;
         }
     }

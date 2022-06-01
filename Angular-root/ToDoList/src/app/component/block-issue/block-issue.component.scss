@@ -3,15 +3,19 @@
     width: 1145px;
     border-radius: 3px;
     background-color: #f5f5f5;
+    margin-bottom: 3px;
     display: flex;
     align-items: center;
-    margin-bottom: 3px;
-    .button-delete{
-        margin-left: 10px;
-    }
-    .issue{
-        font-size: 20px;
-        padding-left: 20px;
-        color: black;
+    .issue-information{
+        display: flex;
+        button{
+            margin-left: 10px;
+    
+        }
+        .issue-text{
+            font-size: 20px;
+            padding-left: 20px;
+            color: black;
+        }
     }
 }

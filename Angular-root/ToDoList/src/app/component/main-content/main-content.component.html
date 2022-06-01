@@ -1,12 +1,16 @@
 <div class="main-content">
-    <div class="name-of-folder">
+    <div class="folder">
         English
     </div>
     <div class="issues">
-        <block-issue *ngFor="let issue of issues" [issue]="issue"></block-issue>
+        <block-issue 
+        *ngFor="let issue of issues" 
+        [issue]="issue" (onRemoveIssue)="parentRemoveIssue($event)"></block-issue>
     </div>
     <div class="block-for-add-issue">
+        <button mat-icon-button color="black">
+            <mat-icon>add</mat-icon>
+        </button>
         <input type="text" class="text-issue" placeholder="Add a task"/>
-        <input type="submit" />
     </div>
 </div>

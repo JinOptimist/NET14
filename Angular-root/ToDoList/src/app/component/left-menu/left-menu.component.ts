@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { IFolder } from 'src/models/IFolder';
 
@@ -10,6 +10,7 @@ import { IFolder } from 'src/models/IFolder';
 export class LeftMenuComponent implements OnInit {
 
   folders: IFolder[] = [];
+
 
   constructor(private http: HttpClient) {
     http

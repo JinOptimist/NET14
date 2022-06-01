@@ -2,11 +2,10 @@
 
     <div class="block-of-user">
         Block for user
-
     </div>
     <div class="main-folders">
-        <div *ngFor="let folder of folders" class="folder">
-            {{folder.name}}
-        </div>
+        <button mat-button *ngFor="let folder of folders" class="folder">
+            {{folder.name}}  
+        </button>
     </div>
 </div>
