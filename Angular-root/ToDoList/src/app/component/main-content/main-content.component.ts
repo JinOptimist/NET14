@@ -21,11 +21,6 @@ export class MainContentComponent implements OnInit {
     http
       .get<IFolder[]>('http://localhost:42059/api/ToDoList/GetFolders')
       .subscribe(response => this.folders = response);
-
-    http
-      .post<IIssue>('http://localhost:42059/api/ToDoList/AddIssue', this.issue);
-      
-
   }
 
   ngOnInit(): void {
@@ -35,9 +30,8 @@ export class MainContentComponent implements OnInit {
     this.issues = this.issues.filter(x => x.id != issueId)
   }
   
-  addIssue(issue: string){
-    
-  }
+
+ 
 
 
 }
