@@ -1,0 +1,10 @@
+<div class="block-for-add-issue">
+    <button mat-icon-button color="black">
+        <mat-icon>add</mat-icon>
+    </button>
+    <mat-form-field appearance="outline" class="text-issue">
+        <mat-label>Add a task</mat-label>
+        <input matInput placeholder="Add" [(ngModel)]="newIssue.text">
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+</div>

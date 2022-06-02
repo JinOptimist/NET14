@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule} from '@angular/common/http';
 
 import { FormsModule } from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 import {MatButtonModule} from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
@@ -16,6 +19,7 @@ import { MainContentComponent } from './component/main-content/main-content.comp
 import { BlockIssueComponent } from './component/block-issue/block-issue.component';
 import { FolderInContentComponent } from './component/folder-in-content/folder-in-content.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AddIssueInputComponent } from './component/add-issue-input/add-issue-input.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LeftMenuComponent,
     MainContentComponent,
     BlockIssueComponent,
-    FolderInContentComponent
+    FolderInContentComponent,
+    AddIssueInputComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +39,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
-    FormsModule
+    FormsModule,
+    MatInputModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

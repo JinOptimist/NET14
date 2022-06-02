@@ -3,9 +3,20 @@
     <div class="block-of-user">
         Block for user
     </div>
-    <div class="main-folders">
-        <button mat-button *ngFor="let folder of folders" class="folder">
+    <div
+        cdkDropList 
+        class="main-folders"
+        (cdkDropListDropped)="drop($event)">
+        <button 
+            mat-button 
+            class="folder" 
+            *ngFor="let folder of folders" 
+            [cdkDragData]="folder"
+            cdkDrag>
             {{folder.name}}  
         </button> 
     </div>
 </div>
+
+
+
