@@ -4,39 +4,27 @@
     </div> -->
     <div class="new-girl">
         <div>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" class="field">
                 <mat-label>Enter girl name</mat-label>
-                <input matInput 
-                    placeholder="Name" 
-                    [(ngModel)]="newGirl.name">
+                <input matInput placeholder="Name" [(ngModel)]="newGirl.name">
             </mat-form-field>
         </div>
         <div>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" class="field">
                 <mat-label>Enter girl name</mat-label>
-                <input matInput 
-                    placeholder="Url" 
-                    [(ngModel)]="newGirl.url">
+                <input matInput placeholder="Url" [(ngModel)]="newGirl.url">
             </mat-form-field>
             /images/gallery/girl3.png
         </div>
-        <div>
-            <button mat-raised-button 
-                aria-label="Очистить поля" 
-                (click)="clearGirl()">
+        <div class="controls">
+            <button mat-raised-button aria-label="Очистить поля" (click)="clearGirl()">
                 Очистить
             </button>
-            <button mat-raised-button 
-                aria-label="Создать девочку" 
-                (click)="createGirl()"
-                color="primary">
+            <button mat-raised-button aria-label="Создать девочку" (click)="createGirl()" color="primary">
                 Создать
             </button>
         </div>
     </div>
     <girl-block *ngIf="newGirl.name || newGirl.url" [isDraft]='true' [girl]="newGirl"></girl-block>
-    <girl-block 
-        *ngFor="let girl of girls" 
-        [girl]="girl"
-        (onRemoveGirl)="parentRemoveGirl($event)"></girl-block>
+    <girl-block *ngFor="let girl of girls" [girl]="girl" (onRemoveGirl)="parentRemoveGirl($event)"></girl-block>
 </div>

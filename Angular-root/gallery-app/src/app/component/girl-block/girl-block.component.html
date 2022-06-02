@@ -1,7 +1,7 @@
 <div class="girl" data-id="{{girl.id}}" [ngClass]="{'draft': isDraft}">
     <div class="header">
-        <span></span>
-        <span>{{girl.name}}</span>
+        <mat-icon>woman</mat-icon>
+        <span class="name">{{girl.name}}</span>
         <button *ngIf="showControlls" mat-icon-button color="warn" aria-label="Удаляем девочку"
             (click)="removeGirl(girl.id)">
             <mat-icon>delete</mat-icon>
