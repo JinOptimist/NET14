@@ -1,9 +1,9 @@
-import { UserService } from './../user.service';
-import { IUser } from './../models/IUser';
+import { UserService } from './../../user.service';
+import { IUser } from './../../models/IUser';
+import { SiteRole } from './../../models/enums/SiteRole';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {ThemePalette} from '@angular/material/core';
-import { SiteRole } from '../models/enums/SiteRole';
 
 
 @Component({

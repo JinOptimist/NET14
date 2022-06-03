@@ -1,5 +1,5 @@
-import { SiteRole } from './../models/enums/SiteRole';
-import { IUser } from './../models/IUser';
+import { SiteRole } from './../../models/enums/SiteRole';
+import { IUser } from './../../models/IUser';
 import { Component, Input, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 

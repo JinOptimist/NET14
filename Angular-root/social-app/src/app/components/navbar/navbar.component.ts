@@ -13,7 +13,9 @@ export class NavbarComponent implements OnInit {
   constructor(private router : Router) { }
 
   ngOnInit(): void {
-    this.currentUrl = this.router.url;
+    this.router.events.subscribe(() => {
+      this.currentUrl = this.router.url;
+    })
   }
 
   getCurrentRoute(url : string) : boolean{

@@ -20,6 +20,12 @@ header{
 
     li{
         list-style-type: none;
+
+        a{
+            cursor: pointer;
+            color: white;
+            text-decoration: none;
+        }
     }
 
     li:nth-child(2n){

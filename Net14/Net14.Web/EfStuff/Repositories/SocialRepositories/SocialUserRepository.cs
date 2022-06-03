@@ -86,5 +86,14 @@ namespace Net14.Web.EfStuff.Repositories
             return true;
         }
 
+        public List<UserSocial> FindUserbyName(string name) 
+        {
+            var users = _webContext.Users.Where(user
+                => user.FirstName.ToLower().Contains(name) ||
+                user.LastName.ToLower().Contains(name)).ToList();
+
+            return users;
+        }
+
     }
 }

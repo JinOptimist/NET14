@@ -13,6 +13,7 @@ using Net14.Web.Models;
 using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using Net14.Web.Controllers.AutorizeAttribute;
 using Net14.Web.Models.SocialModels.Attributes;
+using System.Reflection;
 
 namespace Net14.Web.Controllers.ApiControllers
 {
@@ -217,6 +218,39 @@ namespace Net14.Web.Controllers.ApiControllers
             }
             _socialUserRepository.ManageRole(id, role);
             return true;
+        }
+
+        [HttpGet]
+        public List<SocialUserViewModel> FindUserByName(string name) 
+        {
+            return _mapper.Map<List<SocialUserViewModel>>(_socialUserRepository.FindUserbyName(name.ToLower()));
+
+        }
+
+        public List<SocialAPIViewModel> GetAPIs()
+        {
+            var typeWithAttributes = typeof(SocialAPIAttribute);
+            var apis = Assembly
+                .GetAssembly(typeWithAttributes)
+                .GetTypes()
+                .Where(type => type.CustomAttributes.Any(attribute => attribute.AttributeType == typeWithAttributes))
+                .Select(x => new SocialAPIViewModel()
+                {
+                    Name = x.Name,
+                    Methods = x.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
+                    .Select(method => new SocialAPIMethodViewModel()
+                    {
+                        Name = method.Name,
+                        Parametres = method.GetParameters().Select(par => new SocialParameterViewModel()
+                        {
+                            Name = par.Name,
+                            Type = par.ParameterType.Name
+
+                        }).ToList()
+                    })
+                }).ToList();
+
+            return apis;
         }
     }
 }
