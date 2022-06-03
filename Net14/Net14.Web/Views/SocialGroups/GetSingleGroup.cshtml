@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="~/css/SocialCss/SocialSingleGroup.css">
 
 
+
 <div class="head-info" data-id=@Model.Group.Id>
     <div class="group-icon-container">
         <img src="~/images/Social/bmw.jpg" class="group-icon">
@@ -65,11 +66,26 @@
                 @post.CommentOfUser
             </div>
             <div class="post-operations">
-                <div class="operations like">
-                    <img src="~/images/Social/heart.png">
+                <div class="like-container">
+                    @if (post.IsLikedCurrentUser)
+                    {
+                        <div class="operations like active">
+                            <img src="~/images/Social/heartRed.png">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="operations like" id="disable">
+                            <img src="~/images/Social/heart.png">
+                        </div>
+                    }
+                    <div class="likes-count">@post.Likes</div>
                 </div>
-                <div class="operations comment">
-                    <img src="~/images/Social/speech-bubble.png">
+                <div class="comm-container">
+                    <div class="operations comment">
+                        <img src="~/images/Social/speech-bubble.png">
+                    </div>
+                    <div class="comm-count">@post.Comments.Count</div>
                 </div>
                 <div class="operations share">
                     <img src="~/images/Social/share (1).png">
@@ -98,10 +114,21 @@
         </div>
     </div>
 
-
-    <div class="unsubscribe template">@Groups.Unsubscribe</div>
-    <div class="subscribe template">@Groups.Subscribe</div>
 }
+
+
+<div class="operations like active template">
+    <img src="~/images/Social/heartRed.png">
+</div>
+
+<div class="operations like template" id="disable">
+    <img src="~/images/Social/heart.png">
+</div>
+
+
+<div class="unsubscribe template">@Groups.Unsubscribe</div>
+<div class="subscribe template">@Groups.Subscribe</div>
+
 
 @section NavbarRecomendations
 {
