@@ -191,12 +191,22 @@ namespace Net14.Web.Controllers
         public IActionResult MyProfile()
         {
             var currentUser = _userService.GetCurrent();
+            var dbUsersPosts = currentUser.Posts;
 
             var postUser = _mapper.Map<List<SocialPostViewModel>>(currentUser.Posts);
             var model = _mapper.Map<SocialProfileViewModel>(currentUser);
+            postUser.ForEach(x =>
+            {
+                if (dbUsersPosts.Single(dbPost => dbPost.Id == x.Id).Likes.Any(like => like.User.Id == currentUser.Id))
+                {
+                    x.IsLikedCurrentUser = true;
+                }
+            });
+
             model.UserPost = postUser;
             model.UserFriendsCount = currentUser.Friends.Count;
             model.UserGroupsCount = currentUser.Groups.Count;
+
 
             return View(model);
         }
