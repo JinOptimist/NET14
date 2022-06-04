@@ -45,16 +45,31 @@ namespace Net14.Web.Controllers
         public IActionResult GetSingleGroup(int id) 
         {
             var group = _socialGroupRepository.Get(id);
+            var groupDbPosts = group.Posts;
             var groupViewModel = _mapper.Map<SocialGroupViewModel>(group);
-            var currentUser = _userService.GetCurrent();
-            if (group.Members.Contains(currentUser))
+
+            if (User.Identity.IsAuthenticated) 
             {
-                groupViewModel.IsCurUserIsMember = true;
+                var currentUser = _userService.GetCurrent();
+
+                groupViewModel.Posts.ForEach(x =>
+                {
+                    if (groupDbPosts.Single(dbPost => dbPost.Id == x.Id).Likes.Any(like => like.User.Id == currentUser.Id))
+                    {
+                        x.IsLikedCurrentUser = true;
+                    }
+                });
+
+                if (group.Members.Contains(currentUser))
+                {
+                    groupViewModel.IsCurUserIsMember = true;
+                }
+                else
+                {
+                    groupViewModel.IsCurUserIsMember = false;
+                }
             }
-            else 
-            {
-                groupViewModel.IsCurUserIsMember = false;
-            }
+
             var finalModel = new SocialGroupWithHotViewModel()
             {
                 Group = groupViewModel,
