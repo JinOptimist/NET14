@@ -40,7 +40,6 @@ namespace Net14.Web.Controllers
             _userService = userService;
             _mapper = mapper;
             _recomendationsService = recomendationsService;
-            _webHostEnvironment = webHostEnvironment;
         }
         [HttpGet]
         public IActionResult Index()
