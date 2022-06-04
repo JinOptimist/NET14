@@ -32,7 +32,63 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\Social\PostImages\" />
+    <Compile Update="Localize\Gallery.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Gallery.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localize\Resource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localize\Social\Groups.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Groups.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localize\Social\Messages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localize\Social\Recomendations.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Recomendations.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Localize\Gallery.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Gallery.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Gallery.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Resource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Social\Groups.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Groups.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Social\Messages.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Social\Messages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Social\Recomendations.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Social\Recomendations.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Recomendations.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

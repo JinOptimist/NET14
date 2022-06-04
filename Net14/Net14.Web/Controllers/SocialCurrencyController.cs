@@ -20,12 +20,5 @@ namespace Net14.Web.Controllers
             var model = _currencyService.GetCurrency("USD");
             return View(model);
         }
-        [HttpPost]
-        public IActionResult GetCurrency(string cur) 
-        {
-            var model = _currencyService.GetCurrency(cur);
-            return Json(model);
-
-        }
     }
 }

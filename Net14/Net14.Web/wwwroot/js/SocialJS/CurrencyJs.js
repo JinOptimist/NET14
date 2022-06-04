@@ -2,7 +2,7 @@
     $(".submit-currency").click(function () {
         let currency = $(".select-currency option:selected").val();
 
-        $.post("/SocialCurrency/GetCurrency", { cur: currency })
+        $.get("/api/SocialCurrency/GetCurrency", { cur: currency })
             .done(function (currency) {
 
                 RenderCurrency(currency);

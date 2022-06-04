@@ -21,10 +21,34 @@ namespace Net14.Web.EfStuff
                 SeedUser(scope);
                 SeedPostAndComm(scope);
                 GroupSeed(scope);
+
+                SeedImages(scope);
             }
 
             return host;
         }
+
+        private static void SeedImages(IServiceScope scope)
+        {
+            var imageRepository = scope.ServiceProvider.GetService<ImageRepository>();
+
+            if (imageRepository.Any())
+            {
+                return;
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                var image = new Image
+                {
+                    Name = $"Girl {i}",
+                    Url = $"/images/gallery/girl{i}.png"
+                };
+
+                imageRepository.Save(image);
+            }
+        }
+
         private static void SeedProduct(IServiceScope scope)
         {
             var productRepository = scope.ServiceProvider.GetService<ProductRepository>();
@@ -520,10 +544,17 @@ namespace Net14.Web.EfStuff
                     CommentOfUser = "Comment",
                     DateOfPosting = new DateTime(),
                     ImageUrl = "https://www.imgonline.com.ua/examples/bee-on-daisy.jpg",
-                    Likes = 20,
                     TypePost = "no",
                     Comments = new List<SocialComment>()
                 };
+
+                var like = new SocialLike()
+                {
+                    Post = post,
+                    User = commentUser
+                };
+
+                post.Likes.Add(like);
 
                 var comment = new SocialComment()
                 {
@@ -549,15 +580,23 @@ namespace Net14.Web.EfStuff
 
             if (!groupRepository.Any())
             {
+                var user = userRepository.GetByEmAndPass("email2", "pass2");
                 var groupPost = new PostSocial()
                 {
                     CommentOfUser = "Good car",
                     Comments = new List<SocialComment>(),
                     ImageUrl = "/images/Social/bmw.jpg",
-                    Likes = 10,
                     TypePost = "no",
-                    User = userRepository.GetByEmAndPass("email", "pass")
+                    User = user
                 };
+
+                var like = new SocialLike()
+                {
+                    Post = groupPost,
+                    User = user
+                };
+
+                groupPost.Likes.Add(like);
 
                 var groupComment = new SocialComment()
                 {

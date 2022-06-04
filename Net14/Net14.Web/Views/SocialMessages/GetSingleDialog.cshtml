@@ -1,4 +1,5 @@
 ﻿@using Net14.Web.Models.SocialModels.Enums;
+@using Net14.Web.Localize.Social 
 @model SocialMessageWithUserViewModel
 
 
@@ -12,6 +13,7 @@
     <div class="user-name">
         @Model.UserOfDialog.FirstName @Model.UserOfDialog.LastName
     </div>
+    <div class="is-typing">Is typing</div>
 </div>
 <div class="main-message-container">
     @foreach (var message in Model.Messages)
@@ -67,13 +69,10 @@
 </div>
 
 <form class="message-inputs">
-    <input type="text" class="message-input">
-    <input type="submit" class="message-send-button" value="Send">
+    <input type="text" class="message-input" name="Message"> 
+    <input type="submit" class="message-send-button" value=@Messages.Send>
 </form>
 @section Scripts{
     <script src="~/js/SocialJS/SocialMessanger.js"></script>
 }
 
-
-@*            <img src="~/images/Social/check_mark.svg" class="check-mark-right">
-*@

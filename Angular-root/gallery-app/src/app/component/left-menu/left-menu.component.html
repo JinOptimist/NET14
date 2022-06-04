@@ -1,0 +1,9 @@
+<div cdkDropList class="example-list link-container"
+    (cdkDropListDropped)="drop($event)">
+    <div *ngFor="let link of links" class="example-box" cdkDrag>
+        <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+        <a mat-raised-button 
+            href="{{link.path}}" 
+            target="{{ link.isTragetBlank ? '_blank': '_self' }}">{{link.text}}</a>
+    </div>
+</div>

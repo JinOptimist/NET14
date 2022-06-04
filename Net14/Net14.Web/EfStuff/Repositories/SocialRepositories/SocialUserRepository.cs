@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
+using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
+
 namespace Net14.Web.EfStuff.Repositories
 {
     public class SocialUserRepository : BaseRepository<UserSocial>
@@ -66,6 +68,31 @@ namespace Net14.Web.EfStuff.Repositories
         public bool Exists(int userId) 
         {
             return _webContext.Users.Any(user => user.Id == userId);
+        }
+
+        public bool ManageRole(int userId, SiteRole role) 
+        {
+            var user = _webContext.Users.Single(user => user.Id == userId);
+            if (user.Role.HasFlag(role))
+            {
+                user.Role &= ~role;
+                _webContext.SaveChanges();
+                return true;
+
+            }
+
+            user.Role |= role;
+            _webContext.SaveChanges();
+            return true;
+        }
+
+        public List<UserSocial> FindUserbyName(string name) 
+        {
+            var users = _webContext.Users.Where(user
+                => user.FirstName.ToLower().Contains(name) ||
+                user.LastName.ToLower().Contains(name)).ToList();
+
+            return users;
         }
 
     }

@@ -20,6 +20,7 @@ using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.Models;
 using Net14.Web.SignalRHubs;
 using System.Reflection;
+using Net14.Web.Localize;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Net14.Web
@@ -59,11 +60,13 @@ namespace Net14.Web
             services.AddControllersWithViews();
 
             services.AddSignalR();
+
+            services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
         }
 
         private void RegisterServices(IServiceCollection services)
         {
-            var autoRegisterType = typeof(AutoRegister);
+            var autoRegisterType = typeof(AutoRegisterAttribute);
             Assembly
                 .GetAssembly(autoRegisterType)
                 .GetTypes()
@@ -105,7 +108,7 @@ namespace Net14.Web
             var constructor = constructors
                 .SingleOrDefault(x => x
                     .CustomAttributes
-                    .Any(a => a.AttributeType == typeof(AutoRegister)));
+                    .Any(a => a.AttributeType == typeof(AutoRegisterAttribute)));
             if (constructor == null)
             {
                 constructor = constructors
@@ -172,10 +175,14 @@ namespace Net14.Web
                     post => post
                         .MapFrom(dbPost =>
                             dbPost.User.UserPhoto))
-            .ForMember(nameof(SocialPostViewModel.FirstName),
+            .ForMember(nameof(SocialPostViewModel.UserName),
                     post => post
                         .MapFrom(dbPost =>
-                            dbPost.User.FirstName));
+                            dbPost.User.FirstName + " " + dbPost.User.LastName))
+            .ForMember(nameof(SocialPostViewModel.Likes),
+                post => post
+                    .MapFrom(dbPost =>
+                        dbPost.Likes.Count));
 
             provider.CreateMap<GroupSocial, SocialGroupViewModel>()
                 .ForMember(nameof(SocialGroupViewModel.Tags),
@@ -188,7 +195,12 @@ namespace Net14.Web
             provider.CreateMap<UserFriendRequest, FriendRequestViewModel>();
 
 
-            provider.CreateMap<UserSocial, SocialUserViewModel>();
+            provider.CreateMap<UserSocial, SocialUserViewModel>()
+                .ForMember(nameof(SocialUserViewModel.Role),
+                user => user
+                    .MapFrom(dbUser =>
+                        dbUser.Role.ToString()));
+
             provider.CreateMap<SocialComment, SocialCommentViewModel>();
             provider.CreateMap<UserSocial, SocialProfileViewModel>();
             provider.CreateMap<SocialCommentViewModel, SocialUserViewModel>();
@@ -234,11 +246,15 @@ namespace Net14.Web
 
             app.UseRouting();
 
+            app.UseCors(builder => builder.AllowAnyOrigin());
+
             //Who I am
             app.UseAuthentication();
 
             // Where could I go
             app.UseAuthorization();
+
+            app.UseMiddleware<LocalizeMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

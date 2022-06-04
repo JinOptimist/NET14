@@ -1,0 +1,29 @@
+.api {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+
+
+.methods-api {
+    width: 80%;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.api-name {
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 25px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid grey;
+}
+.api-method {
+    margin-bottom: 10px;
+}

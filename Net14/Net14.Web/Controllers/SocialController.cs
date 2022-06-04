@@ -15,9 +15,8 @@ using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using Net14.Web.Controllers.AutorizeAttribute;
 using Microsoft.AspNetCore.SignalR;
 using Net14.Web.SignalRHubs;
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
+using Net14.Web.Models.SocialModels.Attributes;
+using System.Reflection;
 
 namespace Net14.Web.Controllers
 {
@@ -26,51 +25,50 @@ namespace Net14.Web.Controllers
     {
         private SocialUserRepository _socialUserRepository;
         private SocialPostRepository _socialPostRepository;
-        private SocialCommentRepository _socialCommentRepository;
         private UserService _userService;
         private IMapper _mapper;
-        private FriendRequestService _friendRequestService;
-        private UserFriendRequestRepository _userFriendRequestRepository;
         private RecomendationsService _recomendationsService;
-        private IHubContext<NotificationsHub> _notificationsHub;
-        private IWebHostEnvironment _webHostEnvironment;
 
 
         public SocialController(SocialUserRepository socialUserRepository,
             SocialPostRepository socialPostRepository,
-            SocialCommentRepository socialCommentRepository,
             UserService userService, IMapper mapper,
-            FriendRequestService friendRequestService,
-            UserFriendRequestRepository userFriendRequestRepository,
-            RecomendationsService recomendationsService,
-            IHubContext<NotificationsHub> hubContext,
-            IWebHostEnvironment webHostEnvironment)
+            RecomendationsService recomendationsService)
         {
-            _notificationsHub = hubContext;
             _socialPostRepository = socialPostRepository;
             _socialUserRepository = socialUserRepository;
-            _socialCommentRepository = socialCommentRepository;
             _userService = userService;
             _mapper = mapper;
-            _friendRequestService = friendRequestService;
-            _userFriendRequestRepository = userFriendRequestRepository;
             _recomendationsService = recomendationsService;
             _webHostEnvironment = webHostEnvironment;
         }
         [HttpGet]
         public IActionResult Index()
         {
-
             var postArr = _socialPostRepository.GetAll();
+
             var topThree = _mapper.Map<List<SocialPostViewModel>>(_recomendationsService.GetIndexRecomendations());
             var viewPost = _mapper.Map<List<SocialPostViewModel>>(postArr);
 
-            
-            var finalModel = new SocialPostWithTopViewModel() 
+            if (_userService.GetCurrent() != null) 
+
+            {
+                var currentUser = _userService.GetCurrent();
+                viewPost.ForEach(x =>
+                {
+                    if (postArr.Single(dbPost => dbPost.Id == x.Id).Likes.Any(like => like.User.Id == currentUser.Id))
+                    {
+                        x.IsLikedCurrentUser = true;
+                    }
+                });
+
+            }
+            var finalModel = new SocialPostWithTopViewModel()
             {
                 Posts = viewPost,
                 TopThreePost = topThree
             };
+
 
             return View(finalModel);
         }
@@ -140,7 +138,7 @@ namespace Net14.Web.Controllers
                         mod.IsFriend = true;
                         return mod;
                     }
-                    if (currentUser.FriendRequestSent.Exists(req => req.Receiver.Id == db.Id && req.FriendRequestStatus == FriendRequestStatus.Pending)) 
+                    if (currentUser.FriendRequestSent.Exists(req => req.Receiver.Id == db.Id && req.FriendRequestStatus == FriendRequestStatus.Pending))
                     {
                         var mod = _mapper.Map<SocialUserViewModel>(db);
                         mod.IsRequested = true;
@@ -173,19 +171,19 @@ namespace Net14.Web.Controllers
         }
 
 
-        public IActionResult ShowProfile()
+        public IActionResult ShowProfile(int userId)
         {
-            var user = new UserSocial();
+            var user = _socialUserRepository.Get(userId);
+            var currentUser = _userService.GetCurrent();
 
-            return View(user);
-        }
-
-        public IActionResult ShowPagesProfile()
-        {
-            var postUser = _mapper.Map<List<SocialPostViewModel>>(_userService.GetCurrent().Posts);
-            var user = _userService.GetCurrent();
+            var postUser = _mapper.Map<List<SocialPostViewModel>>(user.Posts);
             var model = _mapper.Map<SocialProfileViewModel>(user);
             model.UserPost = postUser;
+            model.UserFriendsCount = user.Friends.Count;
+            model.UserGroupsCount = user.Groups.Count;
+            model.IsRequested = currentUser.FriendRequestSent.Any(x => x.Receiver.Id == userId) ? true : false;
+            model.IsFriend = currentUser.Friends.Any(x => x.Id == user.Id) ? true : false;
+
 
             return View(model);
         }
@@ -193,84 +191,23 @@ namespace Net14.Web.Controllers
         [Authorize]
         public IActionResult MyProfile()
         {
-            var user = _userService.GetCurrent();
-            var model = _mapper.Map<SocialProfileViewModel>(user);
+            var currentUser = _userService.GetCurrent();
+
+            var postUser = _mapper.Map<List<SocialPostViewModel>>(currentUser.Posts);
+            var model = _mapper.Map<SocialProfileViewModel>(currentUser);
+            model.UserPost = postUser;
+            model.UserFriendsCount = currentUser.Friends.Count;
+            model.UserGroupsCount = currentUser.Groups.Count;
 
             return View(model);
         }
 
-        [Authorize]
-        public IActionResult AddComment(int postId, string text)
-        {
-            if (text == null)
-            {
-                return StatusCode(400);
-            }
-            var post = _socialPostRepository.Get(postId);
-            var currentUser = _userService.GetCurrent();
-
-            var comment = new SocialComment()
-            {
-                Post = post,
-                Text = text,
-                User = currentUser
-            };
-
-            _socialCommentRepository.Save(comment);
-            return Json(_mapper.Map<SocialUserViewModel>(_userService.GetCurrent()));
-        }
-
-        public IActionResult GetComments(int postId) 
-        {
-            var post = _socialPostRepository.Get(postId);
-
-            var comments = _mapper.Map<List<SocialCommentViewModel>>(post.Comments);
-
-            return Json(comments);
-        }
-
-        [Authorize]
-        public IActionResult AddFriend(int friendId)
-        {
-            var currentUserId = _userService.GetCurrent().Id;
-            _friendRequestService.CreateFriendRequest(currentUserId, friendId);
-            return Ok();
-
-        }
-        [Authorize]
-        public IActionResult Notification()
-        {
-            var currentUser = _userService.GetCurrent();
-
-            var recievedRequests = currentUser.FriendRequestReceived
-                .ToList();
-
-            recievedRequests.ForEach(el => el.IsViewedByReceiver = true);
-            _userFriendRequestRepository.SaveList(recievedRequests);
-
-
-            var closeSentRequests = currentUser.FriendRequestSent
-                .Where(req => req.FriendRequestStatus != FriendRequestStatus.Pending).ToList();
-
-            closeSentRequests.ForEach(el => el.IsViewedBySender = true);
-            _userFriendRequestRepository.SaveList(closeSentRequests);
-
-            var receivedModel = _mapper.Map<List<FriendRequestViewModel>>(recievedRequests);
-            receivedModel.ForEach(req => req.Type = RequestViewModelType.Received);
-
-            var sentModel = _mapper.Map<List<FriendRequestViewModel>>(closeSentRequests);
-            sentModel.ForEach(req => req.Type = RequestViewModelType.Sent);
-
-            receivedModel.AddRange(sentModel);
-
-            return Json(receivedModel);
-        }
 
         [Authorize]
         public IActionResult Friends()
         {
             var currentUser = _userService.GetCurrent();
-            
+
             var friends = currentUser.Friends;
 
             var model = _mapper.Map<List<SocialUserViewModel>>(friends);
@@ -279,72 +216,32 @@ namespace Net14.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult AcceptFriend(int friendId)
-        {
-
-            var user = _userService.GetCurrent();
-            _friendRequestService.Accept(friendId, user.Id);
-
-            return Ok();
-
-        }
-
-        [Authorize]
-        public IActionResult DeclineFriend(int friendId)
-        {
-            var user = _userService.GetCurrent();
-            _friendRequestService.Decline(friendId, user.Id);
-
-            return Ok();
-
-        }
         [HasRole(SiteRole.Admin)]
-        public IActionResult BlockUser(int userId) 
+        public IActionResult GetAPIs() 
         {
-            var user = _socialUserRepository.Get(userId);
-            user.IsBlocked = true;
-            _socialUserRepository.Save(user);
-            return Redirect($"/Social/ShowAllUsers");
+            var typeWithAttributes = typeof(SocialAPIAttribute);
+            var apis = Assembly
+                .GetAssembly(typeWithAttributes)
+                .GetTypes()
+                .Where(type => type.CustomAttributes.Any(attribute => attribute.AttributeType == typeWithAttributes))
+                .Select(x => new SocialAPIViewModel()
+                {
+                    Name = x.Name,
+                    Methods = x.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
+                    .Select(method => new SocialAPIMethodViewModel()
+                    {
+                        Name = method.Name,
+                        Parametres = method.GetParameters().Select(par => new SocialParameterViewModel()
+                        {
+                            Name = par.Name,
+                            Type = par.ParameterType.Name
+
+                        }).ToList()
+                    })
+                }).ToList();
+
+            return View(apis);
         }
-
-        [HasRole(SiteRole.Admin)]
-        public IActionResult UnblockUser(int userId) 
-        {
-            var user = _socialUserRepository.Get(userId);
-            user.IsBlocked = false;
-            _socialUserRepository.Save(user);
-            return Redirect($"/Social/ShowAllUsers");
-        }
-        [HttpPost]
-        public IActionResult AddPost(string text, IFormFile ImageUrl)
-        {
-
-            var post = new PostSocial()
-            {
-                CommentOfUser = text,
-                User = _userService.GetCurrent()
-            };
-
-            _socialPostRepository.Save(post);
-
-            var extension = Path.GetExtension(ImageUrl.FileName);
-            var fileName = $"post{post.Id}{extension}";
-            var path = Path.Combine(
-                _webHostEnvironment.WebRootPath,
-                "images",
-                "Social",
-                "PostImages",
-                fileName);
-            using (var fs = new FileStream(path, FileMode.CreateNew))
-            {
-                ImageUrl.CopyTo(fs);
-            }
-
-            post.ImageUrl = $"/images/Social/gallery/{fileName}";
-            _socialPostRepository.Save(post);
-
-            return View();
-
-        }
+        
     }
 }

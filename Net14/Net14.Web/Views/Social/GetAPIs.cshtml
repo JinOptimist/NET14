@@ -1,0 +1,36 @@
+﻿@model List<SocialAPIViewModel>
+
+@{
+    Layout = "/Views/Shared/_LayoutSocial.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/SocialCss/GetAPIs.css">
+
+
+@foreach (var apiController in Model)
+{
+
+    <div class="api">
+        <div class="api-name">@apiController.Name</div>
+        <div class="methods-api">
+            @foreach (var methods in apiController.Methods)
+            {
+
+
+                <div class="api-method">
+                    @methods.Name (
+                @foreach (var per in methods.Parametres)
+                {
+                    <span>@per.Type @per.Name</span>
+                }
+                    )
+                </div>
+
+
+
+        }
+        </div>
+    </div>
+}
+
+

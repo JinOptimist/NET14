@@ -1,0 +1,25 @@
+<div class="add-girl">
+    <div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Enter girl name</mat-label>
+                <input matInput 
+                    placeholder="Name" 
+                    [(ngModel)]="girl.name"
+                    required>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Enter url</mat-label>
+                <input matInput 
+                    placeholder="Url" 
+                    [(ngModel)]="girl.url"
+                    required>
+            </mat-form-field>
+        </div>
+    </div>
+    <div>
+        <girl-block [girl]="girl" [showControlls]="false"></girl-block>
+    </div>
+</div>

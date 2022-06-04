@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+    var isWorking = false;
+
+
     $(".main-message-container").scrollTop($(".main-message-container").prop('scrollHeight'));
 
     const hubConnection = new signalR.HubConnectionBuilder()
@@ -6,30 +9,84 @@
         .build();
 
 
+    $(".message-input").keyup(function () {
+        if ($(".message-input").val() === "")
+        {
+            return;
+        }
+        let userId = $(".dialog-user-info").data("id");
+        hubConnection.invoke("IsTyping", userId.toString());
+    });
+
+    hubConnection.on("IsTyping", function () {
+        if (isWorking)
+        {
+            return;
+        }
+
+        isWorking = true;
+
+        var pointCount = 0;
+        var element = $(".is-typing");
+        element.show();
+
+        const showPoints = setInterval(startPoints, 500);
+
+        setTimeout(stopPoints, 6000);
+        
+
+        function startPoints() {
+            if (pointCount == 3) {
+                element.text("Is typing");
+                pointCount = 0;
+            }
+            else {
+                element.text(element.text() + ".");
+                pointCount++;
+            }
+        }
+
+        function stopPoints()
+        {
+            clearInterval(showPoints);
+            element.text("Is typing");
+            isWorking = false;
+            element.hide();
+        }
+
+
+    })
+
     $(".message-send-button").click(function (e) {
         e.preventDefault();
         var time = new Date();
-        let message = $(".message-input").val();
-        if (isEmpty(message))
+        let messageText = $(".message-input").val().toString();
+        if (isEmpty(messageText))
         {
             return;
         }
         $(".message-input").val('');
+        let userId = $(".dialog-user-info").data("id");
+        let data = { Message: messageText, UserId: userId };
 
-        let userId = $(".dialog-user-info").attr("data-id");
-        $.post("/SocialMessages/SendMessage", { message: message, userId: parseInt(userId) })
-            .done(function () {
-                sentMessage.find(".check-mark-left.template").removeClass("template");
-            });
-            hubConnection.invoke("SendMessage", message, userId);
-            let sentMessage = $(".single-message-sent.template").clone();
-            let text = $("<span>").text(message);
-            sentMessage.find(".txt").append(text);
-            sentMessage.find(".text-time").text(time.toLocaleTimeString().slice(0, -3));
-            sentMessage.appendTo(".main-message-container");
-            sentMessage.removeClass("template");
-            $(".main-message-container").scrollTop($(".main-message-container").prop('scrollHeight'));
+        jQuery.ajax({
+            url: "/api/SocialMessages/SendMessage",
+            type: "POST",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+        }).done(function () {
+            sentMessage.find(".check-mark-left.template").removeClass("template");
+        });
 
+        hubConnection.invoke("SendMessage", messageText, userId.toString());
+        let sentMessage = $(".single-message-sent.template").clone();
+        let text = $("<span>").text(messageText);
+        sentMessage.find(".txt").append(text);
+        sentMessage.find(".text-time").text(time.toLocaleTimeString().slice(0, -3));
+        sentMessage.appendTo(".main-message-container");
+        sentMessage.removeClass("template");
+        $(".main-message-container").scrollTop($(".main-message-container").prop('scrollHeight'));
     });
 
 
@@ -41,7 +98,7 @@
         messageRecieved.appendTo(".main-message-container");
         messageRecieved.removeClass("template");
         $(".main-message-container").scrollTop($(".main-message-container").prop('scrollHeight'));
-        $.get("/SocialMessages/ViewMessage", { userId: parseInt(dialogFriendId)})
+        $.get("/api/SocialMessages/ViewMessage", { userId: parseInt(dialogFriendId)})
             .done(function () {
                 hubConnection.invoke("MessagesAreViewed", dialogFriendId);
             });

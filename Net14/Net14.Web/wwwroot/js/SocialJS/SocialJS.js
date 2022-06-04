@@ -133,7 +133,7 @@ $(document).ready(function () {
         $("#header-settings").fadeOut(200);
         $(".notification-block").fadeToggle(200);
         UpdateNotifications();
-        $.get('/Social/Notification')
+        $.get('/api/Social/Notification')
             .done(function (notificationData) {
                 RenderNotifications(notificationData);
             });
@@ -191,10 +191,10 @@ $(document).ready(function () {
 
     $(document).on('click', ".accept-button", function () {
         let friendId = $(this).closest(".notification-container").data("friendid") - 0;
-        $.get("/Social/AcceptFriend", { friendId: friendId })
+        $.get("/api/Social/AcceptFriend", { friendId: friendId })
             .done(function () {
                 $(this).closest(".notification-container").remove();
-                $.get('/Social/Notification')
+                $.get('/api/Social/Notification')
                     .done(function (notificationData) {
                         RenderNotifications(notificationData);
                     });
@@ -203,10 +203,10 @@ $(document).ready(function () {
 
     $(document).on('click', ".decline-button", function () {
         let friendId = $(this).closest(".notification-container").data("friendid") - 0;
-        $.get("/Social/DeclineFriend", { friendId: friendId })
+        $.get("/api/Social/DeclineFriend", { friendId: friendId })
             .done(function () {
                 $(this).closest(".notification-container").remove();
-                $.get('/Social/Notification')
+                $.get('api/Social/Notification')
                     .done(function (notificationData) {
                         RenderNotifications(notificationData);
                     });
@@ -227,12 +227,35 @@ $(document).ready(() => {
 
     hubConnection.on("SendNotif", function (message, userPhoto) {
         $(".notif-div-bottom").fadeIn(200);
-        $(".notif-div-bottom-content").text(message);
+        $(".notif-text").text(message);
         let photo = $('<img>').attr("src", userPhoto);
         $(".notif-div-bottom-content").append(photo);
         setTimeout(function () {
             $(".notif-div-bottom").fadeOut(200);
         }, 3000);
+    });
+
+    hubConnection.on("SendMessageNotificaton", function (message, userName, userPhoto, userId) {
+        if (window.location.pathname + window.location.search == "/SocialMessages/GetSingleDialog?dialogFriendId=" + userId) {
+            return;
+        }
+        else
+        {
+            if (message.length > 22)
+            {
+                debugger;
+                message = message.slice(0, 21);
+                message += "...";
+            }
+            $(".notif-div-bottom").fadeIn(200);
+            $(".notif-text").text(message);
+            $(".user-message-name").text(userName + " send message");
+            let photo = $('<img>').attr("src", userPhoto);
+            $(".notif-div-bottom-content").append(photo);
+            setTimeout(function () {
+                $(".notif-div-bottom").fadeOut(200);
+            }, 3000);
+        }
     });
 
     $(document).on('click', ".accept-button", function () {
@@ -250,10 +273,11 @@ $(document).ready(() => {
         $(".add-to-friends-button").click(function () {
             let button = $(this);
             let id = String($(this).closest(".find-recomendation-element-menu").data("friend"));
+            let buttonReplace = $(".add-to-friends-button.requested.template").clone();
 
-            $.get("/Social/AddFriend", { friendId: id })
+            $.get("/api/Social/AddFriend", { friendId: id })
                 .done(function () {
-                    button.addClass("requested").text("Requested");
+                    button.replaceWith(buttonReplace.removeClass("template"));
                 });
 
             hubConnection.invoke("SendNotif", "requested", id);
