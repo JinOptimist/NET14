@@ -5,13 +5,18 @@
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 <link rel="stylesheet" href="~/css/SocialCss/ShowPagesProfile.css">
+
+@section Scripts{
+    <script src="~/js/SocialJS/SocialIndexJs.js"></script>
+
+}
 <div id="zatemnenie">
     <div id="okno">
         <div class="pop-wrapper">
             <div class="pop-header">
                 <div class="send-header">Send message</div>
                 <div class="go-and-cancel">
-                    <div class="go-to-dialog"  onclick="location.href='/SocialMessages/GetSingleDialog?dialogFriendId=@Model.Id';">Go to the dialog</div>
+                    <div class="go-to-dialog" onclick="location.href='/SocialMessages/GetSingleDialog?dialogFriendId=@Model.Id';">Go to the dialog</div>
                     <img class="close-pop" src="~/images/Social/free-icon-cancel-130887.png">
                 </div>
             </div>
@@ -77,15 +82,16 @@
 
 @foreach (SocialPostViewModel post in Model.UserPost)
 {
-    <div class="content-element">
-        <div class="content-element-card" id=@post.Id>
+    <a name="@post.Id" class="anchor"></a>
+
+    <div class="content-element" data-id=@post.Id>
+        <div class="content-element-card">
             <div class="user-info">
                 <div class="user-photo">
                     <img src=@post.UserPhoto class="user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">
                 </div>
                 <div class="user-name">
-                    <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@post.UserName</p>
-                    <p>posted:</p>
+                    <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@string.Format(@Indexx.Posted, post.UserName)</p>
                 </div>
             </div>
             <div class="block-post-image">
@@ -95,50 +101,61 @@
                 @post.CommentOfUser
             </div>
             <div class="post-operations">
-                <div class="operations" id="heart">
-                    <img src="~/images/Social/heart.png">
+                <div class="like-container">
+                    @if (post.IsLikedCurrentUser)
+                    {
+                        <div class="operations like active">
+                            <img src="~/images/Social/heartRed.png">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="operations like" id="disable">
+                            <img src="~/images/Social/heart.png">
+                        </div>
+                    }
+                    <div class="likes-count">@post.Likes</div>
                 </div>
-                <div class="operations" id="comment">
-                    <img src="~/images/Social/speech-bubble.png">
+                <div class="comm-container">
+                    <div class="operations comment">
+                        <img src="~/images/Social/speech-bubble.png">
+                    </div>
+                    <div class="comm-count">@post.Comments.Count</div>
                 </div>
-                <div class="operations">
+                <div class="operations share">
                     <img src="~/images/Social/share (1).png">
                 </div>
             </div>
             <div class="comments">
                 <div class="comments-elements-container">
-                    <div class="comment-header">Comments</div>
+                    <div class="comment-header">@Indexx.Comments</div>
                     <div class="comment-elements">
-                        @foreach (var comm in post.Comments)
-                        {
-                            <div class="single-comment">
-                                <div class="comment-owner-info">
-                                    <img src=@comm.User.UserPhoto class="user-photo" id="comment-photo">
-                                    <div>@comm.User.FirstName @comm.User.LastName</div>
-                                </div>
-                                <div>
-                                    @comm.Text
-                                </div>
+                        <div class="single-comment template">
+                            <div class="comment-owner-info">
+                                <img class="user-photo" id="comment-photo">
+                                <div class="user-name-comment"></div>
                             </div>
-                        }
+                            <div class="comment-text">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <form class="input-container" asp-action="AddComment" asp-controller="Social">
+                <form class="input-container">
                     <input name="postId" type="hidden" value="@post.Id" />
-                    <input type="text" class="to-comment" name="text" placeholder="Add comment" />
-                    <input type="submit" value="send" class="comm">
+                    <input type="text" class="to-comment" name="text" placeholder="@Indexx.Add_comment" />
+                    <input type="submit" value="@Indexx.Send" class="comm">
                 </form>
             </div>
-            <div class="time-of-posting">Posted @DateTime.Now.ToLocalTime()</div>
         </div>
     </div>
+
 }
 
-<div class="add-to-friends-button requested template" id="profile">
-    @Recomendations.Friend_Request
+
+<div class="operations like active template">
+    <img src="~/images/Social/heartRed.png">
 </div>
 
-
-@section Scripts{
-    <script src="~/js/SocialJS/SocialProfileJs.js"></script>
-}
+<div class="operations like template" id="disable">
+    <img src="~/images/Social/heart.png">
+</div>

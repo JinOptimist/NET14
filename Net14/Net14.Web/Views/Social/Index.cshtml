@@ -1,6 +1,7 @@
 ﻿@using Net14.Web.EfStuff.DbModel.SocialDbModels;
 @using Net14.Web.Services;
 @using Net14.Web.Localize.Social
+@inject UserService userService
 @model SocialPostWithTopViewModel
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
@@ -9,31 +10,38 @@
 @section Scripts{
     <script src="~/js/SocialJS/SocialIndexJs.js"></script>
 
+
 }
+
+
 
 @if (User.Identity.IsAuthenticated)
 {
     <div class="add-post">
-        <div class="add-post-header">@Indexx.Add_post</div>
-
-        <form action="/Social/Index" method="post" id="form-add-post">
-            <div class="textForInput">
-                @Indexx.ImageUrl
+        <div class="form-div">
+            <div class="new-post-photo">
+                <img src=@userService.GetCurrent().UserPhoto>
             </div>
-            <div>
-                <input name="ImageUrl" placeholder="@Indexx.ImageUrl">
+            <form enctype="multipart/form-data" class="add-post-form" action="/Social/Index" method="post" id="myform">
+                <textarea type="text" placeholder="What's new?'" class="post-input" name="CommentOfUser"></textarea>
+                <span class="file-name"></span>
+                <div class="add-image-post">
+                    <div class="add-image">
+                        <label>
+                            <img src="~/images/Social/gallery.png">
+                            <input type="file" class="add-image" name="ImageUrl" id="file1">
+                        </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="block-send">
+            <div class="send-button-container">
+                <input type="submit" value="Send" class="send-post" form="myform"/>
             </div>
-            <div class="textForInput">
-                @Indexx.Comment
-            </div>
-            <div>
-                <input name="CommentOfUser" placeholder="@Indexx.Comment">
-            </div>
-            <div>
-                <input type="submit" value="@Indexx.Add" class="button-add-post">
-            </div>
-        </form>
+        </div>
     </div>
+
 }
 
 

@@ -95,5 +95,38 @@
 
     })
 
+    $('.add-image').change(function () {
+        var file = $(this)[0].files[0].name;
+        var span = $(this).closest(".add-post-form").find(".file-name");
+        span.text(file);
+    });
+
+    $(".post-input").click(function () {
+        $(".add-post").animate({
+            "min-height": '150px',
+        }, 300, function () {
+            $(".block-send").fadeIn(200);
+        });
+
+    });
+
+    $(document).mouseup(function (e) {
+        var container = $(".add-post");
+        var buttonFile = $(".add-image");
+        var sendButton = $(".send-post");
+
+
+        if (!container.is(e.target) && container.has(e.target).length === 0
+            && !buttonFile.is(e.target) && buttonFile.has(e.target).length === 0
+            && !sendButton.is(e.target) && sendButton.has(e.target).length === 0) {
+            $(".block-send").hide();
+            $(".add-post").animate({
+                "min-height": '55px',
+            }, 300, function () {
+                $(".post-input").val("");
+            });
+        }
+    });
+
 })
 
