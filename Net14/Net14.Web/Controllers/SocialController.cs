@@ -173,15 +173,30 @@ namespace Net14.Web.Controllers
         public IActionResult ShowProfile(int userId)
         {
             var user = _socialUserRepository.Get(userId);
-            var currentUser = _userService.GetCurrent();
-
-            var postUser = _mapper.Map<List<SocialPostViewModel>>(user.Posts);
+            var dbUsersPosts = user.Posts;
+            var postUser = _mapper.Map<List<SocialPostViewModel>>(dbUsersPosts);
             var model = _mapper.Map<SocialProfileViewModel>(user);
             model.UserPost = postUser;
             model.UserFriendsCount = user.Friends.Count;
             model.UserGroupsCount = user.Groups.Count;
-            model.IsRequested = currentUser.FriendRequestSent.Any(x => x.Receiver.Id == userId) ? true : false;
-            model.IsFriend = currentUser.Friends.Any(x => x.Id == user.Id) ? true : false;
+
+
+
+            if (User.Identity.IsAuthenticated) 
+            {
+                var currentUser = _userService.GetCurrent();
+
+                model.UserPost.ForEach(x =>
+                {
+                    if (dbUsersPosts.Single(dbPost => dbPost.Id == x.Id).Likes.Any(like => like.User.Id == currentUser.Id))
+                    {
+                        x.IsLikedCurrentUser = true;
+                    }
+                });
+
+                model.IsRequested = currentUser.FriendRequestSent.Any(x => x.Receiver.Id == userId) ? true : false;
+                model.IsFriend = currentUser.Friends.Any(x => x.Id == user.Id) ? true : false;
+            }
 
 
             return View(model);

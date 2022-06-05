@@ -9,26 +9,31 @@
 
 @section Scripts{
     <script src="~/js/SocialJS/SocialIndexJs.js"></script>
+    
 
 }
 
+
+
 @if (User.Identity.IsAuthenticated)
 {
-<div class="add-post">
-    <div class="new-post-photo">
-        <img src=@userService.GetCurrent().UserPhoto>
-    </div>
-    <form enctype="multipart/form-data" class="add-post-form">
-        <textarea type="text" placeholder="What's new?'" class="post-input"></textarea>
-        <div class="add-image">
-            <label>
-                <img src="~/images/Social/gallery.png">
-                <input type="file" class="add-image" name="photo" id="file1">
-            </label>
+    <div class="add-post">
+        <div class="new-post-photo">
+            <img src=@userService.GetCurrent().UserPhoto>
         </div>
-        <input type="submit" class="add-post-button">
-    </form>
-</div>
+        <form enctype="multipart/form-data" class="add-post-form">
+            <textarea type="text" placeholder="What's new?'" class="post-input"></textarea>
+            <span class="file-name"></span>
+            <div class="add-image-post">
+                <div class="add-image">
+                    <label>
+                        <img src="~/images/Social/gallery.png">
+                        <input type="file" class="add-image" name="photo" id="file1">
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
 
 }
 

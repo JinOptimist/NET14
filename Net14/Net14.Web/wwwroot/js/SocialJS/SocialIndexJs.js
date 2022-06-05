@@ -95,5 +95,11 @@
 
     })
 
+    $('.add-image').change(function () {
+        var file = $(this)[0].files[0].name;
+        var span = $(this).closest(".add-post-form").find(".file-name");
+        span.text(file);
+    });
+
 })
 

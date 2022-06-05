@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     $(".add-post-form").submit(function (e) {
-        e.preventDefault();
+/*        e.preventDefault();
         let text = $(".post-input").val();
         var file = $("#file1")[0];
         let formData = new FormData();
@@ -22,7 +22,7 @@
             dataType: "json",
         }).done(function () {
             alert("Yes");
-        });
+        });*/
     })
 });
 
