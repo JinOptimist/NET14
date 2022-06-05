@@ -5,6 +5,7 @@
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 <link rel="stylesheet" href="~/css/SocialCss/ShowPagesProfile.css">
+<link rel="stylesheet" href="/css/SocialCss/AddPost.css">
 
 @section Scripts{
     <script src="~/js/SocialJS/SocialIndexJs.js"></script>
@@ -41,6 +42,32 @@
     </div>
 
 </div>
+
+    <div class="add-post">
+        <div class="form-div">
+            <div class="new-post-photo">
+                <img src=@Model.UserPhoto>
+            </div>
+            <form enctype="multipart/form-data" class="add-post-form" action="/Social/Index" method="post" id="myform">
+                <textarea type="text" placeholder="What's new?'" class="post-input" name="CommentOfUser"></textarea>
+                <span class="file-name"></span>
+                <div class="add-image-post">
+                    <div class="add-image">
+                        <label>
+                            <img src="~/images/Social/gallery.png">
+                            <input type="file" class="add-image" name="ImageUrl" id="file1">
+                        </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="block-send">
+            <div class="send-button-container">
+                <input type="submit" value="Send" class="send-post" form="myform" />
+            </div>
+        </div>
+    </div>
+
 
 
 @foreach (SocialPostViewModel post in Model.UserPost)

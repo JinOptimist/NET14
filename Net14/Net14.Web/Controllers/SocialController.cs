@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.SignalR;
 using Net14.Web.SignalRHubs;
 using Net14.Web.Models.SocialModels.Attributes;
 using System.Reflection;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Net14.Web.Controllers
 {
@@ -28,26 +30,33 @@ namespace Net14.Web.Controllers
         private UserService _userService;
         private IMapper _mapper;
         private RecomendationsService _recomendationsService;
+        private IWebHostEnvironment _webHostEnvironment;
 
 
         public SocialController(SocialUserRepository socialUserRepository,
             SocialPostRepository socialPostRepository,
             UserService userService, IMapper mapper,
-            RecomendationsService recomendationsService)
+            RecomendationsService recomendationsService,
+            IWebHostEnvironment webHostEnvironment)
         {
             _socialPostRepository = socialPostRepository;
             _socialUserRepository = socialUserRepository;
             _userService = userService;
             _mapper = mapper;
             _recomendationsService = recomendationsService;
+            _webHostEnvironment = webHostEnvironment;
         }
         [HttpGet]
         public IActionResult Index()
         {
-            var postArr = _socialPostRepository.GetAll();
 
             var topThree = _mapper.Map<List<SocialPostViewModel>>(_recomendationsService.GetIndexRecomendations());
-            var viewPost = _mapper.Map<List<SocialPostViewModel>>(postArr);
+            var posts = _socialPostRepository.GetAll()
+                .OrderByDescending(post => post.Likes.Count)
+                .ThenByDescending(post => post.DateOfPosting);
+
+            var viewPost = _mapper.Map<List<SocialPostViewModel>>(posts);
+                
 
             if (_userService.GetCurrent() != null) 
 
@@ -55,7 +64,7 @@ namespace Net14.Web.Controllers
                 var currentUser = _userService.GetCurrent();
                 viewPost.ForEach(x =>
                 {
-                    if (postArr.Single(dbPost => dbPost.Id == x.Id).Likes.Any(like => like.User.Id == currentUser.Id))
+                    if (posts.Single(dbPost => dbPost.Id == x.Id).Likes.Any(like => like.User.Id == currentUser.Id))
                     {
                         x.IsLikedCurrentUser = true;
                     }
@@ -73,15 +82,33 @@ namespace Net14.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(string ImageUrl, string CommentOfUser)
+        public IActionResult Index(SocialAddPostViewModel postViewModel)
         {
             var user = _userService.GetCurrent();
+
             var post = new PostSocial()
             {
-                CommentOfUser = CommentOfUser,
-                ImageUrl = ImageUrl,
-                User = user
+                User = user,
+                CommentOfUser = postViewModel.CommentOfUser,
             };
+
+            _socialPostRepository.Save(post);
+
+            var extension = Path.GetExtension(postViewModel.ImageUrl.FileName);
+            var fileName = $"post{post.Id}{extension}";
+            var path = Path.Combine(
+                _webHostEnvironment.WebRootPath,
+                "images",
+                "Social",
+                fileName);
+
+            using (var fs = new FileStream(path, FileMode.CreateNew))
+            {
+                postViewModel.ImageUrl.CopyTo(fs);
+            }
+
+            post.ImageUrl = $"/images/Social/{fileName}";
+
             _socialPostRepository.Save(post);
 
             return Redirect("Index");
@@ -173,7 +200,10 @@ namespace Net14.Web.Controllers
         public IActionResult ShowProfile(int userId)
         {
             var user = _socialUserRepository.Get(userId);
-            var dbUsersPosts = user.Posts;
+            var dbUsersPosts = user.Posts
+                .OrderByDescending(post => post.Likes.Count)
+                .ThenBy(post => post.DateOfPosting);
+
             var postUser = _mapper.Map<List<SocialPostViewModel>>(dbUsersPosts);
             var model = _mapper.Map<SocialProfileViewModel>(user);
             model.UserPost = postUser;
@@ -206,7 +236,9 @@ namespace Net14.Web.Controllers
         public IActionResult MyProfile()
         {
             var currentUser = _userService.GetCurrent();
-            var dbUsersPosts = currentUser.Posts;
+            var dbUsersPosts = currentUser.Posts
+                .OrderByDescending(post => post.Likes.Count)
+                .ThenByDescending(post => post.DateOfPosting);
 
             var postUser = _mapper.Map<List<SocialPostViewModel>>(currentUser.Posts);
             var model = _mapper.Map<SocialProfileViewModel>(currentUser);

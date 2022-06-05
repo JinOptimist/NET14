@@ -4,17 +4,24 @@
     color: grey;
     padding: 10px;
     width: 530px;
+    display: flex;
+    flex-direction: column;
     min-height: 55px;
     background: white;
-    display: flex;
     align-items: center;
     margin-bottom: 15px;
     max-height: 1000px;
 }
-
-    .add-post form {
-        width: 100%;
-    }
+.form-div {
+    display: flex;
+    width: 100%;
+    align-self: flex-start;
+}
+.add-post form {
+    margin-top: 10px;
+    width: 100%;
+    align-self: flex-start;
+}
 .new-post-photo {
     display: flex;
     align-self: flex-start;
@@ -66,5 +73,46 @@ input[type=file] {
     justify-content: flex-end;
     margin-right: 10px;
     margin-left: 5px;
+    align-self: flex-start;
 }
 
+.send-button-container {
+    width: 100%;
+    display: flex;
+    align-self: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
+    min-height: 90%;
+    justify-content: flex-end;
+}
+
+.send-post {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 70px;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+    transition: box-shadow 0.3s ease;
+}
+
+    .send-post:hover {
+        color: white;
+        background: rgb(22 222 48);
+        box-shadow: 0 14px 28px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 22%);
+    }
+
+.block-send {
+    display: none;
+    width: 100%;
+    flex: 1;
+    padding-right: 20px;
+
+}
+
+.file-name {
+    align-self: flex-start;
+}
