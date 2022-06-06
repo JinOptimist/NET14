@@ -1,4 +1,5 @@
 ﻿@using Net14.Web.Models.store
+@using Net14.Web.Localize.Store
 @model ProductViewModel
 
 @{
@@ -37,13 +38,13 @@
                 <span><img src="/images/Store/star_black.png" class="star"></span>
             </div>
             <div class="cost">@Model.Price $</div>
-            <div class="instock">In stock</div>
+            <div class="instock">@Shoes.In_stock</div>
             <div class="category">
-                <div>Gender:@Model.Gender</div>
-                <div>Material: @Model.CoolMaterial</div>
-                <div>Сountry of production:Vietnam </div>
-                <div>Category: @Model.CoolCategories</div>
-                <div>Color:@Model.CoolColors</div>
+                <div>@Shoes.Gender:@Model.Gender</div>
+                <div>@Shoes.Material: @Model.CoolMaterial</div>
+                <div>@Shoes.Сountry_of_production:Vietnam </div>
+                <div>@Shoes.Category: @Model.CoolCategories</div>
+                <div>@Shoes.Color:@Model.CoolColors</div>
                 <div class="buttonssize">
                     @foreach (var size in Model.Sizes)
                     {
@@ -51,12 +52,12 @@
                     }
                 </div>
             </div>
-            <a href="/Store/AddProductToBasket?productId=@Model.Id" class="toBasket">Add to Basket</a>
+            <a href="/Store/AddProductToBasket?productId=@Model.Id" class="toBasket">@Shoes.Add_to_Basket</a>
         </div>
 
     </div>
     <div class="similar">
-        <div class="similartext"> Similar products </div>
+        <div class="similartext"> @Shoes.Similar_products </div>
         <div class="similarproducts">
             @foreach (var image in Model.RandomImages)
             {

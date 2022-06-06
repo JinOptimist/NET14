@@ -1,5 +1,6 @@
 ﻿@using Net14.Web.Services
 @using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums
+@using Net14.Web.Localize.Store
 @inject UserService userService
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +19,7 @@
         <a href="/Home/Index">home</a>
         @if (userService.HasRole(SiteRole.StoreAdmin))
         {
-            <a href="/StoreAdmin/Admin">Admin panel</a>
+            <a href="/StoreAdmin/Admin">@LayoutStore.Admin_panel</a>
         }
     </div>
     <div>
@@ -29,7 +30,7 @@
             </a>
 
             <div class="search">
-                <form class="search"> <input type="text" placeholder="Search" class="search-field"> </form>
+                <form class="search"> <input type="text" placeholder="@LayoutStore.Search" class="search-field"> </form>
             </div>
             <div class="search-icona">
                 <img src="/images/Store/search1.svg" alt="search icon" class="search-icon">
@@ -37,7 +38,7 @@
 
             <div class="account">
                 <a href="/Store/MyAccount">
-                    account
+                    @LayoutStore.account
                 </a>
             </div>
             <div class="basket">
@@ -48,22 +49,22 @@
         </div>
         <div class="second-header">
             <a href="/Store/Catalog" class="second-header-banner">
-                Catalog
+                @LayoutStore.Catalog
             </a>
             <a href="/Store/Catalog?category=Accessories" class="second-header-banner">
-                Accessories
+                @LayoutStore.Accessories
             </a>
             <a href="/Store/Catalog?category=Bags" class="second-header-banner">
-                Bags
+                @LayoutStore.Bags
             </a>
             <a class="second-header-banner">
-                Clean
+                @LayoutStore.Clean
             </a>
             <a class="second-header-banner">
-                Payment and Delivery
+                @LayoutStore.Payment_and_Delivery
             </a>
             <a class="second-header-banner">
-                About us
+                @LayoutStore.About_us
             </a>
         </div>
     </div>
@@ -78,7 +79,7 @@
                 <div>Artem,Mark,Anton,Andrey </div>
             </div>
             <div class="adress">
-                Minsk, Timiryazev street 67 office 601
+                @LayoutStore.Minsk__Timiryazev_street_67_office_601
             </div>
             <div class="iconfoot">
             </div>

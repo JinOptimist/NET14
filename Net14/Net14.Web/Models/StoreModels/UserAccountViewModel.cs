@@ -13,8 +13,8 @@ namespace Net14.Web.Models.store
         public string LastName { get; set; }
         public string Email { get; set; }
         public string City { get; set; }
-        //public string DeliveryAddress { get; set; }
-        //public string PhoneNumber { get; set; }
+        public List<DeliveryAddress> DeliveryAddress { get; set; }
+        public string PhoneNumber { get; set; }
         public List<ProductViewModel> Products { get; set; }
     }
 }

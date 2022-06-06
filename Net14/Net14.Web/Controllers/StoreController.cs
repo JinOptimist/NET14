@@ -17,6 +17,8 @@ using System.Threading.Tasks;
 using Net14.Web.Controllers.AutorizeAttribute;
 using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Http;
 
 namespace Net14.Web.Controllers
 {
@@ -47,6 +49,7 @@ namespace Net14.Web.Controllers
             var user = _userService.GetCurrent();
             var basket = user.Basket ?? new Basket();
             var ProductModel = _mapper.Map<List<ProductViewModel>>(basket.Products);
+            var deliveryAdress = _mapper.Map<List<DeliveryAddress>>(user.DeliveryAddress);
             var userAccountModel = new UserAccountViewModel()
             {
                 Id = user.Id,
@@ -54,10 +57,12 @@ namespace Net14.Web.Controllers
                 LastName = user.LastName,
                 Email = user.Email,
                 City = user.City,
-                Products = ProductModel
+                PhoneNumber = user.PhoneNumber,
+                Products = ProductModel,
+                DeliveryAddress = deliveryAdress
             };
             return View(userAccountModel);
-            
+
         }
 
         public IActionResult Index()
@@ -71,19 +76,12 @@ namespace Net14.Web.Controllers
         {
             var user = _userService.GetCurrent();
             var basket = user.Basket ?? new Basket();
-
             var ProductModel = _mapper.Map<List<ProductViewModel>>(basket.Products);
-            
             return View(ProductModel);
         }
-
+        [Authorize]
         public IActionResult AddProductToBasket(int productId)
         {
-            //var user = _userService.GetCurrent();
-            //var basket = user.Basket ?? new Basket();
-            //var product = _productRepository.Get(productId);
-            //basket.Products.Add(product);
-
             var user = _userService.GetCurrent();
             var basket = user.Basket ?? new Basket() { User = user, Products = new List<Product>() };
             var product = _productRepository.Get(productId);
@@ -91,7 +89,6 @@ namespace Net14.Web.Controllers
             _basketRepository.Save(basket);
             var prevUrl = Request.Headers.First(x => x.Key == "Referer").Value;
             return Redirect(prevUrl);
-            //return RedirectToAction("Catalog", "Store"); //TO DO change url 
         }
 
         public IActionResult DeleteProductFromBasket(int productId, int userId = 1)
@@ -111,9 +108,10 @@ namespace Net14.Web.Controllers
             var ViewModel = basket.Products.Select(dbProduct => new ProductViewModel()
             {
                 Id = dbProduct.Id,
+                BrandCategories= dbProduct.BrandCategories.ToString(),
                 Name = dbProduct.Name,
                 Price = dbProduct.Price,
-                Images = dbProduct.StoreImages.Select(x => x.Url).ToList()
+                Images = dbProduct.StoreImages.OrderBy(x=>x.Odrer).Select(x => x.Url).ToList()
             }).ToList();
 
             return View(ViewModel);
@@ -123,7 +121,7 @@ namespace Net14.Web.Controllers
         {
             var dbImages = _storeimageRepository.GetRandom(id);
             var dbProduct = _productRepository.Get(id);
-            var model=_mapper.Map<ProductViewModel>(dbProduct);
+            var model = _mapper.Map<ProductViewModel>(dbProduct);
             model.RandomImages = dbImages.Select(dbImage => new RandomImagesViewModel()
             {
                 Url = dbImage.Url,
@@ -135,13 +133,13 @@ namespace Net14.Web.Controllers
             return View(model);
         }
 
-        public IActionResult Catalog(string category, int page=1)
+        public IActionResult Catalog(string category, int page = 1)
         {
             var _category = category;
             var perPage = 8;
             if (string.IsNullOrEmpty(_category))
             {
-                var dbProducts = _productRepository.GetAll().Skip((page-1)*perPage).Take(perPage);
+                var dbProducts = _productRepository.GetAll().Skip((page - 1) * perPage).Take(perPage);
                 var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
                 var viewModel = new CatalogPageViewModel()
                 {
@@ -162,7 +160,7 @@ namespace Net14.Web.Controllers
                 return View(viewModel);
             }
         }
-       
+
         public IActionResult RemoveProduct(int id)
         {
             var basket = _userService.GetCurrent().Basket;
