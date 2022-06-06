@@ -182,7 +182,9 @@ body {
     color: #ffffff;
     font-family: Courier New, monospace;
     font-size: 15px;
-    padding: 6px 188px;
+    padding: 7px 15px;
+    text-align: center;
+    display: block;
     text-decoration: none;
     text-shadow: 0px 1px 0px #2b665e;
 }
@@ -191,6 +193,7 @@ body {
         background: black;
         color: orange;
     }
+
 
 .emptyBasketHeader {
     font-size: 3em;

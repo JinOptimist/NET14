@@ -1,4 +1,5 @@
 ﻿@model UserAccountViewModel
+@using Net14.Web.Localize.Store
 @using Net14.Web.Models.store
 @{
     Layout = "/Views/Shared/_LayoutStore.cshtml";
@@ -10,13 +11,13 @@
     <div class="myAccountLitleBlock1">
         <div class="myAccountLitleName">
             <img src="~/images/Store/person.svg" class="myAccountLitleLogo" />
-            <div class="myAccountTableName">Покупатель</div>
+            <div class="myAccountTableName">@MyAccount.Buyer</div>
         </div>
         <div>
             <table class="table tableBorder">
                 <tbody>
                     <tr>
-                        <td>Поукупатель</td>
+                        <td>@MyAccount.Buyer</td>
                         <td>@Model.FirstName @Model.LastName</td>
                     </tr>
                     <tr>
@@ -24,26 +25,26 @@
                         <td>@Model.Email</td>
                     </tr>
                     <tr>
-                        <td>Телефон</td>
+                        <td>@MyAccount.PhoneNumber</td>
                         <td>@Model.PhoneNumber</td>
                     </tr>
                     <tr>
-                        <td>Город</td>
+                        <td>@MyAccount.City</td>
                         <td>@Model.City</td>
                     </tr>
 
                 </tbody>
             </table>
-            <a href="#" id="changeMasterData" class="goToBasket">Change master data</a>
-            <a href="#" id="changePassword" class="goToBasket">Change password</a>
-            <a href="/Store/Basket" class="goToBasket">My address book</a>
-            <a href="/Store/SignOut" class="goToBasket">Exit</a>
+            <a href="#" id="changeMasterData" class="goToBasket">@MyAccount.Change_master_data</a>
+            <a href="#" id="changePassword" class="goToBasket">@MyAccount.Change_password</a>
+            <a href="#" id="addNewAdress" class="goToBasket">@MyAccount.Add_new_adress</a>
+            <a href="/Store/SignOut" class="goToBasket">@MyAccount.Exit</a>
         </div>
     </div>
     <div class="myAccountLitleBlock1">
         <div class="myAccountLitleName">
             <img src="~/images/Store/shopping_bag.svg" class="myAccountLitleLogo" />
-            <div class="myAccountTableName">Корзина</div>
+            <div class="myAccountTableName">@MyAccount.Basket</div>
         </div>
         <div>
             @if (Model.Products.Count == 0)
@@ -51,7 +52,7 @@
                 <table class="table tableBorder">
                     <tbody>
                         <tr>
-                            <td>В корзине пока ничего нет</td>
+                            <td>@MyAccount.There_is_nothing_in_the_basket</td>
                         </tr>
                     </tbody>
                 </table>
@@ -61,9 +62,9 @@
                 <table class="table tableBorder">
                     <tbody>
                         <tr>
-                            <td>Фото</td>
-                            <td>Название</td>
-                            <td>Цена</td>
+                            <td>@MyAccount.Photo</td>
+                            <td>@MyAccount.Name</td>
+                            <td>@MyAccount.Price</td>
                             <td></td>
                         </tr>
                         @foreach (var product in Model.Products)
@@ -79,7 +80,7 @@
                         }
                     </tbody>
                 </table>
-                <a href="/Store/Basket" class="goToBasket">Go to basket</a>
+                <a href="/Store/Basket" class="goToBasket">@MyAccount.Go_to_basket</a>
             }
 
         </div>
@@ -87,13 +88,13 @@
     <div class="myAccountLitleBlock1">
         <div class="myAccountLitleName">
             <img src="~/images/Store/bookmark.svg" class="myAccountLitleLogo" />
-            <div class="myAccountTableName">Закладки</div>
+            <div class="myAccountTableName">@MyAccount.Bookmarks</div>
         </div>
         <div>
             <table class="table tableBorder">
                 <tbody>
                     <tr>
-                        <td>В закладках пока ничего нет</td>
+                        <td>@MyAccount.There_ia_nothing_in_the_bookmarks</td>
                     </tr>
                 </tbody>
             </table>
@@ -104,13 +105,13 @@
     <div class="myAccountLitleBlock1">
         <div class="myAccountLitleName">
             <img src="~/images/Store/credit_card.svg" class="myAccountLitleLogo" />
-            <div class="myAccountTableName">Платежи</div>
+            <div class="myAccountTableName">@MyAccount.Payments</div>
         </div>
         <div>
             <table class="table tableBorder">
                 <tbody>
                     <tr>
-                        <td>У вас еще небыло платежей</td>
+                        <td>@MyAccount.You_haven_t_made_any_payments_yet</td>
                     </tr>
                 </tbody>
             </table>
@@ -119,13 +120,13 @@
     <div class="myAccountLitleBlock1">
         <div class="myAccountLitleName">
             <img src="~/images/Store/description.svg" class="myAccountLitleLogo" />
-            <div class="myAccountTableName">Список заказов</div>
+            <div class="myAccountTableName">@MyAccount.Order_list</div>
         </div>
         <div>
             <table class="table tableBorder">
                 <tbody>
                     <tr>
-                        <td>Вы еще не совершали заказов</td>
+                        <td>@MyAccount.You_haven_t_made_any_orders_yet</td>
                     </tr>
                 </tbody>
             </table>
@@ -134,47 +135,60 @@
     <div class="myAccountLitleBlock1">
         <div class="myAccountLitleName">
             <img src="~/images/Store/home_pin.svg" class="myAccountLitleLogo" />
-            <div class="myAccountTableName">Адреса доставки</div>
+            <div class="myAccountTableName">@MyAccount.Delivery_addresses</div>
         </div>
         <div>
-            <table class="table tableBorder">
-                <tbody>
-                    <tr>
-                        <td>Город</td>
-                        <td>Улица</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+            @if (@Model.DeliveryAddress.Count == 0)
+            {
+                <table class="table tableBorder">
+                    <tbody>
+                        <tr>
+                            <td>@MyAccount.You_haven_t_a_delivery_address_yet</td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <table class="table tableBorder">
+                    <tbody>
+                        @foreach (var deliveryAddres in Model.DeliveryAddress)
+                        {
+                            <tr>
+                                <td>@deliveryAddres.Country</td>
+                                <td>@deliveryAddres.PostСode</td>
+                                <td>@deliveryAddres.City,@deliveryAddres.Street @deliveryAddres.House-@deliveryAddres.Room</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
         </div>
     </div>
     <div id="popupAccount1" class="popup">
         <div class="popupBody">
             <div class="popupContent">
                 <a href="#" class="popupClose">X</a>
-                <div class="popupTitle">Учетная запись</div>
-                <form>
+                <div class="popupTitle">@MyAccount.Account</div>
+
                 <div class="popupText">
                     <div>
-                        <div class="popupTextMini">Имя:</div>
-                        <div class="popupTextMini">Фамилия:</div>
+                        <div class="popupTextMini">@MyAccount.NameUser:</div>
+                        <div class="popupTextMini">@MyAccount.LastName:</div>
                         <div class="popupTextMini">E-mail:</div>
-                        <div class="popupTextMini">Телефон: </div>
+                        <div class="popupTextMini">@MyAccount.PhoneNumber: </div>
                     </div>
                     <div>
-                        <div class="popupTextImput"><input id="Name" name="Name" type="text" value=@Model.FirstName /></div>
-                        <div class="popupTextImput"><input id="Name" name="Name" type="text" value=@Model.LastName /></div>
-                        <div class="popupTextImput"><input id="Name" name="Name" type="text" value=@Model.Email /></div>
-                        <div class="popupTextImput"><input id="Name" name="Name" type="text" value=@Model.PhoneNumber /></div>
+                        <div class="popupTextImput"><input id="firstName" name="FirstName" type="text" value=@Model.FirstName /></div>
+                        <div class="popupTextImput"><input id="lastName" name="LastName" type="text" value=@Model.LastName /></div>
+                        <div class="popupTextImput"><input id="email" name="Email" type="text" value=@Model.Email /></div>
+                        <div class="popupTextImput"><input id="phoneNumber" name="PhoneNumber" type="text" value=@Model.PhoneNumber /></div>
                     </div>
                 </div>
                 <div>
-                    <input type="submit" value="Refresh" />
+                    <input type="submit" value="@MyAccount.Refresh" class='update-user' />
                 </div>
-                </form>
+
             </div>
         </div>
     </div>
@@ -182,22 +196,50 @@
         <div class="popupBody">
             <div class="popupContent">
                 <a href="#" class="popupClose">X</a>
-                <div class="popupTitle">Смена пароля</div>
-                <form>
+                <div class="popupTitle">@MyAccount.Change_password</div>
                 <div class="popupText">
                     <div>
-                        <div class="popupTextMini">Пароль:</div>
-                        <div class="popupTextMini">Подтвердить:</div>
+                        <div class="popupTextMini">@MyAccount.Password:</div>
+                        <div class="popupTextMini">@MyAccount.Confirm:</div>
                     </div>
                     <div>
-                        <div class="popupTextImput"><input id="Name" name="Name" type="text" placeholder="Пароль" /></div>
-                        <div class="popupTextImput"><input id="Name" name="Name" type="text" placeholder="Подтвердить" /></div>
+                        <div class="popupTextImput"><input id="password1" name="password1" type="text" placeholder="@MyAccount.Password" /></div>
+                        <div class="popupTextImput"><input id="password2" name="password2" type="text" placeholder="@MyAccount.Confirm" /></div>
                     </div>
                 </div>
                 <div>
-                    <input type="submit" value="Change" />
+                    <input type="submit" value="@MyAccount.Change" class='update-pass' />
                 </div>
-                </form>
+            </div>
+        </div>
+    </div>
+    <div id="popupAccount3" class="popup">
+        <div class="popupBody">
+            <div class="popupContent">
+                <a href="#" class="popupClose">X</a>
+                <div class="popupTitle">@MyAccount.Delivery_addresses</div>
+
+                <div class="popupText">
+                    <div>
+                        <div class="popupTextMini">@MyAccount.Country:</div>
+                        <div class="popupTextMini">@MyAccount.Post_code:</div>
+                        <div class="popupTextMini">@MyAccount.City:</div>
+                        <div class="popupTextMini">@MyAccount.Street</div>
+                        <div class="popupTextMini">@MyAccount.House:</div>
+                        <div class="popupTextMini">@MyAccount.Room:</div>
+                    </div>
+                    <div>
+                        <div class="popupTextImput"><input id="country" name="Name" type="text" /></div>
+                        <div class="popupTextImput"><input id="postСode" name="Name" type="text" /></div>
+                        <div class="popupTextImput"><input id="city" name="Name" type="text" /></div>
+                        <div class="popupTextImput"><input id="street" name="Name" type="text" /></div>
+                        <div class="popupTextImput"><input id="house" name="Name" type="text" /></div>
+                        <div class="popupTextImput"><input id="room" name="Name" type="text" /></div>
+                    </div>
+                </div>
+                <div>
+                    <input type="submit" value="@MyAccount.Add" class='add-adress'/>
+                </div>
             </div>
         </div>
     </div>

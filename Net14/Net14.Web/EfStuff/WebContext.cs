@@ -27,7 +27,7 @@ namespace Net14.Web.EfStuff
         public DbSet<StoreImage> StoreImages { get; set; }
         public DbSet<GroupTags> GroupTags { get; set; }
         public DbSet<SocialMessages> SocialMessages { get; set; }
-
+        public DbSet<DeliveryAddress> DeliveryAddress { get; set; }
         public WebContext(DbContextOptions options) : base(options)
         {
         }
@@ -64,7 +64,6 @@ namespace Net14.Web.EfStuff
                 .HasMany(x => x.RecievedMessages)
                 .WithOne(x => x.Reciever);
 
-
             modelBuilder.Entity<Image>()
                 .HasMany(image => image.Comments)
                 .WithOne(comment => comment.Image);
@@ -80,6 +79,10 @@ namespace Net14.Web.EfStuff
             modelBuilder.Entity<Product>()
                .HasMany(Product =>Product.StoreImages)
                .WithOne(StoreImage => StoreImage.Product);
+
+            modelBuilder.Entity<UserSocial>()
+               .HasMany(user => user.DeliveryAddress)
+               .WithOne(DeliveryAddress => DeliveryAddress.User);
 
             modelBuilder.Entity<Image>()
               .HasMany(image => image.Comments)
