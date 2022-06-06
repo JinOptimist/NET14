@@ -1,0 +1,20 @@
+.left-main-menu{
+    width: 275px;
+    height: 753px;
+    .block-of-user{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        height: 85px;
+        margin-top: 27px;
+        margin-bottom: 20px;
+    }
+    .main-folders{
+        .folder{
+            padding-bottom: 20px;
+            padding-left: 50px;
+            font-size: 20px;
+        }
+    }
+}

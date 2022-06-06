@@ -1,0 +1,13 @@
+$girl-block-width: 300px;
+$girl-block-height: 500px;
+$girl-name-font-size: 30px;
+
+$girl-border-color: rgb(157, 78, 21);
+
+
+@mixin girl-block-border {
+    margin: 5px;
+    padding: 0;
+    border: 1px solid $girl-border-color;
+    border-radius: 10px;
+}
