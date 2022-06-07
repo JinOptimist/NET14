@@ -1,11 +1,12 @@
 ﻿@using Net14.Web.EfStuff.DbModel.SocialDbModels
+@using Net14.Web.Localize.Social
 @model SocialPageVideoViewModel
 
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 <link rel="stylesheet" href="~/css/SocialCss/VideoCss.css">
-<div class="video-header">Videos</div>
+<div class="video-header">@GetVideos.Videos </div>
 @foreach (SocialVideoViewModel video in Model.Videos)
 {
     <div class="video-programming">
@@ -15,10 +16,10 @@
 }
 <div class="navigation-videos">
     <div class="buttons-navigation" onclick="location.href='/SocialVideos/GetVideos?page=@(Model.Page - 1)'">
-        prev
+        @GetVideos.Prev
     </div>
     <div class="buttons-navigation" onclick="location.href='/SocialVideos/GetVideos?page=@(Model.Page + 1)'">
-        next
+        @GetVideos.Next
     </div>
 </div>
 

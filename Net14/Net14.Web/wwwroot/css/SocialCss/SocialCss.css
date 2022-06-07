@@ -54,16 +54,7 @@ body {
     min-width: 600px;
     min-height: 100vh;
 }
-.footer {
-    margin-top: 50px;
-    height: 40px;
-    border-top: 2px solid grey;
-    width: 100%;
-    flex-shrink: 0;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-}
+
 .menu-element {
     display: flex;
     font-size: 15px;
