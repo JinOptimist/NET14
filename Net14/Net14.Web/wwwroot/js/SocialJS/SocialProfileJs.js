@@ -1,6 +1,14 @@
 ﻿$(document).ready(function () {
+    const hubConnectionMessage = new signalR.HubConnectionBuilder()
+        .withUrl("/messages")
+        .build();
+
+    const hubConnection = new signalR.HubConnectionBuilder()
+        .withUrl("/notif")
+        .build();
 
     $(".send-message-profile").click(function () {
+        debugger;
         $("#zatemnenie").fadeIn(200);
     });
 
@@ -9,9 +17,7 @@
     });
 
     $(".add-to-friends-profile").click(function () {
-        const hubConnection = new signalR.HubConnectionBuilder()
-            .withUrl("/notif")
-            .build();
+
         let button = $(this);
         let id = String($(this).closest(".profile-wrapper").data("id"));
         let buttonReplace = $(".add-to-friends-button.requested.template").clone();
@@ -28,9 +34,8 @@
 
     $(document).on("click", ".send-message-profile-pop", function () {
 
-        const hubConnection = new signalR.HubConnectionBuilder()
-            .withUrl("/messages")
-            .build();
+
+
 
         let text = $(".texarea-profile").val();
 
@@ -50,10 +55,10 @@
             dataType: "json",
             contentType: "application/json; charset=utf-8",
         }).done(function () {
-            hubConnection.invoke("SendMessage", text, userId.toString());
+            hubConnectionMessage.invoke("SendMessage", text, userId.toString());
         });
 
-        hubConnection.start();
+        hubConnectionMessage.start();
 
     });
 });
