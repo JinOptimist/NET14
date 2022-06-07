@@ -221,6 +221,8 @@ namespace Net14.Web
 
             provider.CreateMap<FoldersForToDo, FoldersForToDoViewModel>();
 
+            provider.CreateMap<FoldersForToDoViewModel, FoldersForToDo>();
+
             provider.CreateMap<Product, ProductViewModel>()
                 .ForMember(nameof(ProductViewModel.Images),
                     product => product

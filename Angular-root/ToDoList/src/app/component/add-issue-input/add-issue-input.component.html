@@ -4,7 +4,10 @@
     </button>
     <mat-form-field appearance="outline" class="text-issue">
         <mat-label>Add a task</mat-label>
-        <input matInput placeholder="Add" [(ngModel)]="newIssue.text">
+        <input 
+            matInput placeholder="Add" 
+            [(ngModel)]="newIssue.text"
+            (keyup.enter)="createIssue()">
         <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
     </mat-form-field>
 </div>

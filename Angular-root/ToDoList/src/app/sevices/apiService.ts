@@ -23,5 +23,11 @@ export class ApiService{
         return this.http
             .get<IFolder[]>(`${this.localhost}/api/ToDoList/GetFolders`);
     }
+    createIssue(issue: IIssue): Observable<IIssue[]>{
+        return this.http
+            .post<IIssue[]>(
+                `${this.localhost}/api/ToDoList/CreateIssue`,
+                issue);
+    }
 }
 

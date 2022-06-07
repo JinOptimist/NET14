@@ -1,5 +1,7 @@
+@import "../../scss/variables.scss";
+
 .main-content{
-    background-color: #3f51b5;
+    background-color: $background-for-block;
     min-height: 725px;
     border-top-left-radius: 7px;
     .folder{

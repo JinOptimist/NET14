@@ -1,3 +1,5 @@
+@import "../../scss/variables.scss";
+
 .block-for-add-issue{
     position: fixed;
     bottom: 5px;
@@ -5,14 +7,14 @@
     height: 61px;
     width: 1145px;
     border-radius: 3px;
-    background-color: #f5f5f5;
+    background-color: $main-background;
     display: flex;
     align-items: center;
     margin-bottom: 3px;
     .text-issue{
         width: 1055px;
         height: 53px;
-        background: #f5f5f5;
+        background: $main-background;
         margin-bottom: 5px;
       
     }
