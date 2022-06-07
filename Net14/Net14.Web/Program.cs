@@ -27,7 +27,7 @@ namespace Net14.Web
                 {
                     webBuilder.UseStartup<Startup>();
                 });
-        
+
     }
-    
+
 }
