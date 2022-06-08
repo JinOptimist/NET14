@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddIssueInputComponent } from './add-issue-input.component';
+import { BlockForUserComponent } from './block-for-user.component';
 
-describe('AddIssueInputComponent', () => {
-  let component: AddIssueInputComponent;
-  let fixture: ComponentFixture<AddIssueInputComponent>;
+describe('BlockForUserComponent', () => {
+  let component: BlockForUserComponent;
+  let fixture: ComponentFixture<BlockForUserComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddIssueInputComponent ]
+      declarations: [ BlockForUserComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddIssueInputComponent);
+    fixture = TestBed.createComponent(BlockForUserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

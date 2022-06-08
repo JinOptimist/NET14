@@ -19,7 +19,7 @@ import { MainContentComponent } from './component/main-content/main-content.comp
 import { BlockIssueComponent } from './component/block-issue/block-issue.component';
 import { FolderInContentComponent } from './component/folder-in-content/folder-in-content.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AddIssueInputComponent } from './component/add-issue-input/add-issue-input.component';
+import { BlockForUserComponent } from './component/block-for-user/block-for-user.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import { AddIssueInputComponent } from './component/add-issue-input/add-issue-in
     MainContentComponent,
     BlockIssueComponent,
     FolderInContentComponent,
-    AddIssueInputComponent
+    BlockForUserComponent
   ],
   imports: [
     BrowserModule,

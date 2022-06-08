@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { IFolder } from "src/models/IFolder";
 import { IIssue } from "src/models/IIssue";
+import { IUser } from "src/models/IUser";
 
 @Injectable({
     providedIn: 'root'
@@ -23,11 +24,19 @@ export class ApiService{
         return this.http
             .get<IFolder[]>(`${this.localhost}/api/ToDoList/GetFolders`);
     }
-    createIssue(issue: IIssue): Observable<IIssue[]>{
+    createIssue(issue: IIssue): Observable<IIssue>{
         return this.http
-            .post<IIssue[]>(
+            .post<IIssue>(
                 `${this.localhost}/api/ToDoList/CreateIssue`,
                 issue);
+    }
+    removeIssue(issueId: number): Observable<boolean>{
+        return this.http
+            .get<boolean>(`${this.localhost}/api/ToDoList/removeIssue?id=${issueId}`);
+    }
+    getUser(): Observable<IUser>{
+        return this.http
+            .get<IUser>(`${this.localhost}/api/ToDoList/GetUser`);
     }
 }
 
