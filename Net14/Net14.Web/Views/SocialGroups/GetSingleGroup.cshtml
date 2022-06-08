@@ -26,7 +26,7 @@
         }
     </div>
 </div>
-@if (User.Identity.IsAuthenticated)
+@if (User.Identity.IsAuthenticated && Model.Group.IsCurUserIsMember)
 {
     <div class="add-post">
         <div class="form-div">

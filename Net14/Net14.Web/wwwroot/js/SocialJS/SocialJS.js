@@ -1,4 +1,5 @@
-﻿
+﻿let isNotif = false;
+let notifCount = 0;
 
 function ViewClosedForm(el)
 {
@@ -48,24 +49,13 @@ $(document).ready(function () {
 
         }
     })
-
-
-    $('.post-input').on('keydown', function (e) {
-        if (e.which == 13) { e.preventDefault(); }
-    }).on('input', function () {
-        $(this).height(1);
-        var totalHeight = $(this).prop('scrollHeight') - parseInt($(this).css('padding-top')) - parseInt($(this).css('padding-bottom'));
-        $(this).height(totalHeight);
-    });
-
 });
+
 $(document).ready(function () {
     $(".filters-header").click(function () {
         $("#form-filter-user").slideToggle();
     });
 });
-
-
 
 
 $(document).ready(function () {
@@ -200,34 +190,116 @@ $(document).ready(() => {
 
 
     hubConnection.on("SendNotif", function (message, userPhoto) {
-        $(".notif-div-bottom").fadeIn(200);
-        $(".notif-text").text(message);
+        if (notifCount == 1)
+        {
+            notifCount++;
+            let divClone = $("notif-div-bottom.template").clone();
+            let elementBottomCheck = $(".notif-div-bottom:not(.template)").css("bottom");
+            if (elementBottomCheck === "70px") {
+                divClone.css("bottom", "185px");
+            }
+
+            divClone.removeClass("template");
+            divClone.css("bottom", "110px");
+            divClone.appendTo("body");
+            divClone.fadeIn(200);
+            divClone.find(".notif-text").text(message);
+            let photo = $('<img>').attr("src", userPhoto);
+            divClone.find(".notif-div-bottom-content").append(photo);
+            setTimeout(function () {
+                divClone.fadeOut(200, function () {
+                    divClone.remove();
+                    notifCount--;
+                });
+            }, 3000);
+
+            return;
+        }
+        if (notifCount == 2) {
+            return;
+        }
+        notifCount++;
+        let divClone = $(".notif-div-bottom.template").clone();
+        divClone.removeClass("template");
+        divClone.appendTo("body");
+        divClone.fadeIn(200);
+        divClone.find(".notif-text").text(message);
         let photo = $('<img>').attr("src", userPhoto);
-        $(".notif-div-bottom-content").append(photo);
+        divClone.find(".notif-div-bottom-content").append(photo);
         setTimeout(function () {
-            $(".notif-div-bottom").fadeOut(200);
+            divClone.fadeOut(200, function () {
+                divClone.remove();
+                notifCount--;
+            });
         }, 3000);
+
     });
+
 
     hubConnection.on("SendMessageNotificaton", function (message, userName, userPhoto, userId) {
         if (window.location.pathname + window.location.search == "/SocialMessages/GetSingleDialog?dialogFriendId=" + userId) {
             return;
         }
-        else
-        {
-            if (message.length > 22)
-            {
-                debugger;
+        if (notifCount == 1) {
+            notifCount++;
+
+            if (message.length > 22) {
                 message = message.slice(0, 21);
                 message += "...";
             }
-            $(".notif-div-bottom").fadeIn(200);
-            $(".notif-text").text(message);
-            $(".user-message-name").text(userName + " send message");
+
+            let clone = $(".notif-div-bottom.template").clone();
+            let elementBottomCheck = $(".notif-div-bottom:not(.template)").css("bottom");
+            if (elementBottomCheck === "70px")
+            {
+                clone.css("bottom", "185px");
+
+            }
+            clone.removeClass("template");
+            clone.appendTo("body");
+            clone.fadeIn(200);
+            clone.find(".notif-text").text(message);
+            //clone.text(message);
+            clone.find(".user-message-name").text(userName + " send message");
             let photo = $('<img>').attr("src", userPhoto);
-            $(".notif-div-bottom-content").append(photo);
+            clone.find(".notif-div-bottom-content").append(photo);
+
             setTimeout(function () {
-                $(".notif-div-bottom").fadeOut(200);
+                clone.fadeOut(200, function () {
+                    notifCount--;
+                    clone.remove();
+
+                });
+
+            }, 3000);
+
+            return;
+        }
+        if (notifCount == 2) {
+            return;
+        }
+        else {
+            notifCount++;
+            if (message.length > 22) {
+                message = message.slice(0, 21);
+                message += "...";
+            }
+            let clone = $(".notif-div-bottom.template").clone();
+            clone.removeClass("template");
+            clone.appendTo("body");
+            clone.fadeIn(200);
+            clone.find(".notif-text").text(message);
+            //clone.text(message);
+            clone.find(".user-message-name").text(userName + " send message");
+            let photo = $('<img>').attr("src", userPhoto);
+            clone.find(".notif-div-bottom-content").append(photo);
+
+            setTimeout(function () {
+                clone.fadeOut(200, function () {
+                    clone.remove();
+                    notifCount--;
+                });
+
             }, 3000);
         }
     });
