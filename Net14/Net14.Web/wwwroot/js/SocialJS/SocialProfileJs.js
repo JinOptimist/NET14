@@ -8,7 +8,6 @@
         .build();
 
     $(".send-message-profile").click(function () {
-        debugger;
         $("#zatemnenie").fadeIn(200);
     });
 
