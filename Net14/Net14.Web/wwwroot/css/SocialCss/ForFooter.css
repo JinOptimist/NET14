@@ -1,0 +1,21 @@
+﻿.footer {
+    margin-top: 50px;
+    height: 40px;
+    border-top: 2px solid grey;
+    flex-shrink: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    flex-direction: row;
+}
+
+.empty, .name-of-website, .languages {
+    min-width: 507.2px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.languagee {
+    margin-right: 10px;
+    cursor:pointer;
+}

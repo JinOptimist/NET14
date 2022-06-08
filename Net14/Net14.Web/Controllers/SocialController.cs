@@ -298,6 +298,21 @@ namespace Net14.Web.Controllers
 
             return View(apis);
         }
-        
+        public IActionResult ChangeLanguageToEnglish()
+        {
+            var currentUser = _userService.GetCurrent();
+            currentUser.Language = Language.Eng;
+            _socialUserRepository.Save(currentUser);
+            
+            return RedirectToAction("Index");
+        }
+        public IActionResult ChangeLanguageToRussian()
+        {
+            var currentUser = _userService.GetCurrent();
+            currentUser.Language = Language.Rus;
+            _socialUserRepository.Save(currentUser);
+
+            return RedirectToAction("Index");
+        }
     }
 }
