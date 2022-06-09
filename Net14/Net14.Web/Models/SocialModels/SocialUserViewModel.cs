@@ -13,6 +13,8 @@ namespace Net14.Web.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime BirthDate { get; set; }
         public int Age { get; set; }
         public string Country { get; set; }
         public string City { get; set; }

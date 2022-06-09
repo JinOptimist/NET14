@@ -1,0 +1,14 @@
+﻿.hub-blocks{
+    display:flex;
+    flex-direction:column;
+}
+.block {
+    align-items: center;
+    margin-top: 60px;
+    border-radius: 15px;
+    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
+    background: white;
+    padding: 40px;
+    transition: background 0.5s ease;
+    width: 550px;
+}

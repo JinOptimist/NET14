@@ -19,7 +19,7 @@ namespace Net14.Web.Localize.Social {
     // с помощью такого средства, как ResGen или Visual Studio.
     // Чтобы добавить или удалить член, измените файл .ResX и снова запустите ResGen
     // с параметром /str или перестройте свой проект VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class LayoutSocial {
@@ -88,7 +88,7 @@ namespace Net14.Web.Localize.Social {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Найти пользователя.
+        ///   Ищет локализованную строку, похожую на Пользователи.
         /// </summary>
         public static string Find_user {
             get {
@@ -129,6 +129,24 @@ namespace Net14.Web.Localize.Social {
         public static string Home {
             get {
                 return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сервисы.
+        /// </summary>
+        public static string Hub {
+            get {
+                return ResourceManager.GetString("Hub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сервисы.
+        /// </summary>
+        public static string Hubs {
+            get {
+                return ResourceManager.GetString("Hubs", resourceCulture);
             }
         }
         
@@ -232,7 +250,7 @@ namespace Net14.Web.Localize.Social {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Настройки пользователя.
+        ///   Ищет локализованную строку, похожую на Настройки аккаунта.
         /// </summary>
         public static string User_settings {
             get {

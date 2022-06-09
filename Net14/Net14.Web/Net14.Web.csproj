@@ -58,6 +58,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Groups.resx</DependentUpon>
     </Compile>
+    <Compile Update="Localize\Social\LayoutSocial.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LayoutSocial.resx</DependentUpon>
+    </Compile>
     <Compile Update="Localize\Social\Messages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -99,6 +104,13 @@
     <EmbeddedResource Update="Localize\Social\Groups.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Groups.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Social\LayoutSocial.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Social\LayoutSocial.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LayoutSocial.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Social\Messages.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -1,6 +1,7 @@
 ﻿using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using TeamSocial;
@@ -18,6 +19,9 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
         public string Password { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime BirthDate { get; set; }
         public bool IsBlocked { get; set; }
         public SiteRole Role { get; set; }
         public Language Language { get; set; }
