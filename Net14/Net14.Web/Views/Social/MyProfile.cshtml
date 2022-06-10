@@ -6,12 +6,34 @@
 }
 <link rel="stylesheet" href="~/css/SocialCss/ShowPagesProfile.css">
 <link rel="stylesheet" href="/css/SocialCss/AddPost.css">
+<link rel="stylesheet" href="/lib/slick-1.8.1/slick/slick.css">
+<link rel="stylesheet" href="~/lib/slick-1.8.1/slick/slick-theme.css">
 
 @section Scripts{
     <script src="~/js/SocialJS/SocialIndexJs.js"></script>
+    <script src="~/js/SocialJS/SocialProfileJs.js"></script>
+    <script src="~/lib/slick-1.8.1/slick/slick.min.js"></script>
 
 }
-<div class="profile-wrapper">
+<div class="watch-photo" >
+    <div class="okno-photo">
+        <div class="pop-header-photo">
+            <div>
+                <img class="close-pop-photo" src="~/images/Social/free-icon-cancel-130887.png">
+            </div>
+        </div>
+        <div class="pop-wrapper-photo">
+
+            <div>
+                <div class="photo-container-modal">
+                    <img class="album-img" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="profile-wrapper" data-id=@Model.Id>
     <div class="user-info-prof">
         <div class="profile-user-photo">
             <img src=@Model.UserPhoto>
@@ -20,9 +42,6 @@
             <div class="name-and-status">
                 <div class="user-name">
                     @Model.FirstName @Model.LastName
-                    <div class="user-settings" onclick="location.href='/Social/Settings'">
-                        <img src="~/images/Social/pencil-svgrepo-com.svg" class="settings-profile-icon">
-                    </div>
                 </div>
                 <input type="text" class="profile-status" placeholder="Status">
             </div>
@@ -38,35 +57,26 @@
             <div class="age-of-user">@Model.Age age</div>
         </div>
         <div class="buttons">
+
         </div>
     </div>
-
-</div>
-
-    <div class="add-post">
-        <div class="form-div">
-            <div class="new-post-photo">
-                <img src=@Model.UserPhoto>
-            </div>
-            <form enctype="multipart/form-data" class="add-post-form" action="/Social/Index" method="post" id="myform">
-                <textarea type="text" placeholder="What's new?'" class="post-input" name="CommentOfUser"></textarea>
-                <span class="file-name"></span>
-                <div class="add-image-post">
-                    <div class="add-image">
-                        <label>
-                            <img src="~/images/Social/gallery.png">
-                            <input type="file" class="add-image" name="ImageUrl" id="file1">
-                        </label>
+    <div class="photo-album">
+        <div class="album-header">
+            My photos @Model.UserPhotos.Count
+        </div>
+        <div class="photo-container">
+            @foreach (var photo in Model.UserPhotos)
+            {
+                <div>
+                    <div class="album-photo" data-id=@photo.Id>
+                        <img src=@photo.Url class="photo">
                     </div>
                 </div>
-            </form>
-        </div>
-        <div class="block-send">
-            <div class="send-button-container">
-                <input type="submit" value="Send" class="send-post" form="myform" />
-            </div>
+
+            }
         </div>
     </div>
+</div>
 
 
 

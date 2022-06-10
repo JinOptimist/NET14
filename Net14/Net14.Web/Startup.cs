@@ -219,6 +219,8 @@ namespace Net14.Web
 
             provider.CreateMap<SocialMessages, SocialMessageViewModel>();
 
+            provider.CreateMap<SocialPhoto, SocialPhotoViewModel>();
+
             provider.CreateMap<Product, ProductViewModel>()
                 .ForMember(nameof(ProductViewModel.Images),
                     product => product

@@ -95,5 +95,17 @@ namespace Net14.Web.EfStuff.Repositories
             return users;
         }
 
+        public bool AddPhoto(SocialPhoto photo, int userId) 
+        {
+            var user = _webContext.Users.SingleOrDefault(user => user.Id == userId);
+            if (user == null) 
+            {
+                return false;
+            }
+            user.Photos.Add(photo);
+            _webContext.SaveChanges();
+            return true;
+        }
+
     }
 }

@@ -27,6 +27,7 @@ namespace Net14.Web.EfStuff
         public DbSet<StoreImage> StoreImages { get; set; }
         public DbSet<GroupTags> GroupTags { get; set; }
         public DbSet<SocialMessages> SocialMessages { get; set; }
+        public DbSet<SocialPhoto> SocialPhotos { get; set; }
         public DbSet<FoldersForToDo> FoldersForToDo { get; set; }
         public DbSet<IssuesForToDo> IssuesForToDo { get; set; }
 
@@ -44,6 +45,10 @@ namespace Net14.Web.EfStuff
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<UserSocial>()
+                .HasMany(x => x.Photos)
+                .WithOne(p => p.Owner);
+
             modelBuilder.Entity<PostSocial>()
                 .HasMany(x => x.Likes)
                 .WithOne(u => u.Post);
