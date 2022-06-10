@@ -29,11 +29,13 @@ namespace Net14.Web.Controllers.ApiControllers
         private UserFriendRequestRepository _userFriendRequestRepository;
         private FriendRequestService _friendRequestService;
         private SocialUserRepository _socialUserRepository;
+        private SocialPhotosRepository _socialPhotosRepository;
         public SocialController(UserService userService,
             SocialPostRepository socialPostRepository, SocialCommentRepository socialCommentRepository,
             IMapper mapper, UserFriendRequestRepository userFriendRequestRepository, FriendRequestService friendRequestService,
-            SocialUserRepository socialUserRepository)
+            SocialUserRepository socialUserRepository, SocialPhotosRepository socialPhotosRepository)
         {
+            _socialPhotosRepository = socialPhotosRepository;
             _userService = userService;
             _socialPostRepository = socialPostRepository;
             _socialCommentRepository = socialCommentRepository;
@@ -251,6 +253,25 @@ namespace Net14.Web.Controllers.ApiControllers
                 }).ToList();
 
             return apis;
+        }
+
+        public SocialPhotoViewModel GetPhoto(int photoId)
+        {
+            var photo = _socialPhotosRepository.Get(photoId);
+
+            var model = _mapper.Map<SocialPhotoViewModel>(photo);
+
+            return model;
+
+        }
+
+        [HttpGet]
+        public List<SocialPhotoViewModel> GetUsersPhoto(int userId) 
+        {
+            var user = _socialUserRepository.Get(userId);
+            var photos = _mapper.Map<List<SocialPhotoViewModel>>(user.Photos);
+
+            return photos;
         }
     }
 }

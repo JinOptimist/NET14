@@ -60,6 +60,29 @@
         hubConnectionMessage.start();
 
     });
+
+
+    $(document).ready(function () {
+        $(".album-photo").click(function ()
+        {
+            let id = $(".profile-wrapper").data("id");
+            let photoUrl = $(this).find(".photo").attr("src");
+
+            $(".watch-photo").find(".album-img").attr("src", photoUrl);
+            $(".watch-photo").fadeIn();
+
+        })
+    })
+
+    $('.photo-container').slick({
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 3
+    });
+
+    $(".close-pop-photo").click(function () {
+        $(".watch-photo").fadeToggle();
+    });
 });
 
 function isEmpty(str) {

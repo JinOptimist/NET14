@@ -22,6 +22,7 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
         public SiteRole Role { get; set; }
         public Language Language { get; set; }
         public virtual List<FileSocial> Files { get; set; }
+        public virtual List<SocialPhoto> Photos { get; set; } = new List<SocialPhoto>(); 
         public virtual List<PostSocial> Posts { get; set; }
         public virtual List<GroupSocial> Groups { get; set; }
         public virtual List<UserSocial> Friends { get; set; } = new List<UserSocial>();

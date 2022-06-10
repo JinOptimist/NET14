@@ -20,6 +20,7 @@ namespace Net14.Web.Models
         public string Email { get; set; }
         public int UserGroupsCount { get; set; }
         public int UserFriendsCount { get; set; }
+        public List<SocialPhotoViewModel> UserPhotos { get; set; } = new List<SocialPhotoViewModel>();
         public List<SocialPostViewModel> UserPost { get; set; } = new List<SocialPostViewModel>();
     }
 }

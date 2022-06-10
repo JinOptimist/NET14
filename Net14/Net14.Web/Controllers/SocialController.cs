@@ -37,7 +37,8 @@ namespace Net14.Web.Controllers
             SocialPostRepository socialPostRepository,
             UserService userService, IMapper mapper,
             RecomendationsService recomendationsService,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment webHostEnvironment
+            )
         {
             _socialPostRepository = socialPostRepository;
             _socialUserRepository = socialUserRepository;
@@ -110,6 +111,15 @@ namespace Net14.Web.Controllers
             post.ImageUrl = $"/images/Social/{fileName}";
 
             _socialPostRepository.Save(post);
+
+            var photo = new SocialPhoto()
+            {
+                Owner = user,
+                Url = post.ImageUrl
+            };
+
+            _socialUserRepository.AddPhoto(photo, user.Id);
+
 
             return Redirect("Index");
         }
@@ -209,6 +219,8 @@ namespace Net14.Web.Controllers
             model.UserPost = postUser;
             model.UserFriendsCount = user.Friends.Count;
             model.UserGroupsCount = user.Groups.Count;
+            model.UserPhotos = _mapper.Map<List<SocialPhotoViewModel>>(user.Photos);
+      
 
 
 
@@ -253,6 +265,8 @@ namespace Net14.Web.Controllers
             model.UserPost = postUser;
             model.UserFriendsCount = currentUser.Friends.Count;
             model.UserGroupsCount = currentUser.Groups.Count;
+            model.UserPhotos = _mapper.Map<List<SocialPhotoViewModel>>(currentUser.Photos);
+           
 
 
             return View(model);
