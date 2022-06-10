@@ -1,6 +1,7 @@
 ﻿@model UserAccountViewModel
 @using Net14.Web.Localize.Store
 @using Net14.Web.Models.store
+@using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 @{
     Layout = "/Views/Shared/_LayoutStore.cshtml";
 }
@@ -39,6 +40,7 @@
             <a href="#" id="changePassword" class="goToBasket">@MyAccount.Change_password</a>
             <a href="#" id="addNewAdress" class="goToBasket">@MyAccount.Add_new_adress</a>
             <a href="/Store/SignOut" class="goToBasket">@MyAccount.Exit</a>
+            <select asp-for="Language" asp-items="Html.GetEnumSelectList<Language>()" id=language1 class="languageDrop"> </select>
         </div>
     </div>
     <div class="myAccountLitleBlock1">

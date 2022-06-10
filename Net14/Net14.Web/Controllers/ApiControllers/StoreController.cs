@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Net14.Web.EfStuff.DbModel;
+using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using Net14.Web.EfStuff.Repositories;
 using Net14.Web.Models;
 using Net14.Web.Services;
@@ -60,6 +61,12 @@ namespace Net14.Web.Controllers.ApiControllers
 
             currentUser.DeliveryAddress.Add(deliveryAdress);
 
+            _socialUserRepository.Save(currentUser);
+        }
+        public void ChangeLanguage(Language language)
+        {
+            var currentUser = _userService.GetCurrent();
+            currentUser.Language = language;
             _socialUserRepository.Save(currentUser);
         }
 

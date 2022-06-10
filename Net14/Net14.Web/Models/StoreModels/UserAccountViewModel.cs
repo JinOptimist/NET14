@@ -1,4 +1,5 @@
 ﻿using Net14.Web.EfStuff.DbModel;
+using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,6 @@ namespace Net14.Web.Models.store
         public List<DeliveryAddress> DeliveryAddress { get; set; }
         public string PhoneNumber { get; set; }
         public List<ProductViewModel> Products { get; set; }
+        public Language Language { get; set; }
     }
 }
