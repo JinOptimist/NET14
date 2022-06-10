@@ -63,4 +63,12 @@
                 window.location.reload();
             });
     });
+    $("#language1")
+        .change(function () {
+             const language1 = $("#language1 option:selected").val();
+            $.get("/api/Store/ChangeLanguage", { language: language1})
+                .done(function () {
+                    window.location.reload();
+                });
+        })
 });

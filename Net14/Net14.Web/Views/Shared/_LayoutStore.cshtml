@@ -10,7 +10,9 @@
     <title>Net14.Web</title>
     <link rel="stylesheet" href="~/css/Store.css?v=3" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/js.cookie.min.js"></script>
     <script src="~/js/site.js"></script>
+    <script src="~/js/StoreJs/Layout.js"></script>
     @RenderSection("Scripts", required: false)
 </head>
 
@@ -28,7 +30,14 @@
                 <img src="/images/Store/LogoGray.png" class="logo">
                 <span class=shopox>ShopOx </span>
             </a>
-
+            @if (User.Identity.IsAuthenticated)
+            {
+              
+            }
+            else
+            {
+                <div> <select asp-items="Html.GetEnumSelectList<Language>()" id=language2 class="languageDrop"> </select> </div>
+            }
             <div class="search">
                 <form class="search"> <input type="text" placeholder="@LayoutStore.Search" class="search-field"> </form>
             </div>

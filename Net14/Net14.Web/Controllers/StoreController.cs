@@ -59,7 +59,8 @@ namespace Net14.Web.Controllers
                 City = user.City,
                 PhoneNumber = user.PhoneNumber,
                 Products = ProductModel,
-                DeliveryAddress = deliveryAdress
+                DeliveryAddress = deliveryAdress,
+                Language=user.Language
             };
             return View(userAccountModel);
 
