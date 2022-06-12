@@ -1,17 +1,53 @@
-﻿@{
+﻿@using Net14.Web.Localize.Social
+@model List<SocialUserViewModel>
+@{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 <link rel="stylesheet" href="~/css/SocialCss/Hub.css">
 
 <div class="hub-blocks">
     <div class="block">
-         birthday
+        <div class="birth-your-friends">
+            Birthdays
+        </div>
+        @foreach (SocialUserViewModel friend in Model)
+        {
+
+            <div class="find-recomendation-element-menu" onclick="location.href='@Url.Action("ShowProfile", "Social", new {userId = friend.Id})'">
+                <div class="user-name-and-photo">
+                    <div class="find-user-photo">
+                        <img src=@friend.UserPhoto class="find-user-photo">
+                    </div>
+                    <div class="size-for-user text-indent">
+                        @friend.FirstName @friend.LastName
+                    </div>
+                </div>
+                <div class="place-of-user">
+                    @if (friend.BirthDate.Day == DateTime.Today.Day)
+                    {
+                        <div class="today">
+                            Today is your friend's birthday
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="tomorrow">
+                            Tomorrow is your friend's birthday
+                        </div>
+                    }
+                </div>
+            </div>
+
+
+        }
     </div>
     <div class="block">
-        usd 
+        usd
         rub
     </div>
 
 </div>
 
-   
+
+
+

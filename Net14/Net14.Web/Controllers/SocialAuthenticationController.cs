@@ -13,6 +13,7 @@ using AutoMapper;
 using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using Microsoft.AspNetCore.SignalR;
 using Net14.Web.SignalRHubs;
+using Net14.Web.Services;
 
 namespace Net14.Web.Controllers
 {
@@ -22,8 +23,9 @@ namespace Net14.Web.Controllers
         private IHubContext<ChatHub> _chatHub;
         private SocialUserRepository _socialUserRepository;
         private IMapper _mapper;
-        public SocialAuthenticationController(SocialUserRepository socialUserRepository, 
-            IMapper mapper, 
+        public SocialAuthenticationController(
+            SocialUserRepository socialUserRepository,
+            IMapper mapper,
             IHubContext<ChatHub> chatHub)
         {
             _mapper = mapper;
@@ -44,6 +46,9 @@ namespace Net14.Web.Controllers
             {
                 var userDb = _mapper.Map<UserSocial>(user);
                 userDb.Role = SiteRole.User;
+                int age = DateTime.Now.Subtract(user.BirthDate).Days;  // how old is the user 
+                age = age / 360;
+                userDb.Age = age;
                 _socialUserRepository.Save(userDb);
 
                 var claims = new List<Claim>() {
