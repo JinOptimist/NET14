@@ -1,0 +1,53 @@
+﻿.hub-blocks {
+    display: flex;
+    flex-direction: column;
+}
+
+.block {
+    align-items: center;
+    margin-top: 60px;
+    border-radius: 15px;
+    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
+    background: white;
+    padding: 40px;
+    transition: background 0.5s ease;
+    width: 550px;
+}
+
+.person {
+    display: flex;
+    padding-top: 10px;
+}
+
+.first-name, .last-name {
+    padding-right: 5px;
+}
+
+.tomorrow, .today {
+    padding-left: 20px;
+}
+
+.today {
+    color: green;
+}
+.find-recomendation-element-menu {
+    align-items: center;
+    margin-top: 1px;
+    margin-bottom:10px;
+    border-radius: 15px;
+    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
+    background: white;
+    padding: 40px;
+    transition: background 0.5s ease;
+    width: 459px;
+}
+.size-for-user{
+    font-size:30px;
+}
+.birth-your-friends {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    margin-bottom: 15px;
+}
