@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TeamLearningEnglish</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/header.css" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js"></script>
+</head>
+<body>
+    <header>
+        <div class="work">
+            <div class="left-elements">
+                <div class="name-of-company">
+                    <a href="/Home/Index/">Learning English</a>
+                </div>
+            </div>
+
+            <div class="right-elements">
+                <div class="login">
+                    <div class="log-in">
+                        log in
+                        @*link*@
+                    </div>
+                    <div class="log-out">
+                        log out
+                        @*link*@
+                    </div>
+                </div>
+                <div class="calendar">
+                    <a href="/Account/Calendar/">Your results</a>
+                </div>
+                <div class="account">
+                    <a href="/Account/MyAccount/">My account</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="dictionary">
+        <a href="/Home/Dictionary/">Словарь</a>
+    </div>
+    <div class="container">
+        @RenderBody()
+    </div>
+    <footer class="border-top footer text-muted">
+    </footer>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

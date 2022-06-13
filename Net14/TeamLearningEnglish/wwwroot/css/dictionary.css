@@ -1,0 +1,10 @@
+﻿.word-block {
+    display: flex;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.word-in-english, .word-in-russian, .word-rates {
+    font-size: 20px;
+    padding-right:20px;
+}

@@ -1,0 +1,21 @@
+﻿@model List<WordsViewModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/dictionary.css" />
+
+@foreach (var word in Model)
+{
+    <div class="word-block">
+        <div class="word-in-english">
+            @word.EnglishWord
+        </div>
+        <div class="word-in-russian">
+            @word.RussianWord
+        </div>
+        <div class="word-rates">
+            @word.Rating
+        </div>
+    </div>
+
+}    
