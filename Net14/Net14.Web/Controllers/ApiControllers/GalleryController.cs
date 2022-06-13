@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Net14.Web.EfStuff.DbModel;
 using Net14.Web.EfStuff.Repositories;
 using Net14.Web.Models;
 using System;
@@ -45,5 +46,18 @@ namespace Net14.Web.Controllers.ApiControllers
 
         public List<ImageViewModel> GetGirls()
             => _mapper.Map<List<ImageViewModel>>(_imageRepository.GetAll());
+
+        public ImageViewModel CreateGirls(Image girl)
+        {
+            _imageRepository.Save(girl);
+            var viewModel = _mapper.Map<ImageViewModel>(girl);
+            return viewModel;
+        }
+
+        public bool RemoveGirls(int id)
+        {
+            _imageRepository.Remove(id);
+            return true;
+        }
     }
 }

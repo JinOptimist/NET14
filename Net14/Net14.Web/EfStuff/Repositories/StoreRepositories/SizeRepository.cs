@@ -20,6 +20,7 @@ namespace Net14.Web.EfStuff.Repositories
 
         public List<Size> GetByNames(List<string> names)
         {
+            
             return _dbSet
                 .Where(x => names.Contains(x.Name))
                 .ToList();

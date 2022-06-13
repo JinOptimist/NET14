@@ -42,25 +42,45 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Localize\Social\Groups.Designer.cs">
+    <Compile Update="Localize\Store\Basket.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Groups.resx</DependentUpon>
+      <DependentUpon>Basket.resx</DependentUpon>
     </Compile>
-    <Compile Update="Localize\Social\Messages.Designer.cs">
+    <Compile Update="Localize\Store\Catalog.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Messages.resx</DependentUpon>
+      <DependentUpon>Catalog.resx</DependentUpon>
     </Compile>
-    <Compile Update="Localize\Social\Recomendations.Designer.cs">
+    <Compile Update="Localize\Store\Checkout.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Recomendations.resx</DependentUpon>
+      <DependentUpon>Checkout.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localize\Store\IndexR.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IndexR.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localize\Store\LayoutStore.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LayoutStore.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localize\Store\MyAccount.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MyAccount.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localize\Store\Shoes.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Shoes.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Localize\Gallery.en.resx">
+    <EmbeddedResource Update="Localize\Gallery.ru.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Gallery.resx">
@@ -71,23 +91,54 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Social\Groups.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Groups.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Social\Messages.en.resx">
+    <EmbeddedResource Update="Localize\Store\Basket.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Social\Messages.resx">
+    <EmbeddedResource Update="Localize\Store\Basket.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+      <LastGenOutput>Basket.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Social\Recomendations.en.resx">
+    <EmbeddedResource Update="Localize\Store\Catalog.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Social\Recomendations.resx">
+    <EmbeddedResource Update="Localize\Store\Catalog.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Recomendations.Designer.cs</LastGenOutput>
+      <LastGenOutput>Catalog.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Store\Checkout.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Store\Checkout.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Checkout.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Store\IndexR.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Store\IndexR.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>IndexR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Store\LayoutStore.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Store\LayoutStore.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LayoutStore.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Store\MyAccount.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Store\MyAccount.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MyAccount.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Store\Shoes.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Store\Shoes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Shoes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
