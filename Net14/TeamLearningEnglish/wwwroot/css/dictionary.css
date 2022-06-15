@@ -1,4 +1,18 @@
-﻿.word-block {
+﻿.dictionary{
+    display:flex;
+}
+.add-word-form form {
+    display: flex;
+    flex-direction: column;
+    max-width: 200px;
+    margin-right: 75px;
+}
+}
+.words{
+    display:flex;
+    flex-direction:column;
+}
+.word-block {
     display: flex;
     border: 1px solid black;
     border-radius: 10px;

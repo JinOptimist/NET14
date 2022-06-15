@@ -1,6 +1,7 @@
 ﻿.books{
     display:flex;
-    justify-content:center;
+    flex-direction:column;
+
 }
 .book{
     margin-right:20px;

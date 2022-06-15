@@ -4,18 +4,34 @@
 }
 <link rel="stylesheet" href="~/css/dictionary.css" />
 
-@foreach (var word in Model)
-{
-    <div class="word-block">
-        <div class="word-in-english">
-            @word.EnglishWord
-        </div>
-        <div class="word-in-russian">
-            @word.RussianWord
-        </div>
-        <div class="word-rates">
-            @word.Rating
-        </div>
+<div class="dictionary">
+    <div class="add-word-form">
+        <form asp-controller="Home" asp-action="AddWord">
+            <input type="text" name="englishWord" placeholder="Word in English" />
+            <input type="text" name="russianWord" placeholder="Слово на Русском" />
+            <input type="number" name="rating" placeholder="Рейтинг" />
+            <input type="submit" value="Добавить" />
+        </form>
     </div>
 
-}    
+    <div class="words">
+        @foreach (var word in Model)
+        {
+            <div class="word-block">
+                <div class="word-in-english">
+                    @word.EnglishWord
+                </div>
+                <div class="word-in-russian">
+                    @word.RussianWord
+                </div>
+                <div class="word-rates">
+                    @word.Rating
+                </div>
+                <div class="remove-word">
+                    <a href="/Home/RemoveWord?id=@word.Id">remove</a>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>

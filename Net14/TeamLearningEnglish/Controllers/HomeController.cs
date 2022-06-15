@@ -5,13 +5,20 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using TeamLearningEnglish.EfStuff;
+using TeamLearningEnglish.EfStuff.DbModels;
 using TeamLearningEnglish.Models;
 
 namespace TeamLearningEnglish.Controllers
 {
     public class HomeController : Controller
     {
-       
+        private WebDbContext _webContext;
+
+        public HomeController(WebDbContext webContext)
+        {
+            _webContext = webContext;
+        }
 
         public IActionResult Index()
         {
@@ -20,31 +27,41 @@ namespace TeamLearningEnglish.Controllers
         }
         public IActionResult Dictionary()
         {
-            var models = new List<WordsViewModel>()
+            var dbModels = _webContext.Words.ToList();
+
+            var viewModels = dbModels.Select(dbModel => new WordsViewModel
             {
-                new WordsViewModel
-                {
-                    Id = 1,
-                    EnglishWord = "apple",
-                    RussianWord = "яблоко",
-                    Rating = 2
-                },
-                new WordsViewModel
-                {
-                    Id = 1,
-                    EnglishWord = "car",
-                    RussianWord = "машина",
-                    Rating = 5
-                },
-                new WordsViewModel
-                {
-                    Id = 1,
-                    EnglishWord = "book",
-                    RussianWord = "книга",
-                    Rating = 15
-                }
+                Id = dbModel.Id,
+                EnglishWord = dbModel.EnglishWord,
+                RussianWord = dbModel.RussianWord,
+                Rating = dbModel.Rating
+
+            }).ToList();
+            viewModels.Reverse();
+
+            return View(viewModels);
+        }
+        public IActionResult AddWord(int id, string englishWord, string russianWord, int rating) 
+        {
+            var dbModel = new WordsDbModel
+            {
+                Id = id,
+                EnglishWord = englishWord,
+                RussianWord = russianWord,
+                Rating = rating
             };
-            return View(models);
+            _webContext.Words.Add(dbModel);
+            _webContext.SaveChanges();
+
+            return RedirectToAction("Dictionary");
+        }
+        public IActionResult RemoveWord(int id)
+        {
+            var dbModel = _webContext.Words.SingleOrDefault(x => x.Id == id);
+            _webContext.Remove(dbModel);
+            _webContext.SaveChanges();
+
+            return RedirectToAction("Dictionary");
         }
         public IActionResult Video()
         {
@@ -52,7 +69,26 @@ namespace TeamLearningEnglish.Controllers
         }
         public IActionResult Books()
         {
-            return View();
+            var dbModels = _webContext.Books.ToList();
+
+            var viewModels = dbModels.Select(dbModel => new BooksViewModel
+            {
+                Id = dbModel.Id,
+                Name = dbModel.Name,
+                Text = dbModel.Text
+            }).ToList();
+
+            return View(viewModels);
+        }
+        public IActionResult ShowBook(int id)
+        {
+            var dbModel = _webContext.Books.First(x => x.Id == id);
+
+            var viewModel = new BooksViewModel
+            {
+                Text = dbModel.Text
+            };
+            return View(viewModel);
         }
 
 
