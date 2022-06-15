@@ -17,6 +17,7 @@ namespace Net14.Web.Models
         public int Likes { get; set; } = 0;
         public string UserPhoto { get; set; }
         public bool IsLikedCurrentUser { get; set; } = false;
+        public bool IsByCurrentUser { get; set; }
         public List<SocialCommentViewModel> Comments { get; set; } = new List<SocialCommentViewModel>();
 
     }

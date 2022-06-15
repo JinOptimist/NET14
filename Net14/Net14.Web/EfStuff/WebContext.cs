@@ -50,8 +50,14 @@ namespace Net14.Web.EfStuff
                 .WithOne(p => p.Owner);
 
             modelBuilder.Entity<PostSocial>()
+                .HasMany(post => post.Likes)
+                .WithOne(like => like.Post)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PostSocial>()
                 .HasMany(x => x.Likes)
-                .WithOne(u => u.Post);
+                .WithOne(u => u.Post)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<GroupTags>()
                 .HasOne(x => x.Group)
@@ -111,7 +117,8 @@ namespace Net14.Web.EfStuff
 
             modelBuilder.Entity<PostSocial>()
                 .HasMany(post => post.Comments)
-                .WithOne(comment => comment.Post);
+                .WithOne(comment => comment.Post)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<GroupSocial>()
                 .HasMany(group => group.Members)

@@ -128,5 +128,30 @@
         }
     });
 
+    $(".more-button-container").mouseenter(function () {
+        $(this).closest(".user-info").find(".more-div").fadeIn();
+    })
+
+    $(".more-button-container").mouseleave(function (e) {
+        if (e.target === $(this).closest(".user-info").find(".more-div")) {
+            $(this).closest(".user-info").find(".more-div").mouseleave(function () {
+                $(this).closest(".user-info").find(".more-div").fadeOut();
+            })
+            return;
+        };
+        $(this).closest(".user-info").find(".more-div").fadeOut();
+    })
+
+    $(".delete-post").click(function () {
+        let post = $(this).closest(".content-element");
+        let id = post.data("id");
+        $.get("/api/Social/DeletePost", { postId: id })
+            .done(function () {
+
+                post.fadeOut(200, () => post.remove());
+
+            })
+    })
+
 })
 

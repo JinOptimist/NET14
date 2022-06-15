@@ -273,5 +273,15 @@ namespace Net14.Web.Controllers.ApiControllers
 
             return photos;
         }
-    }
+
+        [HttpGet]
+        public bool DeletePost(int postId) 
+        {
+            var post = _socialPostRepository.Get(postId);
+            _socialPostRepository.Remove(post);
+
+            return true;
+
+        }
+}
 }
