@@ -1,0 +1,7 @@
+﻿.books{
+    display:flex;
+    justify-content:center;
+}
+.book{
+    margin-right:20px;
+}

@@ -1,0 +1,10 @@
+﻿.all-messanger{
+    display:flex;
+    justify-content:center;
+}
+.messanger {
+    display: flex;
+}
+.other-people {
+    margin-right:20px;   
+}

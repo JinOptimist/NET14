@@ -1,0 +1,10 @@
+﻿.all-discussions{
+    display:flex;
+    justify-content:center;
+}
+.topic {
+    display: flex;
+}
+.topic-name, .topic-creator, .topic-rating{
+    margin-right:20px;
+}

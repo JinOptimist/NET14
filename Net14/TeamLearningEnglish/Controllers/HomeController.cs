@@ -46,6 +46,14 @@ namespace TeamLearningEnglish.Controllers
             };
             return View(models);
         }
+        public IActionResult Video()
+        {
+            return View();
+        }
+        public IActionResult Books()
+        {
+            return View();
+        }
 
 
     }
