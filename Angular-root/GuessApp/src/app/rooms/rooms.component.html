@@ -1,0 +1,8 @@
+<div class="rooms-container">
+    <div class="rooms-header">
+        Rooms
+    </div>
+    <div *ngFor="let room of rooms">
+        <app-single-room [Room]="room"></app-single-room>
+    </div>
+</div>

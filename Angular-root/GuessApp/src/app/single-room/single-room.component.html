@@ -1,0 +1,9 @@
+<div class="room-container">
+    <div class="room-header">
+        {{Room.owner}}
+    </div>
+    <div *ngIf="Room.type==0">
+        <div>Programming</div>
+        <img [src]="LOGO">
+    </div>
+</div>

@@ -1,0 +1,4 @@
+<div class="detail-member" *ngIf="members">
+    <div class="members-header">Room members</div>
+    <div class="member" *ngFor="let member of members">{{member.firstName}}</div>
+</div>

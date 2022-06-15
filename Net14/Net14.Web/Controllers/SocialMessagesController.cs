@@ -77,6 +77,7 @@ namespace Net14.Web.Controllers
             return View(dialogViewModels);
         }
 
+
         public async Task<IActionResult> GetSingleDialog(int dialogFriendId)
         {
             var user = _socialUserRepository.Get(dialogFriendId);

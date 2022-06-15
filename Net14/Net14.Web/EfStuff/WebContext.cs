@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
+using Net14.Web.EfStuff.DbModel.GuessAppDbModels;
 
 namespace Net14.Web.EfStuff
 {
@@ -29,7 +30,7 @@ namespace Net14.Web.EfStuff
         public DbSet<SocialMessages> SocialMessages { get; set; }
         public DbSet<FoldersForToDo> FoldersForToDo { get; set; }
         public DbSet<IssuesForToDo> IssuesForToDo { get; set; }
-
+        public DbSet<Room> Romms { get; set; }
 
 
         public WebContext(DbContextOptions options) : base(options)
@@ -44,6 +45,14 @@ namespace Net14.Web.EfStuff
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<UserSocial>()
+                .HasMany(user => user.RoomsUserCreate)
+                .WithOne(room => room.Creator);
+
+            modelBuilder.Entity<UserSocial>()
+                .HasMany(user => user.Rooms)
+                .WithMany(room => room.Members);
+
             modelBuilder.Entity<PostSocial>()
                 .HasMany(x => x.Likes)
                 .WithOne(u => u.Post);

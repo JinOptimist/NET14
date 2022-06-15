@@ -7,6 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
+using Net14.Web.EfStuff.Repositories.GuessArtRepositories;
+using Net14.Web.EfStuff.DbModel.GuessAppDbModels;
+using Net14.Web.EfStuff.DbModel.GuessAppDbModels.Enums;
 
 namespace Net14.Web.EfStuff
 {
@@ -21,6 +24,7 @@ namespace Net14.Web.EfStuff
                 SeedUser(scope);
                 SeedPostAndComm(scope);
                 GroupSeed(scope);
+                RoomsSeed(scope);
 
                 SeedImages(scope);
             }
@@ -650,6 +654,28 @@ namespace Net14.Web.EfStuff
 
                 groupRepository.Save(group2);
             }
+        }
+
+        private static void RoomsSeed(IServiceScope scope) 
+        {
+            var roomsRepository = scope.ServiceProvider.GetService<RoomRepository>();
+            var userRepository = scope.ServiceProvider.GetService<SocialUserRepository>();
+
+            if (!roomsRepository.Any()) 
+            {
+                var user = userRepository.GetByEmAndPass("admin", "admin");
+                var room = new Room()
+                {
+                    Members = new List<UserSocial>(),
+                    Creator = user,
+                    IsCompleted = false,
+                    Type = RoomType.Programming
+                };
+
+                roomsRepository.Save(room);
+            }
+
+
         }
     }
 }

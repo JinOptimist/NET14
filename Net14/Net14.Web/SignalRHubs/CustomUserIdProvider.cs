@@ -14,5 +14,10 @@ namespace Net14.Web.SignalRHubs
         {
             return connection.User?.Claims.FirstOrDefault(x => x.Type.Equals("Id", StringComparison.OrdinalIgnoreCase))?.Value;
         }
+
+        public virtual string GetUserConnection(HubConnectionContext context) 
+        {
+            return context.ConnectionId;
+        }
     }
 }

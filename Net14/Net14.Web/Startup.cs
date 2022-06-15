@@ -22,6 +22,8 @@ using Net14.Web.SignalRHubs;
 using System.Reflection;
 using Net14.Web.Localize;
 using Microsoft.AspNetCore.SignalR;
+using Net14.Web.EfStuff.DbModel.GuessAppDbModels;
+using Net14.Web.Models.GuessArtModels;
 
 namespace Net14.Web
 {
@@ -224,6 +226,14 @@ namespace Net14.Web
                     product => product
                         .MapFrom(dbProduct => dbProduct.StoreImages.Select(image => image.Url).ToList()));
 
+            provider.CreateMap<Room, RoomViewModel>()
+                .ForMember(nameof(RoomViewModel.MembersCount),
+                    room => room
+                    .MapFrom(dbroom => dbroom.Members.Count))
+                .ForMember(nameof(RoomViewModel.Owner),
+                    room => room
+                    .MapFrom(dbroom => dbroom.Creator.FirstName + " " + dbroom.Creator.LastName));
+
 
 
             var mapperConfiguration = new MapperConfiguration(provider);
@@ -246,7 +256,11 @@ namespace Net14.Web
 
             app.UseRouting();
 
-            app.UseCors(builder => builder.AllowAnyOrigin());
+            app.UseCors(builder => builder
+               .WithOrigins("http://localhost:4200")
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
 
             //Who I am
             app.UseAuthentication();
@@ -261,6 +275,7 @@ namespace Net14.Web
                 endpoints.MapHub<ChatHub>("/chat");
                 endpoints.MapHub<NotificationsHub>("/notif");
                 endpoints.MapHub<SocialMessangerHub>("/messages");
+                endpoints.MapHub<GuessArtHub>("/guessArt");
             });
 
             app.UseEndpoints(endpoints =>

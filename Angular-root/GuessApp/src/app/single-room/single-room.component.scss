@@ -1,0 +1,21 @@
+.room-container{
+    width: 400px;
+    height: 150px;
+    border: 1px solid black;
+    border-radius: 20px;
+
+    .room-header{
+        color: white;
+        box-sizing: border-box;
+        display: flex;
+        padding-right: 20px;
+        align-items: center;
+        justify-content: flex-end;
+        height: 40px;
+        width: 100%;
+        background-color: blueviolet;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+
+}

@@ -1,0 +1,12 @@
+<div class="room-container" *ngIf="room">
+  <app-detail-members [members]="room.members"></app-detail-members>
+    <div class="room-detail-container">
+        <app-canvas-drawing></app-canvas-drawing>
+        <div class="row">
+            <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">Guess</label>
+            <div class="col-sm-10">
+              <input class="form-control form-control-lg" id="colFormLabelLg" placeholder="col-form-label-lg">
+            </div>
+          </div>
+    </div>
+</div>

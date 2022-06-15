@@ -1,4 +1,5 @@
-﻿using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
+﻿using Net14.Web.EfStuff.DbModel.GuessAppDbModels;
+using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,10 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
         public virtual Basket Basket { get; set; }
         public virtual List<SocialMessages> SendMessages { get; set; } = new List<SocialMessages>();
         public virtual List<SocialMessages> RecievedMessages { get; set; } = new List<SocialMessages>();
+        public virtual List<Room> RoomsUserCreate { get; set; }
+        public virtual List<Room> Rooms { get; set; }
+
+
 
     }
 }
