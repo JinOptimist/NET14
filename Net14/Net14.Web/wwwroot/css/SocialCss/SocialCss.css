@@ -778,7 +778,7 @@ input.comm:not(.active) {
     width: 149px;
     height: 60px;
     position: relative;
-    left: 210px;
+    left: 180px;
     top: 45px;
     border: 1px grey solid;
     box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);

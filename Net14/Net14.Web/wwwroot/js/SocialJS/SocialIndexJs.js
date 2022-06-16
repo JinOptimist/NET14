@@ -128,18 +128,8 @@
         }
     });
 
-    $(".more-button-container").mouseenter(function () {
-        $(this).closest(".user-info").find(".more-div").fadeIn();
-    })
-
-    $(".more-button-container").mouseleave(function (e) {
-        if (e.target === $(this).closest(".user-info").find(".more-div")) {
-            $(this).closest(".user-info").find(".more-div").mouseleave(function () {
-                $(this).closest(".user-info").find(".more-div").fadeOut();
-            })
-            return;
-        };
-        $(this).closest(".user-info").find(".more-div").fadeOut();
+    $(".more-button-container").click(function () {
+        $(this).closest(".user-info").find(".more-div").fadeToggle();
     })
 
     $(".delete-post").click(function () {

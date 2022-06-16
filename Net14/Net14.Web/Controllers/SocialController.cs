@@ -242,6 +242,7 @@ namespace Net14.Web.Controllers
 
                 model.IsRequested = currentUser.FriendRequestSent.Any(x => x.Receiver.Id == userId) ? true : false;
                 model.IsFriend = currentUser.Friends.Any(x => x.Id == user.Id) ? true : false;
+                
             }
 
 

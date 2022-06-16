@@ -211,10 +211,10 @@ namespace Net14.Web.Controllers.ApiControllers
             => _mapper.Map<SocialUserViewModel>(_socialUserRepository.Get(id));
 
         [HttpGet]
-        public bool ChangeRole(int id, SiteRole role) 
+        public bool ChangeRole(int id, SiteRole role)
         {
             var user = _socialUserRepository.Get(id);
-            if (user == null) 
+            if (user == null)
             {
                 return false;
             }
@@ -223,7 +223,7 @@ namespace Net14.Web.Controllers.ApiControllers
         }
 
         [HttpGet]
-        public List<SocialUserViewModel> FindUserByName(string name) 
+        public List<SocialUserViewModel> FindUserByName(string name)
         {
             return _mapper.Map<List<SocialUserViewModel>>(_socialUserRepository.FindUserbyName(name.ToLower()));
 
@@ -266,7 +266,7 @@ namespace Net14.Web.Controllers.ApiControllers
         }
 
         [HttpGet]
-        public List<SocialPhotoViewModel> GetUsersPhoto(int userId) 
+        public List<SocialPhotoViewModel> GetUsersPhoto(int userId)
         {
             var user = _socialUserRepository.Get(userId);
             var photos = _mapper.Map<List<SocialPhotoViewModel>>(user.Photos);
@@ -275,7 +275,7 @@ namespace Net14.Web.Controllers.ApiControllers
         }
 
         [HttpGet]
-        public bool DeletePost(int postId) 
+        public bool DeletePost(int postId)
         {
             var post = _socialPostRepository.Get(postId);
             _socialPostRepository.Remove(post);
@@ -283,5 +283,16 @@ namespace Net14.Web.Controllers.ApiControllers
             return true;
 
         }
-}
+
+        [HttpGet]
+        public bool DeleteFriend(int friendId) 
+        {
+            var currentUser = _userService.GetCurrent();
+            var friendToDelete = currentUser.Friends.SingleOrDefault(friend => friend.Id == friendId);
+            _socialUserRepository.DeleteFriend(currentUser, friendToDelete);
+
+            return true;
+        }
+
+    }
 }

@@ -154,7 +154,9 @@ $(document).ready(function () {
     }
 
     $(document).on('click', ".accept-button", function () {
+        debugger;
         let friendId = $(this).closest(".notification-container").data("friendid") - 0;
+        debugger;
         $.get("/api/Social/AcceptFriend", { friendId: friendId })
             .done(function () {
                 $(this).closest(".notification-container").remove();
