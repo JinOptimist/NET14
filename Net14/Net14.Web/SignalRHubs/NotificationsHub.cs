@@ -27,11 +27,17 @@ namespace Net14.Web.SignalRHubs
             Clients.User(friendId).SendAsync("SendNotif", $"{currentUser.FirstName} {currentUser.LastName} {message} friend request", currentUser.UserPhoto);
         }
 
-/*        public void SendMessageNotificaton(string message, string userId)
+        public override Task OnConnectedAsync()
         {
-            var currentUser = _userService.GetCurrent();
-            Clients.User(userId).SendAsync("MessageNotification", message, $"{currentUser.FirstName} {currentUser.LastName}", currentUser.UserPhoto, currentUser.Id.ToString());
-        }*/
+            _userService.MakeUserOnline();
+            return base.OnConnectedAsync();
+        }
+
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+            _userService.MakeUserNotOnline();
+            return base.OnDisconnectedAsync(exception);
+        }
 
     }
 }

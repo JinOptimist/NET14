@@ -121,5 +121,19 @@ namespace Net14.Web.EfStuff.Repositories
             return true;
         }
 
+        public bool MakeUserOnline(UserSocial userSocial) 
+        {
+            userSocial.IsOnline = true;
+            _webContext.SaveChanges();
+            return true;
+        }
+
+        public bool MakeUserNotOnline(UserSocial userSocial) 
+        {
+            userSocial.IsOnline = false;
+            _webContext.SaveChanges();
+            return true;
+        }
+
     }
 }

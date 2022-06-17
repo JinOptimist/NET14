@@ -4,6 +4,7 @@
 }
 
 .myFiles {
+    box-sizing: border-box;
     max-width: 550px;
     min-width: 550px;
     min-height: 300px;

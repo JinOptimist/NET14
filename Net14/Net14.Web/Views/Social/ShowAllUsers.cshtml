@@ -65,7 +65,12 @@
                         <div class="user-name-and-photo">
                             <div class="find-user-photo">
                                 <img src=@user.UserPhoto class="find-user-photo" onclick="location.href = '/Social/ShowProfile?userId=@user.Id'">
+                                @if (user.IsOnline)
+                                {
+                                    <span class="user-online-badge"></span>
+                                }
                             </div>
+
                             <div class="size-for-user text-indent" onclick="location.href = '/Social/ShowProfile?userId=@user.Id'">
                                 @user.FirstName @user.LastName
                             </div>
