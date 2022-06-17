@@ -261,6 +261,7 @@ namespace Net14.Web.Controllers
             var model = _mapper.Map<SocialProfileViewModel>(currentUser);
             postUser.ForEach(x =>
             {
+                x.IsByCurrentUser = true;
                 if (dbUsersPosts.Single(dbPost => dbPost.Id == x.Id).Likes.Any(like => like.User.Id == currentUser.Id))
                 {
                     x.IsLikedCurrentUser = true;

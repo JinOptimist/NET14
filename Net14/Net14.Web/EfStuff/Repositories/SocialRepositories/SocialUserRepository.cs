@@ -110,6 +110,7 @@ namespace Net14.Web.EfStuff.Repositories
         public bool DeleteFriend(UserSocial currentUser, UserSocial userToDelete) 
         {
             currentUser.Friends.Remove(userToDelete);
+            userToDelete.Friends.Remove(currentUser);
 
             var friendRequest = _webContext.UserFriendRequests.Where(req =>
             req.Receiver.Id == currentUser.Id && req.Sender.Id == userToDelete.Id
