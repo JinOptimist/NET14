@@ -719,7 +719,8 @@ namespace Net14.Web.Migrations
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", "Post")
                         .WithMany("Comments")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "User")
                         .WithMany()
@@ -734,7 +735,8 @@ namespace Net14.Web.Migrations
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", "Post")
                         .WithMany("Likes")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "User")
                         .WithMany()

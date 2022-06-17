@@ -11,11 +11,11 @@ namespace Net14.Web.EfStuff.Repositories
 {
     public class SocialUserRepository : BaseRepository<UserSocial>
     {
-        public SocialUserRepository(WebContext context):base(context)
+        public SocialUserRepository(WebContext context) : base(context)
         {
         }
 
-        public List<UserSocial> GetBy(string FullName = null, int Age = 0, string Country = null, 
+        public List<UserSocial> GetBy(string FullName = null, int Age = 0, string Country = null,
             string City = null, string FirstName = null, string LastName = null)
         {
 
@@ -56,7 +56,7 @@ namespace Net14.Web.EfStuff.Repositories
             }
         }
 
-        public UserSocial GetByEmAndPass(string email, string pass) 
+        public UserSocial GetByEmAndPass(string email, string pass)
         {
             var user = _webContext.Users.SingleOrDefault(x => x.Email == email && x.Password == pass);
             return user;
@@ -65,12 +65,12 @@ namespace Net14.Web.EfStuff.Repositories
         public bool IsEmailExist(string email)
             => _dbSet.Any(x => x.Email == email);
 
-        public bool Exists(int userId) 
+        public bool Exists(int userId)
         {
             return _webContext.Users.Any(user => user.Id == userId);
         }
 
-        public bool ManageRole(int userId, SiteRole role) 
+        public bool ManageRole(int userId, SiteRole role)
         {
             var user = _webContext.Users.Single(user => user.Id == userId);
             if (user.Role.HasFlag(role))
@@ -86,7 +86,7 @@ namespace Net14.Web.EfStuff.Repositories
             return true;
         }
 
-        public List<UserSocial> FindUserbyName(string name) 
+        public List<UserSocial> FindUserbyName(string name)
         {
             var users = _webContext.Users.Where(user
                 => user.FirstName.ToLower().Contains(name) ||
@@ -95,14 +95,28 @@ namespace Net14.Web.EfStuff.Repositories
             return users;
         }
 
-        public bool AddPhoto(SocialPhoto photo, int userId) 
+        public bool AddPhoto(SocialPhoto photo, int userId)
         {
             var user = _webContext.Users.SingleOrDefault(user => user.Id == userId);
-            if (user == null) 
+            if (user == null)
             {
                 return false;
             }
             user.Photos.Add(photo);
+            _webContext.SaveChanges();
+            return true;
+        }
+
+        public bool DeleteFriend(UserSocial currentUser, UserSocial userToDelete) 
+        {
+            currentUser.Friends.Remove(userToDelete);
+            userToDelete.Friends.Remove(currentUser);
+
+            var friendRequest = _webContext.UserFriendRequests.Where(req =>
+            req.Receiver.Id == currentUser.Id && req.Sender.Id == userToDelete.Id
+            || req.Receiver.Id == userToDelete.Id && req.Sender.Id == currentUser.Id);
+
+            _webContext.UserFriendRequests.RemoveRange(friendRequest);
             _webContext.SaveChanges();
             return true;
         }

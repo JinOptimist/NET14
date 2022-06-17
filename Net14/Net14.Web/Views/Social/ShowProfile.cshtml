@@ -99,26 +99,30 @@
                     <div class="add-to-friends-profile">@Friends.Add_to_friends</div>
                 }
             }
+            else
+            {
+                <div class="add-to-friends-profile delete">Delete</div>
+            }
         </div>
     </div>
     @if (!(Model.UserPhotos.Count == 0))
     {
-<div class="photo-album">
-    <div class="album-header">
-        My photos @Model.UserPhotos.Count
-    </div>
-    <div class="photo-container">
-        @foreach (var photo in Model.UserPhotos)
-        {
-            <div>
-                <div class="album-photo" data-id=@photo.Id>
-                    <img src=@photo.Url class="photo">
-                </div>
+        <div class="photo-album">
+            <div class="album-header">
+                My photos @Model.UserPhotos.Count
             </div>
+            <div class="photo-container">
+                @foreach (var photo in Model.UserPhotos)
+                {
+                    <div>
+                        <div class="album-photo" data-id=@photo.Id>
+                            <img src=@photo.Url class="photo">
+                        </div>
+                    </div>
 
-        }
-    </div>
-</div>
+                }
+            </div>
+        </div>
     }
 </div>
 
@@ -131,11 +135,23 @@
     <div class="content-element" data-id=@post.Id>
         <div class="content-element-card">
             <div class="user-info">
-                <div class="user-photo">
-                    <img src=@post.UserPhoto class="user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">
+                <div class="more-and-user">
+                    <div class="user-photo">
+                        <img src=@post.UserPhoto class="user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">
+                    </div>
+                    <div class="user-name">
+                        <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@string.Format(@Indexx.Posted, post.UserName)</p>
+                    </div>
                 </div>
-                <div class="user-name">
-                    <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@string.Format(@Indexx.Posted, post.UserName)</p>
+                <div class="more-div">
+                    @if (post.IsByCurrentUser)
+                    {
+                        <div class="delete-post">Delete post</div>
+                    }
+                    <div class="complane">Complane</div>
+                </div>
+                <div class="more-button-container">
+                    <img src="~/images/Social/more.png" class="more-button-icon">
                 </div>
             </div>
             <div class="block-post-image">
@@ -208,3 +224,5 @@
 <div class="add-to-friends-button requested template" id="profile">
     @Recomendations.Friend_Request
 </div>
+
+<div class="add-to-friends-profile template">@Friends.Add_to_friends</div>

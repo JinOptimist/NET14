@@ -167,10 +167,10 @@ $(document).ready(function () {
 
     $(document).on('click', ".decline-button", function () {
         let friendId = $(this).closest(".notification-container").data("friendid") - 0;
-        $.get("api/Social/DeclineFriend", { friendId: friendId })
+        $.get("/api/Social/DeclineFriend", { friendId: friendId })
             .done(function () {
                 $(this).closest(".notification-container").remove();
-                $.get('api/Social/Notification')
+                $.get('/api/Social/Notification')
                     .done(function (notificationData) {
                         RenderNotifications(notificationData);
                     });

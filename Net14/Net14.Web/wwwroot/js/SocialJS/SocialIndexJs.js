@@ -128,5 +128,20 @@
         }
     });
 
+    $(".more-button-container").click(function () {
+        $(this).closest(".user-info").find(".more-div").fadeToggle();
+    })
+
+    $(".delete-post").click(function () {
+        let post = $(this).closest(".content-element");
+        let id = post.data("id");
+        $.get("/api/Social/DeletePost", { postId: id })
+            .done(function () {
+
+                post.fadeOut(200, () => post.remove());
+
+            })
+    })
+
 })
 

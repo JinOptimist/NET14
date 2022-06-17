@@ -1,9 +1,12 @@
 ﻿.hub-blocks {
     display: flex;
     flex-direction: column;
+    max-width: 550px;
 }
 
 .block {
+    width: 550px;
+    box-sizing: border-box;
     align-items: center;
     margin-top: 60px;
     border-radius: 15px;

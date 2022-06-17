@@ -57,9 +57,9 @@ namespace Net14.Web.Controllers
                 .ThenByDescending(post => post.DateOfPosting);
 
             var viewPost = _mapper.Map<List<SocialPostViewModel>>(posts);
-                
 
-            if (_userService.GetCurrent() != null) 
+
+            if (_userService.GetCurrent() != null)
 
             {
                 var currentUser = _userService.GetCurrent();
@@ -68,6 +68,10 @@ namespace Net14.Web.Controllers
                     if (posts.Single(dbPost => dbPost.Id == x.Id).Likes.Any(like => like.User.Id == currentUser.Id))
                     {
                         x.IsLikedCurrentUser = true;
+                    }
+                    if (x.UserId == currentUser.Id)
+                    {
+                        x.IsByCurrentUser = true;
                     }
                 });
 
@@ -220,11 +224,11 @@ namespace Net14.Web.Controllers
             model.UserFriendsCount = user.Friends.Count;
             model.UserGroupsCount = user.Groups.Count;
             model.UserPhotos = _mapper.Map<List<SocialPhotoViewModel>>(user.Photos);
-      
 
 
 
-            if (User.Identity.IsAuthenticated) 
+
+            if (User.Identity.IsAuthenticated)
             {
                 var currentUser = _userService.GetCurrent();
 
@@ -238,6 +242,7 @@ namespace Net14.Web.Controllers
 
                 model.IsRequested = currentUser.FriendRequestSent.Any(x => x.Receiver.Id == userId) ? true : false;
                 model.IsFriend = currentUser.Friends.Any(x => x.Id == user.Id) ? true : false;
+                
             }
 
 
@@ -256,6 +261,7 @@ namespace Net14.Web.Controllers
             var model = _mapper.Map<SocialProfileViewModel>(currentUser);
             postUser.ForEach(x =>
             {
+                x.IsByCurrentUser = true;
                 if (dbUsersPosts.Single(dbPost => dbPost.Id == x.Id).Likes.Any(like => like.User.Id == currentUser.Id))
                 {
                     x.IsLikedCurrentUser = true;
@@ -266,7 +272,7 @@ namespace Net14.Web.Controllers
             model.UserFriendsCount = currentUser.Friends.Count;
             model.UserGroupsCount = currentUser.Groups.Count;
             model.UserPhotos = _mapper.Map<List<SocialPhotoViewModel>>(currentUser.Photos);
-           
+
 
 
             return View(model);
@@ -287,7 +293,7 @@ namespace Net14.Web.Controllers
 
         [Authorize]
         [HasRole(SiteRole.Admin)]
-        public IActionResult GetAPIs() 
+        public IActionResult GetAPIs()
         {
             var typeWithAttributes = typeof(SocialAPIAttribute);
             var apis = Assembly
@@ -317,7 +323,7 @@ namespace Net14.Web.Controllers
             var currentUser = _userService.GetCurrent();
             currentUser.Language = Language.Eng;
             _socialUserRepository.Save(currentUser);
-            
+
             return RedirectToAction("Index");
         }
         public IActionResult ChangeLanguageToRussian()

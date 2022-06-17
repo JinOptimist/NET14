@@ -15,7 +15,7 @@
         $("#zatemnenie").fadeOut(200);
     });
 
-    $(".add-to-friends-profile").click(function () {
+    $(".add-to-friends-profile:not(.delete)").click(function () {
 
         let button = $(this);
         let id = String($(this).closest(".profile-wrapper").data("id"));
@@ -82,6 +82,17 @@
 
     $(".close-pop-photo").click(function () {
         $(".watch-photo").fadeToggle();
+    });
+
+    $(".add-to-friends-profile.delete").click(function () {
+        let userId = $(this).closest(".profile-wrapper").data("id");
+        let buttonClicked = $(this);
+        $.get("/api/Social/DeleteFriend", { friendId: userId })
+            .done(function ()
+            {
+                let buttonToReplace = $(".add-to-friends-profile.template");
+                buttonClicked.replaceWith(buttonToReplace.removeClass("template"));
+            });
     });
 });
 

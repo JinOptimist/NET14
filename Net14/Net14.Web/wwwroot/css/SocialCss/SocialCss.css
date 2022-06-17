@@ -103,7 +103,7 @@ body {
 .user-info {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     height: 65px;
     width: 510px;
     padding: 15px 20px 0;
@@ -752,3 +752,59 @@ input.comm:not(.active) {
 .operations.like.template {
     display: none;
 }
+
+.more-and-user {
+    display: flex;
+    align-items: center;
+}
+.more-button-container {
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+    padding: 7px;
+    border-radius: 50%;
+}
+
+    .more-button-container:hover {
+        background: rgba(122,122,122,0.1);
+    }
+.more-button-container img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.more-div {
+    display: none;
+    width: 149px;
+    height: 60px;
+    position: relative;
+    left: 180px;
+    top: 45px;
+    border: 1px grey solid;
+    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
+    background: white;
+    border-radius: 10px;
+}
+
+.delete-post {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .delete-post:hover {
+        background: rgba(122,122,122,0.1);
+    }
+
+
+.complane {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    .complane:hover {
+        background: rgba(122,122,122,0.1);
+    }
+
