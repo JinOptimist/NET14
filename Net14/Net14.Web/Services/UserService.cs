@@ -95,5 +95,28 @@ namespace Net14.Web.Services
 
             return recievedRequests.Count() + sentRequests.Count();
         }
+
+        public bool MakeUserOnline() 
+        {
+            var currentUser = GetCurrent();
+            if (currentUser == null) 
+            {
+                return false;
+            }
+            _socialUserRepository.MakeUserOnline(currentUser);
+            return true;
+            
+        }
+
+        public bool MakeUserNotOnline() 
+        {
+            var currentUser = GetCurrent();
+            if (currentUser == null) 
+            {
+                return false;
+            }
+            _socialUserRepository.MakeUserNotOnline(currentUser);
+            return true;
+        }
     }
 }

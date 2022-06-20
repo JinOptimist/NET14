@@ -22,6 +22,7 @@ namespace Net14.Web.Models
         public bool IsBlocked { get; set; } = false;
         public bool IsRequested { get; set; } = false;
         public string Role { get; set; }
+        public bool IsOnline { get; set; }
     }
 }
 
