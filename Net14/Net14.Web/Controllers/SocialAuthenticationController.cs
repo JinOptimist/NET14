@@ -13,6 +13,11 @@ using AutoMapper;
 using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using Microsoft.AspNetCore.SignalR;
 using Net14.Web.SignalRHubs;
+using Microsoft.IdentityModel.Tokens;
+using Net14.Web.Auth;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Logging;
+using System.Text;
 
 namespace Net14.Web.Controllers
 {
@@ -133,6 +138,54 @@ namespace Net14.Web.Controllers
         {
             await HttpContext.SignOutAsync();
             return RedirectToRoute("default", new { controller = "Social", action = "Index" });
+        }
+
+        [HttpPost("/token")]
+        public IActionResult Token([FromBody] SocialUserAutorizationViewModel model)
+        {
+            var identity = GetIdentity(model.Email, model.Password);
+            if (identity == null)
+            {
+                return BadRequest(new { errorText = "Invalid username or password." });
+            }
+
+            var now = DateTime.UtcNow;
+            // создаем JWT-токен
+            var jwt = new JwtSecurityToken(
+                    issuer: AuthOptions.ISSUER,
+                    audience: AuthOptions.AUDIENCE,
+                    notBefore: now,
+                    claims: identity.Claims,
+                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+            var response = new
+            {
+                access_token = encodedJwt,
+                username = identity.Name
+            };
+
+            return Json(response);
+        }
+
+        private ClaimsIdentity GetIdentity(string email, string password)
+        {
+            UserSocial person = _socialUserRepository.GetByEmAndPass(email, password);
+            if (person != null)
+            {
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, person.Id.ToString())
+                };
+                ClaimsIdentity claimsIdentity =
+                new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
+                    "Id");
+                return claimsIdentity;
+            }
+
+            // если пользователя не найдено
+            return null;
         }
     }
 }

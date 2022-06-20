@@ -1,0 +1,15 @@
+<div class="login-inputs">
+  <div class="example-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your email</mat-label>
+      <input [(ngModel)]="user.Email" matInput placeholder="pat@example.com" required  >
+    </mat-form-field>
+  </div>
+  <div class="example-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your password</mat-label>
+      <input [(ngModel)]="user.Password" matInput required  >
+    </mat-form-field>
+  </div>
+  <button mat-raised-button color="primary" (click)="login()">Auth</button>
+</div>

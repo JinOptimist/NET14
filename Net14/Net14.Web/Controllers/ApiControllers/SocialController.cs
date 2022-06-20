@@ -14,6 +14,10 @@ using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using Net14.Web.Controllers.AutorizeAttribute;
 using Net14.Web.Models.SocialModels.Attributes;
 using System.Reflection;
+using System.IdentityModel.Tokens.Jwt;
+using Net14.Web.Auth;
+using Microsoft.IdentityModel.Tokens;
+using System.Net;
 
 namespace Net14.Web.Controllers.ApiControllers
 {
@@ -226,7 +230,7 @@ namespace Net14.Web.Controllers.ApiControllers
             return _mapper.Map<List<SocialUserViewModel>>(_socialUserRepository.FindUserbyName(name.ToLower()));
 
         }
-
+    
         public List<SocialAPIViewModel> GetAPIs()
         {
             var typeWithAttributes = typeof(SocialAPIAttribute);

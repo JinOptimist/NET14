@@ -19,6 +19,10 @@ using Net14.Web.Models.SocialModels.Attributes;
 using System.Reflection;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using System.IdentityModel.Tokens.Jwt;
+using Net14.Web.Auth;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace Net14.Web.Controllers
 {
@@ -314,5 +318,6 @@ namespace Net14.Web.Controllers
 
             return RedirectToAction("Index");
         }
+
     }
 }

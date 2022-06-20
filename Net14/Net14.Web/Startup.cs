@@ -24,12 +24,16 @@ using Net14.Web.Localize;
 using Microsoft.AspNetCore.SignalR;
 using Net14.Web.EfStuff.DbModel.GuessAppDbModels;
 using Net14.Web.Models.GuessArtModels;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Net14.Web.Auth;
 
 namespace Net14.Web
 {
     public class Startup
     {
         public const string AuthName = "SmileCoockie";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -50,6 +54,31 @@ namespace Net14.Web
                      config.AccessDeniedPath = "/SocialAuthentication/AccessDenied";
                      config.Cookie.Name = "SocialMedeiCool";
                  });
+
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer(options =>
+                {
+
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        // строка, представляющая издателя
+                        ValidIssuer = AuthOptions.ISSUER,
+
+                        // будет ли валидироваться потребитель токена
+                        ValidateAudience = true,
+                        // установка потребителя токена
+                        ValidAudience = AuthOptions.AUDIENCE,
+                        // будет ли валидироваться время существования
+                        ValidateLifetime = true,
+
+                        // установка ключа безопасности
+                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                        // валидация ключа безопасности
+                        ValidateIssuerSigningKey = true,
+                    };
+                });
 
             RegisterMapper(services);
 
@@ -256,11 +285,12 @@ namespace Net14.Web
 
             app.UseRouting();
 
-            app.UseCors(builder => builder
-               .WithOrigins("http://localhost:4200")
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials());
+            app.UseCors(option =>
+            {
+                option.AllowAnyOrigin();
+                option.AllowAnyHeader();
+                option.AllowAnyMethod();
+            });
 
             //Who I am
             app.UseAuthentication();

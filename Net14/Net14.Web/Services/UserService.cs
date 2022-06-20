@@ -10,6 +10,8 @@ using Net14.Web.Models;
 using AutoMapper;
 using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using Net14.Web.EfStuff.DbModel;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Net14.Web.Services
 {
@@ -43,7 +45,15 @@ namespace Net14.Web.Services
                 ?.Value;
             if (idsStr == null)
             {
-                return null;
+
+                var userId = _httpContextAccessor.HttpContext.User.Identity.Name;
+                if (userId == null)
+                {
+                    return null;
+                }
+                var idApi = int.Parse(userId);
+                var userJwt = _socialUserRepository.Get(idApi);
+                return userJwt;
             }
 
             var id = int.Parse(idsStr);
