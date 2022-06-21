@@ -46,7 +46,7 @@ namespace Net14.Web.Services
             if (idsStr == null)
             {
 
-                var userId = _httpContextAccessor.HttpContext.User.Identity.Name;
+                var userId = _httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "token")?.Value;
                 if (userId == null)
                 {
                     return null;

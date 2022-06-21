@@ -1,7 +1,7 @@
 import { UserService } from './../../services/user.service';
 import { IRoom } from 'src/models/IRoom';
 import { Component, OnInit, AfterViewInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RoomService } from 'src/services/room.service';
 import { CommonModule } from '@angular/common';  
 import { BrowserModule } from '@angular/platform-browser';
@@ -21,7 +21,8 @@ export class RoomDetailComponent implements OnInit{
 
   constructor(private _activeRoute: ActivatedRoute,
     private _roomService: RoomService,
-    private _userService: UserService) { }
+    private _userService: UserService,
+    private router: Router) { }
 
 
   ngOnInit(): void {
@@ -54,7 +55,19 @@ export class RoomDetailComponent implements OnInit{
       this.hubConnection.on('UserJoin', (userName: string, userId: number) => {
         this._userService.getUser(userId)
         .subscribe(user => this.room.members.push(user));
+      });
+      this.hubConnection.on('UserLeave', (userId: number) => {
+        this.room.members = this.room.members.filter(user => user.id != userId);
       })
+  }
+
+  leaveRoom(){
+    this._roomService.leaveRoom(this.room.id)
+    .subscribe(responce => {
+        if(responce){
+          this.router.navigate(['rooms']);
+        }
+    });
   }
 
 }

@@ -13,9 +13,13 @@ namespace Net14.Web.SignalRHubs
     {
         private UserService _userService;
         private RoomRepository _roomRepository;
+        private GuessArtService _guessArtService;
 
-        public GuessArtHub(UserService userService, RoomRepository roomRepository)
+        public GuessArtHub(UserService userService, 
+            RoomRepository roomRepository,
+            GuessArtService guessArtService)
         {
+            _guessArtService = guessArtService;
             _roomRepository = roomRepository;
             _userService = userService;
         }
@@ -32,6 +36,16 @@ namespace Net14.Web.SignalRHubs
 
             Groups.AddToGroupAsync(Context.ConnectionId, groupName);
             Clients.Group(groupName).SendAsync("UserJoin", currentUserName, currentUser.Id);
+        }
+
+        public void UserLeave(int roomId) 
+        {
+            var groupName = roomId.ToString();
+            var currentUser = _userService.GetCurrent();
+
+            Groups.RemoveFromGroupAsync(currentUser.Id.ToString(), groupName);
+
+            Clients.Groups(groupName).SendAsync("UserLeave", currentUser.Id);
         }
     }
 }

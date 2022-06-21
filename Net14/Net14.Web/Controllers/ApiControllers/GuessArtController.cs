@@ -12,6 +12,8 @@ using AutoMapper;
 using Net14.Web.EfStuff.DbModel.GuessAppDbModels.Enums;
 using Net14.Web.EfStuff.Repositories;
 using Net14.Web.Services;
+using Net14.Web.SignalRHubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Net14.Web.Controllers.ApiControllers
 {
@@ -22,10 +24,13 @@ namespace Net14.Web.Controllers.ApiControllers
         RoomRepository _roomRepository;
         IMapper _mapper;
         UserService _userService;
+        private IHubContext<GuessArtHub> _guessArtHub;
         public GuessArtController(RoomRepository roomRepository,
             IMapper mapper,
-            UserService userService) 
+            UserService userService,
+            IHubContext<GuessArtHub> hubContext) 
         {
+            _guessArtHub = hubContext;
             _userService = userService;
             _mapper = mapper;
             _roomRepository = roomRepository;
@@ -70,6 +75,7 @@ namespace Net14.Web.Controllers.ApiControllers
 
             if (_roomRepository.LeaveGroup(currentUser, room)) 
             {
+                _guessArtHub.Clients.Group(roomId.ToString()).SendAsync("UserLeave", currentUser.Id);
                 return true;
             }
 

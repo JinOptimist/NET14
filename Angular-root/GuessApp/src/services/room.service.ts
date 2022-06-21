@@ -19,4 +19,8 @@ export class RoomService {
   getRoom(id: number) : Observable<IRoom>{
     return this._http.get<IRoom>(this.apiUrl + `/GuessArt/GetSingleRoom?id=${id}`);
   }
+  
+  leaveRoom(id: number) : Observable<Boolean>{
+    return this._http.get<Boolean>(this.apiUrl + `/GuessArt/LeaveRoom?roomId=${id}`);
+  }
 }

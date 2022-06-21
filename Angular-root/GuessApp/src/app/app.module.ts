@@ -1,3 +1,4 @@
+import { AuthInterceptor } from './../services/auth.interceptor';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -7,7 +8,7 @@ import { HeaderComponent } from './header/header.component';
 import { ContentComponent } from './content/content.component';
 import { RoomsComponent } from './rooms/rooms.component';
 import { SingleRoomComponent } from './single-room/single-room.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DetailMembersComponent } from './detail-members/detail-members.component';
 import { RoomDetailComponent } from './room-detail/room-detail.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -43,7 +44,7 @@ import {MatButtonModule} from '@angular/material/button';
     FormsModule,
     MatButtonModule
   ],
-  providers: [],
+  providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
