@@ -47,5 +47,14 @@ namespace Net14.Web.EfStuff.Repositories
 
             return true;
         }
+
+        public List<PostSocial> GetPostsWithComplains()
+        {
+            var posts = _webContext.Posts
+                .Where(post => post.Complains.Any())
+                .OrderBy(post => post.Complains.Count).ToList();
+
+            return posts;
+        }
     }
 }

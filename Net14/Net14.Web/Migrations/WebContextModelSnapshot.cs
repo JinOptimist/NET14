@@ -215,6 +215,34 @@ namespace Net14.Web.Migrations
                     b.ToTable("Sizes");
                 });
 
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.ComplainsSocial", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsChecked")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("OwnerOfComplainId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReasonOfComplain")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerOfComplainId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("ComplainsSocial");
+                });
+
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.FileSocial", b =>
                 {
                     b.Property<int>("Id")
@@ -678,6 +706,22 @@ namespace Net14.Web.Migrations
                     b.Navigation("Image");
                 });
 
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.ComplainsSocial", b =>
+                {
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "OwnerOfComplain")
+                        .WithMany()
+                        .HasForeignKey("OwnerOfComplainId");
+
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", "Post")
+                        .WithMany("Complains")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("OwnerOfComplain");
+
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.FileSocial", b =>
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "Owner")
@@ -858,6 +902,8 @@ namespace Net14.Web.Migrations
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Complains");
 
                     b.Navigation("Likes");
                 });

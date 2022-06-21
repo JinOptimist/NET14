@@ -226,6 +226,14 @@ namespace Net14.Web
                     product => product
                         .MapFrom(dbProduct => dbProduct.StoreImages.Select(image => image.Url).ToList()));
 
+            provider.CreateMap<ComplainsSocial, ComplainViewModel>()
+                .ForMember(nameof(ComplainViewModel.Post),
+                    post => post
+                        .MapFrom(dbpost => dbpost.Post.Id))
+                .ForMember(nameof(ComplainViewModel.OwnerOfComplain),
+                    post => post
+                        .MapFrom(dbpost => dbpost.OwnerOfComplain.Id));
+
 
 
             var mapperConfiguration = new MapperConfiguration(provider);

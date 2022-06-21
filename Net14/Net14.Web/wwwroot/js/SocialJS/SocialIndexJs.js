@@ -143,5 +143,24 @@
             })
     })
 
+
+    $(".complane").click(function () {
+
+        let Post = $(this).closest(".content-element").data("id");
+        let data = {
+            Post: Post
+        };
+
+        jQuery.ajax({
+            url: "/api/Social/MakeAComplain",
+            type: "POST",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+        }).done(function () {
+            alert("done");
+        });
+    })
+
 })
 

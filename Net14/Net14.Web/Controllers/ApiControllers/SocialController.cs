@@ -30,10 +30,12 @@ namespace Net14.Web.Controllers.ApiControllers
         private FriendRequestService _friendRequestService;
         private SocialUserRepository _socialUserRepository;
         private SocialPhotosRepository _socialPhotosRepository;
+        private ComplainsSocialRepository _complainsSocialRepository;
         public SocialController(UserService userService,
             SocialPostRepository socialPostRepository, SocialCommentRepository socialCommentRepository,
             IMapper mapper, UserFriendRequestRepository userFriendRequestRepository, FriendRequestService friendRequestService,
-            SocialUserRepository socialUserRepository, SocialPhotosRepository socialPhotosRepository)
+            SocialUserRepository socialUserRepository, SocialPhotosRepository socialPhotosRepository,
+            ComplainsSocialRepository complainsSocialRepository)
         {
             _socialPhotosRepository = socialPhotosRepository;
             _userService = userService;
@@ -43,6 +45,7 @@ namespace Net14.Web.Controllers.ApiControllers
             _userFriendRequestRepository = userFriendRequestRepository;
             _friendRequestService = friendRequestService;
             _socialUserRepository = socialUserRepository;
+            _complainsSocialRepository = complainsSocialRepository;
 
         }
 
@@ -293,6 +296,26 @@ namespace Net14.Web.Controllers.ApiControllers
 
             return true;
         }
+
+        [HttpPost]
+        public bool MakeAComplain([FromBody]ComplainViewModel complainViewModel) 
+        {
+            var currentUser = _userService.GetCurrent();
+            var post = _socialPostRepository.Get(complainViewModel.Post);
+
+            var complain = new ComplainsSocial()
+            {
+                OwnerOfComplain = currentUser,
+                Post = post,
+                ReasonOfComplain = complainViewModel.ReasonOfComplain
+            };
+
+            _complainsSocialRepository.Save(complain);
+
+            return true;
+        }
+
+
 
     }
 }
