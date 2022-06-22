@@ -1,11 +1,39 @@
-﻿@model SocialProfileViewModel
+﻿@using Net14.Web.Localize.Social
+@model SocialProfileViewModel
 
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 <link rel="stylesheet" href="~/css/SocialCss/ShowPagesProfile.css">
+<link rel="stylesheet" href="/css/SocialCss/AddPost.css">
+<link rel="stylesheet" href="/lib/slick-1.8.1/slick/slick.css">
+<link rel="stylesheet" href="~/lib/slick-1.8.1/slick/slick-theme.css">
 
-<div class="profile-wrapper">
+@section Scripts{
+    <script src="~/js/SocialJS/SocialIndexJs.js"></script>
+    <script src="~/js/SocialJS/SocialProfileJs.js"></script>
+    <script src="~/lib/slick-1.8.1/slick/slick.min.js"></script>
+
+}
+<div class="watch-photo" >
+    <div class="okno-photo">
+        <div class="pop-header-photo">
+            <div>
+                <img class="close-pop-photo" src="~/images/Social/free-icon-cancel-130887.png">
+            </div>
+        </div>
+        <div class="pop-wrapper-photo">
+
+            <div>
+                <div class="photo-container-modal">
+                    <img class="album-img" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="profile-wrapper" data-id=@Model.Id>
     <div class="user-info-prof">
         <div class="profile-user-photo">
             <img src=@Model.UserPhoto>
@@ -14,9 +42,6 @@
             <div class="name-and-status">
                 <div class="user-name">
                     @Model.FirstName @Model.LastName
-                    <div class="user-settings" onclick="location.href='/Social/Settings'">
-                        <img src="~/images/Social/pencil-svgrepo-com.svg" class="settings-profile-icon">
-                    </div>
                 </div>
                 <input type="text" class="profile-status" placeholder="Status">
             </div>
@@ -32,23 +57,53 @@
             <div class="age-of-user">@Model.Age age</div>
         </div>
         <div class="buttons">
+
         </div>
     </div>
+    <div class="photo-album">
+        <div class="album-header">
+            My photos @Model.UserPhotos.Count
+        </div>
+        <div class="photo-container">
+            @foreach (var photo in Model.UserPhotos)
+            {
+                <div>
+                    <div class="album-photo" data-id=@photo.Id>
+                        <img src=@photo.Url class="photo">
+                    </div>
+                </div>
 
+            }
+        </div>
+    </div>
 </div>
+
 
 
 @foreach (SocialPostViewModel post in Model.UserPost)
 {
-    <div class="content-element">
-        <div class="content-element-card" id=@post.Id>
+    <a name="@post.Id" class="anchor"></a>
+
+    <div class="content-element" data-id=@post.Id>
+        <div class="content-element-card">
             <div class="user-info">
-                <div class="user-photo">
-                    <img src=@post.UserPhoto class="user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">
+                <div class="more-and-user">
+                    <div class="user-photo">
+                        <img src=@post.UserPhoto class="user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">
+                    </div>
+                    <div class="user-name">
+                        <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@string.Format(@Indexx.Posted, post.UserName)</p>
+                    </div>
                 </div>
-                <div class="user-name">
-                    <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@post.UserName</p>
-                    <p>posted:</p>
+                <div class="more-div">
+                    @if (post.IsByCurrentUser)
+                    {
+                        <div class="delete-post">Delete post</div>
+                    }
+                    <div class="complane">Complane</div>
+                </div>
+                <div class="more-button-container">
+                    <img src="~/images/Social/more.png" class="more-button-icon">
                 </div>
             </div>
             <div class="block-post-image">
@@ -58,41 +113,61 @@
                 @post.CommentOfUser
             </div>
             <div class="post-operations">
-                <div class="operations" id="heart">
-                    <img src="~/images/Social/heart.png">
+                <div class="like-container">
+                    @if (post.IsLikedCurrentUser)
+                    {
+                        <div class="operations like active">
+                            <img src="~/images/Social/heartRed.png">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="operations like" id="disable">
+                            <img src="~/images/Social/heart.png">
+                        </div>
+                    }
+                    <div class="likes-count">@post.Likes</div>
                 </div>
-                <div class="operations" id="comment">
-                    <img src="~/images/Social/speech-bubble.png">
+                <div class="comm-container">
+                    <div class="operations comment">
+                        <img src="~/images/Social/speech-bubble.png">
+                    </div>
+                    <div class="comm-count">@post.Comments.Count</div>
                 </div>
-                <div class="operations">
+                <div class="operations share">
                     <img src="~/images/Social/share (1).png">
                 </div>
             </div>
             <div class="comments">
                 <div class="comments-elements-container">
-                    <div class="comment-header">Comments</div>
+                    <div class="comment-header">@Indexx.Comments</div>
                     <div class="comment-elements">
-                        @foreach (var comm in post.Comments)
-                        {
-                            <div class="single-comment">
-                                <div class="comment-owner-info">
-                                    <img src=@comm.User.UserPhoto class="user-photo" id="comment-photo">
-                                    <div>@comm.User.FirstName @comm.User.LastName</div>
-                                </div>
-                                <div>
-                                    @comm.Text
-                                </div>
+                        <div class="single-comment template">
+                            <div class="comment-owner-info">
+                                <img class="user-photo" id="comment-photo">
+                                <div class="user-name-comment"></div>
                             </div>
-                        }
+                            <div class="comment-text">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <form class="input-container" asp-action="AddComment" asp-controller="Social">
+                <form class="input-container">
                     <input name="postId" type="hidden" value="@post.Id" />
-                    <input type="text" class="to-comment" name="text" placeholder="Add comment" />
-                    <input type="submit" value="send" class="comm">
+                    <input type="text" class="to-comment" name="text" placeholder="@Indexx.Add_comment" />
+                    <input type="submit" value="@Indexx.Send" class="comm">
                 </form>
             </div>
-            <div class="time-of-posting">Posted @DateTime.Now.ToLocalTime()</div>
         </div>
     </div>
+
 }
+
+
+<div class="operations like active template">
+    <img src="~/images/Social/heartRed.png">
+</div>
+
+<div class="operations like template" id="disable">
+    <img src="~/images/Social/heart.png">
+</div>

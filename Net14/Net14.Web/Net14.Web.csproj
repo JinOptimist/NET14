@@ -13,7 +13,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\lib\slick-1.8.1\.gitignore" />
+    <None Include="wwwroot\lib\slick-1.8.1\CONTRIBUTING.markdown" />
+    <None Include="wwwroot\lib\slick-1.8.1\ISSUE_TEMPLATE.md" />
+    <None Include="wwwroot\lib\slick-1.8.1\LICENSE" />
+    <None Include="wwwroot\lib\slick-1.8.1\Makefile" />
+    <None Include="wwwroot\lib\slick-1.8.1\README.markdown" />
+    <None Include="wwwroot\lib\slick-1.8.1\slick\config.rb" />
+    <None Include="wwwroot\lib\slick-1.8.1\slick\fonts\slick.svg" />
+    <None Include="wwwroot\lib\slick-1.8.1\slick\slick-theme.less" />
+    <None Include="wwwroot\lib\slick-1.8.1\slick\slick-theme.scss" />
+    <None Include="wwwroot\lib\slick-1.8.1\slick\slick.js" />
+    <None Include="wwwroot\lib\slick-1.8.1\slick\slick.less" />
+    <None Include="wwwroot\lib\slick-1.8.1\slick\slick.min.js" />
+    <None Include="wwwroot\lib\slick-1.8.1\slick\slick.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="bootstrap" Version="5.1.3" />
     <PackageReference Include="Google.Apis" Version="1.57.0" />
     <PackageReference Include="Google.Apis.YouTube.v3" Version="1.56.0.2630" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.10" />
@@ -42,10 +60,25 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Localize\Social\Friends.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Friends.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localize\Social\GetVideos.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>GetVideos.resx</DependentUpon>
+    </Compile>
     <Compile Update="Localize\Social\Groups.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Groups.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localize\Social\LayoutSocial.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LayoutSocial.resx</DependentUpon>
     </Compile>
     <Compile Update="Localize\Social\Messages.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -71,9 +104,33 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Social\Friends.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Social\Friends.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Friends.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Social\GetVideos.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Social\GetVideos.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetVideos.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Localize\Social\Groups.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Groups.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Social\Indexx.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Social\LayoutSocial.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Social\LayoutSocial.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LayoutSocial.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Social\Messages.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

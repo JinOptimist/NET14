@@ -1,6 +1,7 @@
 ﻿using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using TeamSocial;
@@ -14,14 +15,19 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public int Age { get; set; }
         public string Password { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
+        public int Age { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime BirthDate { get; set; }
         public bool IsBlocked { get; set; }
         public SiteRole Role { get; set; }
         public Language Language { get; set; }
+        public bool IsOnline { get; set; }
         public virtual List<FileSocial> Files { get; set; }
+        public virtual List<SocialPhoto> Photos { get; set; } = new List<SocialPhoto>(); 
         public virtual List<PostSocial> Posts { get; set; }
         public virtual List<GroupSocial> Groups { get; set; }
         public virtual List<UserSocial> Friends { get; set; } = new List<UserSocial>();

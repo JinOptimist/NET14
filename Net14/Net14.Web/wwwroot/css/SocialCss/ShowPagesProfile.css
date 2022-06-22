@@ -128,7 +128,6 @@
 }
 
 .profile-wrapper {
-    border-bottom: 2px solid grey;
     margin-bottom: 50px;
 }
 
@@ -143,12 +142,14 @@
 }
 
 .user-name {
-    font-size: 20px;
+    font-size: 17px;
 }
 
 .profile-user-info-and-buttons {
     display: flex;
     justify-content: space-between;
+    border-bottom: 2px solid grey;
+    margin-bottom: 20px;
 }
 
 .buttons {
@@ -190,15 +191,21 @@
         color: white;
     }
 
-#zatemnenie {
-    display: none;
-    background: rgba(102, 102, 102, 0.5);
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-}
+
+    .add-to-friends-profile.delete:hover {
+        color: white;
+        background: rgb(255, 40, 40);
+    }
+    #zatemnenie {
+        background: rgba(102, 102, 102, 0.5);
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: none;
+        z-index: 1000;
+    }
 
 #okno {
     width: 500px;
@@ -326,4 +333,101 @@
     margin-bottom: 5px;
     width: 120px;
     height: 30px;
+}
+
+
+.photo-album {
+    background-color: white;
+    box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
+    border-radius: 10px;
+    width: 100%;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.album-photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid grey;
+    border-radius: 5px;
+    height: 155px;
+}
+
+    .photo-album img {
+        max-height: 100px;
+        max-width: 100px;
+    }
+
+.photo-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.album-header {
+    width: 100%;
+    padding-left: 30px;
+    margin-bottom: 15px;
+}
+
+.watch-photo {
+    background: rgba(102, 102, 102, 0.5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 1000;
+}
+
+.okno-photo {
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    width: 500px;
+    height: 500px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid black;
+    color: #0000cc;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    background: #fff;
+    flex-direction: column;
+}
+
+.watch-photo:target {
+    display: block;
+}
+
+.album-img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.close-pop-photo {
+    width: 20px;
+    height: 20px;
+}
+
+.pop-header-photo {
+    height: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.pop-wrapper-photo {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.add-to-friends-profile.template {
+    display: none;
 }

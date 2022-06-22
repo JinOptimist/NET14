@@ -13,6 +13,7 @@ using Net14.Web.Models;
 using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using Net14.Web.Controllers.AutorizeAttribute;
 using Net14.Web.Models.SocialModels.Attributes;
+using System.Reflection;
 
 namespace Net14.Web.Controllers.ApiControllers
 {
@@ -28,11 +29,13 @@ namespace Net14.Web.Controllers.ApiControllers
         private UserFriendRequestRepository _userFriendRequestRepository;
         private FriendRequestService _friendRequestService;
         private SocialUserRepository _socialUserRepository;
+        private SocialPhotosRepository _socialPhotosRepository;
         public SocialController(UserService userService,
             SocialPostRepository socialPostRepository, SocialCommentRepository socialCommentRepository,
             IMapper mapper, UserFriendRequestRepository userFriendRequestRepository, FriendRequestService friendRequestService,
-            SocialUserRepository socialUserRepository)
+            SocialUserRepository socialUserRepository, SocialPhotosRepository socialPhotosRepository)
         {
+            _socialPhotosRepository = socialPhotosRepository;
             _userService = userService;
             _socialPostRepository = socialPostRepository;
             _socialCommentRepository = socialCommentRepository;
@@ -167,11 +170,20 @@ namespace Net14.Web.Controllers.ApiControllers
             user.IsBlocked = true;
             _socialUserRepository.Save(user);
         }
-        [HttpPost]
+        [HttpGet]
         public bool BlockUserApi(int id)
         {
             var user = _socialUserRepository.Get(id);
             user.IsBlocked = true;
+            _socialUserRepository.Save(user);
+            return true;
+        }
+
+        [HttpGet]
+        public bool UnblockUserApi(int id)
+        {
+            var user = _socialUserRepository.Get(id);
+            user.IsBlocked = false;
             _socialUserRepository.Save(user);
             return true;
         }
@@ -197,6 +209,90 @@ namespace Net14.Web.Controllers.ApiControllers
         [HttpGet("{id}")]
         public SocialUserViewModel GetUser(int id)
             => _mapper.Map<SocialUserViewModel>(_socialUserRepository.Get(id));
+
+        [HttpGet]
+        public bool ChangeRole(int id, SiteRole role)
+        {
+            var user = _socialUserRepository.Get(id);
+            if (user == null)
+            {
+                return false;
+            }
+            _socialUserRepository.ManageRole(id, role);
+            return true;
+        }
+
+        [HttpGet]
+        public List<SocialUserViewModel> FindUserByName(string name)
+        {
+            return _mapper.Map<List<SocialUserViewModel>>(_socialUserRepository.FindUserbyName(name.ToLower()));
+
+        }
+
+        public List<SocialAPIViewModel> GetAPIs()
+        {
+            var typeWithAttributes = typeof(SocialAPIAttribute);
+            var apis = Assembly
+                .GetAssembly(typeWithAttributes)
+                .GetTypes()
+                .Where(type => type.CustomAttributes.Any(attribute => attribute.AttributeType == typeWithAttributes))
+                .Select(x => new SocialAPIViewModel()
+                {
+                    Name = x.Name,
+                    Methods = x.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
+                    .Select(method => new SocialAPIMethodViewModel()
+                    {
+                        Name = method.Name,
+                        Parametres = method.GetParameters().Select(par => new SocialParameterViewModel()
+                        {
+                            Name = par.Name,
+                            Type = par.ParameterType.Name
+
+                        }).ToList()
+                    })
+                }).ToList();
+
+            return apis;
+        }
+
+        public SocialPhotoViewModel GetPhoto(int photoId)
+        {
+            var photo = _socialPhotosRepository.Get(photoId);
+
+            var model = _mapper.Map<SocialPhotoViewModel>(photo);
+
+            return model;
+
+        }
+
+        [HttpGet]
+        public List<SocialPhotoViewModel> GetUsersPhoto(int userId)
+        {
+            var user = _socialUserRepository.Get(userId);
+            var photos = _mapper.Map<List<SocialPhotoViewModel>>(user.Photos);
+
+            return photos;
+        }
+
+        [HttpGet]
+        public bool DeletePost(int postId)
+        {
+            var post = _socialPostRepository.Get(postId);
+            _socialPostRepository.Remove(post);
+
+            return true;
+
+        }
+
+        [HttpGet]
+        public bool DeleteFriend(int friendId) 
+        {
+            var currentUser = _userService.GetCurrent();
+            var friendToDelete = currentUser.Friends.SingleOrDefault(friend => friend.Id == friendId);
+            _socialUserRepository.DeleteFriend(currentUser, friendToDelete);
+
+            return true;
+        }
 
     }
 }

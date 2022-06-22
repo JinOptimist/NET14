@@ -447,6 +447,26 @@ namespace Net14.Web.Migrations
                     b.ToTable("SocialMessages");
                 });
 
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.SocialPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("OwnerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("SocialPhotos");
+                });
+
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserFriendRequest", b =>
                 {
                     b.Property<int>("Id")
@@ -488,6 +508,9 @@ namespace Net14.Web.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
@@ -501,6 +524,9 @@ namespace Net14.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsBlocked")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsOnline")
                         .HasColumnType("bit");
 
                     b.Property<int>("Language")
@@ -696,7 +722,8 @@ namespace Net14.Web.Migrations
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", "Post")
                         .WithMany("Comments")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "User")
                         .WithMany()
@@ -711,7 +738,8 @@ namespace Net14.Web.Migrations
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", "Post")
                         .WithMany("Likes")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "User")
                         .WithMany()
@@ -735,6 +763,15 @@ namespace Net14.Web.Migrations
                     b.Navigation("Reciever");
 
                     b.Navigation("Sender");
+                });
+
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.SocialPhoto", b =>
+                {
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "Owner")
+                        .WithMany("Photos")
+                        .HasForeignKey("OwnerId");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserFriendRequest", b =>
@@ -834,6 +871,8 @@ namespace Net14.Web.Migrations
                     b.Navigation("FriendRequestReceived");
 
                     b.Navigation("FriendRequestSent");
+
+                    b.Navigation("Photos");
 
                     b.Navigation("Posts");
 

@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.SignalR;
 using Net14.Web.SignalRHubs;
 using Net14.Web.Models.SocialModels.Attributes;
 using System.Reflection;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Net14.Web.Controllers
 {
@@ -28,35 +30,48 @@ namespace Net14.Web.Controllers
         private UserService _userService;
         private IMapper _mapper;
         private RecomendationsService _recomendationsService;
+        private IWebHostEnvironment _webHostEnvironment;
+
 
         public SocialController(SocialUserRepository socialUserRepository,
             SocialPostRepository socialPostRepository,
             UserService userService, IMapper mapper,
-            RecomendationsService recomendationsService)
+            RecomendationsService recomendationsService,
+            IWebHostEnvironment webHostEnvironment
+            )
         {
             _socialPostRepository = socialPostRepository;
             _socialUserRepository = socialUserRepository;
             _userService = userService;
             _mapper = mapper;
             _recomendationsService = recomendationsService;
+            _webHostEnvironment = webHostEnvironment;
         }
         [HttpGet]
         public IActionResult Index()
         {
-            var postArr = _socialPostRepository.GetAll();
 
             var topThree = _mapper.Map<List<SocialPostViewModel>>(_recomendationsService.GetIndexRecomendations());
-            var viewPost = _mapper.Map<List<SocialPostViewModel>>(postArr);
+            var posts = _socialPostRepository.GetAll()
+                .OrderByDescending(post => post.Likes.Count)
+                .ThenByDescending(post => post.DateOfPosting);
 
-            if (_userService.GetCurrent() != null) 
+            var viewPost = _mapper.Map<List<SocialPostViewModel>>(posts);
+
+
+            if (_userService.GetCurrent() != null)
 
             {
                 var currentUser = _userService.GetCurrent();
                 viewPost.ForEach(x =>
                 {
-                    if (postArr.Single(dbPost => dbPost.Id == x.Id).Likes.Any(like => like.User.Id == currentUser.Id))
+                    if (posts.Single(dbPost => dbPost.Id == x.Id).Likes.Any(like => like.User.Id == currentUser.Id))
                     {
                         x.IsLikedCurrentUser = true;
+                    }
+                    if (x.UserId == currentUser.Id)
+                    {
+                        x.IsByCurrentUser = true;
                     }
                 });
 
@@ -72,16 +87,43 @@ namespace Net14.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(string ImageUrl, string CommentOfUser)
+        public IActionResult Index(SocialAddPostViewModel postViewModel)
         {
             var user = _userService.GetCurrent();
+
             var post = new PostSocial()
             {
-                CommentOfUser = CommentOfUser,
-                ImageUrl = ImageUrl,
-                User = user
+                User = user,
+                CommentOfUser = postViewModel.CommentOfUser,
             };
+
             _socialPostRepository.Save(post);
+
+            var extension = Path.GetExtension(postViewModel.ImageUrl.FileName);
+            var fileName = $"post{post.Id}{extension}";
+            var path = Path.Combine(
+                _webHostEnvironment.WebRootPath,
+                "images",
+                "Social",
+                fileName);
+
+            using (var fs = new FileStream(path, FileMode.CreateNew))
+            {
+                postViewModel.ImageUrl.CopyTo(fs);
+            }
+
+            post.ImageUrl = $"/images/Social/{fileName}";
+
+            _socialPostRepository.Save(post);
+
+            var photo = new SocialPhoto()
+            {
+                Owner = user,
+                Url = post.ImageUrl
+            };
+
+            _socialUserRepository.AddPhoto(photo, user.Id);
+
 
             return Redirect("Index");
         }
@@ -172,15 +214,36 @@ namespace Net14.Web.Controllers
         public IActionResult ShowProfile(int userId)
         {
             var user = _socialUserRepository.Get(userId);
-            var currentUser = _userService.GetCurrent();
+            var dbUsersPosts = user.Posts
+                .OrderByDescending(post => post.Likes.Count)
+                .ThenBy(post => post.DateOfPosting);
 
-            var postUser = _mapper.Map<List<SocialPostViewModel>>(user.Posts);
+            var postUser = _mapper.Map<List<SocialPostViewModel>>(dbUsersPosts);
             var model = _mapper.Map<SocialProfileViewModel>(user);
             model.UserPost = postUser;
             model.UserFriendsCount = user.Friends.Count;
             model.UserGroupsCount = user.Groups.Count;
-            model.IsRequested = currentUser.FriendRequestSent.Any(x => x.Receiver.Id == userId) ? true : false;
-            model.IsFriend = currentUser.Friends.Any(x => x.Id == user.Id) ? true : false;
+            model.UserPhotos = _mapper.Map<List<SocialPhotoViewModel>>(user.Photos);
+
+
+
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentUser = _userService.GetCurrent();
+
+                model.UserPost.ForEach(x =>
+                {
+                    if (dbUsersPosts.Single(dbPost => dbPost.Id == x.Id).Likes.Any(like => like.User.Id == currentUser.Id))
+                    {
+                        x.IsLikedCurrentUser = true;
+                    }
+                });
+
+                model.IsRequested = currentUser.FriendRequestSent.Any(x => x.Receiver.Id == userId) ? true : false;
+                model.IsFriend = currentUser.Friends.Any(x => x.Id == user.Id) ? true : false;
+                
+            }
 
 
             return View(model);
@@ -190,12 +253,27 @@ namespace Net14.Web.Controllers
         public IActionResult MyProfile()
         {
             var currentUser = _userService.GetCurrent();
+            var dbUsersPosts = currentUser.Posts
+                .OrderByDescending(post => post.Likes.Count)
+                .ThenByDescending(post => post.DateOfPosting);
 
             var postUser = _mapper.Map<List<SocialPostViewModel>>(currentUser.Posts);
             var model = _mapper.Map<SocialProfileViewModel>(currentUser);
+            postUser.ForEach(x =>
+            {
+                x.IsByCurrentUser = true;
+                if (dbUsersPosts.Single(dbPost => dbPost.Id == x.Id).Likes.Any(like => like.User.Id == currentUser.Id))
+                {
+                    x.IsLikedCurrentUser = true;
+                }
+            });
+
             model.UserPost = postUser;
             model.UserFriendsCount = currentUser.Friends.Count;
             model.UserGroupsCount = currentUser.Groups.Count;
+            model.UserPhotos = _mapper.Map<List<SocialPhotoViewModel>>(currentUser.Photos);
+
+
 
             return View(model);
         }
@@ -215,7 +293,7 @@ namespace Net14.Web.Controllers
 
         [Authorize]
         [HasRole(SiteRole.Admin)]
-        public IActionResult GetAPIs() 
+        public IActionResult GetAPIs()
         {
             var typeWithAttributes = typeof(SocialAPIAttribute);
             var apis = Assembly
@@ -240,6 +318,21 @@ namespace Net14.Web.Controllers
 
             return View(apis);
         }
-        
+        public IActionResult ChangeLanguageToEnglish()
+        {
+            var currentUser = _userService.GetCurrent();
+            currentUser.Language = Language.Eng;
+            _socialUserRepository.Save(currentUser);
+
+            return RedirectToAction("Index");
+        }
+        public IActionResult ChangeLanguageToRussian()
+        {
+            var currentUser = _userService.GetCurrent();
+            currentUser.Language = Language.Rus;
+            _socialUserRepository.Save(currentUser);
+
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -1,3 +1,5 @@
+import { SiteRole } from "./enums/SiteRole";
+
 export interface IUser{
     id: number,
     firstName: string, 
@@ -6,6 +8,6 @@ export interface IUser{
     country: string,
     city: string
     userPhoto: number;
-    role: string;
+    role: SiteRole;
     isBlocked: boolean;
 }

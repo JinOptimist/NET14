@@ -1,26 +1,27 @@
-﻿@model List<SocialUserViewModel>
+﻿@using Net14.Web.Localize.Social
+@model List<SocialUserViewModel>
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 
 
 <div class="Conteyner">
-    <div class="friends-header">Friends</div>
+    <div class="friends-header">@Friends.MainFriends</div>
     <div class="AllUsersSearchContecher">
         <form action="/Social/ShowAllUsers" method="post" id="form-user">
-            <input placeholder="Search" class="AllUsersSearch" name="FullName">
-            <input type="submit" value="Find" class="find-button">
+            <input placeholder="@Friends.Search" class="AllUsersSearch" name="FullName">
+            <input type="submit" value="@Friends.Find" class="find-button">
         </form>
     </div>
     <div class="filters">
-        <div class="filters-header">Filters</div>
+        <div class="filters-header">@Friends.Filters</div>
         <form action="/Social/ShowAllUsers" method="post" id="form-filter-user">
-            <input name="Age" placeholder="Enter age">
-            <input name="Country" placeholder="Enter country">
-            <input name="City" placeholder="Enter city">
-            <input name="FirstName" placeholder="Enter firstname">
-            <input name="LastName" placeholder="Enter lastname">
-            <input type="submit" value="Find">
+            <input name="Age" placeholder="@Friends.Enter_age">
+            <input name="Country" placeholder="@Friends.Enter_country">
+            <input name="City" placeholder="@Friends.Enter_city">
+            <input name="FirstName" placeholder="@Friends.Enter_firstname">
+            <input name="LastName" placeholder="@Friends.Enter_lastname">
+            <input type="submit" value="@Friends.Find">
         </form>
     </div>
     @foreach (SocialUserViewModel user in Model)
@@ -32,13 +33,17 @@
                     <div class="user-name-and-photo">
                         <div class="find-user-photo">
                             <img src=@user.UserPhoto class="find-user-photo">
+                            @if (user.IsOnline)
+                            {
+                                <span class="user-online-badge"></span>
+                            }
                         </div>
                         <div class="size-for-user text-indent">
                             @user.FirstName @user.LastName
                         </div>
                     </div>
                     <div class="place-of-user">
-                        <div>Age: @user.Age</div>
+                        <div>@Friends.Age: @user.Age</div>
                         <div>@user.Country, @user.City</div>
                     </div>
                 </div>
