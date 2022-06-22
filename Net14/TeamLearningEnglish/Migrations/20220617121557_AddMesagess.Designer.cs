@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamLearningEnglish.EfStuff;
 
 namespace TeamLearningEnglish.Migrations
 {
     [DbContext(typeof(WebDbContext))]
-    partial class WebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220617121557_AddMesagess")]
+    partial class AddMesagess
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,26 +69,6 @@ namespace TeamLearningEnglish.Migrations
                     b.HasIndex("UserDbModelId");
 
                     b.ToTable("User");
-                });
-
-            modelBuilder.Entity("TeamLearningEnglish.EfStuff.DbModels.WordCommentDbModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("WordId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("WordId");
-
-                    b.ToTable("WordComment");
                 });
 
             modelBuilder.Entity("TeamLearningEnglish.EfStuff.DbModels.WordsDbModel", b =>
@@ -178,15 +160,6 @@ namespace TeamLearningEnglish.Migrations
                         .HasForeignKey("UserDbModelId");
                 });
 
-            modelBuilder.Entity("TeamLearningEnglish.EfStuff.DbModels.WordCommentDbModel", b =>
-                {
-                    b.HasOne("TeamLearningEnglish.EfStuff.DbModels.WordsDbModel", "Word")
-                        .WithMany("WordComments")
-                        .HasForeignKey("WordId");
-
-                    b.Navigation("Word");
-                });
-
             modelBuilder.Entity("TeamLearningEnglish.Models.MessageDbModel", b =>
                 {
                     b.HasOne("TeamLearningEnglish.EfStuff.DbModels.UserDbModel", "Receiver")
@@ -205,11 +178,6 @@ namespace TeamLearningEnglish.Migrations
             modelBuilder.Entity("TeamLearningEnglish.EfStuff.DbModels.UserDbModel", b =>
                 {
                     b.Navigation("Mesages");
-                });
-
-            modelBuilder.Entity("TeamLearningEnglish.EfStuff.DbModels.WordsDbModel", b =>
-                {
-                    b.Navigation("WordComments");
                 });
 #pragma warning restore 612, 618
         }

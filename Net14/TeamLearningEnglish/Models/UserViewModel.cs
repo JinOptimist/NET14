@@ -1,4 +1,5 @@
 ﻿using static TeamLearningEnglish.Models.EnglishLevel;
+using System.Collections.Generic;
 
 namespace TeamLearningEnglish.Models
 {
@@ -9,6 +10,7 @@ namespace TeamLearningEnglish.Models
         public string LastName { get; set; }
         public int Age { get; set; }     
         public Level EnglishLevel { get; set; }
+        public List<MessageViewModel> Messages { get; set; }
 
     }
 }

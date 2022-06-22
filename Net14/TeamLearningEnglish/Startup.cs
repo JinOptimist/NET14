@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TeamLearningEnglish.EfStuff;
+using TeamLearningEnglish.EfStuff.Repository;
 
 namespace TeamLearningEnglish
 {
@@ -24,10 +25,24 @@ namespace TeamLearningEnglish
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TeamLearningEnglish;Integrated Security=True;"; 
+            var connectionString = 
+                @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TeamLearningEnglish;Integrated Security=True;"; 
             // where does the database locate (catalog=TeamLearningEnglish -- it's database name)
             services.AddDbContext<WebDbContext>(x => x.UseSqlServer(connectionString));
             // connected the database
+
+            services.AddScoped<BooksRepository>(x =>
+                new BooksRepository(x.GetService<WebDbContext>()));
+
+            services.AddScoped<MessageRepository>(x =>
+                new MessageRepository(x.GetService<WebDbContext>()));
+
+            services.AddScoped<VideoNotesRepository>(x =>
+                new VideoNotesRepository(x.GetService<WebDbContext>()));
+
+            services.AddScoped<WordsRepository>(x =>
+                new WordsRepository(x.GetService<WebDbContext>()));
+            
             services.AddControllersWithViews();
         }
 

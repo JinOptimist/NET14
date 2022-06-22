@@ -7,15 +7,12 @@
 <div class="all-messanger">
     <div class="other-people">
         @foreach (UserViewModel user in Model)
-       {
-           <div class="user">
-               @user.FirstName @user.LastName . @user.EnglishLevel
-           </div>
-       }
-    </div>
-    <div class="messanger">
-        <input type="text" />
-        <input type="submit" />
+        {
+            <div class="user">
+                <a href="/Messanger/Messages?id=@user.Id"> @user.FirstName @user.LastName. @user.EnglishLevel</a>
+            </div>
+            <a href="/Messanger/SendMessage?id=@user.Id"> Send message</a>
+
+        }
     </div>
 </div>
-

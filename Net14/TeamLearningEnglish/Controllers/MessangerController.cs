@@ -5,12 +5,20 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using TeamLearningEnglish.EfStuff;
+using TeamLearningEnglish.EfStuff.Repository;
 using TeamLearningEnglish.Models;
 
 namespace TeamLearningEnglish.Controllers
 {
     public class MessangerController : Controller
     {
+        private MessageRepository _messageRepository;
+
+        public MessangerController(MessageRepository messageRepository)
+        {
+            _messageRepository = messageRepository;
+        }
         public IActionResult Messanger()
         {
             var users = new List<UserViewModel>()
@@ -42,6 +50,29 @@ namespace TeamLearningEnglish.Controllers
             };
             return View(users);
         }
+        public IActionResult Messages(int id)
+        {
+            var sender = _messageRepository.GetCurrentUser(1); // me (Kirill Perepechkin) id = 1;
+            var reciever = _messageRepository.Get(id);
+            var messages = _messageRepository.GetCurrentMessages(sender, reciever);
+            messages.ToList();
+            return View(messages);
+        }
+        public IActionResult SendMessage(int id, string message)
+        {
+            var sender = _messageRepository.GetCurrentUser(1); // me (Kirill Perepechkin) id = 1
+            var reciever = _messageRepository.Get(id);
+
+            var newMessage = new MessageDbModel
+            {
+                Text = message,
+                Sender = sender,
+                Receiver = reciever
+            };
+            _messageRepository.Save(newMessage);
+
+            return View();
+        }
         public IActionResult Discussions()
         {
             var topics = new List<TopicForDiscussionViewModel>()
@@ -64,6 +95,8 @@ namespace TeamLearningEnglish.Controllers
 
             return View(topics);
         }
+       
+        
 
     }
 }

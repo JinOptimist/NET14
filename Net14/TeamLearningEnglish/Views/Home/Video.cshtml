@@ -1,4 +1,4 @@
-﻿@model List<WordsViewModel>
+﻿@model VideoNotesViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -6,12 +6,18 @@
 
 <div class="block-for-youtube">
     <div class="video">
-        <video controls="true">
-            <source src="www.youtube.com/watch?v=3bGNuRtlqAQ" type="video/mp4" />
-        </video>
+        <iframe width="560"
+                height="315"
+                src="http://www.youtube.com/embed/fxCEcPxUbYA"
+                frameborder="0"
+                allowfullscreen>
+        </iframe>
     </div>
-    <div class="notice">
-        <input type="text" />   
-        <input type="submit" value="save" />
+    <div class="add-notes">
+        <form action="/Home/AddVideoNote" method="post">
+            @Html.TextBoxFor(x => x.Text)
+            <input type="submit" value="save" />
+        </form>
     </div>
+    @*<a href="/Home/ShowMyNotes"> show notes</a>*@
 </div>

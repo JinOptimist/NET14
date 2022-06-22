@@ -1,0 +1,14 @@
+﻿
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/messanger.css" />
+
+<div class="send-message">
+    <form asp-controller="Messanger" asp-action="SendMessage">
+        <input type="text" name="message" />
+        <input type="submit" />
+
+    </form>
+</div>
