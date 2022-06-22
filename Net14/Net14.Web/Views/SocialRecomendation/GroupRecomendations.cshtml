@@ -1,14 +1,15 @@
-﻿@model List<SocialGroupViewModel>
+﻿@using Net14.Web.Localize.Social
+@model List<SocialGroupViewModel>
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 
 <link rel="stylesheet" href="~/css/SocialCss/SocialGroups.css" />
 <link rel="stylesheet" href="~/css/SocialCss/RecomendationCss.css" />
-<div class="recomendation-header">Recomendation</div>
+<div class="recomendation-header">@Recomendations.Header</div>
 <div class="select-recomendations">
-    <div class="select" onclick="location.href='/SocialRecomendation/Recomendations'">Users</div>
-    <div class="select active">Group</div>
+    <div class="select" onclick="location.href='/SocialRecomendation/Recomendations'">@Recomendations.Users</div>
+    <div class="select active">@Recomendations.Groups</div>
 </div>
 
 @foreach (SocialGroupViewModel group in Model)
@@ -21,7 +22,21 @@
             <div class="descriptions">
                 <div class="group-name">@group.Name</div>
                 <div>Cars</div>
-                <div>@group.Members.Count members</div>
+                <div>
+                    @group.Members.Count
+                    @if (group.Members.Count % 10 == 1)
+                    {
+                        @Recomendations.Members_End1
+                    }
+                    else if (2 <= group.Members.Count % 10 && group.Members.Count <= 4)
+                    {
+                        @Recomendations.Members_End2_4
+                    }
+                    else
+                    {
+                        @Recomendations.Members
+                    }
+                </div>
                 <div>
                     @foreach (var tag in group.Tags)
                     {

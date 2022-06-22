@@ -1,0 +1,11 @@
+<div class="single-api">
+    <div class="api-header">{{Api.name}}</div>
+    <div class="methods">
+        <div *ngFor="let method of Api.methods" class="single-method">
+            <div class="method-desc">{{method.name}}</div>
+            <div class="parametres">
+                (<span *ngFor="let parameter of method.parametres">{{parameter.name}} {{parameter.type}}</span>)
+            </div>
+        </div>
+    </div>
+</div>

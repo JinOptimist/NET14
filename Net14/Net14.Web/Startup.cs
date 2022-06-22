@@ -247,14 +247,18 @@ namespace Net14.Web
                     post => post
                         .MapFrom(dbPost =>
                             dbPost.User.Id))
-            .ForMember(nameof(SocialPostViewModel.UserPhoto),
+                .ForMember(nameof(SocialPostViewModel.UserPhoto),
+                        post => post
+                            .MapFrom(dbPost =>
+                                dbPost.User.UserPhoto))
+                .ForMember(nameof(SocialPostViewModel.UserName),
+                        post => post
+                            .MapFrom(dbPost =>
+                                dbPost.User.FirstName + " " + dbPost.User.LastName))
+                .ForMember(nameof(SocialPostViewModel.Likes),
                     post => post
                         .MapFrom(dbPost =>
-                            dbPost.User.UserPhoto))
-            .ForMember(nameof(SocialPostViewModel.FirstName),
-                    post => post
-                        .MapFrom(dbPost =>
-                            dbPost.User.FirstName));
+                            dbPost.Likes.Count));
 
             provider.CreateMap<GroupSocial, SocialGroupViewModel>()
                 .ForMember(nameof(SocialGroupViewModel.Tags),
@@ -267,7 +271,12 @@ namespace Net14.Web
             provider.CreateMap<UserFriendRequest, FriendRequestViewModel>();
 
 
-            provider.CreateMap<UserSocial, SocialUserViewModel>();
+            provider.CreateMap<UserSocial, SocialUserViewModel>()
+                .ForMember(nameof(SocialUserViewModel.Role),
+                user => user
+                    .MapFrom(dbUser =>
+                        dbUser.Role.ToString()));
+
             provider.CreateMap<SocialComment, SocialCommentViewModel>();
             provider.CreateMap<UserSocial, SocialProfileViewModel>();
             provider.CreateMap<SocialCommentViewModel, SocialUserViewModel>();
@@ -286,7 +295,15 @@ namespace Net14.Web
 
             provider.CreateMap<SocialMessages, SocialMessageViewModel>();
 
-           
+            provider.CreateMap<SocialPhoto, SocialPhotoViewModel>();
+
+            provider.CreateMap<Product, ProductViewModel>()
+                .ForMember(nameof(ProductViewModel.Images),
+                    product => product
+                        .MapFrom(dbProduct => dbProduct.StoreImages.Select(image => image.Url).ToList()));
+
+
+
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);
             services.AddSingleton<IMapper>(x => mapper);

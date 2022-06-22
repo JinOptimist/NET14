@@ -6,7 +6,6 @@ using System.Net;
 using System.IO;
 using System.Text.Json;
 using Net14.Web.Models.SocialModels;
-//431 - USD
 
 namespace Net14.Web.Services
 {

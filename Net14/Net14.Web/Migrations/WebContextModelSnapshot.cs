@@ -282,6 +282,27 @@ namespace Net14.Web.Migrations
                     b.ToTable("fileSocial");
                 });
 
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.FoldersForToDo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CountIssues")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdFolder")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FoldersForToDo");
+                });
+
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupSocial", b =>
                 {
                     b.Property<int>("Id")
@@ -323,6 +344,32 @@ namespace Net14.Web.Migrations
                     b.ToTable("GroupTags");
                 });
 
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.IssuesForToDo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FolderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdIssue")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FolderId");
+
+                    b.ToTable("IssuesForToDo");
+                });
+
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", b =>
                 {
                     b.Property<int>("Id")
@@ -341,9 +388,6 @@ namespace Net14.Web.Migrations
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Likes")
-                        .HasColumnType("int");
 
                     b.Property<string>("TypePost")
                         .HasColumnType("nvarchar(max)");
@@ -388,6 +432,28 @@ namespace Net14.Web.Migrations
                     b.ToTable("SocialComments");
                 });
 
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.SocialLike", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SocialLike");
+                });
+
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.SocialMessages", b =>
                 {
                     b.Property<int>("Id")
@@ -417,6 +483,26 @@ namespace Net14.Web.Migrations
                     b.HasIndex("SenderId");
 
                     b.ToTable("SocialMessages");
+                });
+
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.SocialPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("OwnerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("SocialPhotos");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserFriendRequest", b =>
@@ -460,6 +546,9 @@ namespace Net14.Web.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
@@ -473,6 +562,9 @@ namespace Net14.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsBlocked")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsOnline")
                         .HasColumnType("bit");
 
                     b.Property<int>("Language")
@@ -654,6 +746,15 @@ namespace Net14.Web.Migrations
                     b.Navigation("Group");
                 });
 
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.IssuesForToDo", b =>
+                {
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.FoldersForToDo", "Folder")
+                        .WithMany("Issues")
+                        .HasForeignKey("FolderId");
+
+                    b.Navigation("Folder");
+                });
+
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", b =>
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupSocial", null)
@@ -671,7 +772,24 @@ namespace Net14.Web.Migrations
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", "Post")
                         .WithMany("Comments")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.SocialLike", b =>
+                {
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", "Post")
+                        .WithMany("Likes")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "User")
                         .WithMany()
@@ -695,6 +813,15 @@ namespace Net14.Web.Migrations
                     b.Navigation("Reciever");
 
                     b.Navigation("Sender");
+                });
+
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.SocialPhoto", b =>
+                {
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "Owner")
+                        .WithMany("Photos")
+                        .HasForeignKey("OwnerId");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserFriendRequest", b =>
@@ -766,6 +893,11 @@ namespace Net14.Web.Migrations
                     b.Navigation("StoreImages");
                 });
 
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.FoldersForToDo", b =>
+                {
+                    b.Navigation("Issues");
+                });
+
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.GroupSocial", b =>
                 {
                     b.Navigation("Posts");
@@ -776,6 +908,8 @@ namespace Net14.Web.Migrations
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Likes");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", b =>
@@ -789,6 +923,8 @@ namespace Net14.Web.Migrations
                     b.Navigation("FriendRequestReceived");
 
                     b.Navigation("FriendRequestSent");
+
+                    b.Navigation("Photos");
 
                     b.Navigation("Posts");
 

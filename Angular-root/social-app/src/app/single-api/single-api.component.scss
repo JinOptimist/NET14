@@ -1,0 +1,52 @@
+.single-api{
+    padding-top: 30px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    flex-direction: column;
+    min-height: 550px;
+    width: 450px;
+    border-radius: 5px;
+    border: 1px solid #d9d9d9;
+    margin-bottom: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    -webkit-transition: background-color 100ms linear;
+    -ms-transition: background-color 100ms linear;
+    transition: background-color 100ms linear;
+    box-shadow: 0 2px 10px 0 rgb(0 0 0 / 12%);
+
+    .api-header{
+        height: 50px;
+        border-radius: 5px;
+        color: white;
+        width: 80%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        padding: 10px;
+        background-color: #5454d9;
+        box-shadow: 0 2px 10px 0 rgb(0 0 0 / 12%);
+    }
+    .methods{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 20px;
+
+
+        .single-method{
+            margin-top: 5px;
+            width: 70%;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .parametres{
+            margin-left: 10px;
+        }
+
+    }
+}

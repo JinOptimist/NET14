@@ -10,6 +10,8 @@ using AutoMapper;
 using Net14.Web.Services;
 using Net14.Web.EfStuff;
 using Microsoft.AspNetCore.Authorization;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Net14.Web.Controllers
 {
@@ -18,12 +20,17 @@ namespace Net14.Web.Controllers
         private SocialGroupRepository _socialGroupRepository;
         private IMapper _mapper;
         private UserService _userService;
+        private SocialPostRepository _socialPostRepository;
+        private IWebHostEnvironment _webHostEnvironment;
         public SocialGroupsController(SocialGroupRepository socialGroupRepository, 
-            IMapper mapper, UserService userService) 
+            IMapper mapper, UserService userService, SocialPostRepository socialPostRepository,
+            IWebHostEnvironment webHostEnvironment) 
         {   
             _mapper = mapper;
             _socialGroupRepository = socialGroupRepository;
             _userService = userService;
+            _socialPostRepository = socialPostRepository;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult GetGroups()
         {
@@ -45,37 +52,74 @@ namespace Net14.Web.Controllers
         public IActionResult GetSingleGroup(int id) 
         {
             var group = _socialGroupRepository.Get(id);
+            var groupDbPosts = group.Posts;
             var groupViewModel = _mapper.Map<SocialGroupViewModel>(group);
-            var currentUser = _userService.GetCurrent();
-            if (group.Members.Contains(currentUser))
+
+            if (User.Identity.IsAuthenticated) 
             {
-                groupViewModel.IsCurUserIsMember = true;
+                var currentUser = _userService.GetCurrent();
+
+                groupViewModel.Posts.ForEach(x =>
+                {
+                    if (groupDbPosts.Single(dbPost => dbPost.Id == x.Id).Likes.Any(like => like.User.Id == currentUser.Id))
+                    {
+                        x.IsLikedCurrentUser = true;
+                    }
+                });
+
+                if (group.Members.Contains(currentUser))
+                {
+                    groupViewModel.IsCurUserIsMember = true;
+                }
+                else
+                {
+                    groupViewModel.IsCurUserIsMember = false;
+                }
             }
-            else 
-            {
-                groupViewModel.IsCurUserIsMember = false;
-            }
+
             var finalModel = new SocialGroupWithHotViewModel()
             {
                 Group = groupViewModel,
-                HotPosts = _mapper.Map<List<SocialPostViewModel>>(group.Posts.OrderByDescending(post => post.Likes).Take(3).ToList())
+                HotPosts = _mapper.Map<List<SocialPostViewModel>>(group.Posts.OrderByDescending(post => post.Likes.Count)
+                .ThenByDescending(post => post.DateOfPosting)
+                .Take(3).ToList())
             };
 
             return View(finalModel);
         }
 
-        public IActionResult AddPost(string ImageUrl, string CommentOfUser, int groupId)
+        public IActionResult AddPost(SocialGroupAddPostViewModel postViewModel)
         {
+            var user = _userService.GetCurrent();
+            var group = _socialGroupRepository.Get(postViewModel.GroupId);
+
             var post = new PostSocial()
             {
-                CommentOfUser = CommentOfUser,
-                ImageUrl = ImageUrl,
-                User = _userService.GetCurrent()
+                User = user,
+                CommentOfUser = postViewModel.CommentOfUser,
             };
 
-            _socialGroupRepository.AddPost(post, groupId);
+            _socialPostRepository.Save(post);
 
-            return Redirect($"/SocialGroups/GetSingleGroup?id={groupId}");
+            var extension = Path.GetExtension(postViewModel.ImageUrl.FileName);
+            var fileName = $"post{post.Id}{extension}";
+            var path = Path.Combine(
+                _webHostEnvironment.WebRootPath,
+                "images",
+                "Social",
+                fileName);
+
+            using (var fs = new FileStream(path, FileMode.CreateNew))
+            {
+                postViewModel.ImageUrl.CopyTo(fs);
+            }
+
+            post.ImageUrl = $"/images/Social/{fileName}";
+
+            _socialPostRepository.Save(post);
+            _socialGroupRepository.AddPost(post, group.Id);
+
+            return Redirect($"/SocialGroups/GetSingleGroup?id={postViewModel.GroupId}");
         }
     }
 }

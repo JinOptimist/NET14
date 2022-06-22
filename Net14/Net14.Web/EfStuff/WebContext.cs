@@ -27,6 +27,12 @@ namespace Net14.Web.EfStuff
         public DbSet<StoreImage> StoreImages { get; set; }
         public DbSet<GroupTags> GroupTags { get; set; }
         public DbSet<SocialMessages> SocialMessages { get; set; }
+        public DbSet<SocialPhoto> SocialPhotos { get; set; }
+        public DbSet<FoldersForToDo> FoldersForToDo { get; set; }
+        public DbSet<IssuesForToDo> IssuesForToDo { get; set; }
+
+
+
         public DbSet<DeliveryAddress> DeliveryAddress { get; set; }
         public WebContext(DbContextOptions options) : base(options)
         {
@@ -40,6 +46,20 @@ namespace Net14.Web.EfStuff
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<UserSocial>()
+                .HasMany(x => x.Photos)
+                .WithOne(p => p.Owner);
+
+            modelBuilder.Entity<PostSocial>()
+                .HasMany(post => post.Likes)
+                .WithOne(like => like.Post)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PostSocial>()
+                .HasMany(x => x.Likes)
+                .WithOne(u => u.Post)
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<GroupTags>()
                 .HasOne(x => x.Group)
                 .WithMany(g => g.Tags);
@@ -99,7 +119,8 @@ namespace Net14.Web.EfStuff
 
             modelBuilder.Entity<PostSocial>()
                 .HasMany(post => post.Comments)
-                .WithOne(comment => comment.Post);
+                .WithOne(comment => comment.Post)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<UserSocial>().Property(u => u.UserPhoto).HasDefaultValue("/images/Social/CalendarUser.jpg");
 

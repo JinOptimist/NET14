@@ -22,15 +22,14 @@ namespace Net14.Web.Models
         public string City { get; set; }
         [Required(ErrorMessage = "Enter Country!")]
         public string Country { get; set; }
-        [Required(ErrorMessage = "Enter Age!")]
-        [IsPositive]
-        public int Age { get; set; }
         [Required(ErrorMessage = "Enter FirstName!")]
         [Name]
         public string FirstName { get; set; }
         [Required(ErrorMessage = "Enter LastName!")]
         [Name]
         public string LastName { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime BirthDate { get; set; }
     }
 }
 

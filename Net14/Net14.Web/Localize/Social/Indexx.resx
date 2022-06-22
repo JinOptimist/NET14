@@ -132,8 +132,8 @@
   <data name="Comments" xml:space="preserve">
     <value>Комментарии</value>
   </data>
-  <data name="Hot news" xml:space="preserve">
-    <value>Горячие новости</value>
+  <data name="Hot_news" xml:space="preserve">
+    <value>Популярное</value>
   </data>
   <data name="ImageUrl" xml:space="preserve">
     <value>Url картинки</value>

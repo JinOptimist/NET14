@@ -1,10 +1,61 @@
 ﻿$(document).ready(function () {
+    var isWorking = false;
+
+
     $(".main-message-container").scrollTop($(".main-message-container").prop('scrollHeight'));
 
     const hubConnection = new signalR.HubConnectionBuilder()
         .withUrl("/messages")
         .build();
 
+
+    $(".message-input").keyup(function () {
+        if ($(".message-input").val() === "")
+        {
+            return;
+        }
+        let userId = $(".dialog-user-info").data("id");
+        hubConnection.invoke("IsTyping", userId.toString());
+    });
+
+    hubConnection.on("IsTyping", function () {
+        if (isWorking)
+        {
+            return;
+        }
+
+        isWorking = true;
+
+        var pointCount = 0;
+        var element = $(".is-typing");
+        element.show();
+
+        const showPoints = setInterval(startPoints, 500);
+
+        setTimeout(stopPoints, 6000);
+        
+
+        function startPoints() {
+            if (pointCount == 3) {
+                element.text("Is typing");
+                pointCount = 0;
+            }
+            else {
+                element.text(element.text() + ".");
+                pointCount++;
+            }
+        }
+
+        function stopPoints()
+        {
+            clearInterval(showPoints);
+            element.text("Is typing");
+            isWorking = false;
+            element.hide();
+        }
+
+
+    })
 
     $(".message-send-button").click(function (e) {
         e.preventDefault();

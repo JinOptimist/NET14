@@ -121,3 +121,17 @@
 #notif:last-child {
    border-bottom: 1px solid grey;
 }
+
+.notif-text {
+    width: 80%;
+}
+
+.user-message-name {
+    width: 100%;
+    margin-right: 15px;
+}
+
+.info {
+    width: 80%;
+}
+

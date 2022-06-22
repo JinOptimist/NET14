@@ -141,6 +141,15 @@
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="Hot_News" xml:space="preserve">
+    <value>Hot</value>
+  </data>
+  <data name="Hub" xml:space="preserve">
+    <value>Hub</value>
+  </data>
+  <data name="Hubs" xml:space="preserve">
+    <value>Hub</value>
+  </data>
   <data name="Learn_C" xml:space="preserve">
     <value>Learn C#</value>
   </data>

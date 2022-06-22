@@ -1,0 +1,14 @@
+<div class="search-container">
+    <div id="search-component">
+        <label for="search-box">User Search</label>
+        <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+      
+        <ul class="search-result">
+          <li *ngFor="let user of users$ | async" >
+            <a routerLink="/detail/{{user.id}}">
+              {{user.firstName}} {{user.lastName}}
+            </a>
+          </li>
+        </ul>
+      </div>
+</div>

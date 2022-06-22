@@ -1,9 +1,13 @@
-﻿@model SocialGroupWithHotViewModel
+﻿@using Net14.Web.Localize.Social
+@using Net14.Web.Services; 
+@inject UserService userService 
+@model SocialGroupWithHotViewModel
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 <link rel="stylesheet" href="~/css/SocialCss/SocialCss.css">
 <link rel="stylesheet" href="~/css/SocialCss/SocialSingleGroup.css">
+
 
 
 <div class="head-info" data-id=@Model.Group.Id>
@@ -14,49 +18,55 @@
         <div>@Model.Group.Name</div>
         @if (Model.Group.IsCurUserIsMember)
         {
-            <div class="unsubscribe" >Unsubscribe</div>
+            <div class="unsubscribe">@Groups.Unsubscribe</div>
         }
         else
         {
-            <div class="subscribe" @*onclick="location.href='@Url.Action("Subscribe", "SocialGroups", new {groupId = Model.Group.Id})'"*@>Subscribe</div>
+            <div class="subscribe">@Groups.Subscribe</div>
         }
     </div>
 </div>
-<div class="add-post">
-    <div class="add-post-header">Add Post</div>
+@if (User.Identity.IsAuthenticated && Model.Group.IsCurUserIsMember)
+{
+    <div class="add-post">
+        <div class="form-div">
+            <div class="new-post-photo">
+                <img src=@userService.GetCurrent().UserPhoto>
+            </div>
+            <form enctype="multipart/form-data" class="add-post-form" action="/SocialGroups/AddPost" method="post" id="myform">
+                <textarea type="text" placeholder="What's new?'" class="post-input" name="CommentOfUser"></textarea>
+                <span class="file-name"></span>
+                <div class="add-image-post">
+                    <div class="add-image">
+                        <label>
+                            <img src="~/images/Social/gallery.png">
+                            <input type="file" class="add-image" name="ImageUrl" id="file1">
+                            <input type="hidden" value="@Model.Group.Id" name="GroupId">
+                        </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="block-send">
+            <div class="send-button-container">
+                <input type="submit" value="Send" class="send-post" form="myform" />
+            </div>
+        </div>
+    </div>
 
-    <form action="/SocialGroups/AddPost" method="post" id="form-add-post">
-        <div class="textForInput">
-            ImageUrl
-        </div>
-        <div>
-            <input name="ImageUrl" placeholder="ImageUrl">
-        </div>
-        <div class="textForInput">
-            Comment
-        </div>
-        <div>
-            <input name="CommentOfUser" placeholder="Comment">
-        </div>
-        <div>
-            <input type="submit" value="Add" class="button-add-post">
-            <input type="hidden" value=@Model.Group.Id name="groupId">
-        </div>
-    </form>
-</div>
+}
 @foreach (var post in Model.Group.Posts)
 {
     <a name="@post.Id" class="anchor"></a>
 
-    <div class="content-element">
+    <div class="content-element" data-id=@post.Id>
         <div class="content-element-card">
             <div class="user-info">
                 <div class="user-photo">
                     <img src=@post.UserPhoto class="user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">
                 </div>
                 <div class="user-name">
-                    <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@post.FirstName</p>
-                    <p>posted:</p>
+                    <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@string.Format(@Indexx.Posted, post.UserName)</p>
                 </div>
             </div>
             <div class="block-post-image">
@@ -66,11 +76,26 @@
                 @post.CommentOfUser
             </div>
             <div class="post-operations">
-                <div class="operations like">
-                    <img src="~/images/Social/heart.png">
+                <div class="like-container">
+                    @if (post.IsLikedCurrentUser)
+                    {
+                        <div class="operations like active">
+                            <img src="~/images/Social/heartRed.png">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="operations like" id="disable">
+                            <img src="~/images/Social/heart.png">
+                        </div>
+                    }
+                    <div class="likes-count">@post.Likes</div>
                 </div>
-                <div class="operations comment">
-                    <img src="~/images/Social/speech-bubble.png">
+                <div class="comm-container">
+                    <div class="operations comment">
+                        <img src="~/images/Social/speech-bubble.png">
+                    </div>
+                    <div class="comm-count">@post.Comments.Count</div>
                 </div>
                 <div class="operations share">
                     <img src="~/images/Social/share (1).png">
@@ -78,36 +103,47 @@
             </div>
             <div class="comments">
                 <div class="comments-elements-container">
-                    <div class="comment-header">Comments</div>
+                    <div class="comment-header">@Indexx.Comments</div>
                     <div class="comment-elements">
-                        @foreach (var comm in post.Comments)
-                        {
-                            <div class="single-comment">
-                                <div class="comment-owner-info">
-                                    <img src=@comm.User.UserPhoto class="user-photo" id="comment-photo">
-                                    <div>@comm.User.FirstName @comm.User.LastName</div>
-                                </div>
-                                <div>
-                                    @comm.Text
-                                </div>
+                        <div class="single-comment template">
+                            <div class="comment-owner-info">
+                                <img class="user-photo" id="comment-photo">
+                                <div class="user-name-comment"></div>
                             </div>
-                        }
+                            <div class="comment-text">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <form class="input-container" asp-action="AddComment" asp-controller="Social">
+                <form class="input-container">
                     <input name="postId" type="hidden" value="@post.Id" />
-                    <input type="text" class="to-comment" name="text" placeholder="Add comment" />
-                    <input type="submit" value="send" class="comm">
+                    <input type="text" class="to-comment" name="text" placeholder="@Indexx.Add_comment" />
+                    <input type="submit" value="@Indexx.Send" class="comm">
                 </form>
             </div>
         </div>
     </div>
+
 }
+
+
+<div class="operations like active template">
+    <img src="~/images/Social/heartRed.png">
+</div>
+
+<div class="operations like template" id="disable">
+    <img src="~/images/Social/heart.png">
+</div>
+
+
+<div class="unsubscribe template">@Groups.Unsubscribe</div>
+<div class="subscribe template">@Groups.Subscribe</div>
+
 
 @section NavbarRecomendations
 {
     <div class="menu-recomendations-user">
-        <div class="menu-recomendation-title">Hot news</div>
+        <div class="menu-recomendation-title">@Indexx.Hot_news</div>
         @foreach (var post in Model.HotPosts)
         {
             <div class="recomendation-element-menu" onclick="window.location.hash=@post.Id">
@@ -122,6 +158,7 @@
     </div>
 }
 
-@section Scripts{ 
+@section Scripts{
+    <script src="~/js/SocialJS/SocialIndexJs.js"></script>
     <script src="~/js/SocialJS/SocialGroupsJs.js"></script>
 }

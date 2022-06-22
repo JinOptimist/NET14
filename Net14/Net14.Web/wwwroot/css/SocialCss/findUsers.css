@@ -218,7 +218,7 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 130px;
+    width: 150px;
     background: rgb(22 222 48);
     height: 36px;
     border: 1px solid grey;
@@ -239,3 +239,24 @@ add-to-friends-button.requested {
     color: white;
     border: 1px solid grey;
 }
+
+.add-to-friends-button.requested.template {
+    display: none;
+}
+
+.user-online-badge {
+    width: 15px;
+    height: 15px;
+    position: relative;
+    top: -27px;
+    right: -45px;
+    border-radius: 50%;
+    background: green;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 700;
+}
+

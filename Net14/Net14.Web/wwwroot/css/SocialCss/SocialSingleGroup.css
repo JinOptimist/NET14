@@ -78,3 +78,7 @@
 .add-post, .content-element-card {
     margin: 20px auto 20px;
 }
+
+.template {
+    display: none;
+}

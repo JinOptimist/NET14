@@ -1,0 +1,7 @@
+<app-user-search></app-user-search>
+
+<div class="user-container">
+    <div *ngFor="let user of users">
+        <app-single-user [user]="user"></app-single-user>
+    </div>    
+</div>
