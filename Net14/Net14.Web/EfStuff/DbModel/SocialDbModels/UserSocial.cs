@@ -22,10 +22,12 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
 
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
+        public string PhoneNumber { get; set; }
         public bool IsBlocked { get; set; }
         public SiteRole Role { get; set; }
         public Language Language { get; set; }
         public bool IsOnline { get; set; }
+        public virtual List<DeliveryAddress> DeliveryAddress { get; set; }
         public virtual List<FileSocial> Files { get; set; }
         public virtual List<SocialPhoto> Photos { get; set; } = new List<SocialPhoto>(); 
         public virtual List<PostSocial> Posts { get; set; }
@@ -37,6 +39,6 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
         public virtual Basket Basket { get; set; }
         public virtual List<SocialMessages> SendMessages { get; set; } = new List<SocialMessages>();
         public virtual List<SocialMessages> RecievedMessages { get; set; } = new List<SocialMessages>();
-
+        
     }
 }

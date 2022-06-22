@@ -1,4 +1,5 @@
 ﻿@using Net14.Web.Models.store
+@using Net14.Web.Localize.Store
 @model List<ProductViewModel>
 @{ Layout = "/Views/Shared/_LayoutStore.cshtml"; }
 
@@ -6,11 +7,11 @@
 {
 <div class="noBasketItems">
 
-    <h2 class="emptyBasketHeader">YOUR BAG IS EMPTY</h2>
+    <h2 class="emptyBasketHeader">@Basket.YOUR_BAG_IS_EMPTY</h2>
     <p id="emptyBasketMessage"></p>
     <a href="#" id="emptyBasketLink" style="display: none" class="button action"></a>
     <center>
-        <a class="emptyBasketLink button action" href="/Store/Index">Continue Shopping</a>
+        <a class="emptyBasketLink button action" href="/Store/Index">@Basket.Continue_Shopping</a>
     </center>
 </div>
 }
@@ -36,7 +37,7 @@ else
                 </div>
                 <div class="buttonCatalog">
                     <span>
-                        <a class="buttonCatalogToBasket" href="/Store/DeleteProductFromBasket?productId=@product.Id&userId=1">Удалить </a>
+                        <a class="buttonCatalogToBasket" href="/Store/DeleteProductFromBasket?productId=@product.Id&userId=1">@Basket.Delete</a>
                     </span>
                 </div>
 
@@ -45,7 +46,7 @@ else
 
     <div class="buttonCatalog">
         <span>
-            <a class="buttonCatalogToBasket" href="/Store/Checkout?userId=1"> Оформить заказ </a>
+            <a class="buttonCatalogToBasket" href="/Store/Checkout?userId=1"> @Basket.Checkout </a>
         </span>
     </div>
 

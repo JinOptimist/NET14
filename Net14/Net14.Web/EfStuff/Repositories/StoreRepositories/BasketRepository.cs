@@ -11,6 +11,8 @@ namespace Net14.Web.EfStuff.Repositories
     {
         public BasketRepository(WebContext context):base(context)
         {
+          
         }
+       
     }
 }
