@@ -44,7 +44,7 @@
                     window.location.replace("/SocialAuthentication/Autorization?ReturnUrl=/Social/Index");
                 }
             })
-        
+
         $(this).closest(".input-container").find("input.comm").removeClass("active");
     })
 
@@ -54,8 +54,7 @@
     });
 
     $('.to-comment').on('input', function () {
-        if ($(this).val()=="")
-        {
+        if ($(this).val() == "") {
             $(this).closest(".input-container").find("input.comm").removeClass("active");
             return;
         }
@@ -67,8 +66,7 @@
         var id = +$(this).closest(".content-element").attr("data-id");
 
         $.get("/api/Social/AddLike", { postId: id })
-            .done(function ()
-            {
+            .done(function () {
                 var elementToReplace = $(".operations.like.active.template").clone();
                 var likesCountEncrement = parseInt(clicked.closest(".like-container").find(".likes-count").text());
                 clicked.closest(".like-container").find(".likes-count").text(++likesCountEncrement);
@@ -84,8 +82,7 @@
 
 
         $.get("/api/Social/RemoveLike", { postId: id })
-            .done(function ()
-            {
+            .done(function () {
                 var elementToReplace = $("#disable").clone();
                 var likesCountEncrement = parseInt(clicked.closest(".like-container").find(".likes-count").text());
                 clicked.closest(".like-container").find(".likes-count").text(--likesCountEncrement);
@@ -145,11 +142,21 @@
 
 
     $(".complane").click(function () {
+        $("#complane").fadeIn(100);
 
-        let Post = $(this).closest(".content-element").data("id");
+    });
+
+    $(".send-complain").click(function () {
+        let post = $(this).closest(".content-element");
+        let text = $(".texarea-complain").val();
+        $(".texarea-complain").val("");
+        let postId = post.data("id");
+
+
         let data = {
-            Post: Post
-        };
+            Post: postId,
+            ReasonOfComplain: text
+        }
 
         jQuery.ajax({
             url: "/api/Social/MakeAComplain",
@@ -158,9 +165,27 @@
             dataType: "json",
             contentType: "application/json; charset=utf-8",
         }).done(function () {
-            alert("done");
+            $(".more-div").fadeOut();
+            $("#complane").fadeOut(100, function () {
+                post.fadeOut(300, () => post.remove());
+            });
         });
+
+    });
+
+    $(".go-and-cancel-complain").click(function () {
+        $("#complane").fadeOut(100);
+    });
+
+
+    $("#delete-post-complain-div").click(function () {
+        let post = $(this).closest(".content-element");
+        let id = post.data("id");
+        $.get("/api/Social/DeletePost", { postId: id })
+            .done(function () {
+
+                post.fadeOut(200, () => post.remove());
+
+            })
     })
-
-})
-
+});

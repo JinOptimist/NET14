@@ -76,6 +76,10 @@ namespace Net14.Web.Controllers
                     {
                         x.IsByCurrentUser = true;
                     }
+                    if (posts.Single(dbPost => dbPost.Id == x.Id).Complains.Any(comp => comp.OwnerOfComplain.Id == currentUser.Id)) 
+                    {
+                        x.IsBlockedByUser = true;
+                    }
                 });
 
             }
@@ -342,7 +346,9 @@ namespace Net14.Web.Controllers
         [HasRole(SiteRole.Admin)]
         public IActionResult GetComplaint() 
         {
-            var complainsPostsViewModels = _mapper.Map<List<SocialPostViewModel>>(_socialPostRepository.GetPostsWithComplains());
+            var posts = _socialPostRepository.GetPostsWithComplains()
+                .OrderByDescending(post => post.Complains.Count);
+            var complainsPostsViewModels = _mapper.Map<List<SocialPostViewModel>>(posts);
             return View(complainsPostsViewModels);
         }
     }

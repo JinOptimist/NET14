@@ -7,8 +7,12 @@
 @section Scripts{
     <script src="~/js/SocialJS/SocialIndexJs.js"></script>
     <script src="~/js/SocialJS/SocialJS.js"></script>
+    <script src="~/js/SocialJS/SocialComplaines.js"></script>
 }
+<link rel="stylesheet" href="~/css/SocialCss/Complain.css">
+<link rel="stylesheet" href="~/css/SocialCss/SocialCss.css">
 
+<div class="complains-header">Complains</div>
 <div>
     @foreach (var post in Model)
     {
@@ -25,14 +29,6 @@
                             <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@string.Format(@Indexx.Posted, post.UserName)</p>
                         </div>
                     </div>
-                    <div class="more-div">
-                        @if (post.IsByCurrentUser)
-                        {
-                            <div class="delete-post">Delete post</div>
-                        }
-                        <div class="complane">Complane</div>
-                    </div>
-
                     <div class="more-button-container">
                         <img src="~/images/Social/more.png" class="more-button-icon">
                     </div>
@@ -65,8 +61,8 @@
                         </div>
                         <div class="comm-count">@post.Comments.Count</div>
                     </div>
-                    <div class="operations share">
-                        <img src="~/images/Social/share (1).png">
+                    <div class="operations share" id="delete-post-complain-div">
+                        <img src='/images/Social/free-icon-cancel-130887.png' id="delete-post-complain">
                     </div>
                 </div>
                 <div class="comments">
@@ -90,9 +86,6 @@
                     </form>
                 </div>
             </div>
-        </div>
-        <div>
-
         </div>
 
     }

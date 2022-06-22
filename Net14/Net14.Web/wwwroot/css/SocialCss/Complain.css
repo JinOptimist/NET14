@@ -1,0 +1,13 @@
+#delete-post-complain {
+    width: 20px;
+    height: 20px;
+}
+
+#delete-post-complain-div:hover {
+    background: rgba(245, 19, 19, 0.2);
+}
+
+.complains-header {
+    font-size: 25px;
+    margin-bottom: 50px;
+}

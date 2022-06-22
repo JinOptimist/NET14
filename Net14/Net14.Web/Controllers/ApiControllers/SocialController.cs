@@ -302,6 +302,10 @@ namespace Net14.Web.Controllers.ApiControllers
         {
             var currentUser = _userService.GetCurrent();
             var post = _socialPostRepository.Get(complainViewModel.Post);
+            if (post.Complains.Any(complain => complain.OwnerOfComplain.Id == currentUser.Id)) 
+            {
+                return false;
+            }
 
             var complain = new ComplainsSocial()
             {
@@ -313,6 +317,16 @@ namespace Net14.Web.Controllers.ApiControllers
             _complainsSocialRepository.Save(complain);
 
             return true;
+        }
+
+        [HttpGet]
+        public List<ComplainViewModel> Complains(int postId) 
+        {
+            var post = _socialPostRepository.Get(postId);
+
+            var complainsOfPost = _mapper.Map<List<ComplainViewModel>>(post.Complains);
+
+            return complainsOfPost;
         }
 
 
