@@ -12,6 +12,5 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
         public virtual PostSocial Post { get; set; }
         public virtual UserSocial OwnerOfComplain { get; set; }
         public string ReasonOfComplain { get; set; }
-        public bool IsChecked { get; set; }
     }
 }

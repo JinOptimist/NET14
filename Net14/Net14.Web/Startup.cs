@@ -182,7 +182,11 @@ namespace Net14.Web
                 .ForMember(nameof(SocialPostViewModel.Likes),
                     post => post
                         .MapFrom(dbPost =>
-                            dbPost.Likes.Count));
+                            dbPost.Likes.Count))
+                .ForMember(nameof(SocialPostViewModel.ComplainsCount),
+                    post => post
+                        .MapFrom(dbpost =>
+                            dbpost.Complains.Count));
 
             provider.CreateMap<GroupSocial, SocialGroupViewModel>()
                 .ForMember(nameof(SocialGroupViewModel.Tags),

@@ -31,11 +31,13 @@ namespace Net14.Web.Controllers.ApiControllers
         private SocialUserRepository _socialUserRepository;
         private SocialPhotosRepository _socialPhotosRepository;
         private ComplainsSocialRepository _complainsSocialRepository;
+        private SocialGroupRepository _socialGroupRepository;
         public SocialController(UserService userService,
             SocialPostRepository socialPostRepository, SocialCommentRepository socialCommentRepository,
             IMapper mapper, UserFriendRequestRepository userFriendRequestRepository, FriendRequestService friendRequestService,
             SocialUserRepository socialUserRepository, SocialPhotosRepository socialPhotosRepository,
-            ComplainsSocialRepository complainsSocialRepository)
+            ComplainsSocialRepository complainsSocialRepository,
+            SocialGroupRepository socialGroupRepository)
         {
             _socialPhotosRepository = socialPhotosRepository;
             _userService = userService;
@@ -46,7 +48,7 @@ namespace Net14.Web.Controllers.ApiControllers
             _friendRequestService = friendRequestService;
             _socialUserRepository = socialUserRepository;
             _complainsSocialRepository = complainsSocialRepository;
-
+            _socialGroupRepository = socialGroupRepository;
         }
 
         [Authorize]
@@ -280,11 +282,15 @@ namespace Net14.Web.Controllers.ApiControllers
         [HttpGet]
         public bool DeletePost(int postId)
         {
+            var currentUser = _userService.GetCurrent();
             var post = _socialPostRepository.Get(postId);
-            _socialPostRepository.Remove(post);
+            if (currentUser.Posts.Exists(post => post.Id == postId) || currentUser.Role.HasFlag(SiteRole.Admin)) 
+            {
+                _socialPostRepository.Remove(post);
+                return true;
+            }
 
-            return true;
-
+            return false;
         }
 
         [HttpGet]
@@ -316,6 +322,17 @@ namespace Net14.Web.Controllers.ApiControllers
 
             _complainsSocialRepository.Save(complain);
 
+            return true;
+        }
+
+        [Authorize]
+        [HasRole(SiteRole.Admin)]
+        [HttpGet]
+        public bool ItsAGoodPost(int postId) 
+        {
+            var post = _socialPostRepository.Get(postId);
+            post.IsCheckedForComplains = true;
+            _socialPostRepository.Save(post);
             return true;
         }
 

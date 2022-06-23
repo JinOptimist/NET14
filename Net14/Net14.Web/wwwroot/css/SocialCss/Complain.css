@@ -11,3 +11,51 @@
     font-size: 25px;
     margin-bottom: 50px;
 }
+
+.make-complane-text-page {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    flex: 1;
+}
+.complaines-container {
+    max-height: 200px;
+    width: 90%;
+    overflow-y: scroll;
+}
+.single-complain {
+    box-sizing: border-box;
+    padding: 5px;
+    border-radius: 20px;
+    width: 100%;
+    border: 1px solid;
+    margin-bottom: 10px;
+}
+    .single-complain.template {
+        display: none;
+    }
+
+.more-div.complains {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid grey;
+    height: 25px;
+    top: 250px;
+    left: 830px;
+}
+
+
+.itsok-div {
+    position: absolute;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid grey;
+    height: 25px;
+    top: 250px;
+    left: 830px;
+}

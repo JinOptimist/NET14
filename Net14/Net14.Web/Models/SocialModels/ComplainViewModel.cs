@@ -12,7 +12,6 @@ namespace Net14.Web.Models
         public int Post { get; set; }
         public int OwnerOfComplain { get; set; }
         public string ReasonOfComplain { get; set; }
-        public bool IsChecked { get; set; }
 
     }
 }
