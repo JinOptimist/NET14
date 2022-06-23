@@ -258,7 +258,11 @@ namespace Net14.Web
                 .ForMember(nameof(SocialPostViewModel.Likes),
                     post => post
                         .MapFrom(dbPost =>
-                            dbPost.Likes.Count));
+                            dbPost.Likes.Count))
+                .ForMember(nameof(SocialPostViewModel.ComplainsCount),
+                    post => post
+                        .MapFrom(dbpost =>
+                            dbpost.Complains.Count));
 
             provider.CreateMap<GroupSocial, SocialGroupViewModel>()
                 .ForMember(nameof(SocialGroupViewModel.Tags),
@@ -301,6 +305,14 @@ namespace Net14.Web
                 .ForMember(nameof(ProductViewModel.Images),
                     product => product
                         .MapFrom(dbProduct => dbProduct.StoreImages.Select(image => image.Url).ToList()));
+
+            provider.CreateMap<ComplainsSocial, ComplainViewModel>()
+                .ForMember(nameof(ComplainViewModel.Post),
+                    post => post
+                        .MapFrom(dbpost => dbpost.Post.Id))
+                .ForMember(nameof(ComplainViewModel.OwnerOfComplain),
+                    post => post
+                        .MapFrom(dbpost => dbpost.OwnerOfComplain.Id));
 
 
 

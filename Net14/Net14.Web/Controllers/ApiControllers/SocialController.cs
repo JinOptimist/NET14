@@ -30,10 +30,14 @@ namespace Net14.Web.Controllers.ApiControllers
         private FriendRequestService _friendRequestService;
         private SocialUserRepository _socialUserRepository;
         private SocialPhotosRepository _socialPhotosRepository;
+        private ComplainsSocialRepository _complainsSocialRepository;
+        private SocialGroupRepository _socialGroupRepository;
         public SocialController(UserService userService,
             SocialPostRepository socialPostRepository, SocialCommentRepository socialCommentRepository,
             IMapper mapper, UserFriendRequestRepository userFriendRequestRepository, FriendRequestService friendRequestService,
-            SocialUserRepository socialUserRepository, SocialPhotosRepository socialPhotosRepository)
+            SocialUserRepository socialUserRepository, SocialPhotosRepository socialPhotosRepository,
+            ComplainsSocialRepository complainsSocialRepository,
+            SocialGroupRepository socialGroupRepository)
         {
             _socialPhotosRepository = socialPhotosRepository;
             _userService = userService;
@@ -43,7 +47,8 @@ namespace Net14.Web.Controllers.ApiControllers
             _userFriendRequestRepository = userFriendRequestRepository;
             _friendRequestService = friendRequestService;
             _socialUserRepository = socialUserRepository;
-
+            _complainsSocialRepository = complainsSocialRepository;
+            _socialGroupRepository = socialGroupRepository;
         }
 
         [Authorize]
@@ -277,11 +282,15 @@ namespace Net14.Web.Controllers.ApiControllers
         [HttpGet]
         public bool DeletePost(int postId)
         {
+            var currentUser = _userService.GetCurrent();
             var post = _socialPostRepository.Get(postId);
-            _socialPostRepository.Remove(post);
+            if (currentUser.Posts.Exists(post => post.Id == postId) || currentUser.Role.HasFlag(SiteRole.Admin)) 
+            {
+                _socialPostRepository.Remove(post);
+                return true;
+            }
 
-            return true;
-
+            return false;
         }
 
         [HttpGet]
@@ -293,6 +302,51 @@ namespace Net14.Web.Controllers.ApiControllers
 
             return true;
         }
+
+        [HttpPost]
+        public bool MakeAComplain([FromBody]ComplainViewModel complainViewModel) 
+        {
+            var currentUser = _userService.GetCurrent();
+            var post = _socialPostRepository.Get(complainViewModel.Post);
+            if (post.Complains.Any(complain => complain.OwnerOfComplain.Id == currentUser.Id)) 
+            {
+                return false;
+            }
+
+            var complain = new ComplainsSocial()
+            {
+                OwnerOfComplain = currentUser,
+                Post = post,
+                ReasonOfComplain = complainViewModel.ReasonOfComplain
+            };
+
+            _complainsSocialRepository.Save(complain);
+
+            return true;
+        }
+
+        [Authorize]
+        [HasRole(SiteRole.Admin)]
+        [HttpGet]
+        public bool ItsAGoodPost(int postId) 
+        {
+            var post = _socialPostRepository.Get(postId);
+            post.IsCheckedForComplains = true;
+            _socialPostRepository.Save(post);
+            return true;
+        }
+
+        [HttpGet]
+        public List<ComplainViewModel> Complains(int postId) 
+        {
+            var post = _socialPostRepository.Get(postId);
+
+            var complainsOfPost = _mapper.Map<List<ComplainViewModel>>(post.Complains);
+
+            return complainsOfPost;
+        }
+
+
 
     }
 }

@@ -31,13 +31,15 @@ namespace Net14.Web.Controllers
         private IMapper _mapper;
         private RecomendationsService _recomendationsService;
         private IWebHostEnvironment _webHostEnvironment;
+        private ComplainsSocialRepository _complainsSocialRepository;
 
 
         public SocialController(SocialUserRepository socialUserRepository,
             SocialPostRepository socialPostRepository,
             UserService userService, IMapper mapper,
             RecomendationsService recomendationsService,
-            IWebHostEnvironment webHostEnvironment
+            IWebHostEnvironment webHostEnvironment,
+            ComplainsSocialRepository complainsSocialRepository
             )
         {
             _socialPostRepository = socialPostRepository;
@@ -46,6 +48,7 @@ namespace Net14.Web.Controllers
             _mapper = mapper;
             _recomendationsService = recomendationsService;
             _webHostEnvironment = webHostEnvironment;
+            _complainsSocialRepository = complainsSocialRepository;
         }
         [HttpGet]
         public IActionResult Index()
@@ -72,6 +75,10 @@ namespace Net14.Web.Controllers
                     if (x.UserId == currentUser.Id)
                     {
                         x.IsByCurrentUser = true;
+                    }
+                    if (posts.Single(dbPost => dbPost.Id == x.Id).Complains.Any(comp => comp.OwnerOfComplain.Id == currentUser.Id)) 
+                    {
+                        x.IsBlockedByUser = true;
                     }
                 });
 
@@ -242,7 +249,7 @@ namespace Net14.Web.Controllers
 
                 model.IsRequested = currentUser.FriendRequestSent.Any(x => x.Receiver.Id == userId) ? true : false;
                 model.IsFriend = currentUser.Friends.Any(x => x.Id == user.Id) ? true : false;
-                
+
             }
 
 
@@ -333,6 +340,16 @@ namespace Net14.Web.Controllers
             _socialUserRepository.Save(currentUser);
 
             return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        [HasRole(SiteRole.Admin)]
+        public IActionResult GetComplaint() 
+        {
+            var posts = _socialPostRepository.GetPostsWithComplains()
+                .OrderByDescending(post => post.Complains.Count);
+            var complainsPostsViewModels = _mapper.Map<List<SocialPostViewModel>>(posts);
+            return View(complainsPostsViewModels);
         }
     }
 }

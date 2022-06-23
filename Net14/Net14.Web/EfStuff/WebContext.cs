@@ -30,6 +30,7 @@ namespace Net14.Web.EfStuff
         public DbSet<SocialPhoto> SocialPhotos { get; set; }
         public DbSet<FoldersForToDo> FoldersForToDo { get; set; }
         public DbSet<IssuesForToDo> IssuesForToDo { get; set; }
+        public DbSet<ComplainsSocial> ComplainsSocial { get; set; }
 
 
 
@@ -53,6 +54,11 @@ namespace Net14.Web.EfStuff
             modelBuilder.Entity<PostSocial>()
                 .HasMany(post => post.Likes)
                 .WithOne(like => like.Post)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PostSocial>()
+                .HasMany(post => post.Complains)
+                .WithOne(comp => comp.Post)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<PostSocial>()
