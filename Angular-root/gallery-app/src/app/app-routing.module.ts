@@ -5,6 +5,7 @@ import { GirlsGalleryComponent } from './component/girls-gallery/girls-gallery.c
 
 const routes: Routes = [
   { path: "add-girl", component: AddGirlComponent },
+  { path: "look-girl/:id", component: AddGirlComponent },
   { path: "", component: GirlsGalleryComponent }
 ];
 

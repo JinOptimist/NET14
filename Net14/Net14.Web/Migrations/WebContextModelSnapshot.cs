@@ -123,6 +123,41 @@ namespace Net14.Web.Migrations
                     b.ToTable("DaysNotes");
                 });
 
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.DeliveryAddress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("House")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PostСode")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Room")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("DeliveryAddress");
+                });
+
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Image", b =>
                 {
                     b.Property<int>("Id")
@@ -193,6 +228,9 @@ namespace Net14.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rating")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -566,13 +604,16 @@ namespace Net14.Web.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
                     b.Property<string>("UserPhoto")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("/images/Social/User.jpg");
+                        .HasDefaultValue("/images/Social/CalendarUser.jpg");
 
                     b.HasKey("Id");
 
@@ -695,6 +736,15 @@ namespace Net14.Web.Migrations
                         .HasForeignKey("CalendarUserId");
 
                     b.Navigation("CalendarUser");
+                });
+
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.DeliveryAddress", b =>
+                {
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "User")
+                        .WithMany("DeliveryAddress")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.ImageComment", b =>
@@ -911,6 +961,8 @@ namespace Net14.Web.Migrations
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", b =>
                 {
                     b.Navigation("Basket");
+
+                    b.Navigation("DeliveryAddress");
 
                     b.Navigation("Files");
 

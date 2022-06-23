@@ -1,5 +1,6 @@
 ﻿@model List<ProductViewModel>
 @using Net14.Web.Models.store
+@using Net14.Web.Localize.Store
 @{
     Layout = "/Views/Shared/_LayoutStore.cshtml";
 }
@@ -7,9 +8,9 @@
 
 
     <div class="title">
-        Admin panel
+        @LayoutStore.Admin_panel
     </div>
-    <a class="title_mini" href="/Store/AddProduct">Add product</a>
+    <a class="title_mini" href="/StoreAdmin/AddProduct">Add product</a>
     <div>
 
 
@@ -45,7 +46,7 @@
                     <tr>
                         <td class="firstTD">
                             <img src="@product.Images.FirstOrDefault()" class="adminPanelImage" />
-                            <div> <a class="title_mini" href="/Store/AddImageProduct?id=@product.Id">Add Image</a></div>
+                            <div> <a class="title_mini" href="/StoreAdmin/AddImageProduct?id=@product.Id">Add Image</a></div>
                         </td>
 
                         <td> @product.Id</td>

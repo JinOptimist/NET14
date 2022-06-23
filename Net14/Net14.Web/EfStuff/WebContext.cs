@@ -34,6 +34,7 @@ namespace Net14.Web.EfStuff
 
 
 
+        public DbSet<DeliveryAddress> DeliveryAddress { get; set; }
         public WebContext(DbContextOptions options) : base(options)
         {
         }
@@ -89,11 +90,9 @@ namespace Net14.Web.EfStuff
                 .HasMany(x => x.RecievedMessages)
                 .WithOne(x => x.Reciever);
 
-
             modelBuilder.Entity<Image>()
                 .HasMany(image => image.Comments)
                 .WithOne(comment => comment.Image);
-
 
             modelBuilder.Entity<Basket>()
                .HasMany(basket => basket.Products)
@@ -106,6 +105,10 @@ namespace Net14.Web.EfStuff
             modelBuilder.Entity<Product>()
                .HasMany(Product =>Product.StoreImages)
                .WithOne(StoreImage => StoreImage.Product);
+
+            modelBuilder.Entity<UserSocial>()
+               .HasMany(user => user.DeliveryAddress)
+               .WithOne(DeliveryAddress => DeliveryAddress.User);
 
             modelBuilder.Entity<Image>()
               .HasMany(image => image.Comments)
@@ -120,17 +123,12 @@ namespace Net14.Web.EfStuff
                 .WithMany(uf => uf.WhoFriends);
             });
 
-
             modelBuilder.Entity<PostSocial>()
                 .HasMany(post => post.Comments)
                 .WithOne(comment => comment.Post)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<GroupSocial>()
-                .HasMany(group => group.Members)
-                .WithMany(user => user.Groups);
-
-            modelBuilder.Entity<UserSocial>().Property(u => u.UserPhoto).HasDefaultValue("/images/Social/User.jpg");
+            modelBuilder.Entity<UserSocial>().Property(u => u.UserPhoto).HasDefaultValue("/images/Social/CalendarUser.jpg");
 
             base.OnModelCreating(modelBuilder);
         }
