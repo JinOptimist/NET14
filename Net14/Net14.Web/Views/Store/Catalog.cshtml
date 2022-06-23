@@ -27,15 +27,22 @@
                 @product.Price $
             </div>
             <div class="buttonCatalog">
+                @if(!product.InBasket){
                 <span>
                     <a class="buttonCatalogToBasket" href="/Store/AddProductToBasket?productId=@product.Id">@Catalog.Add_to_Basket </a>
                 </span>
+                }
+                else{
+                <span>
+                    <a class="buttonCatalogToBasket" href="/Store/DeleteProductFromBasket?productId=@product.Id&userId=1">@Basket.Delete</a>
+                </span>
+                }
             </div>
         </div>
     }
 </div>
-<div>   
- <a href="/Store/Catalog?page=@(Model.Page-1)">@Catalog.prev</a><a href="/Store/Catalog?page=@(Model.Page+1)">@Catalog.next</a>
+<div>
+    <a href="/Store/Catalog?page=@(Model.Page-1)">@Catalog.prev</a><a href="/Store/Catalog?page=@(Model.Page+1)">@Catalog.next</a>
 </div>
 
 

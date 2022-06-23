@@ -142,11 +142,20 @@ namespace Net14.Web.Controllers
             {
                 var dbProducts = _productRepository.GetAll().Skip((page - 1) * perPage).Take(perPage);
                 var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
+
+                var alreadyAddedProductIds = _userService.GetCurrent().Basket.Products.Select(x => x.Id);
+
+                foreach (var productViewModel in viewModels)
+                {
+                    productViewModel.InBasket = alreadyAddedProductIds.Contains(productViewModel.Id);
+                }
+
                 var viewModel = new CatalogPageViewModel()
                 {
                     Page = page,
                     Products = viewModels
                 };
+               
                 return View(viewModel);
             }
             else
