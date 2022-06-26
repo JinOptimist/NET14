@@ -113,6 +113,7 @@
             @if (UserService.IsAdmin())
             {
                 <div class="elements-from-hidden" onclick="location.href='/Social/GetAPIs';">API</div>
+                <div class="elements-from-hidden" onclick="location.href = '/Social/GetComplaint';">Complains</div>
             }
         </div>
     </header>
@@ -124,6 +125,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <div class="menu-element" onclick="location.href='/Social/MyProfile';">@LayoutSocial.My_Posted</div>
+                        <div class="menu-element" onclick="location.href = '/Social/Index';">@LayoutSocial.News</div> 
                         <div class="menu-element" onclick="location.href='/SocialFile/MyFiles';">@LayoutSocial.My_Files</div>
                         <div class="menu-element" onclick="location.href='/SocialRecomendation/Recomendations';">@LayoutSocial.Recomendation</div>
                         <div class="menu-element" onclick="location.href='/SocialMessages/GetDialogs';">@LayoutSocial.Messages</div>

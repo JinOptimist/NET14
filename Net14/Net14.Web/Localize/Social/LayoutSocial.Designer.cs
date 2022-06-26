@@ -187,6 +187,15 @@ namespace Net14.Web.Localize.Social {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Новости.
+        /// </summary>
+        public static string News {
+            get {
+                return ResourceManager.GetString("News", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Уведомления.
         /// </summary>
         public static string Notifications {

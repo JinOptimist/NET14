@@ -54,6 +54,8 @@ namespace Net14.Web.Controllers
             var group = _socialGroupRepository.Get(id);
             var groupDbPosts = group.Posts;
             var groupViewModel = _mapper.Map<SocialGroupViewModel>(group);
+            var viewPost = _mapper.Map<List<SocialPostViewModel>>(groupDbPosts);
+
 
             if (User.Identity.IsAuthenticated) 
             {
@@ -64,6 +66,14 @@ namespace Net14.Web.Controllers
                     if (groupDbPosts.Single(dbPost => dbPost.Id == x.Id).Likes.Any(like => like.User.Id == currentUser.Id))
                     {
                         x.IsLikedCurrentUser = true;
+                    }
+                    if (x.UserId == currentUser.Id)
+                    {
+                        x.IsByCurrentUser = true;
+                    }
+                    if (groupDbPosts.Single(dbPost => dbPost.Id == x.Id).Complains.Any(comp => comp.OwnerOfComplain.Id == currentUser.Id))
+                    {
+                        x.IsBlockedByUser = true;
                     }
                 });
 

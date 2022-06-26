@@ -159,6 +159,9 @@
   <data name="My Posted" xml:space="preserve">
     <value>Моя страница</value>
   </data>
+  <data name="News" xml:space="preserve">
+    <value>Новости</value>
+  </data>
   <data name="Notifications" xml:space="preserve">
     <value>Уведомления</value>
   </data>
