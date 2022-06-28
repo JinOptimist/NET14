@@ -3,14 +3,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="word">
-    
+    Word
 </div>
 @foreach (WordCommentViewModel comment in Model)
 {
     @comment.Text
 }
 <form asp-controller="Home" asp-action="AddWordComment" >
-    <input type="text" value="comment" />
-    <input type="sumbit" value="add" />
+    <input type="text" value="text" />
+    <input type="submit" value="add" />
 </form>
-
