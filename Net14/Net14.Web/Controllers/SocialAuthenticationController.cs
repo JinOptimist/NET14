@@ -18,6 +18,8 @@ using Net14.Web.Auth;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Logging;
 using System.Text;
+using Net14.Web.Models.SocialModels;
+using Net14.Web.Services;
 
 namespace Net14.Web.Controllers
 {
@@ -27,13 +29,17 @@ namespace Net14.Web.Controllers
         private IHubContext<ChatHub> _chatHub;
         private SocialUserRepository _socialUserRepository;
         private IMapper _mapper;
+        private TokenService _tokenService; 
+
         public SocialAuthenticationController(SocialUserRepository socialUserRepository, 
             IMapper mapper, 
-            IHubContext<ChatHub> chatHub)
+            IHubContext<ChatHub> chatHub,
+            TokenService tokenService)
         {
             _mapper = mapper;
             _socialUserRepository = socialUserRepository;
             _chatHub = chatHub;
+            _tokenService = tokenService;
         }
 
 
@@ -143,49 +149,32 @@ namespace Net14.Web.Controllers
         [HttpPost("/token")]
         public IActionResult Token([FromBody] SocialUserAutorizationViewModel model)
         {
-            var identity = GetIdentity(model.Email, model.Password);
+            var identity = _tokenService.GetIdentity(model.Email, model.Password);
             if (identity == null)
             {
                 return BadRequest(new { errorText = "Invalid username or password." });
             }
 
-            var now = DateTime.UtcNow;
-            // создаем JWT-токен
-            var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
-                    notBefore: now,
-                    claims: identity.Claims,
-                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+            var encodedJwt = _tokenService.GenerateAccessToken(identity);
+            var refreshToken = _tokenService.GenerateRefreshToken();
 
-            var response = new
+            var result = new LoginResultViewModel()
             {
-                access_token = encodedJwt,
-                username = identity.Name
+                AccessToken = encodedJwt,
+                UserName = identity.Name,
+                RefreshToken = refreshToken
             };
 
-            return Json(response);
+
+            return Json(result);
         }
 
-        private ClaimsIdentity GetIdentity(string email, string password)
+        [HttpPost]
+        public async Task<IActionResult> Test() 
         {
-            UserSocial person = _socialUserRepository.GetByEmAndPass(email, password);
-            if (person != null)
-            {
-                var claims = new List<Claim>
-                {
-                    new Claim("token", person.Id.ToString())
-                };
-                ClaimsIdentity claimsIdentity =
-                new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                    "Id");
-                return claimsIdentity;
-            }
+            var accessToken = await HttpContext.GetTokenAsync("Bearer", "access_token");
 
-            // если пользователя не найдено
-            return null;
+            return Json(accessToken);
         }
     }
 }

@@ -287,9 +287,10 @@ namespace Net14.Web
 
             app.UseCors(option =>
             {
-                option.AllowAnyOrigin();
                 option.AllowAnyHeader();
                 option.AllowAnyMethod();
+                option.SetIsOriginAllowed((host) => true);
+                option.AllowCredentials();
             });
 
             //Who I am

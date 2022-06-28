@@ -39,6 +39,7 @@ export class RoomDetailComponent implements OnInit{
 
   userConnect(group: number){
     this.hubConnection.invoke("UserConnect", group);
+    debugger;
   }
 
   startConnection(){

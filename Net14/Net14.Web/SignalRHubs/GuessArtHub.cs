@@ -13,13 +13,10 @@ namespace Net14.Web.SignalRHubs
     {
         private UserService _userService;
         private RoomRepository _roomRepository;
-        private GuessArtService _guessArtService;
 
         public GuessArtHub(UserService userService, 
-            RoomRepository roomRepository,
-            GuessArtService guessArtService)
+            RoomRepository roomRepository)
         {
-            _guessArtService = guessArtService;
             _roomRepository = roomRepository;
             _userService = userService;
         }
