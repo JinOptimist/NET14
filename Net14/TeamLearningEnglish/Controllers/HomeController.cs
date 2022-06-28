@@ -70,18 +70,40 @@ namespace TeamLearningEnglish.Controllers
 
             return RedirectToAction("Dictionary");
         }
-        public IActionResult ShowWordComments(int id)
+
+
+
+
+        public IActionResult ShowWordComments(int wordId)
         {
-            var dbModels = _wordsRepository.GetComments(id);
+            var word = _wordsRepository.Get(wordId);
+            var dbModels = _wordsRepository.GetComments(wordId);
 
             var viewMdoels = dbModels.Select(dbModel => new WordCommentViewModel
             {
                 Id = dbModel.Id,
-                Text = dbModel.Text
-            });
+                Text = dbModel.Text,
+                WordId = word.Id
+            }).ToList();
             return View(viewMdoels);
         }
-        
+        public IActionResult AddWordComment(int wordId, string text)
+        {
+            var word = _wordsRepository.Get(wordId);
+
+            var newComment = new WordCommentDbModel
+            {
+                Text = text,
+                Word = word
+            };
+
+            _wordsRepository.SaveComment(newComment);
+
+            return RedirectToAction("Dictionary");
+        }
+
+
+
         public IActionResult Video()
         {
             
