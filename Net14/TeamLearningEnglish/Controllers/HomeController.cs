@@ -81,10 +81,7 @@ namespace TeamLearningEnglish.Controllers
             });
             return View(viewMdoels);
         }
-        public IActionResult AddWordComment(int text)
-        {
-            
-        }
+        
         public IActionResult Video()
         {
             
