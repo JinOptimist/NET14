@@ -1,8 +1,9 @@
-﻿namespace TeamLearningEnglish.Models
+﻿using TeamLearningEnglish.EfStuff.DbModels;
+
+namespace TeamLearningEnglish.Models
 {
-    public class BookDbModel
+    public class BookDbModel : BaseModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Text { get; set; }
     }

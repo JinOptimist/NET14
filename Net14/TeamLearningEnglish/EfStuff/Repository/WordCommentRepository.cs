@@ -5,29 +5,10 @@ using TeamLearningEnglish.Models;
 
 namespace TeamLearningEnglish.EfStuff.Repository
 {
-    public class WordCommentRepository
+    public class WordCommentRepository : BaseRepository<WordCommentDbModel>
     {
-        private WebDbContext _webContext;
-
-        public WordCommentRepository(WebDbContext webContext)
+        public WordCommentRepository(WebDbContext webContext) : base(webContext)
         {
-            _webContext = webContext;
         }
-        
-        public List<WordCommentDbModel> Get(int wordId)
-        {
-            return _webContext.WordComment.Where(x => x.Word.Id == wordId).ToList();
-        }
-        public void Remove(WordCommentDbModel dbModel)
-        {
-            _webContext.WordComment.Remove(dbModel);
-            _webContext.SaveChanges();
-        }
-        public void Save(WordCommentDbModel dbModel)
-        {
-            _webContext.WordComment.Add(dbModel);
-            _webContext.SaveChanges();
-        }
-
     }
 }

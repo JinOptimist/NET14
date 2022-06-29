@@ -46,6 +46,11 @@ namespace TeamLearningEnglish
             services.AddScoped<WordCommentRepository>(x =>
                 new WordCommentRepository(x.GetService<WebDbContext>()));
 
+            services.AddScoped<UserRepository>(x =>
+                new UserRepository(x.GetService<WebDbContext>()));
+
+            
+
             services.AddControllersWithViews();
         }
 

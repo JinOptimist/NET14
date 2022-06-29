@@ -14,10 +14,13 @@ namespace TeamLearningEnglish.Controllers
     public class MessangerController : Controller
     {
         private MessageRepository _messageRepository;
+        private UserRepository _userRepository;
 
-        public MessangerController(MessageRepository messageRepository)
+        public MessangerController(MessageRepository messageRepository, 
+            UserRepository userRepository)
         {
             _messageRepository = messageRepository;
+            _userRepository = userRepository;
         }
         public IActionResult Messanger()
         {
@@ -52,16 +55,16 @@ namespace TeamLearningEnglish.Controllers
         }
         public IActionResult Messages(int id)
         {
-            var sender = _messageRepository.GetCurrentUser(1); // me (Kirill Perepechkin) id = 1;
-            var reciever = _messageRepository.Get(id);
+            var sender = _userRepository.GetCurrentUser(1); // me (Kirill Perepechkin) id = 1;
+            var reciever = _userRepository.Get(id);
             var messages = _messageRepository.GetCurrentMessages(sender, reciever);
             messages.ToList();
             return View(messages);
         }
         public IActionResult SendMessage(int id, string message)
         {
-            var sender = _messageRepository.GetCurrentUser(1); // me (Kirill Perepechkin) id = 1
-            var reciever = _messageRepository.Get(id);
+            var sender = _userRepository.GetCurrentUser(1); // me (Kirill Perepechkin) id = 1
+            var reciever = _userRepository.Get(id);
 
             var newMessage = new MessageDbModel
             {

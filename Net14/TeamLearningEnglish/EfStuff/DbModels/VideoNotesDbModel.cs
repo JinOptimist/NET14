@@ -1,8 +1,9 @@
-﻿namespace TeamLearningEnglish.Models
+﻿using TeamLearningEnglish.EfStuff.DbModels;
+
+namespace TeamLearningEnglish.Models
 {
-    public class VideoNotesDbModel
+    public class VideoNotesDbModel : BaseModel
     {
-        public int Id { get; set; }
         public string VideoName { get; set; }
         public string Text { get; set; }
     }

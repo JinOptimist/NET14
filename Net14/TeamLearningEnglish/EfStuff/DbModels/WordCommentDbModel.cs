@@ -1,8 +1,7 @@
 ﻿namespace TeamLearningEnglish.EfStuff.DbModels
 {
-    public class WordCommentDbModel
+    public class WordCommentDbModel : BaseModel
     {
-        public int Id { get; set; }
         public string Text { get; set; }
         public virtual WordDbModel Word { get; set; }
     }

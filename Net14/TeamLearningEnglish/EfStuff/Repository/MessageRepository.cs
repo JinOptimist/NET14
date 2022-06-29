@@ -5,30 +5,14 @@ using TeamLearningEnglish.Models;
 
 namespace TeamLearningEnglish.EfStuff.Repository
 {
-    public class MessageRepository
+    public class MessageRepository : BaseRepository<MessageDbModel>
     {
-        private WebDbContext _webContext;
-
-        public MessageRepository(WebDbContext webContext)
+        public MessageRepository(WebDbContext webContext) : base(webContext)
         {
-            _webContext = webContext;
         }
-        public UserDbModel Get(int id)
+        public List<MessageDbModel> GetCurrentMessages (UserDbModel sender, UserDbModel reciever)
         {
-            return _webContext.User.FirstOrDefault(x => x.Id == id);
-        }
-        public void Save(MessageDbModel dbModel)
-        {
-            _webContext.Messages.Add(dbModel);
-            _webContext.SaveChanges();
-        }
-        public UserDbModel GetCurrentUser(int id)
-        {
-            return _webContext.User.FirstOrDefault(x => x.Id == id);
-        }
-        public IQueryable<MessageDbModel> GetCurrentMessages (UserDbModel sender, UserDbModel reciever)
-        {
-            return _webContext.Messages.Where(x => x.Sender.Id == sender.Id || x.Receiver.Id == reciever.Id);
+            return _webContext.Messages.Where(x => x.Sender.Id == sender.Id || x.Receiver.Id == reciever.Id).ToList();
         }
     }
 }
