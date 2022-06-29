@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using TeamLearningEnglish.EfStuff.DbModels;
 using TeamLearningEnglish.Models;
@@ -13,33 +14,27 @@ namespace TeamLearningEnglish.EfStuff.Repository
         {
             _webContext = webContext;
         }
-        public List<WordsDbModel> GetAll()
+        public List<WordDbModel> GetAll()
         {
             return _webContext.Words.ToList();
         }
-        public WordsDbModel Get(int id)
+        public WordDbModel Get(int id)
         {
-            return _webContext.Words.FirstOrDefault(x => x.Id == id);
+            return _webContext
+                .Words
+                .FirstOrDefault(x => x.Id == id);
         }
-        public List<WordCommentDbModel> GetComments(int id)
-        {
-            return _webContext.WordComment.Where(x => x.Word.Id == id).ToList();
-        }
-        public void Remove(WordsDbModel dbModel)
+        public void Remove(WordDbModel dbModel)
         {
             _webContext.Words.Remove(dbModel);
             _webContext.SaveChanges();
         }
-        public void SaveWord(WordsDbModel dbModel)
+        public void Save(WordDbModel dbModel)
         {
             _webContext.Words.Add(dbModel);
             _webContext.SaveChanges();
         }
-        public void SaveComment(WordCommentDbModel dbModel)
-        {
-            _webContext.WordComment.Add(dbModel);
-            _webContext.SaveChanges();
-        }
+        
 
     }
 }

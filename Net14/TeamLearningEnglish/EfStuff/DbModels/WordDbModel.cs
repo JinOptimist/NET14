@@ -2,7 +2,7 @@
 
 namespace TeamLearningEnglish.EfStuff.DbModels
 {
-    public class WordsDbModel
+    public class WordDbModel
     {
         public int Id { get; set; }
         public string EnglishWord { get; set; }

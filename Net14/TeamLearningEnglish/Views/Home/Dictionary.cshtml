@@ -33,9 +33,6 @@
                 <div class="show-word-comments">
                     <a href="/Home/ShowWordComments?wordId=@word.Id">Show Comments</a>
                 </div>
-                <form asp-controller="Home" asp-action="AddWordComment">
-                    <input type="hidden" name="wordId" value="@word.Id" />
-                </form>
             </div>
         }
     </div>

@@ -8,6 +8,6 @@ namespace TeamLearningEnglish.Models
         public string EnglishWord { get; set; }
         public string RussianWord { get; set; }
         public int Rating { get; set; }
-        public virtual List<WordCommentViewModel> WordComments { get; set; }
+        public List<string> WordComments { get; set; }
     }
 }

@@ -12,20 +12,20 @@ namespace TeamLearningEnglish.EfStuff.Repository
         {
             _webContext = webContext;
         }
-        public List<BooksDbModel> GetAll()
+        public List<BookDbModel> GetAll()
         {
             return _webContext.Books.ToList();
         }
-        public BooksDbModel Get(int id)
+        public BookDbModel Get(int id)
         {
             return _webContext.Books.FirstOrDefault(x => x.Id == id);
         }
-        public void Remove (BooksDbModel dbModel)
+        public void Remove (BookDbModel dbModel)
         {
             _webContext.Books.Remove(dbModel);
             _webContext.SaveChanges();
         }
-        public void Save(BooksDbModel dbModel)
+        public void Save(BookDbModel dbModel)
         {
             _webContext.Books.Add(dbModel);
             _webContext.SaveChanges();

@@ -1,15 +1,27 @@
-﻿@model List<WordCommentViewModel>
+﻿@model WordsViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link rel="stylesheet" href="~/css/showWordComments.css" />
+
 <div class="word">
-    Word
+    @Model.EnglishWord
 </div>
-@foreach (WordCommentViewModel comment in Model)
-{
-    @comment.Text
-}
-<form asp-controller="Home" asp-action="AddWordComment" >
-    <input type="text" value="text" />
-    <input type="submit" value="add" />
-</form>
+<div class="comments">
+    @foreach (string comment in Model.WordComments)
+    {
+        <div class="comment">
+            @comment
+        </div>
+    }
+</div>
+<div class="add-comment">
+    <form action="AddWordComment">
+        <input name="wordId" type="hidden" value="@Model.Id" />
+        <div class="holder">
+            Добавить комментарий:
+        </div>
+        <input name="text" type="text" />
+        <input type="submit" placeholder="создать" />
+    </form>
+</div>

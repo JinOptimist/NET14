@@ -15,22 +15,25 @@ namespace TeamLearningEnglish.Controllers
     public class HomeController : Controller
     {
         private WordsRepository _wordsRepository;
+        private WordCommentRepository _wordComment;
         private BooksRepository _booksRepository;
         private VideoNotesRepository _videoNotesRepository;
 
         public HomeController(
             WordsRepository wordsRepository,
-            BooksRepository booksRepository, 
-            VideoNotesRepository videoNotesRepository)
+            BooksRepository booksRepository,
+            VideoNotesRepository videoNotesRepository,
+            WordCommentRepository wordComment)
         {
             _wordsRepository = wordsRepository;
             _booksRepository = booksRepository;
             _videoNotesRepository = videoNotesRepository;
+            _wordComment = wordComment;
         }
 
         public IActionResult Index()
         {
-            
+
             return View();
         }
         public IActionResult Dictionary()
@@ -50,16 +53,17 @@ namespace TeamLearningEnglish.Controllers
 
             return View(viewModels);
         }
-        public IActionResult AddWord(int id, string englishWord, string russianWord, int rating) 
+        public IActionResult AddWord(int wordId, string englishWord, string russianWord, int rating)
         {
-            var dbModel = new WordsDbModel
+            var dbModel = new WordDbModel
             {
-                Id = id,
+                Id = wordId,
                 EnglishWord = englishWord,
                 RussianWord = russianWord,
                 Rating = rating
             };
-            _wordsRepository.SaveWord(dbModel);
+
+            _wordsRepository.Save(dbModel);
 
             return RedirectToAction("Dictionary");
         }
@@ -70,43 +74,33 @@ namespace TeamLearningEnglish.Controllers
 
             return RedirectToAction("Dictionary");
         }
-
-
-
-
         public IActionResult ShowWordComments(int wordId)
         {
-            var word = _wordsRepository.Get(wordId);
-            var dbModels = _wordsRepository.GetComments(wordId);
-
-            var viewMdoels = dbModels.Select(dbModel => new WordCommentViewModel
+            var wordDbModel = _wordsRepository.Get(wordId);
+            var wordViewModel = new WordsViewModel
             {
-                Id = dbModel.Id,
-                Text = dbModel.Text,
-                WordId = word.Id
-            }).ToList();
-            return View(viewMdoels);
+                Id = wordDbModel.Id,
+                EnglishWord = wordDbModel.EnglishWord,
+                WordComments = wordDbModel.WordComments.Select(x => x.Text).ToList()
+            };
+
+            return View(wordViewModel);
         }
         public IActionResult AddWordComment(int wordId, string text)
         {
             var word = _wordsRepository.Get(wordId);
 
-            var newComment = new WordCommentDbModel
+            var comment = new WordCommentDbModel()
             {
                 Text = text,
                 Word = word
             };
+            _wordComment.Save(comment);
 
-            _wordsRepository.SaveComment(newComment);
-
-            return RedirectToAction("Dictionary");
+            return RedirectToAction("ShowWordComments", new { wordId = word.Id });
         }
-
-
-
         public IActionResult Video()
         {
-            
             return View();
         }
         [HttpGet]
@@ -123,7 +117,7 @@ namespace TeamLearningEnglish.Controllers
             };
 
             _videoNotesRepository.Save(dbModel);
-           
+
             return RedirectToAction("Video");
         }
         public IActionResult ShowMyNotes()
@@ -176,9 +170,9 @@ namespace TeamLearningEnglish.Controllers
             wordsViewModels.Reverse();
 
             return View(wordsViewModels);
-            
+
         }
-        
+
 
     }
 }
