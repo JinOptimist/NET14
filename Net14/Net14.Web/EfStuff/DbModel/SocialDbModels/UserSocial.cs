@@ -39,6 +39,7 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
         public virtual Basket Basket { get; set; }
         public virtual List<SocialMessages> SendMessages { get; set; } = new List<SocialMessages>();
         public virtual List<SocialMessages> RecievedMessages { get; set; } = new List<SocialMessages>();
+        public virtual List<SocialReport> UsersReports { get; set; } = new List<SocialReport>();
         
     }
 }

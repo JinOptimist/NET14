@@ -116,7 +116,7 @@ namespace Net14.Web
                     .Last();
             }
 
-            services.AddScoped(
+            services.AddTransient(
                 type,
                 serviceProvider =>
                 {
@@ -313,6 +313,11 @@ namespace Net14.Web
                 .ForMember(nameof(ComplainViewModel.OwnerOfComplain),
                     post => post
                         .MapFrom(dbpost => dbpost.OwnerOfComplain.Id));
+
+            provider.CreateMap<SocialReport, SocialReportViewModel>()
+                .ForMember(nameof(SocialReportViewModel.Id),
+                    report => report
+                        .MapFrom(dbReport => dbReport.UserReport.Id));
 
 
 

@@ -13,5 +13,12 @@ namespace Net14.Web.EfStuff.Repositories
         {
         }
 
+        public List<FileSocial> GetUsersFiles(int userId) 
+        {
+            return _webContext.fileSocial
+                .Where(file => file.Owner.Id == userId)
+                .ToList();
+        }
+
     }
 }

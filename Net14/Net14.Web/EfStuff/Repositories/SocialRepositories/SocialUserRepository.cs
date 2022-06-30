@@ -135,5 +135,17 @@ namespace Net14.Web.EfStuff.Repositories
             return true;
         }
 
+        public UserSocial GetUserToReport(int id) 
+        {
+            return _webContext.Users
+                .Include(user => user.Friends)
+                .Include(user => user.Groups)
+                    .ThenInclude(group => group.Members)
+                .Include(user => user.Files)
+                .Include(user => user.SendMessages)
+                .Include(user => user.RecievedMessages)
+                .FirstOrDefault(x => x.Id == id);
+        }
+
     }
 }

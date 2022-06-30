@@ -1,0 +1,49 @@
+﻿@model List<SocialReportViewModel>
+@{
+    Layout = "/Views/Shared/_LayoutSocial.cshtml";
+}
+
+@section Scripts{
+    <script src="~/js/SocialJS/ReportsJs.js"></script>
+    <script src="/lib/ProgressCircle/progress-js.js"></script>
+    
+
+    <link rel="stylesheet" href="/lib/jQuery-Plugin-SVG-Progress-Circle/progresscircle.css">
+
+}
+
+<link rel="stylesheet" href="~/css/SocialCss/ReportsPage.css">
+<div class="reports-header">Reports</div>
+<div class="create-new-report" data-userId="@User.Claims.FirstOrDefault(x => x.Type == "Id").Value">Create new</div>
+
+<div class="user-reports">
+    @foreach (var report in Model)
+    {
+        if (report.IsCompleted)
+        {
+            <div class="single-report">
+                <div>
+                    <div class="report-url">@report.Name</div>
+                    <div class="report-date">@report.CreatingDate</div>
+                </div>
+                <div class="progress"></div>
+            </div>
+
+
+
+        }
+        else
+        {
+            <div class="single-report notready">
+                <div class="report-url">@report.Name</div>
+                <div class="report-date">@report.CreatingDate</div>
+            </div>
+        }
+
+    }
+</div>
+
+<div class="single-report notready template">
+    <div class="report-url"></div>
+    <div class="report-date"></div>
+</div>

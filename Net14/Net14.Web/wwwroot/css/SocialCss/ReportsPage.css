@@ -1,0 +1,55 @@
+﻿.user-reports {
+}
+
+.single-report {
+    background-color: white;
+    box-sizing: border-box;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    width: 500px;
+    border: 1px solid grey;
+    margin-bottom: 20px;
+}
+.report-url {
+    margin-bottom: 20px;
+}
+
+.reports-header {
+    font-size: 25px;
+    margin-bottom: 50px;
+}
+
+.create-new-report {
+    background-color: white;
+    box-sizing: border-box;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    border: 1px solid grey;
+    margin-bottom: 30px;
+}
+
+.single-report.notready {
+    animation: show 1s;
+    background-color: dimgrey;
+}
+
+.single-report.notready.template{
+    display: none;
+    background-color: dimgrey;
+}
+
+@keyframes show {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
