@@ -11,5 +11,6 @@ namespace TeamLearningEnglish.EfStuff.Repository
         public WordsRepository(WebDbContext webContext) : base(webContext)
         {
         }
+
     }
 }

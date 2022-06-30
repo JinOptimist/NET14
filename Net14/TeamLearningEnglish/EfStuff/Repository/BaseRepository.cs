@@ -33,7 +33,14 @@ namespace TeamLearningEnglish.EfStuff.Repository
             _dbSet.Add(model);
             _webContext.SaveChanges();
         }
-        
+        public void SaveList(List<T> models)
+        {
+            models.ForEach(Save);
+        }
+        public bool Any()
+        {
+            return _dbSet.Any();
+        }
 
     }
 }

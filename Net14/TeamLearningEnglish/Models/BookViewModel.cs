@@ -1,6 +1,6 @@
 ﻿namespace TeamLearningEnglish.Models
 {
-    public class BooksViewModel
+    public class BookViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -14,90 +14,21 @@ namespace TeamLearningEnglish.Controllers
 {
     public class HomeController : Controller
     {
-        private WordsRepository _wordsRepository;
-        private WordCommentRepository _wordComment;
         private BooksRepository _booksRepository;
         private VideoNotesRepository _videoNotesRepository;
 
         public HomeController(
-            WordsRepository wordsRepository,
             BooksRepository booksRepository,
-            VideoNotesRepository videoNotesRepository,
-            WordCommentRepository wordComment)
+            VideoNotesRepository videoNotesRepository)
         {
-            _wordsRepository = wordsRepository;
             _booksRepository = booksRepository;
             _videoNotesRepository = videoNotesRepository;
-            _wordComment = wordComment;
         }
 
         public IActionResult Index()
         {
 
             return View();
-        }
-        public IActionResult Dictionary()
-        {
-            var dbModels = _wordsRepository.GetAll();
-
-            var viewModels = dbModels
-                .Select(dbModel => new WordsViewModel
-                {
-                    Id = dbModel.Id,
-                    EnglishWord = dbModel.EnglishWord,
-                    RussianWord = dbModel.RussianWord,
-                    Rating = dbModel.Rating
-
-                }).ToList();
-            viewModels.Reverse();
-
-            return View(viewModels);
-        }
-        public IActionResult AddWord(int wordId, string englishWord, string russianWord, int rating)
-        {
-            var dbModel = new WordDbModel
-            {
-                Id = wordId,
-                EnglishWord = englishWord,
-                RussianWord = russianWord,
-                Rating = rating
-            };
-
-            _wordsRepository.Save(dbModel);
-
-            return RedirectToAction("Dictionary");
-        }
-        public IActionResult RemoveWord(int id)
-        {
-            var dbModel = _wordsRepository.Get(id);
-            _wordsRepository.Remove(dbModel);
-
-            return RedirectToAction("Dictionary");
-        }
-        public IActionResult ShowWordComments(int wordId)
-        {
-            var wordDbModel = _wordsRepository.Get(wordId);
-            var wordViewModel = new WordsViewModel
-            {
-                Id = wordDbModel.Id,
-                EnglishWord = wordDbModel.EnglishWord,
-                WordComments = wordDbModel.WordComments.Select(x => x.Text).ToList()
-            };
-
-            return View(wordViewModel);
-        }
-        public IActionResult AddWordComment(int wordId, string text)
-        {
-            var word = _wordsRepository.Get(wordId);
-
-            var comment = new WordCommentDbModel()
-            {
-                Text = text,
-                Word = word
-            };
-            _wordComment.Save(comment);
-
-            return RedirectToAction("ShowWordComments", new { wordId = word.Id });
         }
         public IActionResult Video()
         {
@@ -137,7 +68,7 @@ namespace TeamLearningEnglish.Controllers
         {
             var dbModels = _booksRepository.GetAll();
 
-            var viewModels = dbModels.Select(dbModel => new BooksViewModel
+            var viewModels = dbModels.Select(dbModel => new BookViewModel
             {
                 Id = dbModel.Id,
                 Name = dbModel.Name,
@@ -146,32 +77,33 @@ namespace TeamLearningEnglish.Controllers
 
             return View(viewModels);
         }
-        public IActionResult ShowBook(int id)
+        public IActionResult ShowBook(int id, int page = 1)
         {
-            var dbModel = _booksRepository.Get(id);
-
-            var viewModel = new BooksViewModel
-            {
-                Text = dbModel.Text
-            };
-            return View(viewModel);
-        }
-        public IActionResult Tests()
-        {
-            var wordsDb = _wordsRepository.GetAll();
-
-            var wordsViewModels = wordsDb.Select(dbModel => new WordsViewModel
+            var dbModel = _booksRepository
+                .Get(id);
+            var bookViewModel = new BookViewModel
             {
                 Id = dbModel.Id,
-                EnglishWord = dbModel.EnglishWord,
-                RussianWord = dbModel.RussianWord
-            }).ToList();
+                Text = dbModel.Text
+            };
 
-            wordsViewModels.Reverse();
+            var maxSymbvalOnePage = 1000; 
+            var symbvals = bookViewModel.Text.ToCharArray();  
 
-            return View(wordsViewModels);
+            var model = symbvals
+                .Skip((page - 1) * maxSymbvalOnePage)
+                .Take(maxSymbvalOnePage)
+                .ToList();
+            var viewModel = new IndexBookViewModel()
+            {
+                Page = page,
+                Text = model,
+                Book = bookViewModel
+            };
 
+            return View(viewModel);
         }
+        
 
 
     }

@@ -2,7 +2,7 @@
 
 namespace TeamLearningEnglish.Models
 {
-    public class WordsViewModel
+    public class WordViewModel
     {
         public int Id { get; set; }
         public string EnglishWord { get; set; }
