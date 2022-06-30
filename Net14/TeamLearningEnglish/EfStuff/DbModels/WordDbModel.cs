@@ -6,7 +6,7 @@ namespace TeamLearningEnglish.EfStuff.DbModels
     {
         public string EnglishWord { get; set; }
         public string RussianWord { get; set; }
-        public int Rating { get; set; }
+        public int Importance { get; set; } = 5;
         public virtual List<WordCommentDbModel> WordComments { get; set; }
     }
 }

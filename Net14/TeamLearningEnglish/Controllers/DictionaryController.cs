@@ -27,28 +27,27 @@ namespace TeamLearningEnglish.Controllers
         public IActionResult Dictionary()
         {
             var dbModels = _wordsRepository.GetAll();
-
-            var viewModels = dbModels
+            var activeWords = dbModels.Where(x => x.isActive == true).ToList();
+            var viewModels = activeWords
                 .Select(dbModel => new WordViewModel
                 {
                     Id = dbModel.Id,
                     EnglishWord = dbModel.EnglishWord,
                     RussianWord = dbModel.RussianWord,
-                    Rating = dbModel.Rating
+                    Importance = dbModel.Importance
 
                 }).ToList();
             viewModels.Reverse();
 
             return View(viewModels);
         }
-        public IActionResult AddWord(int wordId, string englishWord, string russianWord, int rating)
+        public IActionResult AddWord(int wordId, string englishWord, string russianWord)
         {
             var dbModel = new WordDbModel
             {
                 Id = wordId,
-                EnglishWord = englishWord,
-                RussianWord = russianWord,
-                Rating = rating
+                EnglishWord = englishWord.ToLower(),
+                RussianWord = russianWord.ToLower()
             };
 
             _wordsRepository.Save(dbModel);
@@ -58,21 +57,10 @@ namespace TeamLearningEnglish.Controllers
         public IActionResult RemoveWord(int id)
         {
             var wordDbModel = _wordsRepository.Get(id);
-            _wordsRepository.Remove(wordDbModel);
+            wordDbModel.isActive = false;
+            _wordsRepository.Save(wordDbModel);
 
             return RedirectToAction("Dictionary");
-        }
-        public IActionResult ShowWordComments(int wordId)
-        {
-            var wordDbModel = _wordsRepository.Get(wordId);
-            var wordViewModel = new WordViewModel
-            {
-                Id = wordDbModel.Id,
-                EnglishWord = wordDbModel.EnglishWord,
-                WordComments = wordDbModel.WordComments.Select(x => x.Text).ToList()
-            };
-
-            return View(wordViewModel);
         }
         public IActionResult AddWordComment(int wordId, string text)
         {
@@ -87,23 +75,19 @@ namespace TeamLearningEnglish.Controllers
 
             return RedirectToAction("ShowWordComments", new { wordId = word.Id });
         }
-        public IActionResult Tests()
+        public IActionResult ShowWordComments(int wordId)
         {
-            var wordsDb = _wordsRepository.GetAll();
-
-            var wordsViewModels = wordsDb.Select(dbModel => new WordViewModel
+            var wordDbModel = _wordsRepository.Get(wordId);
+            var wordViewModel = new WordViewModel
             {
-                Id = dbModel.Id,
-                EnglishWord = dbModel.EnglishWord,
-                RussianWord = dbModel.RussianWord
-            }).ToList();
+                Id = wordDbModel.Id,
+                EnglishWord = wordDbModel.EnglishWord,
+                WordComments = wordDbModel.WordComments.Select(x => x.Text).ToList()
+            };
 
-            wordsViewModels.Reverse();
-
-            return View(wordsViewModels);
-
+            return View(wordViewModel);
         }
-
+        
 
     }
 }

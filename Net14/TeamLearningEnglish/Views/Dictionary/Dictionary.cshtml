@@ -6,10 +6,9 @@
 
 <div class="dictionary">
     <div class="add-word-form">
-        <form asp-controller="Home" asp-action="AddWord">
+        <form asp-controller="Dictionary" asp-action="AddWord">
             <input type="text" name="englishWord" placeholder="Word in English" />
             <input type="text" name="russianWord" placeholder="Слово на Русском" />
-            <input type="number" name="rating" placeholder="Рейтинг" />
             <input type="submit" value="Добавить" />
         </form>
     </div>
@@ -25,13 +24,13 @@
                     @word.RussianWord
                 </div>
                 <div class="word-rates">
-                    @word.Rating
+                    @word.Importance
                 </div>
                 <div class="remove-word">
-                    <a href="/Home/RemoveWord?id=@word.Id">remove</a>
+                    <a href="/Dictionary/RemoveWord?id=@word.Id">remove</a>
                 </div>
                 <div class="show-word-comments">
-                    <a href="/Home/ShowWordComments?wordId=@word.Id">Show Comments</a>
+                    <a href="/Dictionary/ShowWordComments?wordId=@word.Id">Show Comments</a>
                 </div>
             </div>
         }

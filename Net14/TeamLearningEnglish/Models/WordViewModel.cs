@@ -7,7 +7,7 @@ namespace TeamLearningEnglish.Models
         public int Id { get; set; }
         public string EnglishWord { get; set; }
         public string RussianWord { get; set; }
-        public int Rating { get; set; }
+        public int Importance { get; set; }
         public List<string> WordComments { get; set; }
     }
 }

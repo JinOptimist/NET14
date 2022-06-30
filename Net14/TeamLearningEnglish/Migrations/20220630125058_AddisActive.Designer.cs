@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamLearningEnglish.EfStuff;
 
 namespace TeamLearningEnglish.Migrations
 {
     [DbContext(typeof(WebDbContext))]
-    partial class WebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220630125058_AddisActive")]
+    partial class AddisActive
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,7 +105,7 @@ namespace TeamLearningEnglish.Migrations
                     b.Property<string>("EnglishWord")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Importance")
+                    b.Property<int>("Rating")
                         .HasColumnType("int");
 
                     b.Property<string>("RussianWord")

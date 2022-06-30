@@ -33,26 +33,22 @@ namespace TeamLearningEnglish.EfStuff
                     new WordDbModel
                     {
                         EnglishWord = "car",
-                        RussianWord = "машина",
-                        Rating = 20
+                        RussianWord = "машина"
                     },
                     new WordDbModel
                     {
                         EnglishWord = "house",
-                        RussianWord = "дом",
-                        Rating = 41
+                        RussianWord = "дом"
                     },
                     new WordDbModel
                     {
                         EnglishWord = "message",
-                        RussianWord = "сообщение",
-                        Rating = 5
+                        RussianWord = "сообщение"
                     },
                     new WordDbModel
                     {
                         EnglishWord = "get",
-                        RussianWord = "получить",
-                        Rating = 32
+                        RussianWord = "получить"
                     },
                 };
                 wordsRepository.SaveList(words);
