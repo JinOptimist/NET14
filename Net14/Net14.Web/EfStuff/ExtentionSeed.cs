@@ -12,6 +12,8 @@ namespace Net14.Web.EfStuff
 {
     public static class ExtentionSeed
     {
+        private readonly static Random _random = new Random();
+
         public static IHost Seed(this IHost host)
         {
             using (var scope = host.Services.CreateScope())
@@ -435,7 +437,6 @@ namespace Net14.Web.EfStuff
                     Sizes = new List<Size>() { sizeM, sizeL }
                 };
 
-
                 productRepository.Save(product1);
                 productRepository.Save(product2);
                 productRepository.Save(product3);
@@ -454,9 +455,8 @@ namespace Net14.Web.EfStuff
                 productRepository.Save(product16);
                 productRepository.Save(product17);
             };
-
-
         }
+
         private static void SeedUser(IServiceScope scope) 
         {
             var userRepository = scope.ServiceProvider.GetService<SocialUserRepository>();
@@ -524,6 +524,27 @@ namespace Net14.Web.EfStuff
                     UserPhoto = "/images/Social/User.jpg"
                 };
                 userRepository.Save(user3);
+            }
+        
+            if (userRepository.Count() < 20)
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    var user = new UserSocial()
+                    {
+                        FirstName = $"Boring user {i}",
+                        LastName = $"User {_random.Next(0, 100)}",
+                        Age = _random.Next(10, 100),
+                        City = $"City {_random.Next(15, 20)}",
+                        Country = $"Mordor {_random.Next(1, 8)}",
+                        Email = $"test{_random.Next(1, 3)}@test.com",
+                        Password = "q",
+                        UserPhoto = "/images/Social/User.jpg",
+                        Role = (SiteRole)_random.Next(1, 16),
+                        Language = (Language)_random.Next(1, 3)
+                    };
+                    userRepository.Save(user);
+                }
             }
         }
 

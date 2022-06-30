@@ -1,0 +1,39 @@
+﻿@model List<SocialUserRecomendationViewModel>
+@using Net14.Web.Models.SocialModels.Enums
+
+@{
+    Layout = "/Views/Shared/_LayoutSocial.cshtml";
+}
+<link rel="stylesheet" href="~/css/SocialCss/AllUserForAdmin.css">
+
+<table class="admin-user">
+    <tr>
+        <td>
+            <a href="/Social/ShowAllUsersForAdmin?sortFieldName=Id">Id</a>
+        </td>
+        <td>
+            <a href="/Social/ShowAllUsersForAdmin?sortFieldName=FirstName">First Name</a>
+        </td>
+        <td>
+            <a href="/Social/ShowAllUsersForAdmin?sortFieldName=LastName">Last Name</a>
+        </td>
+        <td><a href="/Social/ShowAllUsersForAdmin?sortFieldName=Age">Age</a></td>
+        <td><a href="/Social/ShowAllUsersForAdmin?sortFieldName=City">City</a></td>
+        <td><a href="/Social/ShowAllUsersForAdmin?sortFieldName=Country">Country</a></td>
+        <td><a href="/Social/ShowAllUsersForAdmin?sortFieldName=Email">Email</a></td>
+    </tr>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.Id</td>
+            <td>@user.FirstName</td>
+            <td>@user.LastName</td>
+            <td>@user.Age</td>
+            <td>@user.City</td>
+            <td>@user.Country</td>
+            <td>@user.Email</td>
+        </tr>
+    }
+</table>
+
+

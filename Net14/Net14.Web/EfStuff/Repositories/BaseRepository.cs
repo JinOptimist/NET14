@@ -61,5 +61,10 @@ namespace Net14.Web.EfStuff.Repositories
 
         public void SaveList(List<T> models)
             => models.ForEach(Save);
+
+        public int Count()
+        {
+            return _dbSet.Count();
+        }
     }
 }
