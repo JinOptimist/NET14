@@ -18,7 +18,7 @@ body {
 
 .header {
     display: flex;
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .header_catalog {
@@ -74,7 +74,7 @@ body {
     justify-content: center;
     display: flex;
     flex: 1;
-    margin: 5px;
+    margin: 3px;
     position: relative;
 }
 
@@ -94,9 +94,11 @@ body {
         border: 2px solid orange;
     }
 
+.search-icona {
+    margin-top: 9px;
+}
+
 .search-icon {
-    position: absolute;
-    right: 5px;
     bottom: 3px;
     height: 38px;
     width: 38px;
@@ -146,7 +148,7 @@ body {
 
 .text {
     margin-left: 80px;
-    margin-right: 80px;
+    margin-right: 30px;
     font-size: 43px;
 }
 
@@ -180,10 +182,18 @@ body {
     color: #ffffff;
     font-family: Courier New, monospace;
     font-size: 15px;
-    padding: 6px 200px;
+    padding: 7px 15px;
+    text-align: center;
+    display: block;
     text-decoration: none;
     text-shadow: 0px 1px 0px #2b665e;
 }
+
+    .toBasket:hover {
+        background: black;
+        color: orange;
+    }
+
 
 .emptyBasketHeader {
     font-size: 3em;
@@ -262,8 +272,15 @@ body {
     width: 140px;
     height: 140px;
     border-radius: 10px;
-    margin: 5px
+    margin: 5px;
+    cursor: pointer;
+    transition: 0.5s;
 }
+
+    .icon:hover {
+        transform: scale(1.07)
+    }
+
 
 .icon1 {
     border: 1px solid #5A6169;
@@ -286,9 +303,9 @@ body {
     cursor: pointer;
     color: #666666;
     font-family: Courier New, monospace;
-    font-size: 15px;
+    font-size: 10px;
     font-weight: bold;
-    padding: 20px 20px;
+    padding: 15px 15px;
     text-decoration: none;
     text-shadow: 0px 1px 0px #ffffff;
 }
@@ -296,6 +313,7 @@ body {
 .buttonssize {
     margin-top: 25px;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .similarproduct {
@@ -453,7 +471,7 @@ body {
     height: 44px;
     line-height: 44px;
     color: #000;
-    transition:0.1s;
+    transition: 0.1s;
 }
 
     .second-header-banner:hover {
@@ -581,10 +599,10 @@ body {
 }
 
 table {
-    border: 2px solid #212322;
-    height: 150px;
     width: 100%;
     padding: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
 }
 
 td {
@@ -682,4 +700,205 @@ section__account {
     flex-direction: column;
     padding: 10vw 20vw 8vw;
     background: rgba(0,0,0,.03);
+}
+
+.addProductBody {
+    padding-top: 50px;
+    display: flex;
+}
+
+.addProductBlock1 {
+    padding-left: 50px;
+}
+
+.addProductBlock2 {
+    margin-left: 30px;
+    margin-right: 10px;
+    border: 1px solid #5A6169;
+}
+
+.iconAddProduct {
+    border: 1px solid #5A6169;
+    width: 110px;
+    height: 110px;
+    border-radius: 10px;
+    margin: 5px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.icon1AddProduct {
+    border: 1px solid #5A6169;
+    display: flex;
+    flex: 1;
+    border-radius: 10px;
+    width: 480px;
+    height: 480px;
+    margin: 5px
+}
+
+.iconshoesAddProduct {
+    width: 123px;
+    height: 123px;
+}
+
+.fotoAddProduct {
+    display: flex;
+    margin-top: 15px;
+    margin-left: 30px;
+}
+
+.myAccountBlock1 {
+    display: flex;
+    position: relative;
+    margin: 40px 40px 0 40px;
+}
+
+.myAccountLitleBlock1 {
+    flex: 0 1 33.333%;
+    padding: 0 7px 0 7px;
+}
+
+.myAccountLitleName {
+    display: flex;
+}
+
+.myAccountLitleLogo {
+    width: 30px;
+    height: 30px;
+}
+
+.myAccountTableName {
+    font-family: Courier New, monospace;
+    font-size: 21px;
+    font-weight: bold;
+    align-self: center
+}
+
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+    .table td {
+        padding: 8px;
+    }
+
+tr {
+    border: 1px solid #ddd;
+}
+
+td {
+    border: 1px solid #ddd;
+}
+
+.validationField {
+    padding: 10px;
+}
+
+.imageProductAccount {
+    width: 100px;
+    height: 100px;
+}
+
+.goToBasket {
+    box-shadow: inset 0px 1px 0px 0px #5A6169;
+    background: linear-gradient(to bottom, #5A6169 5%, #5A6169 100%);
+    background-color: #5A6169;
+    border-radius: 3px;
+    border: 1px solid #5A6169;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Courier New, monospace;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #2b665e;
+    margin-top: 5px;
+    font-size: 15px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #2b665e;
+    display: block;
+    padding: 4px 0px 4px 15px;
+}
+
+    .goToBasket:hover {
+        background: black;
+        color: orange;
+    }
+
+.popup {
+    position: fixed;
+    z-index: 1043;
+    width: 100%;
+    height: 100%;
+    background-color: #000000e0;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.popupBody {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 10px;
+}
+
+.popupContent {
+    background-color: #ffffff;
+    color: #000;
+    max-width: 800px;
+    padding: 30px;
+    position: relative;
+}
+
+.popupClose {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    color: black;
+}
+
+.popupTitle {
+    font-size: 40px;
+    margin: 0px 0px 20px 0px;
+}
+
+.popupText {
+    display:flex;
+}
+.popupTextMini{
+    padding:4px;
+}
+.popupTextImput{
+    padding:2px;
+}
+.languageDrop {
+    background-color: white;
+    border: thin solid #5A6169;
+    border-radius: 4px;
+    display: inline-block;
+    font: inherit;
+    line-height: 1.5em;
+    padding: 0.5em 3.5em 0.5em 1em;
+    margin: 5px 0px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, black 50%), linear-gradient(135deg, black 50%, transparent 50%), linear-gradient(to right, #5A6169, #5A6169);
+    background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), 100% 0;
+    background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
+    background-repeat: no-repeat;
+}
+.languageDrop:focus {
+    background-image: linear-gradient(45deg, orange 50%, transparent 50%), linear-gradient(135deg, transparent 50%, orange 50%), linear-gradient(to right, gray, gray);
+    background-position: calc(100% - 15px) 1em, calc(100% - 20px) 1em, 100% 0;
+    background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
+    background-repeat: no-repeat;
+    border-color: grey;
+    outline: 0;
 }
