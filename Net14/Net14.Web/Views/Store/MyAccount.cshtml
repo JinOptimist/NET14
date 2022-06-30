@@ -1,74 +1,248 @@
-﻿
+﻿@model UserAccountViewModel
+@using Net14.Web.Localize.Store
+@using Net14.Web.Models.store
+@using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 @{
     Layout = "/Views/Shared/_LayoutStore.cshtml";
 }
-<section class="section section__account">
-    <h1>Мой аккаунт</h1>
-    <div class="u-column1 col-1">
+@section Scripts{
+<script src="~/js/StoreJs/Account.js"></script>
+}
+<div class="myAccountBlock1">
+    <div class="myAccountLitleBlock1">
+        <div class="myAccountLitleName">
+            <img src="~/images/Store/person.svg" class="myAccountLitleLogo" />
+            <div class="myAccountTableName">@MyAccount.Buyer</div>
+        </div>
+        <div>
+            <table class="table tableBorder">
+                <tbody>
+                    <tr>
+                        <td>@MyAccount.Buyer</td>
+                        <td>@Model.FirstName @Model.LastName</td>
+                    </tr>
+                    <tr>
+                        <td>E-mail</td>
+                        <td>@Model.Email</td>
+                    </tr>
+                    <tr>
+                        <td>@MyAccount.PhoneNumber</td>
+                        <td>@Model.PhoneNumber</td>
+                    </tr>
+                    <tr>
+                        <td>@MyAccount.City</td>
+                        <td>@Model.City</td>
+                    </tr>
 
-
-        <h2>Вход</h2>
-
-        <form class="woocommerce-form woocommerce-form-login login" method="post">
-
-
-            <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                <label for="username">Имя пользователя или Email&nbsp;<span class="required">*</span></label>
-                <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="username" id="username" autocomplete="username" value="" />
-            </p>
-            <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                <label for="password">Пароль&nbsp;<span class="required">*</span></label>
-                <input class="woocommerce-Input woocommerce-Input--text input-text" type="password" name="password" id="password" autocomplete="current-password" />
-            </p>
-
-
-            <p class="form-row">
-                <label class="woocommerce-form__label woocommerce-form__label-for-checkbox woocommerce-form-login__rememberme">
-                    <input class="woocommerce-form__input woocommerce-form__input-checkbox" name="rememberme" type="checkbox" id="rememberme" value="forever" /> <span>Запомнить меня</span>
-                </label>
-                <input type="hidden" id="woocommerce-login-nonce" name="woocommerce-login-nonce" value="e1a8d94475" /><input type="hidden" name="_wp_http_referer" value="/moj-akkaunt/" />				<button type="submit" class="woocommerce-button button woocommerce-form-login__submit" name="login" value="Войти">Войти</button>
-            </p>
-            <p class="woocommerce-LostPassword lost_password">
-                <a href="https://sneaker-head.by/moj-akkaunt/lost-password/">Забыли свой пароль?</a>
-            </p>
-
-
-        </form>
-
-
+                </tbody>
+            </table>
+            <a href="#" id="changeMasterData" class="goToBasket">@MyAccount.Change_master_data</a>
+            <a href="#" id="changePassword" class="goToBasket">@MyAccount.Change_password</a>
+            <a href="#" id="addNewAdress" class="goToBasket">@MyAccount.Add_new_adress</a>
+            <a href="/Store/SignOut" class="goToBasket">@MyAccount.Exit</a>
+            <select asp-for="Language" asp-items="Html.GetEnumSelectList<Language>()" id=language1 class="languageDrop"> </select>
+        </div>
     </div>
+    <div class="myAccountLitleBlock1">
+        <div class="myAccountLitleName">
+            <img src="~/images/Store/shopping_bag.svg" class="myAccountLitleLogo" />
+            <div class="myAccountTableName">@MyAccount.Basket</div>
+        </div>
+        <div>
+            @if (Model.Products.Count == 0)
+            {
+                <table class="table tableBorder">
+                    <tbody>
+                        <tr>
+                            <td>@MyAccount.There_is_nothing_in_the_basket</td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <table class="table tableBorder">
+                    <tbody>
+                        <tr>
+                            <td>@MyAccount.Photo</td>
+                            <td>@MyAccount.Name</td>
+                            <td>@MyAccount.Price</td>
+                            <td></td>
+                        </tr>
+                        @foreach (var product in Model.Products)
+                        {
 
-    <div class="u-column2 col-2">
+                            <tr class='product-row'>
+                                <td><a href="/Store/Shoes?id=@product.Id"><img src="@product.Images.FirstOrDefault()" class="imageProductAccount" /></a></td>
+                                <td><a href="/Store/Shoes?id=@product.Id">@product.BrandCategories @product.Name</a></td>
+                                <td>@product.Price $</td>
+                                <td><a href="#" class='remove-product' data-id='@product.Id'> <img src=~/images/Store/delete_forever_FILL0.svg class="myAccountLitleLogo myAccountDeleteProduct" /></a></td>
+                            </tr>
 
-        <h2>Регистрация</h2>
+                        }
+                    </tbody>
+                </table>
+                <a href="/Store/Basket" class="goToBasket">@MyAccount.Go_to_basket</a>
+            }
 
-        <form method="post" class="woocommerce-form woocommerce-form-register register">
-
-
-
-            <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                <label for="reg_email">Email&nbsp;<span class="required">*</span></label>
-                <input type="email" class="woocommerce-Input woocommerce-Input--text input-text" name="email" id="reg_email" autocomplete="email" value="" />
-            </p>
-
-
-            <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                <label for="reg_password">Пароль&nbsp;<span class="required">*</span></label>
-                <input type="password" class="woocommerce-Input woocommerce-Input--text input-text" name="password" id="reg_password" autocomplete="new-password" />
-            </p>
-
-
-            <div class="woocommerce-privacy-policy-text"></div>
-            <p class="woocommerce-form-row form-row">
-                <input type="hidden" id="woocommerce-register-nonce" name="woocommerce-register-nonce" value="2a38da6ae9" /><input type="hidden" name="_wp_http_referer" value="/moj-akkaunt/" />				<button type="submit" class="woocommerce-Button woocommerce-button button woocommerce-form-register__submit" name="register" value="Регистрация">Регистрация</button>
-            </p>
-
-
-        </form>
-
+        </div>
     </div>
+    <div class="myAccountLitleBlock1">
+        <div class="myAccountLitleName">
+            <img src="~/images/Store/bookmark.svg" class="myAccountLitleLogo" />
+            <div class="myAccountTableName">@MyAccount.Bookmarks</div>
+        </div>
+        <div>
+            <table class="table tableBorder">
+                <tbody>
+                    <tr>
+                        <td>@MyAccount.There_ia_nothing_in_the_bookmarks</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="myAccountBlock1">
+    <div class="myAccountLitleBlock1">
+        <div class="myAccountLitleName">
+            <img src="~/images/Store/credit_card.svg" class="myAccountLitleLogo" />
+            <div class="myAccountTableName">@MyAccount.Payments</div>
+        </div>
+        <div>
+            <table class="table tableBorder">
+                <tbody>
+                    <tr>
+                        <td>@MyAccount.You_haven_t_made_any_payments_yet</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="myAccountLitleBlock1">
+        <div class="myAccountLitleName">
+            <img src="~/images/Store/description.svg" class="myAccountLitleLogo" />
+            <div class="myAccountTableName">@MyAccount.Order_list</div>
+        </div>
+        <div>
+            <table class="table tableBorder">
+                <tbody>
+                    <tr>
+                        <td>@MyAccount.You_haven_t_made_any_orders_yet</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="myAccountLitleBlock1">
+        <div class="myAccountLitleName">
+            <img src="~/images/Store/home_pin.svg" class="myAccountLitleLogo" />
+            <div class="myAccountTableName">@MyAccount.Delivery_addresses</div>
+        </div>
+        <div>
+            @if (@Model.DeliveryAddress.Count == 0)
+            {
+                <table class="table tableBorder">
+                    <tbody>
+                        <tr>
+                            <td>@MyAccount.You_haven_t_a_delivery_address_yet</td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <table class="table tableBorder">
+                    <tbody>
+                        @foreach (var deliveryAddres in Model.DeliveryAddress)
+                        {
+                            <tr>
+                                <td>@deliveryAddres.Country</td>
+                                <td>@deliveryAddres.PostСode</td>
+                                <td>@deliveryAddres.City,@deliveryAddres.Street @deliveryAddres.House-@deliveryAddres.Room</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+    <div id="popupAccount1" class="popup">
+        <div class="popupBody">
+            <div class="popupContent">
+                <a href="#" class="popupClose">X</a>
+                <div class="popupTitle">@MyAccount.Account</div>
 
-    
+                <div class="popupText">
+                    <div>
+                        <div class="popupTextMini">@MyAccount.NameUser:</div>
+                        <div class="popupTextMini">@MyAccount.LastName:</div>
+                        <div class="popupTextMini">E-mail:</div>
+                        <div class="popupTextMini">@MyAccount.PhoneNumber: </div>
+                    </div>
+                    <div>
+                        <div class="popupTextImput"><input id="firstName" name="FirstName" type="text" value=@Model.FirstName /></div>
+                        <div class="popupTextImput"><input id="lastName" name="LastName" type="text" value=@Model.LastName /></div>
+                        <div class="popupTextImput"><input id="email" name="Email" type="text" value=@Model.Email /></div>
+                        <div class="popupTextImput"><input id="phoneNumber" name="PhoneNumber" type="text" value=@Model.PhoneNumber /></div>
+                    </div>
+                </div>
+                <div>
+                    <input type="submit" value="@MyAccount.Refresh" class='update-user' />
+                </div>
 
-   
-</section>
+            </div>
+        </div>
+    </div>
+    <div id="popupAccount2" class="popup">
+        <div class="popupBody">
+            <div class="popupContent">
+                <a href="#" class="popupClose">X</a>
+                <div class="popupTitle">@MyAccount.Change_password</div>
+                <div class="popupText">
+                    <div>
+                        <div class="popupTextMini">@MyAccount.Password:</div>
+                        <div class="popupTextMini">@MyAccount.Confirm:</div>
+                    </div>
+                    <div>
+                        <div class="popupTextImput"><input id="password1" name="password1" type="text" placeholder="@MyAccount.Password" /></div>
+                        <div class="popupTextImput"><input id="password2" name="password2" type="text" placeholder="@MyAccount.Confirm" /></div>
+                    </div>
+                </div>
+                <div>
+                    <input type="submit" value="@MyAccount.Change" class='update-pass' />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="popupAccount3" class="popup">
+        <div class="popupBody">
+            <div class="popupContent">
+                <a href="#" class="popupClose">X</a>
+                <div class="popupTitle">@MyAccount.Delivery_addresses</div>
+
+                <div class="popupText">
+                    <div>
+                        <div class="popupTextMini">@MyAccount.Country:</div>
+                        <div class="popupTextMini">@MyAccount.Post_code:</div>
+                        <div class="popupTextMini">@MyAccount.City:</div>
+                        <div class="popupTextMini">@MyAccount.Street</div>
+                        <div class="popupTextMini">@MyAccount.House:</div>
+                        <div class="popupTextMini">@MyAccount.Room:</div>
+                    </div>
+                    <div>
+                        <div class="popupTextImput"><input id="country" name="Name" type="text" /></div>
+                        <div class="popupTextImput"><input id="postСode" name="Name" type="text" /></div>
+                        <div class="popupTextImput"><input id="city" name="Name" type="text" /></div>
+                        <div class="popupTextImput"><input id="street" name="Name" type="text" /></div>
+                        <div class="popupTextImput"><input id="house" name="Name" type="text" /></div>
+                        <div class="popupTextImput"><input id="room" name="Name" type="text" /></div>
+                    </div>
+                </div>
+                <div>
+                    <input type="submit" value="@MyAccount.Add" class='add-adress'/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

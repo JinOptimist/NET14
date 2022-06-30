@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Add_to_friends" xml:space="preserve">
-    <value>Добавить в друзья </value>
+    <value>Request</value>
   </data>
   <data name="Age" xml:space="preserve">
     <value>Age</value>

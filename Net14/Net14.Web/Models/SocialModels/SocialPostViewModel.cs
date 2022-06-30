@@ -18,7 +18,11 @@ namespace Net14.Web.Models
         public string UserPhoto { get; set; }
         public bool IsLikedCurrentUser { get; set; } = false;
         public bool IsByCurrentUser { get; set; }
+        public bool IsBlockedByUser { get; set; }
         public List<SocialCommentViewModel> Comments { get; set; } = new List<SocialCommentViewModel>();
+        public int ComplainsCount { get; set; }
+        public bool IsCheckedForComplains { get; set; }
+
 
     }
 }

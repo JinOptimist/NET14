@@ -123,6 +123,41 @@ namespace Net14.Web.Migrations
                     b.ToTable("DaysNotes");
                 });
 
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.DeliveryAddress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("House")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PostСode")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Room")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("DeliveryAddress");
+                });
+
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Image", b =>
                 {
                     b.Property<int>("Id")
@@ -195,6 +230,9 @@ namespace Net14.Web.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Products");
@@ -213,6 +251,31 @@ namespace Net14.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sizes");
+                });
+
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.ComplainsSocial", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("OwnerOfComplainId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReasonOfComplain")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerOfComplainId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("ComplainsSocial");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.FileSocial", b =>
@@ -350,6 +413,9 @@ namespace Net14.Web.Migrations
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsCheckedForComplains")
+                        .HasColumnType("bit");
 
                     b.Property<string>("TypePost")
                         .HasColumnType("nvarchar(max)");
@@ -538,13 +604,16 @@ namespace Net14.Web.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
                     b.Property<string>("UserPhoto")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("/images/Social/User.jpg");
+                        .HasDefaultValue("/images/Social/CalendarUser.jpg");
 
                     b.HasKey("Id");
 
@@ -669,6 +738,15 @@ namespace Net14.Web.Migrations
                     b.Navigation("CalendarUser");
                 });
 
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.DeliveryAddress", b =>
+                {
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "User")
+                        .WithMany("DeliveryAddress")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.ImageComment", b =>
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.Image", "Image")
@@ -676,6 +754,22 @@ namespace Net14.Web.Migrations
                         .HasForeignKey("ImageId");
 
                     b.Navigation("Image");
+                });
+
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.ComplainsSocial", b =>
+                {
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "OwnerOfComplain")
+                        .WithMany()
+                        .HasForeignKey("OwnerOfComplainId");
+
+                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", "Post")
+                        .WithMany("Complains")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("OwnerOfComplain");
+
+                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.FileSocial", b =>
@@ -859,12 +953,16 @@ namespace Net14.Web.Migrations
                 {
                     b.Navigation("Comments");
 
+                    b.Navigation("Complains");
+
                     b.Navigation("Likes");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", b =>
                 {
                     b.Navigation("Basket");
+
+                    b.Navigation("DeliveryAddress");
 
                     b.Navigation("Files");
 

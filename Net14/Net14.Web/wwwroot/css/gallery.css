@@ -45,6 +45,7 @@
     border-radius: 15px;
     width: 160px;
     height: 300px;
+    position: relative;
 }
 
     .image-block.complete {

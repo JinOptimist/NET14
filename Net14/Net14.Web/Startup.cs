@@ -135,8 +135,84 @@ namespace Net14.Web
 
             provider.CreateMap<AddImageVewModel, Image>();
             provider.CreateMap<Basket, ProductViewModel>();
-
+            provider.CreateMap<DeliveryAddress, DeliveryAddressViewModel>();
+            provider.CreateMap<AddProductVewModel, Product>()
+                .ForMember(nameof(Product.BrandCategories),
+                    opt => opt
+                    .MapFrom(viewModel =>
+                       viewModel.Brand))
+                .ForMember(nameof(Product.CoolCategories),
+                    opt => opt
+                    .MapFrom(viewModel =>
+                       viewModel.Category))
+                .ForMember(nameof(Product.CoolColors),
+                    opt => opt
+                    .MapFrom(viewModel =>
+                       viewModel.Color))
+                .ForMember(nameof(Product.CoolMaterial),
+                    opt => opt
+                    .MapFrom(viewModel =>
+                       viewModel.Material));
+            provider.CreateMap<Product, AddImageProductVewModel>()
+                 .ForMember(nameof(AddImageProductVewModel.BrandCategories),
+                    opt => opt
+                    .MapFrom(dbProduct =>
+                        dbProduct
+                        .BrandCategories
+                        .ToString()
+                        )
+                    )
+                 .ForMember(nameof(AddImageProductVewModel.Images),
+                    opt => opt
+                    .MapFrom(dbProduct =>
+                        dbProduct
+                        .StoreImages
+                        .OrderBy(x => x.Odrer)
+                        .Select(x =>x.Url)
+                        .ToList()
+                        )
+                    );
             provider.CreateMap<Product, ProductViewModel>()
+                .ForMember(nameof(ProductViewModel.CoolCategories),
+                    opt => opt
+                    .MapFrom(dbProducts =>
+                        dbProducts
+                            .CoolCategories
+                            .ToString()
+                        )
+                    )
+                .ForMember(nameof(ProductViewModel.CoolMaterial),
+                    opt => opt
+                    .MapFrom(dbProducts =>
+                        dbProducts
+                            .CoolMaterial
+                            .ToString()
+                        )
+                    )
+                .ForMember(nameof(ProductViewModel.CoolColors),
+                    opt => opt
+                    .MapFrom(dbProducts =>
+                        dbProducts
+                            .CoolColors
+                            .ToString()
+                        )
+                    )
+                .ForMember(nameof(ProductViewModel.Gender),
+                    opt => opt
+                    .MapFrom(dbProducts =>
+                        dbProducts
+                            .Gender
+                            .ToString()
+                        )
+                    )
+                .ForMember(nameof(ProductViewModel.BrandCategories),
+                     opt=>opt
+                     .MapFrom(dbProducts=>
+                        dbProducts
+                            .BrandCategories
+                            .ToString()
+                        )
+                     )
                 .ForMember(nameof(ProductViewModel.Images),
                     opt => opt
                     .MapFrom(dbProducts =>
@@ -182,7 +258,11 @@ namespace Net14.Web
                 .ForMember(nameof(SocialPostViewModel.Likes),
                     post => post
                         .MapFrom(dbPost =>
-                            dbPost.Likes.Count));
+                            dbPost.Likes.Count))
+                .ForMember(nameof(SocialPostViewModel.ComplainsCount),
+                    post => post
+                        .MapFrom(dbpost =>
+                            dbpost.Complains.Count));
 
             provider.CreateMap<GroupSocial, SocialGroupViewModel>()
                 .ForMember(nameof(SocialGroupViewModel.Tags),
@@ -204,7 +284,7 @@ namespace Net14.Web
             provider.CreateMap<SocialComment, SocialCommentViewModel>();
             provider.CreateMap<UserSocial, SocialProfileViewModel>();
             provider.CreateMap<SocialCommentViewModel, SocialUserViewModel>();
-                
+
             provider.CreateMap<FilesViewModel, FileSocial>();
 
             provider.CreateMap<Image, ImageViewModel>();
@@ -225,6 +305,14 @@ namespace Net14.Web
                 .ForMember(nameof(ProductViewModel.Images),
                     product => product
                         .MapFrom(dbProduct => dbProduct.StoreImages.Select(image => image.Url).ToList()));
+
+            provider.CreateMap<ComplainsSocial, ComplainViewModel>()
+                .ForMember(nameof(ComplainViewModel.Post),
+                    post => post
+                        .MapFrom(dbpost => dbpost.Post.Id))
+                .ForMember(nameof(ComplainViewModel.OwnerOfComplain),
+                    post => post
+                        .MapFrom(dbpost => dbpost.OwnerOfComplain.Id));
 
 
 
@@ -248,7 +336,12 @@ namespace Net14.Web
 
             app.UseRouting();
 
-            app.UseCors(builder => builder.AllowAnyOrigin());
+            app.UseCors(option =>
+            {
+                option.AllowAnyOrigin();
+                option.AllowAnyHeader();
+                option.AllowAnyMethod();
+            });
 
             //Who I am
             app.UseAuthentication();

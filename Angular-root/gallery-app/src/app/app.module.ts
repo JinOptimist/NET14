@@ -11,6 +11,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { MatInputModule } from '@angular/material/input';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HellPageComponent } from './component/hell-page/hell-page.component';
@@ -41,7 +43,9 @@ import { AddGirlComponent } from './component/add-girl/add-girl.component';
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    DragDropModule
+    DragDropModule,
+
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
