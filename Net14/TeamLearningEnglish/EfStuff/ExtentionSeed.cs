@@ -33,22 +33,28 @@ namespace TeamLearningEnglish.EfStuff
                     new WordDbModel
                     {
                         EnglishWord = "car",
-                        RussianWord = "машина"
+                        RussianWord = "машина",
+                        Folder = new FolderWordDbModel{Name = "машина"}
                     },
                     new WordDbModel
                     {
                         EnglishWord = "house",
-                        RussianWord = "дом"
+                        RussianWord = "дом",
+                        Folder = new FolderWordDbModel{Name = "дом"}
                     },
                     new WordDbModel
                     {
                         EnglishWord = "message",
-                        RussianWord = "сообщение"
+                        RussianWord = "сообщение",
+                        Folder = new FolderWordDbModel{Name = "существительные"}
+
                     },
                     new WordDbModel
                     {
                         EnglishWord = "get",
-                        RussianWord = "получить"
+                        RussianWord = "получить",
+                        Folder = new FolderWordDbModel{Name = "простые глаголы"}
+
                     },
                 };
                 wordsRepository.SaveList(words);
@@ -61,7 +67,7 @@ namespace TeamLearningEnglish.EfStuff
             if (!bookRepository.Any())
             {
                 string[] text = File.ReadAllLines($"wwwroot/books/HarryPotter.txt");
-                var bookDbModel = new BookDbModel{ Name = "Harry Potter" };
+                var bookDbModel = new BookDbModel { Name = "Harry Potter" };
 
                 var stringBuilder = new StringBuilder();
                 for (int i = 0; i < text.Length; i++)

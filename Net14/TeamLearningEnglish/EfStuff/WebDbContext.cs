@@ -13,6 +13,8 @@ namespace TeamLearningEnglish.EfStuff
         public DbSet<VideoNotesDbModel> VideoNotes { get; set; }
         public DbSet<MessageDbModel> Messages { get; set; } 
         public DbSet<WordCommentDbModel> WordComment { get; set; }
+        public DbSet<FolderWordDbModel> FolderWord { get; set; }
+
         public WebDbContext(DbContextOptions options) : base(options)
         {
         }   // the constructor recieves different options, including connectionString
@@ -25,7 +27,7 @@ namespace TeamLearningEnglish.EfStuff
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<WordDbModel>()
-                .HasMany(word => word.WordComments)
+                .HasMany(word => word.Comments)
                 .WithOne(comment => comment.Word);
 
             modelBuilder.Entity<UserDbModel>()
@@ -35,6 +37,12 @@ namespace TeamLearningEnglish.EfStuff
             modelBuilder.Entity<UserDbModel>()
                 .HasMany(user => user.RecievedMessages)
                 .WithOne(message => message.Receiver);
+
+            modelBuilder.Entity<FolderWordDbModel>()
+                .HasMany(folder => folder.Words)
+                .WithOne(word => word.Folder);
+
+
 
             base.OnModelCreating(modelBuilder);
         }

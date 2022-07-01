@@ -49,7 +49,10 @@ namespace TeamLearningEnglish
             services.AddScoped<UserRepository>(x =>
                 new UserRepository(x.GetService<WebDbContext>()));
 
-            
+            services.AddScoped<FolderWordRepository>(x =>
+                new FolderWordRepository(x.GetService<WebDbContext>()));
+
+
 
             services.AddControllersWithViews();
         }

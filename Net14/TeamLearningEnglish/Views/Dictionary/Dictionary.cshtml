@@ -7,6 +7,12 @@
 <div class="dictionary">
     <div class="add-word-form">
         <form asp-controller="Dictionary" asp-action="AddWord">
+            <select name ="folderName">
+                @foreach (var folder in Model[0].AllFolders)
+                {
+                    <option value="@folder"> @folder </option>
+                }
+            </select>
             <input type="text" name="englishWord" placeholder="Word in English" />
             <input type="text" name="russianWord" placeholder="Слово на Русском" />
             <input type="submit" value="Добавить" />
@@ -31,6 +37,9 @@
                 </div>
                 <div class="show-word-comments">
                     <a href="/Dictionary/ShowWordComments?wordId=@word.Id">Show Comments</a>
+                </div>
+                <div class="folder">
+                    @word.Folder
                 </div>
             </div>
         }

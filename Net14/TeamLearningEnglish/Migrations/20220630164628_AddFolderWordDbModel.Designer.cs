@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamLearningEnglish.EfStuff;
 
 namespace TeamLearningEnglish.Migrations
 {
     [DbContext(typeof(WebDbContext))]
-    partial class WebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220630164628_AddFolderWordDbModel")]
+    partial class AddFolderWordDbModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,7 +39,7 @@ namespace TeamLearningEnglish.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FolderWord");
+                    b.ToTable("FolderWordDbModel");
                 });
 
             modelBuilder.Entity("TeamLearningEnglish.EfStuff.DbModels.TopicForDiscussionDbModel", b =>
