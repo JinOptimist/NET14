@@ -1,0 +1,26 @@
+﻿@model UserViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/autorization.css" />
+
+<div class="authentication">
+    <form action="/Authentication/Autorization" method="post">
+        <div class="enter-email">
+            Enter email
+        </div>
+        <div class="email">
+            @Html.TextBoxFor(x => x.Email)
+        </div>
+        <div class="enter-password">
+            Enter password
+        </div>
+        <div class="password">
+            @Html.PasswordFor(x => x.Password)
+        </div>
+        <input type="submit" value="Войти" />
+    </form>
+</div>
+<a href="/Authentication/Autorization/">Зарегистрироваться</a>
+
+

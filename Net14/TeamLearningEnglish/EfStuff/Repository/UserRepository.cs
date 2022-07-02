@@ -14,5 +14,9 @@ namespace TeamLearningEnglish.EfStuff.Repository
         {
             return _webContext.User.FirstOrDefault(x => x.Id == id);
         }
+        public UserDbModel GetByEmailAndPass(string email, string password)
+        {
+            return _dbSet.FirstOrDefault(x => x.Email == email && x.Password == password);
+        }
     }
 }

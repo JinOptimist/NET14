@@ -10,6 +10,8 @@ namespace TeamLearningEnglish.EfStuff.DbModels
         public string LastName { get; set; }
         public int Age { get; set; }
         public Level EnglishLevel { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
         public virtual List<MessageDbModel> SentMessages { get; set; }
         public virtual List<MessageDbModel> RecievedMessages { get; set; }
 

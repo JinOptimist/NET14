@@ -15,6 +15,7 @@ namespace TeamLearningEnglish
 {
     public class Startup
     {
+        public const string AuthName = "Cookie";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,6 +31,14 @@ namespace TeamLearningEnglish
             // where does the database locate (catalog=TeamLearningEnglish -- it's database name)
             services.AddDbContext<WebDbContext>(x => x.UseSqlServer(connectionString));
             // connected the database
+
+            services.AddAuthentication()
+                .AddCookie(AuthName, option =>
+                {
+                    option.LoginPath = "/Autentication/Autentication"; // кто ты 
+                    option.AccessDeniedPath = "/Autentication/Autentication"; // ты не админ, тебе нельзя
+                    option.Cookie.Name = "English Cookie";
+                });
 
             services.AddScoped<BooksRepository>(x =>
                 new BooksRepository(x.GetService<WebDbContext>()));
@@ -72,7 +81,9 @@ namespace TeamLearningEnglish
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication(); // who I am
+
+            app.UseAuthorization(); // where can I go
 
             app.UseEndpoints(endpoints =>
             {

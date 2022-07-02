@@ -1,0 +1,49 @@
+﻿@model UserAuthenticationViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/authentication.css" />
+
+
+<div class="authentication">
+    <form action="/Authentication/Authentication" method="post">
+        <div class="enter-email">
+            Enter email
+        </div>
+        <div class="email">
+            @Html.TextBoxFor(x => x.Email)
+        </div>
+        <div class="enter-first-name">
+            Enter first name
+        </div>
+        <div class="firstName">
+            @Html.TextBoxFor(x => x.FirstName)
+        </div>
+        <div class="enter-last-name">
+            Enter last name
+        </div>
+        <div class="lastName">
+            @Html.TextBoxFor(x => x.LastName)
+        </div>
+        <div class="enter-age">
+            Enter age
+        </div>
+        <div class="age">
+            @Html.TextBoxFor(x => x.Age)
+        </div>
+        <div class="enter-level">
+            Enter your English level
+        </div>
+        <div class="english-level">
+            <select asp-for="EnglishLevel" asp-items="Html.GetEnumSelectList<EnglishLevel.Level>()"></select>
+        </div>
+        <div class="enter-password">
+            Enter password
+        </div>
+        <div class="password">
+            @Html.PasswordFor(x => x.Password)
+        </div>
+        <input type="submit" value="создать" />
+    </form>
+</div>
+
