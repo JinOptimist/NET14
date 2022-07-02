@@ -314,6 +314,10 @@ namespace Net14.Web
                     post => post
                         .MapFrom(dbpost => dbpost.OwnerOfComplain.Id));
 
+            provider.CreateMap<SocialReport, SocialReportViewModel>()
+                .ForMember(nameof(SocialReportViewModel.CreatingDate),
+                report => report
+                    .MapFrom(dbreport => dbreport.CreatingDate.ToString()));
 
 
             var mapperConfiguration = new MapperConfiguration(provider);
@@ -356,6 +360,7 @@ namespace Net14.Web
                 endpoints.MapHub<ChatHub>("/chat");
                 endpoints.MapHub<NotificationsHub>("/notif");
                 endpoints.MapHub<SocialMessangerHub>("/messages");
+                endpoints.MapHub<ReportHub>("/report");
             });
 
             app.UseEndpoints(endpoints =>

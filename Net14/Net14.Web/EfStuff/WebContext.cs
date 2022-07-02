@@ -31,6 +31,7 @@ namespace Net14.Web.EfStuff
         public DbSet<FoldersForToDo> FoldersForToDo { get; set; }
         public DbSet<IssuesForToDo> IssuesForToDo { get; set; }
         public DbSet<ComplainsSocial> ComplainsSocial { get; set; }
+        public DbSet<SocialReport> Reports { get; set; }
 
 
 
@@ -127,6 +128,10 @@ namespace Net14.Web.EfStuff
                 .HasMany(post => post.Comments)
                 .WithOne(comment => comment.Post)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<UserSocial>()
+                .HasMany(user => user.UsersReports)
+                .WithOne(report => report.UserReport);
 
             modelBuilder.Entity<UserSocial>().Property(u => u.UserPhoto).HasDefaultValue("/images/Social/CalendarUser.jpg");
 
