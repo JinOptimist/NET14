@@ -11,8 +11,7 @@ namespace Net14.Web.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
-        public DateTime CreatingDate { get; set; }
-        public bool IsCompleted { get; set; }
+        public string CreatingDate { get; set; }
 
     }
 }

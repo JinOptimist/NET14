@@ -116,7 +116,7 @@ namespace Net14.Web
                     .Last();
             }
 
-            services.AddTransient(
+            services.AddScoped(
                 type,
                 serviceProvider =>
                 {
@@ -315,10 +315,9 @@ namespace Net14.Web
                         .MapFrom(dbpost => dbpost.OwnerOfComplain.Id));
 
             provider.CreateMap<SocialReport, SocialReportViewModel>()
-                .ForMember(nameof(SocialReportViewModel.Id),
-                    report => report
-                        .MapFrom(dbReport => dbReport.UserReport.Id));
-
+                .ForMember(nameof(SocialReportViewModel.CreatingDate),
+                report => report
+                    .MapFrom(dbreport => dbreport.CreatingDate.ToString()));
 
 
             var mapperConfiguration = new MapperConfiguration(provider);
@@ -361,6 +360,7 @@ namespace Net14.Web
                 endpoints.MapHub<ChatHub>("/chat");
                 endpoints.MapHub<NotificationsHub>("/notif");
                 endpoints.MapHub<SocialMessangerHub>("/messages");
+                endpoints.MapHub<ReportHub>("/report");
             });
 
             app.UseEndpoints(endpoints =>

@@ -13,7 +13,6 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
         public string Name { get; set; }
         public DateTime CreatingDate { get; set; }
         public virtual UserSocial UserReport { get; set; }
-        public bool IsCompleted { get; set; }
 
     }
 }

@@ -15,26 +15,32 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Net14.Web.Controllers.AutorizeAttribute;
 using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
+using Microsoft.AspNetCore.SignalR;
+using Net14.Web.SignalRHubs;
+using System.Threading;
 
 namespace Net14.Web.Controllers
 { 
+    [Authorize]
     public class SocialReportController : Controller
 
     {
+        private static List<Task> ReportTask = new List<Task>();
         private IMapper _mapper;
         private UserService _userService;
         private SocialUserRepository _userRepository;
         private IWebHostEnvironment _webHostEnvironment;
         private ReportsRepository _reportsRepository;
         private ReportsService _reportsService;
-
+        
 
         public SocialReportController(IMapper mapper, 
             UserService userService,
             SocialUserRepository userRepository,
             IWebHostEnvironment webHostEnvironment,
             ReportsRepository reportsRepository,
-            ReportsService reportsService)
+            ReportsService reportsService
+            )
         {
             _mapper = mapper;
             _userService = userService;
@@ -51,11 +57,13 @@ namespace Net14.Web.Controllers
 
             var reportsViewModels = _mapper.Map<List<SocialReportViewModel>>(user.UsersReports);
 
+
             return View(reportsViewModels);
         }
         public IActionResult GetReport(int userId)
         {
-            var user = _userRepository.Get(userId);
+            var user = _userRepository.GetUserToReport(userId);
+            var userToDb = _userRepository.Get(userId);
 
 
             var fileName = $"reportUser{userId}at{DateTime.Today.ToShortDateString()}.docx";
@@ -67,7 +75,7 @@ namespace Net14.Web.Controllers
 
             var report = new SocialReport()
             {
-                UserReport = user,
+                UserReport = userToDb,
                 CreatingDate = DateTime.Now,
                 Url = path,
                 Name = fileName
@@ -75,21 +83,21 @@ namespace Net14.Web.Controllers
 
             _reportsRepository.Save(report);
 
-            var reportTask = new Task<bool>(() => _reportsService.GetUserReport(user, path));
+            var reportViewModel = _mapper.Map<SocialReportViewModel>(report);
+            var tokenSource = new CancellationTokenSource();
 
-            reportTask.ContinueWith(task =>
+            var reportTask = new Task<bool>(() => _reportsService.GetUserReport(user, path, report.Id), tokenSource.Token);
+
+            lock (ReportTask)
             {
-                report.IsCompleted = true;
-                _reportsRepository.Save(report);
-            });
+                ReportTask.Add(reportTask);
+            }
 
             reportTask.Start();
 
-            return Ok();
+            return Json(reportViewModel);
 
         }
-
-
 
     }
 }

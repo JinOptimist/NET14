@@ -6,9 +6,7 @@
 @section Scripts{
     <script src="~/js/SocialJS/ReportsJs.js"></script>
     <script src="/lib/ProgressCircle/progress-js.js"></script>
-    
 
-    <link rel="stylesheet" href="/lib/jQuery-Plugin-SVG-Progress-Circle/progresscircle.css">
 
 }
 
@@ -19,31 +17,29 @@
 <div class="user-reports">
     @foreach (var report in Model)
     {
-        if (report.IsCompleted)
-        {
-            <div class="single-report">
-                <div>
-                    <div class="report-url">@report.Name</div>
-                    <div class="report-date">@report.CreatingDate</div>
-                </div>
-                <div class="progress"></div>
-            </div>
 
-
-
-        }
-        else
-        {
-            <div class="single-report notready">
+        <div class="single-report loading" data-id="@report.Id">
+            <div class="report-info">
                 <div class="report-url">@report.Name</div>
                 <div class="report-date">@report.CreatingDate</div>
             </div>
-        }
+            <div class="loader" id="loader">
+            </div>
+        </div>
+
 
     }
 </div>
 
-<div class="single-report notready template">
-    <div class="report-url"></div>
-    <div class="report-date"></div>
+<div class="single-report template">
+    <div class="report-info">
+        <div class="report-url"></div>
+        <div class="report-date"></div>
+    </div>
+</div>
+
+<div class="download template">
+    <div class="download-container">
+        <img src="~/images/Social/download.png" />
+    </div>
 </div>

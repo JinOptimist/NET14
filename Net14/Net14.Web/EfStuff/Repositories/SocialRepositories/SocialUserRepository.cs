@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
+using Net14.Web.Models.SocialModels.DataModels;
 
 namespace Net14.Web.EfStuff.Repositories
 {
@@ -135,16 +136,36 @@ namespace Net14.Web.EfStuff.Repositories
             return true;
         }
 
-        public UserSocial GetUserToReport(int id) 
+        public UserReportModel GetUserToReport(int userId) 
         {
-            return _webContext.Users
-                .Include(user => user.Friends)
-                .Include(user => user.Groups)
-                    .ThenInclude(group => group.Members)
-                .Include(user => user.Files)
-                .Include(user => user.SendMessages)
-                .Include(user => user.RecievedMessages)
-                .FirstOrDefault(x => x.Id == id);
+            return _webContext
+                .Users
+                .Select(x => new UserReportModel
+                {
+                    Id = x.Id,
+                    City = x.City,
+                    Country = x.Country,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Friends = x.Friends.Select(friend => new ReportFriendModel
+                    {
+                        FirstName = friend.FirstName,
+                        LastName = friend.LastName
+                    }).ToList(),
+                    Files = x.Files.Select(file => new ReportFileModel
+                    {
+                        Name = file.Name,
+                        Url = file.Url
+                    }).ToList(),
+                    Groups = x.Groups.Select(group => new ReportGroupModel
+                    {
+                        MemberCount = group.Members.Count,
+                        Name = group.Name
+                    }).ToList(),
+                    RecievedMessagesCount = x.RecievedMessages.Count,
+                    SentMessagesCount = x.SendMessages.Count
+                })
+                .FirstOrDefault(x => x.Id == userId);
         }
 
     }
