@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TeamLearningEnglish.EfStuff;
 using TeamLearningEnglish.EfStuff.Repository;
+using TeamLearningEnglish.Services;
 
 namespace TeamLearningEnglish
 {
@@ -32,12 +34,12 @@ namespace TeamLearningEnglish
             services.AddDbContext<WebDbContext>(x => x.UseSqlServer(connectionString));
             // connected the database
 
-            services.AddAuthentication()
+            services.AddAuthentication(AuthName)
                 .AddCookie(AuthName, option =>
                 {
                     option.LoginPath = "/Autentication/Autentication"; // кто ты 
                     option.AccessDeniedPath = "/Autentication/Autentication"; // ты не админ, тебе нельзя
-                    option.Cookie.Name = "English Cookie";
+                    option.Cookie.Name = "EnglishCookie";
                 });
 
             services.AddScoped<BooksRepository>(x =>
@@ -61,7 +63,12 @@ namespace TeamLearningEnglish
             services.AddScoped<FolderWordRepository>(x =>
                 new FolderWordRepository(x.GetService<WebDbContext>()));
 
+            services.AddScoped<UserService>(x =>
+                new UserService(
+                    x.GetService<UserRepository>(),
+                    x.GetService<IHttpContextAccessor>()));
 
+            services.AddHttpContextAccessor();
 
             services.AddControllersWithViews();
         }

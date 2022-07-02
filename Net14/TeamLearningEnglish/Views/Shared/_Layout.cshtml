@@ -22,43 +22,54 @@
 
             <div class="right-elements">
                 <div class="login">
-                    <div class="log-in">
-                        <a href="/Authentication/Autorization/">Войти</a>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <div class="log-in">
+                            <a href="/Authentication/Autorization/">Войти</a>
+                        </div>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="log-out">
+                            <a href="/Authentication/SignOut/">Выйти</a>
+                        </div>
+                    }
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="calendar">
+                        <a href="/Account/Calendar/">Your results</a>
                     </div>
-                    <div class="log-out">
-                        log out
-                        @*link*@
+                    <div class="account">
+                        <a href="/Account/MyAccount/">My account</a>
                     </div>
-                </div>
-                <div class="calendar">
-                    <a href="/Account/Calendar/">Your results</a>
-                </div>
-                <div class="account">
-                    <a href="/Account/MyAccount/">My account</a>
-                </div>
+                }
             </div>
         </div>
     </header>
-    <div class="block-for-services">
-        <div class="dictionary">
-            <a href="/Dictionary/Dictionary/">Словарь</a>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="block-for-services">
+            <div class="dictionary">
+                <a href="/Dictionary/Dictionary/">Словарь</a>
+            </div>
+            <div class="video">
+                <a href="/Home/Video/">Видео</a>
+            </div>
+            <div class="book">
+                <a href="/Home/Books/">Книги</a>
+            </div>
+            <div class="messanger">
+                <a href="/Messanger/Messanger/">Сообщения</a>
+            </div>
+            <div class="discussions">
+                <a href="/Messanger/Discussions/">Дискуссии</a>
+            </div>
+            <div>
+                <a href="/Tests/ChoiceTest/">Тесты</a>
+            </div>
         </div>
-        <div class="video">
-            <a href="/Home/Video/">Видео</a>
-        </div>
-        <div class="book">
-            <a href="/Home/Books/">Книги</a>
-        </div>
-        <div class="messanger">
-            <a href="/Messanger/Messanger/">Сообщения</a>
-        </div>
-        <div class="discussions">
-            <a href="/Messanger/Discussions/">Дискуссии</a>
-        </div>
-        <div>
-            <a href="/Tests/ChoiceTest/">Тесты</a>
-        </div>
-    </div>
+    }
     <div class="container">
         @RenderBody()
     </div>

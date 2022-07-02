@@ -8,18 +8,22 @@ using System.Threading.Tasks;
 using TeamLearningEnglish.EfStuff;
 using TeamLearningEnglish.EfStuff.Repository;
 using TeamLearningEnglish.Models;
+using TeamLearningEnglish.Services;
 
 namespace TeamLearningEnglish.Controllers
 {
     public class MessangerController : Controller
     {
         private MessageRepository _messageRepository;
+        private UserService _userService;
         private UserRepository _userRepository;
 
-        public MessangerController(MessageRepository messageRepository, 
-            UserRepository userRepository)
+        public MessangerController(MessageRepository messageRepository,
+            UserRepository userRepository,
+            UserService userService)
         {
             _messageRepository = messageRepository;
+            _userService = userService;
             _userRepository = userRepository;
         }
         public IActionResult Messanger()
@@ -55,7 +59,7 @@ namespace TeamLearningEnglish.Controllers
         }
         public IActionResult Messages(int id)
         {
-            var sender = _userRepository.GetCurrentUser(1); // me (Kirill Perepechkin) id = 1;
+            var sender = _userService.GetCurrent();
             var reciever = _userRepository.Get(id);
             var messages = _messageRepository.GetCurrentMessages(sender, reciever);
             messages.ToList();
@@ -63,7 +67,7 @@ namespace TeamLearningEnglish.Controllers
         }
         public IActionResult SendMessage(int id, string message)
         {
-            var sender = _userRepository.GetCurrentUser(1); // me (Kirill Perepechkin) id = 1
+            var sender = _userService.GetCurrent();
             var reciever = _userRepository.Get(id);
 
             var newMessage = new MessageDbModel
