@@ -97,6 +97,7 @@
             @if (User.Identity.IsAuthenticated)
             {
                 <div class="elements-from-hidden" onclick="location.href='/Social/Settings'">@LayoutSocial.User_settings</div>
+                <div class="elements-from-hidden" onclick="location.href='/SocialReport/ReportsPage';">Reports</div>
 
             }
             <div class="elements-from-hidden" onclick="location.href='/SocialCurrency/GetCurrency'">@LayoutSocial.Currency</div>
@@ -110,6 +111,7 @@
             </div>
             <div class="elements-from-hidden" onclick="location.href='/Home/Index';"> @LayoutSocial.Start_page</div>
             <div class="elements-from-hidden" onclick="location.href='/SocialVideos/GetVideos';">@LayoutSocial.Learn_C</div>
+
             @if (UserService.IsAdmin())
             {
                 <div class="elements-from-hidden" onclick="location.href='/Social/GetAPIs';">API</div>

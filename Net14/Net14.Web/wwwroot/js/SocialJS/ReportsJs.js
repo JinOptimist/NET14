@@ -99,7 +99,6 @@ $(document).ready(function () {
     {
         let downloadIcon = $(".download.template").clone();
         let fileName = circle.closest(".single-report").data("name");
-        debugger;
         downloadIcon.find(".link").attr({
             target: '_blank',
             href: `http://localhost:42059/reports/${fileName}`
