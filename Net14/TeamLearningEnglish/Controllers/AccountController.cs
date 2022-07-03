@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -14,11 +15,13 @@ namespace TeamLearningEnglish.Controllers
 {
     public class AccountController : Controller
     {
-        public UserService _userService;
+        private UserService _userService;
+        private IMapper _mapper;
 
-        public AccountController(UserService userService)
+        public AccountController(UserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         [Authorize]
@@ -26,14 +29,7 @@ namespace TeamLearningEnglish.Controllers
         {
             var currentUser = _userService.GetCurrent();
 
-            var userViewModel = new UserViewModel
-            {
-                Id = currentUser.Id,
-                FirstName = currentUser.FirstName,
-                LastName = currentUser.LastName,
-                Age = currentUser.Age,
-                EnglishLevel = currentUser.EnglishLevel
-            };
+            var userViewModel = _mapper.Map<UserViewModel>(currentUser);
 
             return View(userViewModel);
         }

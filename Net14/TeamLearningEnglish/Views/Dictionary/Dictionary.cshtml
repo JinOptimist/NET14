@@ -1,4 +1,4 @@
-﻿@model List<WordViewModel>
+﻿@model DictionaryWordViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -8,18 +8,20 @@
     <div class="add-word-form">
         <form asp-controller="Dictionary" asp-action="AddWord">
             <select name ="folderName">
-                @foreach (var folder in Model[0].AllFolders)
+                @foreach (var folder in Model.Words[0].AllFolders)
                 {
                     <option value="@folder"> @folder </option>
                 }
             </select>
-            <input type="text" name="englishWord" placeholder="Word in English" />
-            <input type="text" name="russianWord" placeholder="Слово на Русском" />
+            @Html.TextBoxFor(x => x.EnglishWord, new {placeholder = "English Word"})
+            @Html.TextBoxFor(x => x.RussianWord, new {placeholder = "Russian Word"})
+            @*<input type="text" name="englishWord" placeholder="Word in English" />
+            <input type="text" name="russianWord" placeholder="Слово на Русском" />*@
             <input type="submit" value="Добавить" />
         </form>
     </div>
     <div class="words">
-        @foreach (var word in Model)
+        @foreach (var word in Model.Words)
         {
             <div class="word-block">
                 <div class="word-in-english">

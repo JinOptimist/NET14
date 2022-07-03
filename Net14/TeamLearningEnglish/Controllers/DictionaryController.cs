@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -16,15 +17,18 @@ namespace TeamLearningEnglish.Controllers
         private WordsRepository _wordsRepository;
         private WordCommentRepository _wordCommentRepository;
         private FolderWordRepository _folderRepository;
+        private IMapper _mapper;
 
         public DictionaryController(
-            WordsRepository wordsRepository, 
+            WordsRepository wordsRepository,
             WordCommentRepository wordComment,
-            FolderWordRepository folderRepository)
+            FolderWordRepository folderRepository, 
+            IMapper mapper)
         {
             _wordsRepository = wordsRepository;
             _wordCommentRepository = wordComment;
             _folderRepository = folderRepository;
+            _mapper = mapper;
         }
 
         public IActionResult Dictionary()
@@ -44,23 +48,32 @@ namespace TeamLearningEnglish.Controllers
                     Importance = dbModel.Importance,
                     Folder = dbModel.Folder.Name,
                     AllFolders = folders
-                    
+
                 }).ToList();
-            
-            
             viewModels.Reverse();
 
-            return View(viewModels);
+            var model = new DictionaryWordViewModel
+            {
+                Words = viewModels
+            };
+
+            return View(model);
         }
-        public IActionResult AddWord(int wordId, string englishWord, string russianWord, string folderName)
+        [HttpGet]
+        public IActionResult AddWord()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddWord(DictionaryWordViewModel word, string folderName)
         {
             var folder = _folderRepository.GetByName(folderName);
 
             var dbModel = new WordDbModel
             {
-                Id = wordId,
-                EnglishWord = englishWord.ToLower(),
-                RussianWord = russianWord.ToLower(),
+                Id = word.Id,
+                EnglishWord = word.EnglishWord.ToLower(),
+                RussianWord = word.RussianWord.ToLower(),
                 Folder = folder
             };
 
@@ -92,12 +105,9 @@ namespace TeamLearningEnglish.Controllers
         public IActionResult ShowWordComments(int wordId)
         {
             var wordDbModel = _wordsRepository.Get(wordId);
-            var wordViewModel = new WordViewModel
-            {
-                Id = wordDbModel.Id,
-                EnglishWord = wordDbModel.EnglishWord,
-                WordComments = wordDbModel.Comments.Select(x => x.Text).ToList()
-            };
+
+
+            var wordViewModel = _mapper.Map<WordViewModel>(wordDbModel);
 
             return View(wordViewModel);
         }

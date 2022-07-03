@@ -4,23 +4,23 @@
 }
 <link rel="stylesheet" href="~/css/autorization.css" />
 
-<div class="authentication">
-    <form action="/Authentication/Autorization" method="post">
-        <div class="enter-email">
-            Enter email
-        </div>
-        <div class="email">
-            @Html.TextBoxFor(x => x.Email)
-        </div>
-        <div class="enter-password">
-            Enter password
-        </div>
-        <div class="password">
-            @Html.PasswordFor(x => x.Password)
-        </div>
-        <input type="submit" value="Войти" />
-    </form>
-</div>
-<a href="/Authentication/Authentication/">Зарегистрироваться</a>
+<div class="block">
+    <div class="autorization">
+        <form action="/Authentication/Autorization" method="post">
+            <div class="email">
+                @Html.TextBoxFor(x => x.Email, new {@class="email-input", placeholder="Электронный адрес"})
+            </div>
+            <div class="password">
+                @Html.PasswordFor(x => x.Password, new {@class="password-input", placeholder="Пароль"})
+            </div>
+            <div class="button-submit">
+                <input type="submit" value="Вход" />
+            </div>
+            <div class="registration">
+                <a href="/Authentication/Authentication/">Зарегистрироваться</a>
+            </div>
+        </form>
+    </div>
 
+</div>
 

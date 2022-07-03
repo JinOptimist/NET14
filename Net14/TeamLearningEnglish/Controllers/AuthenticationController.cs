@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -13,10 +14,13 @@ namespace TeamLearningEnglish.Controllers
     public class AuthenticationController : Controller
     {
         private UserRepository _userRepository;
+        private IMapper _mapper;
 
-        public AuthenticationController(UserRepository userRepository)
+        public AuthenticationController(UserRepository userRepository, 
+            IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
         [HttpGet]
         public IActionResult Authentication()
@@ -26,16 +30,8 @@ namespace TeamLearningEnglish.Controllers
         [HttpPost]
         public IActionResult Authentication(UserAuthenticationViewModel user)
         {
-            var dbUser = new UserDbModel
-            {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Age = user.Age,
-                Email = user.Email,
-                Password = user.Password,
-                EnglishLevel = user.EnglishLevel
+            var dbUser = _mapper.Map<UserDbModel>(user);
 
-            };
             _userRepository.Save(dbUser);
 
             return RedirectToRoute("default", new { controller = "Home", action = "Index" });

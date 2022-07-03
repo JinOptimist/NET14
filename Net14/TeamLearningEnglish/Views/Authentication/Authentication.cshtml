@@ -5,45 +5,33 @@
 <link rel="stylesheet" href="~/css/authentication.css" />
 
 
-<div class="authentication">
-    <form action="/Authentication/Authentication" method="post">
-        <div class="enter-email">
-            Enter email
+<div class="block">
+    <div class="authentication">
+        <div class="main-word">
+            Регистрация
         </div>
-        <div class="email">
-            @Html.TextBoxFor(x => x.Email)
-        </div>
-        <div class="enter-first-name">
-            Enter first name
-        </div>
-        <div class="firstName">
-            @Html.TextBoxFor(x => x.FirstName)
-        </div>
-        <div class="enter-last-name">
-            Enter last name
-        </div>
-        <div class="lastName">
-            @Html.TextBoxFor(x => x.LastName)
-        </div>
-        <div class="enter-age">
-            Enter age
-        </div>
-        <div class="age">
-            @Html.TextBoxFor(x => x.Age)
-        </div>
-        <div class="enter-level">
-            Enter your English level
-        </div>
-        <div class="english-level">
-            <select asp-for="EnglishLevel" asp-items="Html.GetEnumSelectList<EnglishLevel.Level>()"></select>
-        </div>
-        <div class="enter-password">
-            Enter password
-        </div>
-        <div class="password">
-            @Html.PasswordFor(x => x.Password)
-        </div>
-        <input type="submit" value="создать" />
-    </form>
+        <form action="/Authentication/Authentication" method="post">
+            <div class="email">
+                @Html.TextBoxFor(x => x.Email, new {@class="email-input", placeholder="email"})
+            </div>
+            <div class="full-name">
+                @Html.TextBoxFor(x => x.FirstName, new {@class="name",placeholder="Имя"})
+                @Html.TextBoxFor(x => x.LastName, new {@class="last-name", placeholder="Фамилия"})
+            </div>
+            <div class="password">
+                @Html.PasswordFor(x => x.Password, new {@class="password-input", placeholder="Новый пароль"})
+            </div>
+            @*<div class="age">
+                @Html.TextBoxFor(x => x.Age)
+                </div>*@
+            <div class="level">
+                <select asp-for="EnglishLevel" asp-items="Html.GetEnumSelectList<EnglishLevel.Level>()"></select>
+            </div>
+            <div class="button-submit">
+                <input class="submit" type="submit" value="Регистрация" />
+            </div>
+        </form>
+    </div>
+
 </div>
 

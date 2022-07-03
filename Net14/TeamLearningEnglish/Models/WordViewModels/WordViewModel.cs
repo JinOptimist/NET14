@@ -11,6 +11,6 @@ namespace TeamLearningEnglish.Models
         public int Importance { get; set; }
         public string Folder { get; set; }
         public List<string> AllFolders { get; set; }
-        public List<string> WordComments { get; set; }
+        public List<string> Comments { get; set; }
     }
 }

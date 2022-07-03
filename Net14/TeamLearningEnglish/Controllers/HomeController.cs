@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -16,18 +17,20 @@ namespace TeamLearningEnglish.Controllers
     {
         private BooksRepository _booksRepository;
         private VideoNotesRepository _videoNotesRepository;
+        private IMapper _mapper;
 
         public HomeController(
             BooksRepository booksRepository,
-            VideoNotesRepository videoNotesRepository)
+            VideoNotesRepository videoNotesRepository, 
+            IMapper mapper)
         {
             _booksRepository = booksRepository;
             _videoNotesRepository = videoNotesRepository;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
-
             return View();
         }
         public IActionResult Video()
@@ -42,10 +45,7 @@ namespace TeamLearningEnglish.Controllers
         [HttpPost]
         public IActionResult AddVideoNote(VideoNotesViewModel viewModel)
         {
-            var dbModel = new VideoNotesDbModel
-            {
-                Text = viewModel.Text
-            };
+            var dbModel = _mapper.Map<VideoNotesDbModel>(viewModel);
 
             _videoNotesRepository.Save(dbModel);
 
@@ -79,13 +79,9 @@ namespace TeamLearningEnglish.Controllers
         }
         public IActionResult ShowBook(int id, int page = 1)
         {
-            var dbModel = _booksRepository
-                .Get(id);
-            var bookViewModel = new BookViewModel
-            {
-                Id = dbModel.Id,
-                Text = dbModel.Text
-            };
+            var dbModel = _booksRepository.Get(id);
+
+            var bookViewModel = _mapper.Map<BookViewModel>(dbModel);
 
             var maxSymbvalOnePage = 1000; 
             var symbvals = bookViewModel.Text.ToCharArray();  
