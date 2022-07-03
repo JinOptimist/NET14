@@ -11,6 +11,7 @@ $(document).ready(function () {
         $(".single-report.loading").each(function (index) {
             let cloneDownloadIcon = $(".download.template").clone();
             let fileName = $(this).data("name");
+
             cloneDownloadIcon.find(".link").attr({
                 target: '_blank',
                 href: `http://localhost:42059/reports/${fileName}`

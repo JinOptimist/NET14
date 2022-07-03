@@ -431,3 +431,11 @@
 .add-to-friends-profile.template {
     display: none;
 }
+
+.profile-photo {
+    transition: opacity 0.2s ease;
+}
+
+    .profile-photo:hover {
+        opacity: 0.5;
+    }

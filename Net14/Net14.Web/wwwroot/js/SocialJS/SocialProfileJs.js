@@ -63,14 +63,21 @@
 
 
     $(document).ready(function () {
-        $(".album-photo").click(function ()
-        {
+        $(".album-photo").click(function () {
             let id = $(".profile-wrapper").data("id");
             let photoUrl = $(this).find(".photo").attr("src");
 
             $(".watch-photo").find(".album-img").attr("src", photoUrl);
             $(".watch-photo").fadeIn();
 
+        })
+
+        $(".profile-photo").click(function ()
+        {
+            let photoUrl = $(this).attr("src");
+
+            $(".watch-photo").find(".album-img").attr("src", photoUrl);
+            $(".watch-photo").fadeIn();
         })
     })
 
@@ -94,6 +101,7 @@
                 buttonClicked.replaceWith(buttonToReplace.removeClass("template"));
             });
     });
+
 });
 
 function isEmpty(str) {
