@@ -18,6 +18,7 @@ using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using Microsoft.AspNetCore.SignalR;
 using Net14.Web.SignalRHubs;
 using System.Threading;
+using Net14.Web.Models.SocialModels.DataModels;
 
 namespace Net14.Web.Controllers
 { 
@@ -25,7 +26,7 @@ namespace Net14.Web.Controllers
     public class SocialReportController : Controller
 
     {
-        private static List<Task> ReportTask = new List<Task>();
+        private static List<TaskCancellationTokenModel> ReportTasks = new List<TaskCancellationTokenModel>();
         private IMapper _mapper;
         private UserService _userService;
         private SocialUserRepository _userRepository;
@@ -85,18 +86,48 @@ namespace Net14.Web.Controllers
 
             var reportViewModel = _mapper.Map<SocialReportViewModel>(report);
             var tokenSource = new CancellationTokenSource();
+            var token = tokenSource.Token;
 
-            var reportTask = new Task<bool>(() => _reportsService.GetUserReport(user, path, report.Id), tokenSource.Token);
+            var reportTask = new Task<bool>(() => _reportsService.GetUserReport(user, path, report.Id, token), token);
 
-            lock (ReportTask)
+            lock (ReportTasks)
             {
-                ReportTask.Add(reportTask);
+
+                ReportTasks.Add(new TaskCancellationTokenModel()
+                {
+                    ReportId = report.Id,
+                    CancellationTokenSource = tokenSource
+                });
             }
 
             reportTask.Start();
 
+            reportTask.ContinueWith((task) =>
+            {
+                lock (ReportTasks) 
+                {
+                    ReportTasks.Remove(ReportTasks.Single(task => task.ReportId == report.Id));
+                }
+            });
+
             return Json(reportViewModel);
 
+        }
+
+        public IActionResult CancellReportTask(int reportId) 
+        {
+            lock (ReportTasks) 
+            {
+                var task = ReportTasks.SingleOrDefault(task => task.ReportId == reportId);
+                if (task == null) 
+                {
+                    return BadRequest();
+                }
+
+                task.CancellationTokenSource.Cancel();
+                _reportsRepository.Remove(reportId);
+                return Ok();
+            }
         }
 
     }

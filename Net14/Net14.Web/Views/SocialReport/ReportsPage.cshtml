@@ -18,7 +18,7 @@
     @foreach (var report in Model)
     {
 
-        <div class="single-report loading" data-id="@report.Id">
+        <div class="single-report loading" data-id="@report.Id" data-name=@report.Name>
             <div class="report-info">
                 <div class="report-url">@report.Name</div>
                 <div class="report-date">@report.CreatingDate</div>
@@ -36,10 +36,13 @@
         <div class="report-url"></div>
         <div class="report-date"></div>
     </div>
+    <div class="cancel-report">Отмена</div>
 </div>
 
 <div class="download template">
-    <div class="download-container">
-        <img src="~/images/Social/download.png" />
-    </div>
+    <a class="link">
+        <div class="download-container">
+            <img src="~/images/Social/download.png" />
+        </div>
+    </a>
 </div>

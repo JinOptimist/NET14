@@ -51,8 +51,12 @@ namespace Net14.Web.Services
             
         }
 
-        public bool GetUserReport(UserReportModel user, string path, int reportId) 
+        public bool GetUserReport(UserReportModel user, string path, int reportId, CancellationToken token) 
         {
+            if (token.IsCancellationRequested) 
+            {
+                return false;
+            }
             var doc = DocX.Create(path); //create docx word document
 
             doc.AddHeaders(); //add header (optional)
@@ -64,11 +68,28 @@ namespace Net14.Web.Services
             doc.Footers.First.InsertParagraph("Page ").AppendPageNumber(PageNumberFormat.normal).Append(" of ").AppendPageCount(PageNumberFormat.normal); // add footer with page number
 
 
-            UserInfo(doc, user, reportId);
-            UsersFriends(doc, user, reportId);
-            UsersGroups(doc, user, reportId);
-            UsersFiles(doc, user, reportId);
-            UserMessages(doc, user, reportId);
+            UserInfo(doc, user, reportId, token);
+            if (token.IsCancellationRequested)
+            {
+                return false;
+            }
+            UsersFriends(doc, user, reportId, token);
+            if (token.IsCancellationRequested)
+            {
+                return false;
+            }
+            UsersGroups(doc, user, reportId, token);
+            if (token.IsCancellationRequested)
+            {
+                return false;
+            }
+            UsersFiles(doc, user, reportId, token);
+            if (token.IsCancellationRequested)
+            {
+                return false;
+            }
+            UserMessages(doc, user, reportId, token);
+
 
 
             doc.Save(); // save changes to file
@@ -76,8 +97,12 @@ namespace Net14.Web.Services
 
         }
 
-        private void UserInfo(DocX doc, UserReportModel user, int reportId) 
+        private void UserInfo(DocX doc, UserReportModel user, int reportId, CancellationToken token) 
         {
+            if (token.IsCancellationRequested) 
+            {
+                return;
+            }
             var userInfo = doc.InsertParagraph();
 
             userInfo.Append("User Info")
@@ -97,8 +122,13 @@ namespace Net14.Web.Services
 
         }
 
-        private void UsersFriends(DocX doc, UserReportModel user, int reportId) 
+        private void UsersFriends(DocX doc, UserReportModel user, int reportId, CancellationToken token) 
         {
+            if (token.IsCancellationRequested)
+            {
+                return;
+            }
+
             var userFriends = doc.InsertParagraph();
 
             userFriends.Append("User Friends")
@@ -119,8 +149,13 @@ namespace Net14.Web.Services
 
         }
 
-        private void UsersGroups(DocX doc, UserReportModel user, int reportId) 
+        private void UsersGroups(DocX doc, UserReportModel user, int reportId, CancellationToken token) 
         {
+            if (token.IsCancellationRequested)
+            {
+                return;
+            }
+
             var userGroups = doc.InsertParagraph();
 
             userGroups.Append("User Groups")
@@ -143,9 +178,12 @@ namespace Net14.Web.Services
 
         }
 
-        private void UsersFiles(DocX doc, UserReportModel user, int reportId) 
+        private void UsersFiles(DocX doc, UserReportModel user, int reportId, CancellationToken token) 
         {
-/*            var usersFiles = _socialFileRepository.GetUsersFiles(user.Id);*/
+            if (token.IsCancellationRequested)
+            {
+                return;
+            }
 
             var userFilesSec = doc.InsertParagraph();
 
@@ -168,8 +206,13 @@ namespace Net14.Web.Services
 
         }
 
-        private void UserMessages(DocX doc, UserReportModel user, int reportId) 
+        private void UserMessages(DocX doc, UserReportModel user, int reportId, CancellationToken token) 
         {
+            if (token.IsCancellationRequested)
+            {
+                return;
+            }
+
             var userMessagesSec = doc.InsertParagraph();
 
             userMessagesSec.Append("User Messages")
@@ -178,7 +221,6 @@ namespace Net14.Web.Services
                 .Bold();
 
             userMessagesSec.Alignment = Alignment.center;
-            userMessagesSec.InsertPageBreakAfterSelf();
 
             userMessagesSec.AppendLine("Total sending: " + user.SentMessagesCount);
             userMessagesSec.AppendLine("Total recieving: " + user.RecievedMessagesCount);
@@ -187,8 +229,7 @@ namespace Net14.Web.Services
             completedPages++;
             _hubContext.Clients.User(user.Id.ToString()).SendAsync("Progress_Update", completedPages, reportId);
 
-
-
         }
+
     }
 }
