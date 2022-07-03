@@ -1,1 +1,10 @@
-﻿
+﻿body{
+    height:100vh;
+}
+header {
+    height: 16%;
+}
+.container {
+    height: 84%;
+}
+

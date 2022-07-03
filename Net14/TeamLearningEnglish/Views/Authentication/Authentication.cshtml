@@ -8,8 +8,18 @@
 <div class="block">
     <div class="authentication">
         <div class="main-word">
-            Регистрация
+            <div class="empty">
+            </div>
+            <div class="word-registr">
+                Регистрация
+            </div>
+            <div class="close-button">
+                <a href="/Authentication/Autorization/">
+                    <img src="/images/close.png">
+                </a>
+            </div>
         </div>
+
         <form action="/Authentication/Authentication" method="post">
             <div class="email">
                 @Html.TextBoxFor(x => x.Email, new {@class="email-input", placeholder="email"})

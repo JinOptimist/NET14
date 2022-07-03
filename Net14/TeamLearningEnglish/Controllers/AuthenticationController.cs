@@ -28,13 +28,25 @@ namespace TeamLearningEnglish.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Authentication(UserAuthenticationViewModel user)
+        public async Task<IActionResult> Authentication(UserAuthenticationViewModel userViewModel)
         {
-            var dbUser = _mapper.Map<UserDbModel>(user);
+            var user = _mapper.Map<UserDbModel>(userViewModel);
 
-            _userRepository.Save(dbUser);
+            _userRepository.Save(user);
 
-            return RedirectToRoute("default", new { controller = "Home", action = "Index" });
+            var claims = new List<Claim>()
+            {
+                new Claim("Id", user.Id.ToString()),
+                new Claim("FirstName", (user.FirstName + user.LastName)),
+                new Claim(ClaimTypes.AuthenticationMethod, Startup.AuthName)
+            };
+
+            var identity = new ClaimsIdentity(claims, Startup.AuthName);
+            var principal = new ClaimsPrincipal(identity);
+            await HttpContext.SignInAsync(principal);
+
+
+            return RedirectToRoute("default", new { controller = "Account", action = "MyAccount" });
         }
         [HttpGet]
         public IActionResult Autorization()
@@ -61,9 +73,7 @@ namespace TeamLearningEnglish.Controllers
             }; // it will lie in cookies 
 
             var identity = new ClaimsIdentity(claims, Startup.AuthName);
-
             var principal = new ClaimsPrincipal(identity);
-
             await HttpContext.SignInAsync(principal);
 
             return RedirectToRoute("default", new { controller = "Account", action = "MyAccount" });

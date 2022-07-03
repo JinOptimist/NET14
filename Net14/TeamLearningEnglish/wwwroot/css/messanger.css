@@ -3,9 +3,7 @@
     flex-direction: column;
     align-items: center;
 }
-.messanger {
-    display: flex;
-}
+
 .other-people {
     margin-right:20px;   
 }
