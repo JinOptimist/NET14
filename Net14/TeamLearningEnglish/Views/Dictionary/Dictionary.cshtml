@@ -5,21 +5,48 @@
 <link rel="stylesheet" href="~/css/dictionary.css" />
 
 <div class="dictionary">
-    <div class="add-word-form">
-        <form asp-controller="Dictionary" asp-action="AddWord">
-            <select name ="folderName">
-                @foreach (var folder in Model.Words[0].AllFolders)
-                {
-                    <option value="@folder"> @folder </option>
-                }
-            </select>
-            @Html.TextBoxFor(x => x.EnglishWord, new {placeholder = "English Word"})
-            @Html.TextBoxFor(x => x.RussianWord, new {placeholder = "Russian Word"})
-            @*<input type="text" name="englishWord" placeholder="Word in English" />
-            <input type="text" name="russianWord" placeholder="Слово на Русском" />*@
-            <input type="submit" value="Добавить" />
-        </form>
+
+    <div class="block">
+        <div class="name">
+            Add word
+        </div>
+        <div class="add-word-form">
+            <form asp-controller="Dictionary" asp-action="AddWord" method="post">
+
+                <div class="form-">
+                    @Html.DropDownList("Folder", new List<SelectListItem>
+                    {
+                    new SelectListItem { Text = "машина", Value = "машина"},
+                    new SelectListItem { Text = "дом", Value = "дом"},
+                    new SelectListItem { Text = "существительные", Value = "существительные"},
+                    new SelectListItem { Text = "простые глаголы", Value = "простые глаголы"}
+                    }, new {@class="folder-input"})
+                </div>
+                <div class="form-english-word">
+                    @Html.TextBoxFor(x => x.EnglishWord, new {@class="english-word-input", placeholder = "English Word"})
+                </div>
+                <div class="validation-for-word">
+                    @Html.ValidationMessageFor(x => x.EnglishWord)
+                </div>
+                <div class="form-english-word">
+                    @Html.TextBoxFor(x => x.RussianWord, new {@class="russian-word-input",placeholder = "Russian Word"})
+                </div>
+                <div class="validation-for-word">
+                    @Html.ValidationMessageFor(x => x.RussianWord)
+                </div>
+                <div class="button-submit">
+                    <input class="submit" type="submit" value="Добавить" />
+                </div>
+            </form>
+        </div>
     </div>
+
+
+
+
+
+
+
     <div class="words">
         @foreach (var word in Model.Words)
         {

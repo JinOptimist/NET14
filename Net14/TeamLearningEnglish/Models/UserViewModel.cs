@@ -1,5 +1,6 @@
 ﻿using static TeamLearningEnglish.Models.EnglishLevel;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TeamLearningEnglish.Models
 {
@@ -9,7 +10,9 @@ namespace TeamLearningEnglish.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }     
+        [Required(ErrorMessage= "Введите email")]
         public string Email { get; set; }
+        [Required(ErrorMessage = "Введите пароль")]
         public string Password { get; set; }
         public Level EnglishLevel { get; set; }
         public List<MessageViewModel> Messages { get; set; }

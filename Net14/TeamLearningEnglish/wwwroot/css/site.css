@@ -7,4 +7,7 @@ header {
 .container {
     height: 84%;
 }
+.field-validation-error{
+    color:red;
+}
 

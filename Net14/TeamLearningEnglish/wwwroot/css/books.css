@@ -1,8 +1,4 @@
 ﻿.books{
     display:flex;
     flex-direction:column;
-
-}
-.book{
-    margin-right:20px;
 }

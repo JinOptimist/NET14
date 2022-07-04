@@ -22,7 +22,7 @@ namespace TeamLearningEnglish.Controllers
         public DictionaryController(
             WordsRepository wordsRepository,
             WordCommentRepository wordComment,
-            FolderWordRepository folderRepository, 
+            FolderWordRepository folderRepository,
             IMapper mapper)
         {
             _wordsRepository = wordsRepository;
@@ -65,19 +65,24 @@ namespace TeamLearningEnglish.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddWord(DictionaryWordViewModel word, string folderName)
+        public IActionResult AddWord(DictionaryWordViewModel word)
         {
-            var folder = _folderRepository.GetByName(folderName);
-
-            var dbModel = new WordDbModel
+            if (ModelState.IsValid)
             {
-                Id = word.Id,
-                EnglishWord = word.EnglishWord.ToLower(),
-                RussianWord = word.RussianWord.ToLower(),
-                Folder = folder
-            };
+                var folder = _folderRepository.GetByName(word.Folder);
 
-            _wordsRepository.Save(dbModel);
+                var dbModel = new WordDbModel
+                {
+                    Id = word.Id,
+                    EnglishWord = word.EnglishWord.ToLower(),
+                    RussianWord = word.RussianWord.ToLower(),
+                    Folder = folder
+                };
+
+                _wordsRepository.Save(dbModel);
+            }
+
+
 
             return RedirectToAction("Dictionary");
         }
@@ -111,7 +116,7 @@ namespace TeamLearningEnglish.Controllers
 
             return View(wordViewModel);
         }
-        
+
 
     }
 }

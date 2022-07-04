@@ -11,9 +11,11 @@
     <div class="autorization">
         <form action="/Authentication/Autorization" method="post">
             <div class="email">
+                @Html.ValidationMessageFor(x => x.Email)
                 @Html.TextBoxFor(x => x.Email, new {@class="email-input", placeholder="Электронный адрес"})
             </div>
             <div class="password">
+                @Html.ValidationMessageFor(x => x.Password)
                 @Html.PasswordFor(x => x.Password, new {@class="password-input", placeholder="Пароль"})
             </div>
             <div class="button-submit">
@@ -24,6 +26,5 @@
             </div>
         </form>
     </div>
-
 </div>
 

@@ -30,6 +30,11 @@ namespace TeamLearningEnglish.Controllers
         [HttpPost]
         public async Task<IActionResult> Authentication(UserAuthenticationViewModel userViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(userViewModel);
+            }
+
             var user = _mapper.Map<UserDbModel>(userViewModel);
 
             _userRepository.Save(user);
@@ -56,6 +61,11 @@ namespace TeamLearningEnglish.Controllers
         [HttpPost]
         public async Task<IActionResult> Autorization(UserViewModel userViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(userViewModel);
+            }
+
             var user = _userRepository
                 .GetByEmailAndPass(userViewModel.Email, userViewModel.Password);
 

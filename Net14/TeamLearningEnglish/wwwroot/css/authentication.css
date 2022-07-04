@@ -6,8 +6,8 @@
 
 .block {
     display: flex;
-    justify-content: center;
-    align-content: center;
+    justify-content:space-around;
+
 }
 
 .authentication {
@@ -91,3 +91,19 @@
     margin-left: 66px;
     margin-bottom: 27px;
 }
+.block-empty, .validation {
+    width: 432px;
+}
+.validation-for-email {
+    margin-top: 156px;
+}
+.validation-for-name, .validation-for-password {
+    margin-top: 20px;
+}
+.validation-for-email, .validation-for-name, .validation-for-password {
+    font-size: 20px;
+}
+.validation{
+    margin-left:20px;
+}
+
