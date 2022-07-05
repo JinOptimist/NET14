@@ -9,6 +9,7 @@ namespace Net14.Web.Models.store
     public class CatalogPageViewModel
     {
         public int Page { get; set; }
+        public string CatalogCategory { get; set; }
         public List<ProductViewModel> Products { get; set; }
       
     }

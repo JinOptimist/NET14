@@ -29,12 +29,12 @@
             <div class="buttonCatalog">
                 @if(!product.InBasket){
                 <span>
-                    <a class="buttonCatalogToBasket" href="/Store/AddProductToBasket?productId=@product.Id">@Catalog.Add_to_Basket </a>
+                    <a class="buttonCatalogToBasket" href="/Store/AddProductToBasket?productId=@product.Id&urlToredirect=/Store/Catalog?category=@Model.CatalogCategory">@Catalog.Add_to_Basket </a>
                 </span>
                 }
                 else{
                 <span>
-                    <a class="buttonCatalogToBasket" href="/Store/DeleteProductFromBasket?productId=@product.Id&userId=1">@Basket.Delete</a>
+                    <a class="buttonCatalogToBasket" href="/Store/DeleteProductFromBasket?productId=@product.Id&userId=1&urlToredirect=/Store/Catalog?category=@Model.CatalogCategory">@Basket.Delete</a>
                 </span>
                 }
             </div>
@@ -42,7 +42,7 @@
     }
 </div>
 <div>
-    <a href="/Store/Catalog?page=@(Model.Page-1)">@Catalog.prev</a><a href="/Store/Catalog?page=@(Model.Page+1)">@Catalog.next</a>
+    <a href="/Store/Catalog?category=@Model.CatalogCategory&page=@(Model.Page-1)">@Catalog.prev</a><a href="/Store/Catalog?category=@Model.CatalogCategory&page=@(Model.Page+1)">@Catalog.next</a>
 </div>
 
 

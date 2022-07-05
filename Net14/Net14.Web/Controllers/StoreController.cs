@@ -60,7 +60,7 @@ namespace Net14.Web.Controllers
                 PhoneNumber = user.PhoneNumber,
                 Products = ProductModel,
                 DeliveryAddress = deliveryAdress,
-                Language=user.Language
+                Language = user.Language
             };
             return View(userAccountModel);
 
@@ -81,15 +81,15 @@ namespace Net14.Web.Controllers
             return View(ProductModel);
         }
         [Authorize]
-        public IActionResult AddProductToBasket(int productId)
+        public IActionResult AddProductToBasket(int productId, string urlToredirect)
         {
             var user = _userService.GetCurrent();
             var basket = user.Basket ?? new Basket() { User = user, Products = new List<Product>() };
             var product = _productRepository.Get(productId);
             basket.Products.Add(product);
             _basketRepository.Save(basket);
-            var prevUrl = Request.Headers.First(x => x.Key == "Referer").Value;
-            return Redirect(prevUrl);
+            //var prevUrl = Request.Headers.First(x => x.Key == "Referer").Value;
+            return Redirect(urlToredirect);
         }
 
         public IActionResult DeleteProductFromBasket(int productId, int userId = 1)
@@ -109,10 +109,10 @@ namespace Net14.Web.Controllers
             var ViewModel = basket.Products.Select(dbProduct => new ProductViewModel()
             {
                 Id = dbProduct.Id,
-                BrandCategories= dbProduct.BrandCategories.ToString(),
+                BrandCategories = dbProduct.BrandCategories.ToString(),
                 Name = dbProduct.Name,
                 Price = dbProduct.Price,
-                Images = dbProduct.StoreImages.OrderBy(x=>x.Odrer).Select(x => x.Url).ToList()
+                Images = dbProduct.StoreImages.OrderBy(x => x.Odrer).Select(x => x.Url).ToList()
             }).ToList();
 
             return View(ViewModel);
@@ -120,9 +120,15 @@ namespace Net14.Web.Controllers
 
         public IActionResult Shoes(int id)
         {
+            var user = _userService.GetCurrent();
             var dbImages = _storeimageRepository.GetRandom(id);
             var dbProduct = _productRepository.Get(id);
             var model = _mapper.Map<ProductViewModel>(dbProduct);
+            if (user != null)
+            {
+                var alreadyAddedProductIds = _userService.GetCurrent().Basket.Products.Select(x => x.Id);
+                model.InBasket = alreadyAddedProductIds.Contains(model.Id);
+            }
             model.RandomImages = dbImages.Select(dbImage => new RandomImagesViewModel()
             {
                 Url = dbImage.Url,
@@ -139,33 +145,48 @@ namespace Net14.Web.Controllers
             var _category = category;
             var perPage = 8;
             if (string.IsNullOrEmpty(_category))
+
             {
                 var dbProducts = _productRepository.GetAll().Skip((page - 1) * perPage).Take(perPage);
                 var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
-
-                var alreadyAddedProductIds = _userService.GetCurrent().Basket.Products.Select(x => x.Id);
-
-                foreach (var productViewModel in viewModels)
+                var user = _userService.GetCurrent();
+                if (user != null)
                 {
-                    productViewModel.InBasket = alreadyAddedProductIds.Contains(productViewModel.Id);
-                }
+                    var alreadyAddedProductIds = _userService.GetCurrent().Basket.Products.Select(x => x.Id);
 
+                    foreach (var productViewModel in viewModels)
+                    {
+                        productViewModel.InBasket = alreadyAddedProductIds.Contains(productViewModel.Id);
+                    }
+                }
                 var viewModel = new CatalogPageViewModel()
                 {
                     Page = page,
-                    Products = viewModels
+                    Products = viewModels,
+                    CatalogCategory = _category
                 };
-               
+
                 return View(viewModel);
             }
             else
             {
                 var dbProducts = _productRepository.GetCategory(_category);
                 var viewModels = _mapper.Map<List<ProductViewModel>>(dbProducts);
+                var user = _userService.GetCurrent();
+                if (user != null)
+                {
+                    var alreadyAddedProductIds = _userService.GetCurrent().Basket.Products.Select(x => x.Id);
+
+                    foreach (var productViewModel in viewModels)
+                    {
+                        productViewModel.InBasket = alreadyAddedProductIds.Contains(productViewModel.Id);
+                    }
+                }
                 var viewModel = new CatalogPageViewModel()
                 {
                     Page = page,
-                    Products = viewModels
+                    Products = viewModels,
+                    CatalogCategory = _category
                 };
                 return View(viewModel);
             }

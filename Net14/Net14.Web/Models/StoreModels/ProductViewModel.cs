@@ -22,5 +22,6 @@ namespace Net14.Web.Models.store
         public string CoolCategories { get; set; }
         public List<RandomImagesViewModel> RandomImages { get; set; }
         public bool InBasket { get; set; } = false;
+       
     }
 }

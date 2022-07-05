@@ -6,15 +6,15 @@
     Layout = "/Views/Shared/_LayoutStore.cshtml";
 }
 
-@section Scripts{ 
+@section Scripts{
     <script src="~/js/StoreJs/Shoes.js"></script>
 }
 
-<body>
+    <body>
 
-    <div class="foto">
-        <div class="menu">
-            @foreach (var image in Model.Images)
+        <div class="foto">
+            <div class="menu">
+                @foreach (var image in Model.Images)
             {
                 <div class=iconshoes>
                     <img src="@image" class="icon" />
@@ -52,7 +52,19 @@
                     }
                 </div>
             </div>
-            <a href="/Store/AddProductToBasket?productId=@Model.Id" class="toBasket">@Shoes.Add_to_Basket</a>
+            @if (!@Model.InBasket)
+            {
+                <span>
+                    <a class="toBasket" href="/Store/AddProductToBasket?productId=@Model.Id&urlToredirect=/Store/Shoes?id=@Model.Id">@Catalog.Add_to_Basket </a>
+                </span>
+            }
+            else
+            {
+                <span>
+                    <a class="toBasket" href="/Store/DeleteProductFromBasket?productId=@Model.Id&userId=1&urlToredirect=/Store/Shoes?id=@Model.Id">@Basket.Delete</a>
+                </span>
+            }
+            @* <a href="/Store/AddProductToBasket?productId=@Model.Id" class="toBasket">@Shoes.Add_to_Basket</a>*@
         </div>
 
     </div>
@@ -61,12 +73,14 @@
         <div class="similarproducts">
             @foreach (var image in Model.RandomImages)
             {
-                <a href="/Store/Shoes?id=@image.ProductId"><div>
-                    <img src="@image.Url" class="similarproduct" />
-                    <div class="textimage">@image.Brand @image.Name</div>
-                </div></a>
+                <a href="/Store/Shoes?id=@image.ProductId">
+                    <div>
+                        <img src="@image.Url" class="similarproduct" />
+                        <div class="textimage">@image.Brand @image.Name</div>
+                    </div>
+                </a>
             }
-            
+
         </div>
     </div>
 </body>
