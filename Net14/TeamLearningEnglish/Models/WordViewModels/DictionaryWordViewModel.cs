@@ -8,8 +8,10 @@ namespace TeamLearningEnglish.Models
     {
         public int Id { get; set; }
         [Required(ErrorMessage ="Enter English word")]
+        [RegularExpression(@"^[a-zA-Z\s]*$",ErrorMessage ="Введите слово на Английском")]
         public string EnglishWord { get; set; }
         [Required(ErrorMessage ="Enter Russian word")]
+        [RegularExpression(@"^[а-яА-Я\s]*$", ErrorMessage = "Введите слово на Русском")]
         public string RussianWord { get; set; }
         public int Importance { get; set; }
         public string Folder { get; set; }

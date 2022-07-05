@@ -30,20 +30,25 @@ namespace TeamLearningEnglish.Controllers
             _folderRepository = folderRepository;
             _mapper = mapper;
         }
-        public IActionResult Dictionary()
+        public IActionResult Dictionary(DictionaryWordViewModel word)
         {
-            var dbModels = _folderRepository.GetAll();
-            var viewModels = dbModels.Select(dbModel => new FolderWordViewModel
+            if(word == null)
             {
-                Name = dbModel.Name
-            }).ToList();
-           
-            var dictionary = new DictionaryWordViewModel
+                return View(word);
+            }
+            else
             {
-                AllFolders = viewModels.Select(x => x.Name).ToList()
-            };
-
-            return View(dictionary);
+                var dbModels = _folderRepository.GetAll();
+                var viewModels = dbModels.Select(dbModel => new FolderWordViewModel
+                {
+                    Name = dbModel.Name
+                }).ToList();
+                var dictionary = new DictionaryWordViewModel
+                {
+                    AllFolders = viewModels.Select(x => x.Name).ToList()
+                };
+                return View(dictionary);
+            }
         }
         public IActionResult ShowWords(string nameFolder)
         {
@@ -63,31 +68,6 @@ namespace TeamLearningEnglish.Controllers
                 }).ToList();
             viewModels.Reverse();
 
-/*
-            var wordDbModels = _wordsRepository.GetAll();
-            var activeWords = wordDbModels.Where(x => x.isActive).ToList();
-
-            var allFolders = _folderRepository.GetAll();
-            var folders = allFolders.Select(folder => folder.Name).ToList();
-
-            var viewModels = activeWords
-                .Select(dbModel => new WordViewModel
-                {
-                    Id = dbModel.Id,
-                    EnglishWord = dbModel.EnglishWord,
-                    RussianWord = dbModel.RussianWord,
-                    Importance = dbModel.Importance,
-                    Folder = dbModel.Folder.Name,
-                    AllFolders = folders
-
-                }).ToList();
-            viewModels.Reverse();
-
-            var model = new DictionaryWordViewModel
-            {
-                Words = viewModels
-            };*/
-
             return View(viewModels);
         }
         [HttpGet]
@@ -100,7 +80,7 @@ namespace TeamLearningEnglish.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return RedirectToAction("Dictionary", "Dictionary", word);
             }
 
             var folder = _folderRepository.GetByName(word.Folder);

@@ -23,17 +23,17 @@
 
                     }, new {@class="folder-input"})
                 </div>
-                <div class="form-english-word">
-                    @Html.TextBoxFor(x => x.EnglishWord, new {@class="english-word-input", placeholder = "English Word"})
-                </div>
                 <div class="validation-for-word">
                     @Html.ValidationMessageFor(x => x.EnglishWord)
                 </div>
                 <div class="form-english-word">
-                    @Html.TextBoxFor(x => x.RussianWord, new {@class="russian-word-input",placeholder = "Russian Word"})
+                    @Html.TextBoxFor(x => x.EnglishWord, new {@class="english-word-input", placeholder = "English Word"})
                 </div>
                 <div class="validation-for-word">
                     @Html.ValidationMessageFor(x => x.RussianWord)
+                </div>
+                <div class="form-english-word">
+                    @Html.TextBoxFor(x => x.RussianWord, new {@class="russian-word-input",placeholder = "Russian Word"})
                 </div>
                 <div class="button-submit">
                     <input class="submit" type="submit" value="Добавить" />

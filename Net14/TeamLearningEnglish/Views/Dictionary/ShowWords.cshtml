@@ -2,7 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link rel="stylesheet" href="~/css/dictionary.css" />
+<link rel="stylesheet" href="~/css/showWords.css" />
 
 
 <div class="words">
@@ -15,14 +15,11 @@
             <div class="word-in-russian">
                 @word.RussianWord
             </div>
-            <div class="word-rates">
-                @word.Importance
-            </div>
             <div class="remove-word">
-                <a href="/Dictionary/RemoveWord?id=@word.Id">remove</a>
+                <a href="/Dictionary/RemoveWord?id=@word.Id">Уже знаю</a>
             </div>
             <div class="show-word-comments">
-                <a href="/Dictionary/ShowWordComments?wordId=@word.Id">Show Comments</a>
+                <a href="/Dictionary/ShowWordComments?wordId=@word.Id">Комментарии</a>
             </div>
         </div>
     }

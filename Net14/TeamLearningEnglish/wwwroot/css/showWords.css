@@ -1,0 +1,21 @@
+﻿.word-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: aliceblue;
+    border-radius: 8px;
+    box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+    background-color: #fff;
+    min-width: 200px;
+    height: 156px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 50px;
+    margin: 10px;
+}
+.words{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
