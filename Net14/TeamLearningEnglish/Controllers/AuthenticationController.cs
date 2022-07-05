@@ -8,19 +8,23 @@ using System.Threading.Tasks;
 using TeamLearningEnglish.EfStuff.DbModels;
 using TeamLearningEnglish.EfStuff.Repository;
 using TeamLearningEnglish.Models;
+using TeamLearningEnglish.Services;
 
 namespace TeamLearningEnglish.Controllers
 {
     public class AuthenticationController : Controller
     {
         private UserRepository _userRepository;
+        private UserService _userService;
         private IMapper _mapper;
 
-        public AuthenticationController(UserRepository userRepository, 
-            IMapper mapper)
+        public AuthenticationController(UserRepository userRepository,
+            IMapper mapper, 
+            UserService userService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _userService = userService;
         }
         [HttpGet]
         public IActionResult Authentication()
@@ -36,7 +40,7 @@ namespace TeamLearningEnglish.Controllers
             }
 
             var user = _mapper.Map<UserDbModel>(userViewModel);
-
+            user.Age = _userService.GetAge(userViewModel);
             _userRepository.Save(user);
 
             var claims = new List<Claim>()

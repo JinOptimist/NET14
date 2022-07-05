@@ -33,9 +33,9 @@
             <div class="password">
                 @Html.PasswordFor(x => x.Password, new {@class="password-input", placeholder="Новый пароль"})
             </div>
-            @*<div class="age">
-                @Html.TextBoxFor(x => x.Age)
-                </div>*@
+            <div class="age">
+                @Html.TextBoxFor(x => x.BirthDate, new {@class="birthday-input", type = "date"})
+            </div>
             <div class="level">
                 <select asp-for="EnglishLevel" asp-items="Html.GetEnumSelectList<EnglishLevel.Level>()"></select>
             </div>
@@ -52,9 +52,11 @@
             @Html.ValidationMessageFor(x => x.FirstName)
             @Html.ValidationMessageFor(x => x.LastName)
         </div>
-
         <div class="validation-for-password">
             @Html.ValidationMessageFor(x => x.Password)
+        </div>
+        <div class="validation-for-age">
+            @Html.ValidationMessageFor(x => x.BirthDate)
         </div>
     </div>
 

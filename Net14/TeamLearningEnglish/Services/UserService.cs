@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using TeamLearningEnglish.EfStuff.DbModels;
 using TeamLearningEnglish.EfStuff.Repository;
+using TeamLearningEnglish.Models;
 
 namespace TeamLearningEnglish.Services
 {
@@ -33,6 +34,12 @@ namespace TeamLearningEnglish.Services
             int id = Int32.Parse(idStr);
 
             return  _userRepository.Get(id);
+        }
+        public int GetAge(UserAuthenticationViewModel userViewModel)
+        {
+            int age = DateTime.Now.Subtract((DateTime)userViewModel.BirthDate).Days;  // how old is the user 
+            age = age / 360;
+            return age;
         }
     }
 }

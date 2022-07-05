@@ -92,6 +92,7 @@ namespace TeamLearningEnglish
                         dbWord.Comments
                             .Select(c => c.Text)
                             .ToList()));
+            provider.CreateMap<FolderWordDbModel, FolderWordViewModel>();
 
             var mapperConfiguration = new MapperConfiguration(provider);
 

@@ -4,7 +4,7 @@
 }
 <link rel="stylesheet" href="~/css/dictionary.css" />
 
-<div class="dictionary">
+<div class="dictionary-block">
 
     <div class="block">
         <div class="name">
@@ -12,14 +12,15 @@
         </div>
         <div class="add-word-form">
             <form asp-controller="Dictionary" asp-action="AddWord" method="post">
-
                 <div class="form-">
                     @Html.DropDownList("Folder", new List<SelectListItem>
                     {
-                    new SelectListItem { Text = "машина", Value = "машина"},
-                    new SelectListItem { Text = "дом", Value = "дом"},
-                    new SelectListItem { Text = "существительные", Value = "существительные"},
-                    new SelectListItem { Text = "простые глаголы", Value = "простые глаголы"}
+                    new SelectListItem { Text = "Глаголы", Value = "Глаголы"},
+                    new SelectListItem { Text = "Транспорт", Value = "Транспорт"},
+                    new SelectListItem { Text = "Страны", Value = "Страны"},
+                    new SelectListItem { Text = "Прилагательные", Value = "Прилагательные"},
+                    new SelectListItem { Text = "Хобби", Value = "Хобби"}
+
                     }, new {@class="folder-input"})
                 </div>
                 <div class="form-english-word">
@@ -41,35 +42,15 @@
         </div>
     </div>
 
-
-
-
-
-
-
-    <div class="words">
-        @foreach (var word in Model.Words)
+    <div class="all-blocks-folders">
+        @foreach (var folder in Model.AllFolders)
         {
-            <div class="word-block">
-                <div class="word-in-english">
-                    @word.EnglishWord
+            <a href="/Dictionary/ShowWords?nameFolder=@folder">
+                <div class="block-folder">
+                    @folder
                 </div>
-                <div class="word-in-russian">
-                    @word.RussianWord
-                </div>
-                <div class="word-rates">
-                    @word.Importance
-                </div>
-                <div class="remove-word">
-                    <a href="/Dictionary/RemoveWord?id=@word.Id">remove</a>
-                </div>
-                <div class="show-word-comments">
-                    <a href="/Dictionary/ShowWordComments?wordId=@word.Id">Show Comments</a>
-                </div>
-                <div class="folder">
-                    @word.Folder
-                </div>
-            </div>
+            </a>
         }
     </div>
 </div>
+

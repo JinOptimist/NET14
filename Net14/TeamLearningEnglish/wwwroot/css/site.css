@@ -10,4 +10,7 @@ header {
 .field-validation-error{
     color:red;
 }
+a{
+    text-decoration-line:none;
+}
 

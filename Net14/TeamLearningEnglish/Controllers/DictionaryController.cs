@@ -30,9 +30,40 @@ namespace TeamLearningEnglish.Controllers
             _folderRepository = folderRepository;
             _mapper = mapper;
         }
-
         public IActionResult Dictionary()
         {
+            var dbModels = _folderRepository.GetAll();
+            var viewModels = dbModels.Select(dbModel => new FolderWordViewModel
+            {
+                Name = dbModel.Name
+            }).ToList();
+           
+            var dictionary = new DictionaryWordViewModel
+            {
+                AllFolders = viewModels.Select(x => x.Name).ToList()
+            };
+
+            return View(dictionary);
+        }
+        public IActionResult ShowWords(string nameFolder)
+        {
+            var folderDbModel = _folderRepository.GetByName(nameFolder);
+
+            var wordDbModels = folderDbModel.Words.ToList();
+
+            var activeWords = wordDbModels.Where(x => x.isActive).ToList();
+
+            var viewModels = activeWords
+                .Select(dbModel => new WordViewModel
+                {
+                    Id = dbModel.Id,
+                    EnglishWord = dbModel.EnglishWord,
+                    RussianWord = dbModel.RussianWord,
+                    Importance = dbModel.Importance
+                }).ToList();
+            viewModels.Reverse();
+
+/*
             var wordDbModels = _wordsRepository.GetAll();
             var activeWords = wordDbModels.Where(x => x.isActive).ToList();
 
@@ -55,9 +86,9 @@ namespace TeamLearningEnglish.Controllers
             var model = new DictionaryWordViewModel
             {
                 Words = viewModels
-            };
+            };*/
 
-            return View(model);
+            return View(viewModels);
         }
         [HttpGet]
         public IActionResult AddWord()
@@ -67,22 +98,22 @@ namespace TeamLearningEnglish.Controllers
         [HttpPost]
         public IActionResult AddWord(DictionaryWordViewModel word)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var folder = _folderRepository.GetByName(word.Folder);
-
-                var dbModel = new WordDbModel
-                {
-                    Id = word.Id,
-                    EnglishWord = word.EnglishWord.ToLower(),
-                    RussianWord = word.RussianWord.ToLower(),
-                    Folder = folder
-                };
-
-                _wordsRepository.Save(dbModel);
+                return View();
             }
 
+            var folder = _folderRepository.GetByName(word.Folder);
 
+            var dbModel = new WordDbModel
+            {
+                Id = word.Id,
+                EnglishWord = word.EnglishWord.ToLower(),
+                RussianWord = word.RussianWord.ToLower(),
+                Folder = folder
+            };
+
+            _wordsRepository.Save(dbModel);
 
             return RedirectToAction("Dictionary");
         }
