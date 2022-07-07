@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamLearningEnglish.EfStuff;
 
 namespace TeamLearningEnglish.Migrations
 {
     [DbContext(typeof(WebDbContext))]
-    partial class WebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220707125930_AddRoles")]
+    partial class AddRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -204,12 +206,32 @@ namespace TeamLearningEnglish.Migrations
                     b.ToTable("Messages");
                 });
 
+            modelBuilder.Entity("TeamLearningEnglish.Models.VideoNotesDbModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VideoName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isActive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VideoNotes");
+                });
+
             modelBuilder.Entity("TeamLearningEnglish.EfStuff.DbModels.WordCommentDbModel", b =>
                 {
                     b.HasOne("TeamLearningEnglish.EfStuff.DbModels.WordDbModel", "Word")
                         .WithMany("Comments")
-                        .HasForeignKey("WordId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("WordId");
 
                     b.Navigation("Word");
                 });

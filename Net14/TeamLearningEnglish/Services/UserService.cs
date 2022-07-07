@@ -4,6 +4,7 @@ using System.Linq;
 using TeamLearningEnglish.EfStuff.DbModels;
 using TeamLearningEnglish.EfStuff.Repository;
 using TeamLearningEnglish.Models;
+using static TeamLearningEnglish.Models.Role;
 
 namespace TeamLearningEnglish.Services
 {
@@ -40,6 +41,10 @@ namespace TeamLearningEnglish.Services
             int age = DateTime.Now.Subtract((DateTime)userViewModel.BirthDate).Days;  // how old is the user 
             age = age / 360;
             return age;
+        }
+        public bool HasRole(Roles role)
+        {
+            return GetCurrent()?.SiteRole.HasFlag(role) ?? false;
         }
     }
 }

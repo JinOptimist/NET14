@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using TeamLearningEnglish.EfStuff.DbModels;
 using TeamLearningEnglish.EfStuff.Repository;
 using TeamLearningEnglish.Models;
+using TeamLearningEnglish.Services;
+using static TeamLearningEnglish.Models.Role;
 
 namespace TeamLearningEnglish.Controllers
 {
@@ -17,18 +19,21 @@ namespace TeamLearningEnglish.Controllers
         private WordsRepository _wordsRepository;
         private WordCommentRepository _wordCommentRepository;
         private FolderWordRepository _folderRepository;
+        private UserService _userService;
         private IMapper _mapper;
 
         public DictionaryController(
             WordsRepository wordsRepository,
             WordCommentRepository wordComment,
             FolderWordRepository folderRepository,
-            IMapper mapper)
+            IMapper mapper, 
+            UserService userService)
         {
             _wordsRepository = wordsRepository;
             _wordCommentRepository = wordComment;
             _folderRepository = folderRepository;
             _mapper = mapper;
+            _userService = userService;
         }
         public IActionResult Dictionary(DictionaryWordViewModel word)
         {
@@ -56,9 +61,9 @@ namespace TeamLearningEnglish.Controllers
 
             var wordDbModels = folderDbModel.Words.ToList();
 
-            var activeWords = wordDbModels.Where(x => x.isActive).ToList();
-
-            var viewModels = activeWords
+            if (_userService.HasRole(Roles.Admin))
+            {
+                var viewModels = wordDbModels
                 .Select(dbModel => new WordViewModel
                 {
                     Id = dbModel.Id,
@@ -66,9 +71,26 @@ namespace TeamLearningEnglish.Controllers
                     RussianWord = dbModel.RussianWord,
                     Importance = dbModel.Importance
                 }).ToList();
-            viewModels.Reverse();
+                viewModels.Reverse();
 
-            return View(viewModels);
+                return View(viewModels);
+            }
+            else
+            {
+                var activeWords = wordDbModels.Where(x => x.isActive).ToList();
+                var viewModels = activeWords
+                .Select(dbModel => new WordViewModel
+                {
+                    Id = dbModel.Id,
+                    EnglishWord = dbModel.EnglishWord,
+                    RussianWord = dbModel.RussianWord,
+                    Importance = dbModel.Importance
+                }).ToList();
+                viewModels.Reverse();
+
+                return View(viewModels);
+            }
+
         }
         [HttpGet]
         public IActionResult AddWord()
@@ -97,13 +119,23 @@ namespace TeamLearningEnglish.Controllers
 
             return RedirectToAction("Dictionary");
         }
-        public IActionResult RemoveWord(int id)
+        public IActionResult KnownWord(int id)
         {
             var wordDbModel = _wordsRepository.Get(id);
+            var folder = wordDbModel.Folder.Name.ToString();
             wordDbModel.isActive = false;
             _wordsRepository.Save(wordDbModel);
 
-            return RedirectToAction("Dictionary");
+            return RedirectToAction("ShowWords", new {nameFolder = folder });
+        }
+        public IActionResult RemoveWord(int id)
+        {
+            var wordDbModel = _wordsRepository.Get(id);
+            var folder = wordDbModel.Folder.Name.ToString();
+
+            _wordsRepository.Remove(wordDbModel);
+
+            return RedirectToAction("ShowWords", new { nameFolder = folder });
         }
         public IActionResult AddWordComment(int wordId, string text)
         {

@@ -1,19 +1,22 @@
-﻿@model DictionaryWordViewModel
+﻿@using TeamLearningEnglish.Services
+@inject UserService userService
+@model DictionaryWordViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" href="~/css/dictionary.css" />
 
 <div class="dictionary-block">
-
-    <div class="block">
-        <div class="name">
-            Add word
-        </div>
-        <div class="add-word-form">
-            <form asp-controller="Dictionary" asp-action="AddWord" method="post">
-                <div class="form-">
-                    @Html.DropDownList("Folder", new List<SelectListItem>
+    @if (userService.HasRole(Role.Roles.Admin))
+    {
+        <div class="block">
+            <div class="name">
+                Add word
+            </div>
+            <div class="add-word-form">
+                <form asp-controller="Dictionary" asp-action="AddWord" method="post">
+                    <div class="form-">
+                        @Html.DropDownList("Folder", new List<SelectListItem>
                     {
                     new SelectListItem { Text = "Глаголы", Value = "Глаголы"},
                     new SelectListItem { Text = "Транспорт", Value = "Транспорт"},
@@ -22,25 +25,26 @@
                     new SelectListItem { Text = "Хобби", Value = "Хобби"}
 
                     }, new {@class="folder-input"})
-                </div>
-                <div class="validation-for-word">
-                    @Html.ValidationMessageFor(x => x.EnglishWord)
-                </div>
-                <div class="form-english-word">
-                    @Html.TextBoxFor(x => x.EnglishWord, new {@class="english-word-input", placeholder = "English Word"})
-                </div>
-                <div class="validation-for-word">
-                    @Html.ValidationMessageFor(x => x.RussianWord)
-                </div>
-                <div class="form-english-word">
-                    @Html.TextBoxFor(x => x.RussianWord, new {@class="russian-word-input",placeholder = "Russian Word"})
-                </div>
-                <div class="button-submit">
-                    <input class="submit" type="submit" value="Добавить" />
-                </div>
-            </form>
+                    </div>
+                    <div class="validation-for-word">
+                        @Html.ValidationMessageFor(x => x.EnglishWord)
+                    </div>
+                    <div class="form-english-word">
+                        @Html.TextBoxFor(x => x.EnglishWord, new {@class="english-word-input", placeholder = "English Word"})
+                    </div>
+                    <div class="validation-for-word">
+                        @Html.ValidationMessageFor(x => x.RussianWord)
+                    </div>
+                    <div class="form-english-word">
+                        @Html.TextBoxFor(x => x.RussianWord, new {@class="russian-word-input",placeholder = "Russian Word"})
+                    </div>
+                    <div class="button-submit">
+                        <input class="submit" type="submit" value="Добавить" />
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+    }
 
     <div class="all-blocks-folders">
         @foreach (var folder in Model.AllFolders)

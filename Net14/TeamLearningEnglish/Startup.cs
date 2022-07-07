@@ -52,9 +52,6 @@ namespace TeamLearningEnglish
             services.AddScoped<MessageRepository>(x =>
                 new MessageRepository(x.GetService<WebDbContext>()));
 
-            services.AddScoped<VideoNotesRepository>(x =>
-                new VideoNotesRepository(x.GetService<WebDbContext>()));
-
             services.AddScoped<WordsRepository>(x =>
                 new WordsRepository(x.GetService<WebDbContext>()));
 
@@ -83,7 +80,6 @@ namespace TeamLearningEnglish
 
             provider.CreateMap<UserDbModel, UserViewModel>();
             provider.CreateMap<UserAuthenticationViewModel,UserDbModel >();
-            provider.CreateMap<VideoNotesViewModel, VideoNotesDbModel>();
             provider.CreateMap<BookDbModel, BookViewModel>();
             provider.CreateMap<WordDbModel, WordViewModel>()
                 .ForMember(nameof(WordViewModel.Comments), 

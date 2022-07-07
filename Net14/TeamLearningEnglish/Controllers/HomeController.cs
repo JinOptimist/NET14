@@ -16,53 +16,19 @@ namespace TeamLearningEnglish.Controllers
     public class HomeController : Controller
     {
         private BooksRepository _booksRepository;
-        private VideoNotesRepository _videoNotesRepository;
         private IMapper _mapper;
 
         public HomeController(
             BooksRepository booksRepository,
-            VideoNotesRepository videoNotesRepository, 
             IMapper mapper)
         {
             _booksRepository = booksRepository;
-            _videoNotesRepository = videoNotesRepository;
             _mapper = mapper;
         }
 
         public IActionResult Index()
         {
             return View();
-        }
-        public IActionResult Video()
-        {
-            return View();
-        }
-        [HttpGet]
-        public IActionResult AddVideoNote()
-        {
-            return RedirectToAction("Video");
-        }
-        [HttpPost]
-        public IActionResult AddVideoNote(VideoNotesViewModel viewModel)
-        {
-            var dbModel = _mapper.Map<VideoNotesDbModel>(viewModel);
-
-            _videoNotesRepository.Save(dbModel);
-
-            return RedirectToAction("Video");
-        }
-        public IActionResult ShowMyNotes()
-        {
-            var dbModels = _videoNotesRepository.GetAll();
-            var viewModels = dbModels.Select(dbModel => new VideoNotesViewModel
-            {
-                Id = dbModel.Id,
-                Text = dbModel.Text
-            }).ToList();
-
-            viewModels.Reverse();
-
-            return View(viewModels);
         }
         public IActionResult Books()
         {

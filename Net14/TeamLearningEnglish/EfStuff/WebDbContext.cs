@@ -10,7 +10,6 @@ namespace TeamLearningEnglish.EfStuff
         public DbSet<UserDbModel> User { get; set; }
         public DbSet<TopicForDiscussionDbModel> TopicsForDiscussion { get; set; }
         public DbSet<BookDbModel> Books { get; set; }
-        public DbSet<VideoNotesDbModel> VideoNotes { get; set; }
         public DbSet<MessageDbModel> Messages { get; set; } 
         public DbSet<WordCommentDbModel> WordComment { get; set; }
         public DbSet<FolderWordDbModel> FolderWord { get; set; }
@@ -28,7 +27,8 @@ namespace TeamLearningEnglish.EfStuff
         {
             modelBuilder.Entity<WordDbModel>()
                 .HasMany(word => word.Comments)
-                .WithOne(comment => comment.Word);
+                .WithOne(comment => comment.Word)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<UserDbModel>()
                 .HasMany(user => user.SentMessages)

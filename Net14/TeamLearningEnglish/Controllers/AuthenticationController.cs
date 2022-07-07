@@ -9,6 +9,7 @@ using TeamLearningEnglish.EfStuff.DbModels;
 using TeamLearningEnglish.EfStuff.Repository;
 using TeamLearningEnglish.Models;
 using TeamLearningEnglish.Services;
+using static TeamLearningEnglish.Models.Role;
 
 namespace TeamLearningEnglish.Controllers
 {
@@ -41,6 +42,7 @@ namespace TeamLearningEnglish.Controllers
 
             var user = _mapper.Map<UserDbModel>(userViewModel);
             user.Age = _userService.GetAge(userViewModel);
+            user.SiteRole = Roles.User;
             _userRepository.Save(user);
 
             var claims = new List<Claim>()

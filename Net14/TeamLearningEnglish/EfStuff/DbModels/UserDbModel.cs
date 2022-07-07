@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TeamLearningEnglish.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
+using static TeamLearningEnglish.Models.Role;
 
 namespace TeamLearningEnglish.EfStuff.DbModels
 {
@@ -14,6 +15,7 @@ namespace TeamLearningEnglish.EfStuff.DbModels
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
         public Level EnglishLevel { get; set; }
+        public Roles SiteRole { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public virtual List<MessageDbModel> SentMessages { get; set; }

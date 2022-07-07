@@ -7,6 +7,9 @@ using TeamLearningEnglish.EfStuff.Repository;
 using System.IO;
 using TeamLearningEnglish.Models;
 using System.Text;
+using static TeamLearningEnglish.Models.EnglishLevel;
+using System;
+using static TeamLearningEnglish.Models.Role;
 
 namespace TeamLearningEnglish.EfStuff
 {
@@ -16,50 +19,59 @@ namespace TeamLearningEnglish.EfStuff
         {
             using (var scope = host.Services.CreateScope())
             {
+                SeedUser(scope);
                 SeedFolder(scope);
                 SeedBook(scope);
             }
 
             return host;
         }
-        /*private static void SeedWord(IServiceScope scope)
+        private static void SeedUser(IServiceScope scope)
         {
-            var wordsRepository = scope.ServiceProvider.GetService<WordsRepository>();
-
-            if (!wordsRepository.Any())
+            var userRepository = scope.ServiceProvider.GetService<UserRepository>();
+            if (!userRepository.Any())
             {
-                var words = new List<WordDbModel>()
+                var users = new List<UserDbModel>()
                 {
-                    new WordDbModel
+                    new UserDbModel
                     {
-                        EnglishWord = "car",
-                        RussianWord = "машина",
-                        Folder = new FolderWordDbModel{Name = "машина"}
+                        FirstName = "admin",
+                        LastName = "admin",
+                        Age = 22,
+                        EnglishLevel = Level.Advanced,
+                        Email = "admin",
+                        Password = "admin",
+                        BirthDate = new DateTime(2000,01,22),
+                        SiteRole = Roles.Admin 
                     },
-                    new WordDbModel
+                    new UserDbModel
                     {
-                        EnglishWord = "house",
-                        RussianWord = "дом",
-                        Folder = new FolderWordDbModel{Name = "дом"}
+                        FirstName = "Кирилл",
+                        LastName = "Перепечкин",
+                        Age = 20,
+                        EnglishLevel = Level.Intermidiate,
+                        Email = "perepechkin_2002@mail.ru",
+                        Password = "12345678",
+                        BirthDate = new DateTime(2002,01,22),
+                        SiteRole = Roles.User
                     },
-                    new WordDbModel
+                    new UserDbModel
                     {
-                        EnglishWord = "message",
-                        RussianWord = "сообщение",
-                        Folder = new FolderWordDbModel{Name = "существительные"}
+                        FirstName = "Анастасия",
+                        LastName = "Кузьмиченок",
+                        Age = 19,
+                        EnglishLevel = Level.Elementary,
+                        Email = "kyzmichenok_2002@mail.ru",
+                        Password = "12345678",
+                        BirthDate = new DateTime(2002,12,17),
+                        SiteRole = Roles.User
+                    },
 
-                    },
-                    new WordDbModel
-                    {
-                        EnglishWord = "get",
-                        RussianWord = "получить",
-                        Folder = new FolderWordDbModel{Name = "простые глаголы"}
-
-                    },
                 };
-                wordsRepository.SaveList(words);
+
+                userRepository.SaveList(users);
             }
-        }*/
+        }
         private static void SeedFolder(IServiceScope scope)
         {
             var folderRepository = scope.ServiceProvider.GetService<FolderWordRepository>();

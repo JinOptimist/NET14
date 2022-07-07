@@ -1,4 +1,6 @@
-﻿@model List<WordViewModel>
+﻿@using TeamLearningEnglish.Services
+@inject UserService userService
+@model List<WordViewModel>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -15,9 +17,18 @@
             <div class="word-in-russian word">
                 @word.RussianWord
             </div>
-            <div class="remove-word">
-                <a href="/Dictionary/RemoveWord?id=@word.Id">Уже знаю</a>
-            </div>
+            @if (userService.HasRole(Role.Roles.Admin))
+            {
+                <div class="remove-word">
+                    <a href="/Dictionary/RemoveWord?id=@word.Id">Удалить</a>
+                </div>
+            }
+            else
+            {
+                <div class="remove-word">
+                    <a href="/Dictionary/KnownWord?id=@word.Id">Уже знаю</a>
+                </div>
+            }
             <div class="show-word-comments">
                 <a href="/Dictionary/ShowWordComments?wordId=@word.Id">Комментарии</a>
             </div>
