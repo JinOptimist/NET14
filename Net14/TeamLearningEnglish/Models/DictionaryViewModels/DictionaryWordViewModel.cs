@@ -7,10 +7,10 @@ namespace TeamLearningEnglish.Models
     public class DictionaryWordViewModel
     {
         public int Id { get; set; }
-        [Required(ErrorMessage ="Enter English word")]
+        [Required(ErrorMessage = "Введите слово на Английском")]
         [RegularExpression(@"^[a-zA-Z\s]*$",ErrorMessage ="Введите слово на Английском")]
         public string EnglishWord { get; set; }
-        [Required(ErrorMessage ="Enter Russian word")]
+        [Required(ErrorMessage = "Введите слово на Русском")]
         [RegularExpression(@"^[а-яА-Я\s]*$", ErrorMessage = "Введите слово на Русском")]
         public string RussianWord { get; set; }
         public int Importance { get; set; }

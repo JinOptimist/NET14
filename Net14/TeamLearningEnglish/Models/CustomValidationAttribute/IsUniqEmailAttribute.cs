@@ -3,22 +3,25 @@ using TeamLearningEnglish.EfStuff.Repository;
 
 namespace TeamLearningEnglish.Models.CustomValidationAttribute
 {
-    public class EmailVerificationAttribute : ValidationAttribute
+    public class IsUniqEmailAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(
-            object value, 
+            object value,
             ValidationContext validationContext)
         {
-            var email = value?.ToString();
-            var repository = validationContext.GetService(typeof(UserRepository)) as UserRepository;
-            var user = repository.GetByEmail(email);
+            var userRepository = validationContext.GetService(typeof(UserRepository)) as UserRepository;
 
-            if (!user)
+
+            var email = value?.ToString();
+
+            var isDuplicate = userRepository.IsEmailExist(email);
+            if (isDuplicate)
             {
-                return new ValidationResult("Неверный email");
+                return new ValidationResult("Такой email уже существует");
             }
 
             return ValidationResult.Success;
+
         }
 
     }

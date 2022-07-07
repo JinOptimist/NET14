@@ -124,3 +124,8 @@
 a {
     text-decoration: none;
 }
+.validation-for-word {
+    display: flex;
+    width: 222px;
+    justify-content: center;
+}

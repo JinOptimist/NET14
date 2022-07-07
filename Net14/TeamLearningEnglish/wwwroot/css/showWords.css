@@ -7,15 +7,19 @@
     border-radius: 8px;
     box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
     background-color: #fff;
-    min-width: 200px;
+    width: 200px;
     height: 156px;
     padding-top: 20px;
     padding-bottom: 20px;
     margin-bottom: 50px;
     margin: 10px;
 }
-.words{
-    display:flex;
-    justify-content:center;
-    align-items:center;
+.words {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+.word{
+    font-size:25px;
+
 }
