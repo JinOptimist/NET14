@@ -1,6 +1,7 @@
 ﻿.dictionary-block {
     display: flex;
     flex-direction: column;
+    margin-top: 30px;
 }
 
 .words {
@@ -128,4 +129,7 @@ a {
     display: flex;
     width: 222px;
     justify-content: center;
+}
+.test {
+    margin-top: 30px;
 }

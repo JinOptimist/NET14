@@ -6,6 +6,9 @@
 }
 <link rel="stylesheet" href="~/css/showWords.css" />
 
+@section Scripts{
+<script src=~/js/showWords.js></script>
+}
 
 <div class="words">
     @foreach (var word in Model)
@@ -17,20 +20,22 @@
             <div class="word-in-russian word">
                 @word.RussianWord
             </div>
-            @if (userService.HasRole(Role.Roles.Admin))
-            {
-                <div class="remove-word">
-                    <a href="/Dictionary/RemoveWord?id=@word.Id">Удалить</a>
+            <div class="description-word">
+                @if (userService.HasRole(Role.Roles.Admin))
+                {
+                    <div class="remove-word">
+                        <a href="/Dictionary/RemoveWord?id=@word.Id">Удалить</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="remove-word">
+                        <a href="/Dictionary/KnownWord?id=@word.Id">Уже знаю</a>
+                    </div>
+                }
+                <div class="show-word-comments">
+                    <a href="/Dictionary/ShowWordComments?wordId=@word.Id">Комментарии</a>
                 </div>
-            }
-            else
-            {
-                <div class="remove-word">
-                    <a href="/Dictionary/KnownWord?id=@word.Id">Уже знаю</a>
-                </div>
-            }
-            <div class="show-word-comments">
-                <a href="/Dictionary/ShowWordComments?wordId=@word.Id">Комментарии</a>
             </div>
         </div>
     }

@@ -21,5 +21,17 @@
 }
 .word{
     font-size:25px;
-
+}
+.word-in-russian{
+    display:none;
+}
+.word-in-english{
+    cursor:pointer;
+}
+.description-word {
+    margin-top: 21px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
