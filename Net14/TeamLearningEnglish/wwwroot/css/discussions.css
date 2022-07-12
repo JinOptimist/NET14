@@ -8,3 +8,15 @@
 .topic-name, .topic-creator, .topic-rating{
     margin-right:20px;
 }
+.chat{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+.messages {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

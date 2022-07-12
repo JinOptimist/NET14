@@ -4,26 +4,21 @@
 }
 <link rel="stylesheet" href="~/css/discussions.css" />
 
+@section Scripts{
+<script src="~/js/discussion.js"></script>
+}
+
 <div class="all-discussions">
-    <div class="all-topics">
-        @foreach (TopicForDiscussionViewModel topic in Model)
-        {
-            <div class="topic">
-                <div class="topic-name">
-                    @topic.Name
-                </div>
-                <div class="topic-creator">
-                    @topic.CreatorName
-                </div>
-                <div class="topic-rating">
-                    @topic.Rating
-                </div>
-            </div>
-        }
-    </div>
-    <div class="messanger">
-        <input type="text" />
-        <input type="submit" />
+
+    <div class="chat">
+        <div class="messages">
+        </div>
+
+        <div>
+            <input class="new-message" type="text" />
+
+            <input class="sendMessageButton" type="button" value="Отправить" />
+        </div>
     </div>
 </div>
 

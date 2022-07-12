@@ -18,7 +18,6 @@ namespace TeamLearningEnglish.Models
         [PasswordVerification]
         public string Password { get; set; }
         public Level EnglishLevel { get; set; }
-        public List<MessageViewModel> Messages { get; set; }
 
     }
 }

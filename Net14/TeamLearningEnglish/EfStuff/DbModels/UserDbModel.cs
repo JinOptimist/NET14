@@ -18,8 +18,6 @@ namespace TeamLearningEnglish.EfStuff.DbModels
         public Roles SiteRole { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public virtual List<MessageDbModel> SentMessages { get; set; }
-        public virtual List<MessageDbModel> RecievedMessages { get; set; }
 
 
     }

@@ -15,6 +15,7 @@ using TeamLearningEnglish.EfStuff.DbModels;
 using TeamLearningEnglish.EfStuff.Repository;
 using TeamLearningEnglish.Models;
 using TeamLearningEnglish.Services;
+using TeamLearningEnglish.SignalRHubs;
 
 namespace TeamLearningEnglish
 {
@@ -49,9 +50,6 @@ namespace TeamLearningEnglish
             services.AddScoped<BooksRepository>(x =>
                 new BooksRepository(x.GetService<WebDbContext>()));
 
-            services.AddScoped<MessageRepository>(x =>
-                new MessageRepository(x.GetService<WebDbContext>()));
-
             services.AddScoped<WordsRepository>(x =>
                 new WordsRepository(x.GetService<WebDbContext>()));
 
@@ -72,6 +70,8 @@ namespace TeamLearningEnglish
             services.AddHttpContextAccessor();
 
             services.AddControllersWithViews();
+
+            services.AddSignalR();
         }
 
         public void RegisterMapper(IServiceCollection services)
@@ -122,6 +122,8 @@ namespace TeamLearningEnglish
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapHub<DiscussionHub>("/chat");
             });
         }
     }
