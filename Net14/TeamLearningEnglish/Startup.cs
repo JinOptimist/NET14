@@ -32,8 +32,8 @@ namespace TeamLearningEnglish
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = 
-                @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TeamLearningEnglish;Integrated Security=True;"; 
+            var connectionString =
+                @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TeamLearningEnglish;Integrated Security=True;";
             // where does the database locate (catalog=TeamLearningEnglish -- it's database name)
             services.AddDbContext<WebDbContext>(x => x.UseSqlServer(connectionString));
             // connected the database
@@ -62,6 +62,12 @@ namespace TeamLearningEnglish
             services.AddScoped<FolderWordRepository>(x =>
                 new FolderWordRepository(x.GetService<WebDbContext>()));
 
+            services.AddScoped<DiscussionRepository>(x =>
+                new DiscussionRepository(x.GetService<WebDbContext>()));
+
+            services.AddScoped<MessageDiscussionRepository>(x =>
+                new MessageDiscussionRepository(x.GetService<WebDbContext>()));
+
             services.AddScoped<UserService>(x =>
                 new UserService(
                     x.GetService<UserRepository>(),
@@ -79,16 +85,18 @@ namespace TeamLearningEnglish
             var provider = new MapperConfigurationExpression();
 
             provider.CreateMap<UserDbModel, UserViewModel>();
-            provider.CreateMap<UserAuthenticationViewModel,UserDbModel >();
+            provider.CreateMap<UserAuthenticationViewModel, UserDbModel>();
             provider.CreateMap<BookDbModel, BookViewModel>();
             provider.CreateMap<WordDbModel, WordViewModel>()
-                .ForMember(nameof(WordViewModel.Comments), 
+                .ForMember(nameof(WordViewModel.Comments),
                 opt => opt.
-                    MapFrom(dbWord => 
+                    MapFrom(dbWord =>
                         dbWord.Comments
                             .Select(c => c.Text)
                             .ToList()));
             provider.CreateMap<FolderWordDbModel, FolderWordViewModel>();
+            provider.CreateMap<DiscussionDbModel, DiscussionViewModel>();
+            provider.CreateMap<DiscussionViewModel, DiscussionDbModel>();
 
             var mapperConfiguration = new MapperConfiguration(provider);
 

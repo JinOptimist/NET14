@@ -3,36 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeamLearningEnglish.EfStuff;
 
 namespace TeamLearningEnglish.Migrations
 {
     [DbContext(typeof(WebDbContext))]
-    partial class WebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220712155327_Discussions")]
+    partial class Discussions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.15")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("DiscussionDbModelUserDbModel", b =>
-                {
-                    b.Property<int>("DisscusionsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DisscusionsId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("DiscussionDbModelUserDbModel");
-                });
 
             modelBuilder.Entity("TeamLearningEnglish.EfStuff.DbModels.FolderWordDbModel", b =>
                 {
@@ -53,6 +40,30 @@ namespace TeamLearningEnglish.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FolderWord");
+                });
+
+            modelBuilder.Entity("TeamLearningEnglish.EfStuff.DbModels.TopicForDiscussionDbModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatorName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isActive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TopicsForDiscussion");
                 });
 
             modelBuilder.Entity("TeamLearningEnglish.EfStuff.DbModels.UserDbModel", b =>
@@ -167,29 +178,6 @@ namespace TeamLearningEnglish.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("TeamLearningEnglish.Models.DiscussionDbModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CreatorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("isActive")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatorId");
-
-                    b.ToTable("TopicDiscussions");
-                });
-
             modelBuilder.Entity("TeamLearningEnglish.Models.MessageDiscussionDbModel", b =>
                 {
                     b.Property<int>("Id")
@@ -215,22 +203,40 @@ namespace TeamLearningEnglish.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("MessagesDiscussion");
+                    b.ToTable("MessageDiscussionDbModel");
                 });
 
-            modelBuilder.Entity("DiscussionDbModelUserDbModel", b =>
+            modelBuilder.Entity("TeamLearningEnglish.Models.TopicDiscussionDbModel", b =>
                 {
-                    b.HasOne("TeamLearningEnglish.Models.DiscussionDbModel", null)
-                        .WithMany()
-                        .HasForeignKey("DisscusionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.HasOne("TeamLearningEnglish.EfStuff.DbModels.UserDbModel", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isActive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TopicDiscussionDbModel");
+                });
+
+            modelBuilder.Entity("TopicDiscussionDbModelUserDbModel", b =>
+                {
+                    b.Property<int>("DisscusionsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DisscusionsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("TopicDiscussionDbModelUserDbModel");
                 });
 
             modelBuilder.Entity("TeamLearningEnglish.EfStuff.DbModels.WordCommentDbModel", b =>
@@ -252,24 +258,14 @@ namespace TeamLearningEnglish.Migrations
                     b.Navigation("Folder");
                 });
 
-            modelBuilder.Entity("TeamLearningEnglish.Models.DiscussionDbModel", b =>
-                {
-                    b.HasOne("TeamLearningEnglish.EfStuff.DbModels.UserDbModel", "Creator")
-                        .WithMany("WhichUserCreated")
-                        .HasForeignKey("CreatorId");
-
-                    b.Navigation("Creator");
-                });
-
             modelBuilder.Entity("TeamLearningEnglish.Models.MessageDiscussionDbModel", b =>
                 {
-                    b.HasOne("TeamLearningEnglish.Models.DiscussionDbModel", "Discussion")
+                    b.HasOne("TeamLearningEnglish.Models.TopicDiscussionDbModel", "Discussion")
                         .WithMany("Messages")
-                        .HasForeignKey("DiscussionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DiscussionId");
 
                     b.HasOne("TeamLearningEnglish.EfStuff.DbModels.UserDbModel", "Sender")
-                        .WithMany("Messages")
+                        .WithMany()
                         .HasForeignKey("SenderId");
 
                     b.Navigation("Discussion");
@@ -277,16 +273,24 @@ namespace TeamLearningEnglish.Migrations
                     b.Navigation("Sender");
                 });
 
+            modelBuilder.Entity("TopicDiscussionDbModelUserDbModel", b =>
+                {
+                    b.HasOne("TeamLearningEnglish.Models.TopicDiscussionDbModel", null)
+                        .WithMany()
+                        .HasForeignKey("DisscusionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TeamLearningEnglish.EfStuff.DbModels.UserDbModel", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("TeamLearningEnglish.EfStuff.DbModels.FolderWordDbModel", b =>
                 {
                     b.Navigation("Words");
-                });
-
-            modelBuilder.Entity("TeamLearningEnglish.EfStuff.DbModels.UserDbModel", b =>
-                {
-                    b.Navigation("Messages");
-
-                    b.Navigation("WhichUserCreated");
                 });
 
             modelBuilder.Entity("TeamLearningEnglish.EfStuff.DbModels.WordDbModel", b =>
@@ -294,7 +298,7 @@ namespace TeamLearningEnglish.Migrations
                     b.Navigation("Comments");
                 });
 
-            modelBuilder.Entity("TeamLearningEnglish.Models.DiscussionDbModel", b =>
+            modelBuilder.Entity("TeamLearningEnglish.Models.TopicDiscussionDbModel", b =>
                 {
                     b.Navigation("Messages");
                 });

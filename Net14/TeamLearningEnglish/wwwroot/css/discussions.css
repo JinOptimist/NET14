@@ -1,6 +1,17 @@
-﻿.all-discussions{
+﻿.main-block{
     display:flex;
+    flex-direction:column;
     justify-content:center;
+    align-items:center;
+}
+.information-about-discussion {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.all-discussions {
+    display: flex;
+    justify-content: center;
 }
 .topic {
     display: flex;

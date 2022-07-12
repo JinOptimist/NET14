@@ -18,6 +18,9 @@ namespace TeamLearningEnglish.EfStuff.DbModels
         public Roles SiteRole { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public virtual List<DiscussionDbModel> Disscusions { get; set; }
+        public virtual List<DiscussionDbModel> WhichUserCreated { get; set; }
+        public virtual List<MessageDiscussionDbModel> Messages { get; set; }
 
 
     }

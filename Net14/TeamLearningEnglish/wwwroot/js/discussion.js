@@ -16,7 +16,9 @@
 
     $('.sendMessageButton').click(function () {
         const message = $('.new-message').val();
-        hubConnection.invoke("AddMessage", message);
+        const discussionId = $('.discussion-id').val();
+
+        hubConnection.invoke("AddMessage", message, discussionId);
     });
 
     hubConnection.start()

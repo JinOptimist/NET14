@@ -1,0 +1,26 @@
+﻿@model IndexDiscussionViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/topicsDiscussions.css" />
+
+<div class="all-topics">
+    @foreach (var topic in Model.Discussions)
+    {
+        <div class="topic">
+            <a href="/Discussion/Discussion?topicId=@topic.Id">
+                @topic.Name
+            </a>
+        </div>
+    }
+</div>
+<div>
+    <div class="text">
+        Создай тему для обсуждения
+    </div>
+    <form asp-action="CreateDiscussion" asp-controller="Discussion" method="post">
+        Название : @Html.TextBoxFor(x => x.Name)
+        <input type="submit" value="Создать" />
+    </form>
+
+</div>
