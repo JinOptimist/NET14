@@ -30,12 +30,19 @@ namespace Net14.Web.Controllers
         private StoreImageRepository _storeimageRepository;
         private IMapper _mapper;
         private SizeRepository _sizeRepository;
+        private OrderRepository _orderRepository;
+        private DeliveryAddressRepository _deliveryAddressRepository;
+        private StoreAddressRepository _storeAddressRepository;
+
         public StoreController(ProductRepository productRepository,
             StoreImageRepository storeimageRepository,
             BasketRepository basketRepository, UserService userService,
-            IMapper imapper, SizeRepository sizeRepository)
+            IMapper imapper, SizeRepository sizeRepository, OrderRepository orderRepository, DeliveryAddressRepository deliveryAddressRepository,
+            StoreAddressRepository storeAddressRepository)
         {
-
+            _orderRepository = orderRepository;
+            _deliveryAddressRepository = deliveryAddressRepository;
+            _storeAddressRepository = storeAddressRepository;
             _productRepository = productRepository;
             _storeimageRepository = storeimageRepository;
             _basketRepository = basketRepository;
@@ -100,13 +107,15 @@ namespace Net14.Web.Controllers
             _basketRepository.Save(basket);
             var prevUrl = Request.Headers.First(x => x.Key == "Referer").Value;
             return Redirect(prevUrl);
-            //return RedirectToAction("Basket", "Store");
         }
-
-        public IActionResult Checkout(int userId)
+        [HttpGet]
+        public IActionResult Checkout()
         {
-            var basket = _basketRepository.GetAll().FirstOrDefault(x => x.UserId == userId);
-            var ViewModel = basket.Products.Select(dbProduct => new ProductViewModel()
+            var dbStoreAdress = _storeAddressRepository.GetAll();
+            var user = _userService.GetCurrent();
+            var deliveryAdress = _mapper.Map<List<DeliveryAddressViewModel>>(user.DeliveryAddress);
+            var storeAdress = _mapper.Map<List<StoreAddressViewModel>>(dbStoreAdress);
+            var dbProducts = user.Basket.Products.Select(dbProduct => new ProductViewModel()
             {
                 Id = dbProduct.Id,
                 BrandCategories = dbProduct.BrandCategories.ToString(),
@@ -114,8 +123,45 @@ namespace Net14.Web.Controllers
                 Price = dbProduct.Price,
                 Images = dbProduct.StoreImages.OrderBy(x => x.Odrer).Select(x => x.Url).ToList()
             }).ToList();
+            var checoutViewModel = new ChecoutViewModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Products = dbProducts,
+                DeliveryAddress = deliveryAdress,
+                StoreAddress = storeAdress
+            };
 
-            return View(ViewModel);
+
+            return View(checoutViewModel);
+        }
+        [HttpPost]
+        public IActionResult Checkout(ChecoutViewModel checoutViewModel)
+        {
+
+            var dbOrder = new Order
+            {
+                OrderDate = DateTime.Now,
+                StatusOrder = StatusOrder.New,
+                Sum = checoutViewModel.Sum,
+                Comment = checoutViewModel.Comment,
+                UserSocial = _userService.GetCurrent(),
+                DeliveryAddress = _deliveryAddressRepository.Get(checoutViewModel.CheckedDeliveryAddressId),
+                DeliveryOrPickup = checoutViewModel.DeliveryOrPickup,
+                StoreAddress = _storeAddressRepository.Get(checoutViewModel.CheckedStoreAddressId),
+                Products = new List<Product>()
+            };
+
+            _userService.GetCurrent().Basket.Products.ForEach(x => dbOrder.Products.Add(x));
+
+            _orderRepository.Save(dbOrder);
+            var basket = _userService.GetCurrent().Basket;
+            basket.Products.Clear();
+            _basketRepository.Save(basket);
+
+            return View();
         }
 
         public IActionResult Shoes(int id)

@@ -18,6 +18,7 @@ namespace Net14.Web.EfStuff.DbModel
         public BrandСategories BrandCategories { get; set; }
         public Gender Gender { get; set; }
         public CoolMaterial CoolMaterial { get; set; }
+        public virtual List<Order> Orders { get; set; }
         public virtual List<Size> Sizes { get; set; }
         public virtual List<Basket> Baskets { get; set; }
         public virtual List<StoreImage> StoreImages { get; set; }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Net14.Web.EfStuff;
 
 namespace Net14.Web.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class WebContextModelSnapshot : ModelSnapshot
+    [Migration("20220707190004_addOrder")]
+    partial class addOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,13 +208,7 @@ namespace Net14.Web.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("DeliveryAddressId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DeliveryOrPickup")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("OrderDate")
@@ -224,20 +220,12 @@ namespace Net14.Web.Migrations
                     b.Property<int>("StatusOrder")
                         .HasColumnType("int");
 
-                    b.Property<int?>("StoreAddressId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Sum")
-                        .HasColumnType("int");
-
                     b.Property<int?>("UserSocialId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DeliveryAddressId");
-
-                    b.HasIndex("StoreAddressId");
 
                     b.HasIndex("UserSocialId");
 
@@ -269,6 +257,9 @@ namespace Net14.Web.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
@@ -279,6 +270,8 @@ namespace Net14.Web.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("Products");
                 });
@@ -545,33 +538,6 @@ namespace Net14.Web.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.StoreAddress", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("House")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Room")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Street")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StoreAddress");
-                });
-
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.StoreImage", b =>
                 {
                     b.Property<int>("Id")
@@ -608,21 +574,6 @@ namespace Net14.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
-                });
-
-            modelBuilder.Entity("OrderProduct", b =>
-                {
-                    b.Property<int>("OrdersId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrdersId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("OrderProduct");
                 });
 
             modelBuilder.Entity("ProductSize", b =>
@@ -726,22 +677,23 @@ namespace Net14.Web.Migrations
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Order", b =>
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.DeliveryAddress", "DeliveryAddress")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("DeliveryAddressId");
 
-                    b.HasOne("Net14.Web.EfStuff.DbModel.StoreAddress", "StoreAddress")
-                        .WithMany("Orders")
-                        .HasForeignKey("StoreAddressId");
-
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "UserSocial")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("UserSocialId");
 
                     b.Navigation("DeliveryAddress");
 
-                    b.Navigation("StoreAddress");
-
                     b.Navigation("UserSocial");
+                });
+
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Product", b =>
+                {
+                    b.HasOne("Net14.Web.EfStuff.DbModel.Order", null)
+                        .WithMany("Products")
+                        .HasForeignKey("OrderId");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.FileSocial", b =>
@@ -829,21 +781,6 @@ namespace Net14.Web.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("OrderProduct", b =>
-                {
-                    b.HasOne("Net14.Web.EfStuff.DbModel.Order", null)
-                        .WithMany()
-                        .HasForeignKey("OrdersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Net14.Web.EfStuff.DbModel.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ProductSize", b =>
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.Product", null)
@@ -879,14 +816,14 @@ namespace Net14.Web.Migrations
                     b.Navigation("DaysNotes");
                 });
 
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.DeliveryAddress", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Image", b =>
                 {
                     b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Order", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.Product", b =>
@@ -918,18 +855,11 @@ namespace Net14.Web.Migrations
 
                     b.Navigation("FriendRequestSent");
 
-                    b.Navigation("Orders");
-
                     b.Navigation("Posts");
 
                     b.Navigation("RecievedMessages");
 
                     b.Navigation("SendMessages");
-                });
-
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.StoreAddress", b =>
-                {
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

@@ -132,11 +132,14 @@
   <data name="Cost of goods" xml:space="preserve">
     <value>Товаров на сумму</value>
   </data>
-  <data name="Delivery within the city" xml:space="preserve">
-    <value>Доставка по городу</value>
+  <data name="Delivery" xml:space="preserve">
+    <value>Доставка</value>
   </data>
-  <data name="Name" xml:space="preserve">
+  <data name="FirstName" xml:space="preserve">
     <value>Имя</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Фамилия</value>
   </data>
   <data name="Phone number" xml:space="preserve">
     <value>Мобильный телефон</value>

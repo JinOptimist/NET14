@@ -106,20 +106,29 @@ namespace Net14.Web.Localize.Store {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Доставка по городу.
+        ///   Ищет локализованную строку, похожую на Доставка.
         /// </summary>
-        public static string Delivery_within_the_city {
+        public static string Delivery {
             get {
-                return ResourceManager.GetString("Delivery within the city", resourceCulture);
+                return ResourceManager.GetString("Delivery", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Имя.
         /// </summary>
-        public static string Name {
+        public static string FirstName {
             get {
-                return ResourceManager.GetString("Name", resourceCulture);
+                return ResourceManager.GetString("FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Фамилия.
+        /// </summary>
+        public static string LastName {
+            get {
+                return ResourceManager.GetString("LastName", resourceCulture);
             }
         }
         

@@ -8,6 +8,8 @@ namespace Net14.Web.Models.store
 {
     public class DeliveryAddressViewModel
     {
+        public int Id { get; set; }
+        public string City { get; set; }
         public string Country { get; set; }
         public string Street { get; set; }
         public int House { get; set; }

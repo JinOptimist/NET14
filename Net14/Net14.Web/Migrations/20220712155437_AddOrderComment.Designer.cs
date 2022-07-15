@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Net14.Web.EfStuff;
 
 namespace Net14.Web.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class WebContextModelSnapshot : ModelSnapshot
+    [Migration("20220712155437_AddOrderComment")]
+    partial class AddOrderComment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -212,9 +214,6 @@ namespace Net14.Web.Migrations
                     b.Property<int?>("DeliveryAddressId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DeliveryOrPickup")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
@@ -224,20 +223,12 @@ namespace Net14.Web.Migrations
                     b.Property<int>("StatusOrder")
                         .HasColumnType("int");
 
-                    b.Property<int?>("StoreAddressId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Sum")
-                        .HasColumnType("int");
-
                     b.Property<int?>("UserSocialId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DeliveryAddressId");
-
-                    b.HasIndex("StoreAddressId");
 
                     b.HasIndex("UserSocialId");
 
@@ -545,33 +536,6 @@ namespace Net14.Web.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.StoreAddress", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("House")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Room")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Street")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StoreAddress");
-                });
-
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.StoreImage", b =>
                 {
                     b.Property<int>("Id")
@@ -729,17 +693,11 @@ namespace Net14.Web.Migrations
                         .WithMany("Orders")
                         .HasForeignKey("DeliveryAddressId");
 
-                    b.HasOne("Net14.Web.EfStuff.DbModel.StoreAddress", "StoreAddress")
-                        .WithMany("Orders")
-                        .HasForeignKey("StoreAddressId");
-
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "UserSocial")
                         .WithMany("Orders")
                         .HasForeignKey("UserSocialId");
 
                     b.Navigation("DeliveryAddress");
-
-                    b.Navigation("StoreAddress");
 
                     b.Navigation("UserSocial");
                 });
@@ -925,11 +883,6 @@ namespace Net14.Web.Migrations
                     b.Navigation("RecievedMessages");
 
                     b.Navigation("SendMessages");
-                });
-
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.StoreAddress", b =>
-                {
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

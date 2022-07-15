@@ -1,106 +1,123 @@
 ﻿@using Net14.Web.Models.store
 @using Net14.Web.Localize.Store
-@model List<ProductViewModel>
+@model ChecoutViewModel
 
 @{
     Layout = "/Views/Shared/_LayoutStore.cshtml";
 }
+@section Scripts{
+    <script src="~/js/StoreJs/Checkout.js"></script>
+}
 
-<div class="checkout">
-    <form action="#" method="post" enctype="multipart/form-data">  </form>
-    <div class="cheсkout_block1">
-        <div class="checkout_title">
-            <div class="title">@Checkout.Checkout1 </div>
-        </div>
+    <div class="checkout">
+        <form action="/Store/Checkout" method="post" enctype="multipart/form-data">
+            <div class="cheсkout_block1">
+                <div class="checkout_title">
+                    <div class="title">@Checkout.Checkout1 </div>
+                </div>
 
-        <div class="checkout_field">
-            <div class="title_mini">@Checkout.Name</div>
-            <div><input type="text" name="username" value="" /></div>
-        </div>
+                <div class="checkout_field">
+                    <div class="title_mini">@Checkout.FirstName</div>
+                    <div><input type="text" name="FirstName" value="@Model.FirstName" /></div>
+                </div>
+                <div class="checkout_field">
+                    <div class="title_mini">@Checkout.LastName</div>
+                    <div><input type="text" name="LastName" value="@Model.LastName" /></div>
+                </div>
+                <div class="checkout_field">
+                    <div class="title_mini">E-mail </div>
+                    <div><input type="text" name="Email" value="@Model.Email" /></div>
+                </div>
 
-        <div class="checkout_field">
-            <div class="title_mini">E-mail </div>
-            <div><input type="text" name="email" value="" /></div>
-        </div>
-
-        <div class="checkout_field">
-            <div class="title_mini">@Checkout.Phone_number</div>
-            <div><input placeholder="+375 XX YYY-YY-YY" type="tel" name="phonenumber" value="" /></div>
-        </div>
-        <div class="checkout_field">
-            @foreach (var item in Model)
-            {
-                <div class="catalogItem">
-                    <a href="/Store/Shoes?id=@item.Id">
-                        <div class="catalogImages">
-                            <img src="@item.Images.FirstOrDefault()" class="catalogProduct" />
-                        </div>
+                <div class="checkout_field">
+                    <div class="title_mini">@Checkout.Phone_number</div>
+                    <div><input placeholder="+375 XX YYY-YY-YY" type="tel" name="PhoneNumber" value="@Model.PhoneNumber" /></div>
+                </div>
+                <div class="checkout_field">
+                    @foreach (var product in Model.Products)
+                {
+                    <div class="catalogItem">
+                        <a href="/Store/Shoes?id=@product.Id">
+                            <div class="catalogImages">
+                                <img src="@product.Images.FirstOrDefault()" class="catalogProduct" />
+                            </div>
+                            <div class="catalogMiniTitle">
+                                @product.BrandCategories
+                            </div>
+                            <div class="catalogMiniTitle">
+                                @product.Name
+                            </div>
+                        </a>
                         <div class="catalogMiniTitle">
-                            @item.BrandCategories
+                            @product.Price $
                         </div>
-                        <div class="catalogMiniTitle">
-                            @item.Name
-                        </div>
-                    </a>
-                    <div class="catalogMiniTitle">
-                        @item.Price $
+                    </div>
+                }
+            </div>
+
+        </div>
+
+        <div class="checkout_block2">
+            <div class="form_radio_group">
+                <div class="form_radio_group-item">
+                    <input id="radio-1" type="radio" name="DeliveryOrPickup" value="Pickup" checked>
+                    <label for="radio-1">@Checkout.Pickup</label>
+                </div>
+                <div class="form_radio_group-item">
+                    <input id="radio-2" type="radio" name="DeliveryOrPickup" value="Delivery">
+                    <label for="radio-2">@Checkout.Delivery</label>
+                </div>
+            </div>
+            <div class="pickup box">
+                <div class="checkout_field">
+                    <div class="title_mini">@Checkout.Adress</div>
+                    <div class="checkout_AdressRadio">
+                        @foreach (var adress in Model.StoreAddress)
+                        {
+                            <div>
+                                <input name="CheckedStoreAddressId" type="radio" value="@adress.Id" /> @adress.Country,@adress.City,@adress.Street,@adress.House-@adress.Room
+                            </div>
+                        }
                     </div>
                 </div>
-            }
+            </div>
+            <div class="delivery box">
+                <div class="checkout_field">
+                    <div class="title_mini">@Checkout.Adress</div>
+                    <div class="checkout_AdressRadio">
+                        @foreach (var adress in Model.DeliveryAddress)
+                        {
+                            <div>
+                                <input name="CheckedDeliveryAddressId" type="radio" value="@adress.Id" /> @adress.PostСode,@adress.Country,@adress.City,@adress.Street,@adress.House-@adress.Room
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
         </div>
-
-    </div>
-
-    <div class="checkout_block2">
-        <div class="pickup">
-            <div class="checkout_radio"><input checkeds type="radio" name="radiobutton" value="pickupradio" /> @Checkout.Pickup</div>
+        <div class="checkout_block2">
             <div class="checkout_field">
                 <div class="title_mini">@Checkout.Comment</div>
-                <div><textarea name="pickupComment" cols="80" rows="10"></textarea> </div>
+                <div><textarea name="Comment" cols="80" rows="10"></textarea> </div>
             </div>
         </div>
-        <div class="delivery">
-            <div class="checkout_radio"><input type="radio" name="radiobutton" value="deliverypradio" /> @Checkout.Delivery_within_the_city</div>
-            <div class="checkout_field">
-                <div class="title_mini">@Checkout.Adress</div>
-                <div><input type="text" name="deliveryAdress" value="" /></div>
-            </div>
-            <div class="checkout_field">
-                <div class="title_mini">@Checkout.Comment</div>
-                <div><textarea name="deliveryComment" cols="80" rows="10"></textarea> </div>
-            </div>
-        </div>
-        <div class="sent">
-            <div class="checkout_radio"> <input type="radio" name="radiobutton" value="sentradio" /> @Checkout.Sending_by_mail </div>
-            <div class="checkout_field">
-                <div class="title_mini">@Checkout.Post_code</div>
-                <div><input type="tel" name="indexSent" value="" /></div>
-            </div>
-            <div class="checkout_field">
-                <div class="title_mini">@Checkout.Adress</div>
-                <div><input type="text" name="adressSent" value="" /></div>
-            </div>
-            <div class="checkout_field">
-                <div class="title_mini">@Checkout.Comment</div>
-                <div><textarea name="sentComment" cols="80" rows="10"></textarea> </div>
+        <div class="checkout_block3">
+            <div class="checkout_finishcost">
+                <div class="checkout_cost">
+                    <div class="title_mini">@Checkout.Cost_of_goods:</div>
+                    <div class="title_mini">@Model.Products.Sum(x=>x.Price)$</div>
+                </div>
+                <div class="checkout_costdelivery">
+                    <div class="title_mini">@Checkout.Cost_of_delivery:</div>
+                    <div class="title_mini">5$</div>
+                </div>
+                <div class="checkout_allcost">
+                    <div class="title_mini">@Checkout.Total_payable:</div>
+                    <div class="title_mini">@Model.Products.Sum(x=>x.Price)$</div>
+                    @Html.Hidden("Sum", @Model.Products.Sum(x=>x.Price))
+                </div>
+                <input class="button_checkout" type="submit" value="@Checkout.Send" />
             </div>
         </div>
-    </div>
-    <div class="checkout_block3">
-        <div class="checkout_finishcost">
-            <div class="checkout_cost">
-                <div class="title_mini">@Checkout.Cost_of_goods:</div>
-                <div class="title_mini">@Model.Sum(x=>x.Price)$</div>
-            </div>
-            <div class="checkout_costdelivery">
-                <div class="title_mini">@Checkout.Cost_of_delivery:</div>
-                <div class="title_mini">5$</div>
-            </div>
-            <div class="checkout_allcost">
-                <div class="title_mini">@Checkout.Total_payable:</div>
-                <div class="title_mini">@Model.Sum(x=>x.Price+5)$</div>
-            </div>
-            <button class="button_checkout" type="submit">@Checkout.Send</button>
-        </div>
-    </div>
+    </form>
 </div>

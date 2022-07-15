@@ -22,6 +22,7 @@ namespace Net14.Web.EfStuff.DbModel.SocialDbModels
         public bool IsBlocked { get; set; }
         public SiteRole Role { get; set; }
         public Language Language { get; set; }
+        public virtual List<Order> Orders { get; set; }
         public virtual List<DeliveryAddress> DeliveryAddress { get; set; }
         public virtual List<FileSocial> Files { get; set; }
         public virtual List<PostSocial> Posts { get; set; }

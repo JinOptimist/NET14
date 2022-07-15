@@ -132,11 +132,14 @@
   <data name="Cost of goods" xml:space="preserve">
     <value>Cost of goods</value>
   </data>
-  <data name="Delivery within the city" xml:space="preserve">
-    <value>Delivery within the city</value>
+  <data name="Delivery" xml:space="preserve">
+    <value>Delivery </value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name</value>
+  <data name="FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last Name</value>
   </data>
   <data name="Phone number" xml:space="preserve">
     <value>Phone number</value>
