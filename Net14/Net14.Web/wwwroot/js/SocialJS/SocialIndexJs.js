@@ -24,6 +24,7 @@
 
     $(document).on('click', "input.comm.active", function (e) {
         e.preventDefault();
+        let clicked = $(this);
         var id = +$(this).closest(".content-element").attr("data-id");
         let elementToClone = $(this).closest(".content-element").find(".single-comment.template");
         let commentDiv = $(this).closest(".content-element").find(".comment-elements");
@@ -31,6 +32,10 @@
         $(this).closest(".input-container").find(".to-comment").val("");
         $.get("/api/Social/AddComment", { postId: id, text: commmentInput })
             .done(function (user) {
+                let commCountBlock = clicked.closest(".content-element-card").find(".comm-count");
+                let commCount = parseInt(commCountBlock.text());
+                commCountBlock.text(++commCount);
+
                 comment = elementToClone.clone();
                 comment.removeClass("template");
                 comment.find(".user-photo").attr("src", user.userPhoto);
