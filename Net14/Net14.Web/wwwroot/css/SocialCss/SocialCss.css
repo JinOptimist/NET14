@@ -13,7 +13,7 @@ body {
     display: flex;
     margin: 0 auto;
     height: 60px;
-    background: white;
+    background: linear-gradient(to top right, #602CE0, #CD63DF);
     justify-content: space-between;
     box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
     position: fixed;
@@ -144,11 +144,12 @@ body {
     max-height: 100%;
 }
 
-footer
-{
+footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    background: linear-gradient(to top right, #602CE0, #CD63DF);
+    color: White;
 }
 
 .footer-of-post {
@@ -189,7 +190,7 @@ footer
 
 .logo img
 {
-    height: 70%;
+    height: 95%;
 
 }
 
@@ -204,8 +205,8 @@ footer
 .header input {
     height: 15px;
     width: 100%;
-    border-radius: 92px;
-    background: rgba(122,122,122,0.1);
+    border-radius: 90px;
+    background: white; 
     border: 1px solid grey;
     padding: 7px;
     font-size: 15px;
@@ -304,10 +305,11 @@ footer
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url(../../images/Social/settings.png);
-    width: 25px;
+    background: url(../../images/Social/setting.png);
+    width: 32px;
     height: 25px;
     background-size: cover;
+    cursor: pointer;
 }
 #notification-icon {
     display: flex;
@@ -463,7 +465,7 @@ input[type=submit]:hover{
     text-decoration: none;
 }
 a {
-    color: #0000FF;
+    color: lightgrey;
 }
 .menu-container {
     display: flex;
