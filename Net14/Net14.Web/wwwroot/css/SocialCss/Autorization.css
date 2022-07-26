@@ -78,7 +78,11 @@
 .create-account {
     margin-top: 50px;
     font-size: 20px;
+
 }
+.create-account a {
+        color:blueviolet
+    }
 
 .validation-summary-errors ul {
     padding-left: 0;

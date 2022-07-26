@@ -43,7 +43,7 @@
             <input placeholder="@LayoutSocial.Search">
         </div>
         <ul class="navigation">
-            <li class="navigation-element"><a href="/Social/Index">@LayoutSocial.Home</a></li>
+        <!--    <li class="navigation-element"><a href="/Social/Index">@LayoutSocial.Home</a></li>-->
 
             @if (User.Identity.IsAuthenticated)
             {
@@ -58,10 +58,10 @@
 
                 </li>
             }
-            else
+            @*else
             {
                 <li class="navigation-element"><a href="/SocialAuthentication/Autorization">@LayoutSocial.Sign_in</a></li>
-            }
+            }*@
             <li class="navigation-element" id="settings-icon"></li>
             <a class="languagee" onclick="location.href='@Url.Action("MainChangeLanguageToEnglish", "Social")'">English</a>
             <a class="languagee" onclick="location.href='@Url.Action("MainChangeLanguageToRussian", "Social")'">Russian</a>       
@@ -133,22 +133,34 @@
                         <div class="menu-element" onclick="location.href='/SocialRecomendation/Recomendations';">@LayoutSocial.Recomendation</div>
                         <div class="menu-element" onclick="location.href='/SocialMessages/GetDialogs';">@LayoutSocial.Messages</div>
                         <div class="menu-element" onclick="location.href='/SocialHub/AllHub';">@LayoutSocial.Hubs</div>
-
-
-                    }
-                    <div class="menu-element" onclick="location.href='/SocialGroups/GetGroups';">@LayoutSocial.Groups</div>
-                    <div class="menu-element" onclick="location.href='/Social/ShowAllUsers';">@LayoutSocial.Find_user</div>
-                    @if (User.Identity.IsAuthenticated)
-                    {
+                        <div class="menu-element" onclick="location.href='/SocialGroups/GetGroups';">@LayoutSocial.Groups</div>
+                        <div class="menu-element" onclick="location.href='/Social/ShowAllUsers';">@LayoutSocial.Find_user</div>
                         <div class="menu-element" onclick="location.href='/Social/Friends';">@LayoutSocial.Friends</div>
                     }
                 </div>
+                
                 @RenderSection("NavbarRecomendations", required: false)
             </div>
         </div>
-        <div class="content">
-            @RenderBody()
-        </div>        
+        
+        @if (!User.Identity.IsAuthenticated)
+        {    
+            <div class="content-first">
+            
+                <div class="pre-content">
+                    Information for user view!
+                </div>
+                <div class ="content">
+                @RenderBody()
+            </div> 
+        </div>
+        }
+        else
+        {
+        <div class ="content">
+                @RenderBody()
+        </div> 
+        }
     </div>
     <div class="notif-div-bottom template">
         <div class="notif-div-bottom-content">
