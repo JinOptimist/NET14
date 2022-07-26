@@ -3,7 +3,7 @@
 @inject UserService UserService
 @inject AdvertisingService advertisingService
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -133,22 +133,38 @@
                         <div class="menu-element" onclick="location.href='/SocialRecomendation/Recomendations';">@LayoutSocial.Recomendation</div>
                         <div class="menu-element" onclick="location.href='/SocialMessages/GetDialogs';">@LayoutSocial.Messages</div>
                         <div class="menu-element" onclick="location.href='/SocialHub/AllHub';">@LayoutSocial.Hubs</div>
-
-
-                    }
-                    <div class="menu-element" onclick="location.href='/SocialGroups/GetGroups';">@LayoutSocial.Groups</div>
-                    <div class="menu-element" onclick="location.href='/Social/ShowAllUsers';">@LayoutSocial.Find_user</div>
-                    @if (User.Identity.IsAuthenticated)
-                    {
+                        <div class="menu-element" onclick="location.href='/SocialGroups/GetGroups';">@LayoutSocial.Groups</div>
+                        <div class="menu-element" onclick="location.href='/Social/ShowAllUsers';">@LayoutSocial.Find_user</div>
                         <div class="menu-element" onclick="location.href='/Social/Friends';">@LayoutSocial.Friends</div>
                     }
                 </div>
-                @RenderSection("NavbarRecomendations", required: false)
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @RenderSection("NavbarRecomendations", required: true)
+                }
             </div>
         </div>
         <div class="content">
-            @RenderBody()
-        </div>        
+            @if (User.Identity.IsAuthenticated)
+            {
+                @RenderBody()    
+            }            
+        </div>
+        @*        <div class="advertising-container">
+            <div class="advertising">
+            <a href="/Store/Index" class="name-shop">
+            <img src="/images/Store/LogoGray.png" class="logo-shop">
+            <span class=shopox>ShopOx</span>
+            </a>
+            @foreach (var product in advertisingService.GetAdvertising())
+            {
+            <div class="advertising-element" onclick="location.href = '/Store/Shoes?id=@product.Id';">
+            <img src="@product.Images[2]" class="advertising-images">
+            <div>@product.Name</div>
+            </div>
+            }
+            </div>
+            </div>*@
     </div>
     <div class="notif-div-bottom template">
         <div class="notif-div-bottom-content">
@@ -172,6 +188,7 @@
                 <a class="languagee" onclick="location.href='@Url.Action("ChangeLanguageToRussian", "Social")'">Russian</a>
             }
         </div>
+
     </footer>
 </body>
 </html>

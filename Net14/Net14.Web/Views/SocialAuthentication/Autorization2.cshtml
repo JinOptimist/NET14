@@ -1,0 +1,38 @@
+﻿@using Net14.Web.EfStuff.DbModel.SocialDbModels
+@using Net14.Web.Localize.Social
+@model SocialUserAutorizationViewModel
+
+@{
+    Layout = "/Views/Shared/_LayoutSocial.cshtml";
+}
+<link rel="stylesheet" href="~/css/SocialCss/Autorization.css">
+
+<div class="header-autorization">
+    <div class="text">@Autorization.Sign_in</div>
+</div>
+<div class="autorization-form-div">
+    <form class="hidden-form" asp-action="Autorization" asp-controller="SocialAuthentication" asp-antiforgery="true" method="post">
+        <div class="inputs-validation">
+            <input type="hidden" name="ReturnUrl" value=@Model.ReturnUrl>
+            <div class="inputs-validation-element">
+                @Html.ValidationMessageFor(x => x.Email)
+                <input type="text" asp-for="Email" placeholder="@Autorization.Enter_email" />
+            </div>
+            <div class="inputs-validation-element">
+                @Html.ValidationMessageFor(x => x.Password)
+                <input type="password" asp-for="Password" placeholder="@Autorization.Enter_password" />
+            </div>
+            <div>
+                <input type="submit" value="@Autorization.Come_in" class="find-button-validation" />
+            </div>
+        </div>
+    </form>
+</div>
+<div class="create-account">
+    <div>@Autorization.Or <a href="/SocialAuthentication/Registration">@Autorization.create_acount</a></div>
+</div>
+
+@section scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

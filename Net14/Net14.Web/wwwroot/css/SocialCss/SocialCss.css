@@ -37,9 +37,9 @@ body {
 .navigation
 {
     display: flex;
-    width: 300px;
+    width: 400px;
     list-style-type: none;
-    margin-right: 170px;
+    margin-right: 18px;
 }
 .menu
 {

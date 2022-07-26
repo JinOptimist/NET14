@@ -76,7 +76,7 @@ namespace Net14.Web.Controllers
                     {
                         x.IsByCurrentUser = true;
                     }
-                    if (posts.Single(dbPost => dbPost.Id == x.Id).Complains.Any(comp => comp.OwnerOfComplain.Id == currentUser.Id)) 
+                    if (posts.Single(dbPost => dbPost.Id == x.Id).Complains.Any(comp => comp.OwnerOfComplain.Id == currentUser.Id))
                     {
                         x.IsBlockedByUser = true;
                     }
@@ -344,12 +344,30 @@ namespace Net14.Web.Controllers
 
         [Authorize]
         [HasRole(SiteRole.Admin)]
-        public IActionResult GetComplaint() 
+        public IActionResult GetComplaint()
         {
             var posts = _socialPostRepository.GetPostsWithComplains()
                 .OrderByDescending(post => post.Complains.Count);
             var complainsPostsViewModels = _mapper.Map<List<SocialPostViewModel>>(posts);
             return View(complainsPostsViewModels);
         }
+
+        //public IActionResult MainChangeLanguageToEnglish()
+        //{
+        //    var currentUser = new UserSocial();
+        //    currentUser.Language = Language.Eng;
+        //    _socialUserRepository.Save(currentUser);
+
+        //    return RedirectToAction("Index");
+        //}
+        //public IActionResult MainChangeLanguageToRussian()
+        //{
+        //    var currentUser = new UserSocial();
+        //    currentUser.Language = Language.Rus;
+        //    _socialUserRepository.Save(currentUser);
+
+        //    return RedirectToAction("Index");
+        //}
+
     }
 }
