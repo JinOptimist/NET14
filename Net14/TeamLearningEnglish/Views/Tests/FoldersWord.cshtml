@@ -1,0 +1,16 @@
+﻿@model DictionaryWordViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/dictionary.css" />
+
+<div class="test">
+    @foreach (var folder in Model.AllFolders)
+        {
+            <a href="/Tests/TestWords?nameFolder=@folder">
+                <div class="block-folder">
+                    @folder
+                </div>
+            </a>
+        }
+</div>

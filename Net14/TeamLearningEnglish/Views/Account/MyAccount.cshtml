@@ -1,0 +1,18 @@
+﻿@model UserViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="titcle">
+    Your account
+</div>
+<div class="my-account">
+    <div class="first-name">
+        @Model.FirstName
+    </div>
+    <div class="last-name">
+        @Model.LastName
+    </div>
+    <div class="english-level">
+        @Model.EnglishLevel
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿@model IndexBookViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/books.css" />
+
+<a href="/Home/ShowBook?id=@Model.Book.Id&page=@(Model.Page - 1)" /> prev</a>
+<a href="/Home/ShowBook?id=@Model.Book.Id&page=@(Model.Page + 1)" /> next</a>
+@foreach (var text in Model.Text)
+{
+    @text
+}
+
