@@ -18,20 +18,23 @@ namespace TeamLearningEnglish.Controllers
         private UserService _userService;
         private UserRepository _userRepository;
         private DiscussionRepository _discussionRepository;
+        private MessageDiscussionRepository _messageDiscussionRepository;
         private IMapper _mapper;
 
         public DiscussionController(
             UserRepository userRepository,
-            UserService userService, IMapper mapper, 
-            DiscussionRepository discussionRepository)
+            UserService userService, IMapper mapper,
+            DiscussionRepository discussionRepository, 
+            MessageDiscussionRepository messageDiscussionRepository)
         {
             _userService = userService;
             _userRepository = userRepository;
             _mapper = mapper;
             _discussionRepository = discussionRepository;
+            _messageDiscussionRepository = messageDiscussionRepository;
         }
 
-        public IActionResult TopicsDiscussions()
+        public IActionResult AllDiscussions()
         {
             var discussionDbModel = _discussionRepository.GetAll();
 
@@ -54,8 +57,7 @@ namespace TeamLearningEnglish.Controllers
             _discussionRepository.Save(dbModel);
             return RedirectToAction("TopicsDiscussions");
         }
-
-        public IActionResult Discussion(int topicId)
+        public IActionResult SingleDiscussion(int topicId)
         {
             var topicDbModel = _discussionRepository.Get(topicId);
             var topicViewModel = new DiscussionViewModel
@@ -68,8 +70,6 @@ namespace TeamLearningEnglish.Controllers
 
             return View(topicViewModel);
         }
-       
-        
 
     }
 }

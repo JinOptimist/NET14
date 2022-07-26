@@ -8,7 +8,7 @@
     @foreach (var topic in Model.Discussions)
     {
         <div class="topic">
-            <a href="/Discussion/Discussion?topicId=@topic.Id">
+            <a href="/Discussion/SingleDiscussion?topicId=@topic.Id">
                 @topic.Name
             </a>
         </div>

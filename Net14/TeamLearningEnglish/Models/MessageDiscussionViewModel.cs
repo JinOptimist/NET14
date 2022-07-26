@@ -8,6 +8,7 @@ namespace TeamLearningEnglish.Models
         public string Text { get; set; }
         public int SenderId { get; set; }
         public string DiscussionName { get; set; }
+        public int DiscussionId { get; set; }
 
     }
 }

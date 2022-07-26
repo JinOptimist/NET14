@@ -19,15 +19,22 @@
     <div class="all-discussions">
         <div class="chat">
             <div class="messages">
+                @foreach (var message in Model.Messages)
+                {
+                    <div>
+                        @message
+                    </div>
+                }
             </div>
             <div>
-                <input class="new-message" type="text" />
-                <input class="discussion-id" type="hidden" value=@Model.Id />
-                <input class="sendMessageButton" type="button" value="Отправить" />
+                <form>
+                    <input class="new-message" type="text" />
+                    <input class="discussion-id" type="hidden" value=@Model.Id />
+                    <input class="sendMessageButton" type="button" value="Отправить" />
+                </form>
             </div>
         </div>
     </div>
-
 </div>
 
 

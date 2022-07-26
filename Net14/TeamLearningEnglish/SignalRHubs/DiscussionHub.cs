@@ -25,17 +25,8 @@ namespace TeamLearningEnglish.SignalRHubs
         {
             Clients.All.SendAsync("ClickMessage");
         }
-        public void AddMessage(string message, int discussionId)
+        public void AddMessage(string message)
         {
-            var discussionDbModel = _discussionRepository.Get(discussionId);
-
-            var newMessage = new MessageDiscussionDbModel
-            {
-                Discussion = discussionDbModel,
-                Text = message,
-            };
-            _messageDiscussionRepository.Save(newMessage);
-
             var name = _userService.GetCurrent()?.FirstName ?? "no name";
             Clients.All.SendAsync("AddMessage", message, name);
         }
