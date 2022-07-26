@@ -9,7 +9,7 @@ namespace Net14
     {
         public static object syncObj = new object();
 
-        static async void Main(string[] args)
+        public static void Main(string[] args)
         {
             
             var listTasks = new List<Task>();
