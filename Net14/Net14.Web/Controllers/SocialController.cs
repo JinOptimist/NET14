@@ -44,17 +44,30 @@ namespace Net14.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
             var postArr = _socialPostRepository.GetAll();
+
             var topThree = _mapper.Map<List<SocialPostViewModel>>(_recomendationsService.GetIndexRecomendations());
             var viewPost = _mapper.Map<List<SocialPostViewModel>>(postArr);
 
+            if (_userService.GetCurrent() != null) 
 
+            {
+                var currentUser = _userService.GetCurrent();
+                viewPost.ForEach(x =>
+                {
+                    if (postArr.Single(dbPost => dbPost.Id == x.Id).Likes.Any(like => like.User.Id == currentUser.Id))
+                    {
+                        x.IsLikedCurrentUser = true;
+                    }
+                });
+
+            }
             var finalModel = new SocialPostWithTopViewModel()
             {
                 Posts = viewPost,
                 TopThreePost = topThree
             };
+
 
             return View(finalModel);
         }
@@ -157,19 +170,19 @@ namespace Net14.Web.Controllers
         }
 
 
-        public IActionResult ShowProfile()
+        public IActionResult ShowProfile(int userId)
         {
-            var user = new UserSocial();
+            var user = _socialUserRepository.Get(userId);
+            var currentUser = _userService.GetCurrent();
 
-            return View(user);
-        }
-
-        public IActionResult ShowPagesProfile()
-        {
-            var postUser = _mapper.Map<List<SocialPostViewModel>>(_userService.GetCurrent().Posts);
-            var user = _userService.GetCurrent();
+            var postUser = _mapper.Map<List<SocialPostViewModel>>(user.Posts);
             var model = _mapper.Map<SocialProfileViewModel>(user);
             model.UserPost = postUser;
+            model.UserFriendsCount = user.Friends.Count;
+            model.UserGroupsCount = user.Groups.Count;
+            model.IsRequested = currentUser.FriendRequestSent.Any(x => x.Receiver.Id == userId) ? true : false;
+            model.IsFriend = currentUser.Friends.Any(x => x.Id == user.Id) ? true : false;
+
 
             return View(model);
         }
@@ -177,8 +190,13 @@ namespace Net14.Web.Controllers
         [Authorize]
         public IActionResult MyProfile()
         {
-            var user = _userService.GetCurrent();
-            var model = _mapper.Map<SocialProfileViewModel>(user);
+            var currentUser = _userService.GetCurrent();
+
+            var postUser = _mapper.Map<List<SocialPostViewModel>>(currentUser.Posts);
+            var model = _mapper.Map<SocialProfileViewModel>(currentUser);
+            model.UserPost = postUser;
+            model.UserFriendsCount = currentUser.Friends.Count;
+            model.UserGroupsCount = currentUser.Groups.Count;
 
             return View(model);
         }

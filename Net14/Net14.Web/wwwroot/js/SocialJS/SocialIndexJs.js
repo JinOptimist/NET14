@@ -62,5 +62,38 @@
         $(this).closest(".input-container").find("input.comm").addClass("active");
     })
 
+    $(document).on("click", ".operations.like:not(.active)", function () {
+        let clicked = $(this);
+        var id = +$(this).closest(".content-element").attr("data-id");
+
+        $.get("/api/Social/AddLike", { postId: id })
+            .done(function ()
+            {
+                var elementToReplace = $(".operations.like.active.template").clone();
+                var likesCountEncrement = parseInt(clicked.closest(".like-container").find(".likes-count").text());
+                clicked.closest(".like-container").find(".likes-count").text(++likesCountEncrement);
+                clicked.replaceWith(elementToReplace.removeClass("template"));
+            });
+
+    })
+
+    $(document).on("click", ".operations.like.active", function () {
+        let clicked = $(this);
+        var id = +$(this).closest(".content-element").attr("data-id");
+
+
+
+        $.get("/api/Social/RemoveLike", { postId: id })
+            .done(function ()
+            {
+                var elementToReplace = $("#disable").clone();
+                var likesCountEncrement = parseInt(clicked.closest(".like-container").find(".likes-count").text());
+                clicked.closest(".like-container").find(".likes-count").text(--likesCountEncrement);
+                clicked.replaceWith(elementToReplace.removeClass("template"));
+
+            })
+
+    })
 
 })
+

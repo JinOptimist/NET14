@@ -1,0 +1,64 @@
+﻿@model UserAuthenticationViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/authentication.css" />
+
+
+<div class="block">
+    <div class="block-empty">
+    </div>
+    <div class="authentication">
+        <div class="main-word">
+            <div class="empty">
+            </div>
+            <div class="word-registr">
+                Регистрация
+            </div>
+            <div class="close-button">
+                <a href="/Authentication/Autorization/">
+                    <img src="/images/close.png">
+                </a>
+            </div>
+        </div>
+
+        <form action="/Authentication/Authentication" method="post">
+            <div class="email">
+                @Html.TextBoxFor(x => x.Email, new {@class="email-input", placeholder="email"})
+            </div>
+            <div class="full-name">
+                @Html.TextBoxFor(x => x.FirstName, new {@class="name",placeholder="Имя"})
+                @Html.TextBoxFor(x => x.LastName, new {@class="last-name", placeholder="Фамилия"})
+            </div>
+            <div class="password">
+                @Html.PasswordFor(x => x.Password, new {@class="password-input", placeholder="Новый пароль"})
+            </div>
+            <div class="age">
+                @Html.TextBoxFor(x => x.BirthDate, new {@class="birthday-input", type = "date"})
+            </div>
+            <div class="level">
+                <select asp-for="EnglishLevel" asp-items="Html.GetEnumSelectList<EnglishLevel.Level>()"></select>
+            </div>
+            <div class="button-submit">
+                <input class="submit" type="submit" value="Регистрация" />
+            </div>
+        </form>
+    </div>
+    <div class="validation">
+        <div class="validation-for-email">
+            @Html.ValidationMessageFor(x => x.Email)
+        </div>
+        <div class="validation-for-name">
+            @Html.ValidationMessageFor(x => x.FirstName)
+            @Html.ValidationMessageFor(x => x.LastName)
+        </div>
+        <div class="validation-for-password">
+            @Html.ValidationMessageFor(x => x.Password)
+        </div>
+        <div class="validation-for-age">
+            @Html.ValidationMessageFor(x => x.BirthDate)
+        </div>
+    </div>
+
+</div>
+

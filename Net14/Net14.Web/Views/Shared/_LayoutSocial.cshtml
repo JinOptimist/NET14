@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="~/css/Shulte/FindGame.css">
     <link rel="stylesheet" href="~/css/SocialCss/NotificationsCss.css">
 
+
     <script language="JavaScript" type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
     <script src="~/js/SocialJS/SocialJS.js"></script>
@@ -24,6 +25,7 @@
     @RenderSection("Scripts", required: false)
 
 </head>
+
 <body>
     <header class="header">
         <div class="logo">
@@ -32,7 +34,7 @@
         @if (User.Identity.IsAuthenticated)
         {
             <div class="auth-userbox">
-                <div class="auth-userbox-img" onclick="location.href='/Social/MyProfile';"><img src="~/images/Social/User.jpg"></div>
+                <div class="auth-userbox-img" onclick="location.href='/Social/MyProfile';"><img src=@UserService.GetCurrent().UserPhoto></div>
                 <div class="auth-userbox-name">@UserService.GetCurrent().LastName @UserService.GetCurrent().FirstName</div>
             </div>
         }
@@ -107,6 +109,10 @@
             </div>
             <div class="elements-from-hidden" onclick="location.href='/Home/Index';"> @LayoutSocial.Start_page</div>
             <div class="elements-from-hidden" onclick="location.href='/SocialVideos/GetVideos';">@LayoutSocial.Learn_C</div>
+            @if (UserService.IsAdmin())
+            {
+                <div class="elements-from-hidden" onclick="location.href='/Social/GetAPIs';">API</div>
+            }
         </div>
     </header>
     <div class="maincontent">
@@ -116,7 +122,7 @@
 
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <div class="menu-element" onclick="location.href='/Social/ShowPagesProfile';">@LayoutSocial.My_Posted</div>
+                        <div class="menu-element" onclick="location.href='/Social/MyProfile';">@LayoutSocial.My_Posted</div>
                         <div class="menu-element" onclick="location.href='/SocialFile/MyFiles';">@LayoutSocial.My_Files</div>
                         <div class="menu-element" onclick="location.href='/SocialRecomendation/Recomendations';">@LayoutSocial.Recomendation</div>
                         <div class="menu-element" onclick="location.href='/SocialMessages/GetDialogs';">@LayoutSocial.Messages</div>
@@ -136,7 +142,7 @@
         <div class="content">
             @RenderBody()
         </div>
-        <div class="advertising-container">
+@*        <div class="advertising-container">
             <div class="advertising">
                 <a href="/Store/Index" class="name-shop">
                     <img src="/images/Store/LogoGray.png" class="logo-shop">
@@ -150,11 +156,14 @@
                     </div>
                 }
             </div>
-        </div>
+        </div>*@
     </div>
     <div class="notif-div-bottom">
         <div class="notif-div-bottom-content">
-            <img />
+            <div class="info">
+                <div class="user-message-name"></div>
+                <div class="notif-text"></div>
+            </div>
         </div>
     </div>
     <footer class="footer">

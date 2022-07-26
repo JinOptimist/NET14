@@ -1,0 +1,32 @@
+﻿body{
+    height:100vh;
+}
+header {
+    height: 16%;
+}
+.container {
+    height: 84%;
+}
+
+.block-for-services {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    min-height: 35px;
+}
+    .block-for-services :only-child {
+        background-color: #166fe5;
+        font-size: 18px;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-top: 13px;
+        width: 100%;
+        
+    }
+    .block-for-services a {
+        text-decoration-line:none;
+    }

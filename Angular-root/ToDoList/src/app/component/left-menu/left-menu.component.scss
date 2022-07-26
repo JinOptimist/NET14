@@ -1,6 +1,6 @@
 .left-main-menu{
     width: 275px;
-    height: 753px;
+    height: 725px;
     .block-of-user{
         display: flex;
         justify-content: center;
@@ -11,10 +11,18 @@
         margin-bottom: 20px;
     }
     .main-folders{
+        display: flex;
+        flex-direction: column;
         .folder{
-            padding-bottom: 20px;
-            padding-left: 50px;
+            display: flex;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 40px;
             font-size: 20px;
         }
+            
+        
+        
     }
 }
+// 753px

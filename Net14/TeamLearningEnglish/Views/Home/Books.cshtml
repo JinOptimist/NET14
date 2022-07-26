@@ -1,0 +1,13 @@
+﻿@model List<BookViewModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/books.css" />
+
+<div class="books">
+    @foreach (BookViewModel book in Model)
+   {
+       <a href="/Home/ShowBook?id=@book.Id">@book.Name</a>
+   }
+</div>
+

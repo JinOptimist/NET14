@@ -22,6 +22,7 @@ using Net14.Web.SignalRHubs;
 using System.Reflection;
 using Net14.Web.Localize;
 using Microsoft.AspNetCore.SignalR;
+using Net14.Web.Models.SocialModels;
 
 namespace Net14.Web
 {
@@ -251,10 +252,14 @@ namespace Net14.Web
                     post => post
                         .MapFrom(dbPost =>
                             dbPost.User.UserPhoto))
-            .ForMember(nameof(SocialPostViewModel.FirstName),
+            .ForMember(nameof(SocialPostViewModel.UserName),
                     post => post
                         .MapFrom(dbPost =>
-                            dbPost.User.FirstName));
+                            dbPost.User.FirstName + " " + dbPost.User.LastName))
+            .ForMember(nameof(SocialPostViewModel.Likes),
+                post => post
+                    .MapFrom(dbPost =>
+                        dbPost.Likes.Count));
 
             provider.CreateMap<GroupSocial, SocialGroupViewModel>()
                 .ForMember(nameof(SocialGroupViewModel.Tags),
@@ -313,6 +318,8 @@ namespace Net14.Web
                 option.AllowAnyHeader();
                 option.AllowAnyMethod();
             });
+
+            app.UseCors(builder => builder.AllowAnyOrigin());
 
             //Who I am
             app.UseAuthentication();

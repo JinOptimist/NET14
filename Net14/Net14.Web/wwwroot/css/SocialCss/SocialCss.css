@@ -1,5 +1,5 @@
 html {
-    height: 100%;
+    min-height: 100vh;
 }
 body {
     display: flex;
@@ -7,7 +7,7 @@ body {
     margin: 0;
     background: rgb(245, 244, 244);
     font-family: Arial, Helvetica, sans-serif;
-    height: 100%;
+    min-height: 100vh;
 }
 .header {
     display: flex;
@@ -48,16 +48,21 @@ body {
 
 .maincontent {
     display: flex;
-    margin: 200px 200px 50px 200px;
+    margin: 200px 200px 0px 200px;
     justify-content: center;
     margin-top: 100px;
     min-width: 600px;
+    min-height: 100vh;
 }
 .footer {
+    margin-top: 50px;
     height: 40px;
     border-top: 2px solid grey;
     width: 100%;
     flex-shrink: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
 .menu-element {
     display: flex;
@@ -291,11 +296,9 @@ footer
     
 
 }
-.operations:first-child:hover
-{
-    background: rgba(245, 19, 19, 0.2);
-    
-}
+    .operations:not(.comment):not(.share):hover {
+        background: rgba(245, 19, 19, 0.2);
+    }
 
 .time-of-posting {
     display: flex;
@@ -488,7 +491,7 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 130px;
+    width: 150px;
     height: 36px;
     border: 1px solid grey;
     border-radius: 92px;
@@ -553,6 +556,7 @@ a {
     box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
     z-index: 0;
     padding-top: 20px;
+    margin-left: 10px;
 }
 
 .advertising-images {
@@ -698,10 +702,11 @@ input.comm:not(.active) {
         margin-left: 15px;
         width: 180px;
     }
-    
+
 .notif-div-bottom {
     position: fixed;
-    width: 300px;
+    min-width: 300px;
+    max-width: 400px;
     height: 100px;
     border: 1px solid grey;
     bottom: 70px;
@@ -728,3 +733,30 @@ input.comm:not(.active) {
         margin-right: 15px;
         margin-left: 10px;
     }
+
+.likes-count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.like-container {
+    display: flex;
+}
+
+.comm-container {
+    display: flex;
+}
+
+.comm-count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.operations.like.active.template {
+    display: none;
+}
+.operations.like.template {
+    display: none;
+}
