@@ -1,0 +1,40 @@
+﻿@model DiscussionViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/discussions.css" />
+
+@section Scripts{
+<script src="~/js/discussion.js"></script>
+}
+<div class="main-block">
+    <div class="information-about-discussion">
+        <div class="creator-name">
+            Создатель : @Model.CreatorName
+        </div>
+        <div class="name-discussion">
+            @Model.Name
+        </div>
+    </div>
+    <div class="all-discussions">
+        <div class="chat">
+            <div class="messages">
+                @foreach (var message in Model.Messages)
+                {
+                    <div>
+                        @message
+                    </div>
+                }
+            </div>
+            <div>
+                <form>
+                    <input class="new-message" type="text" />
+                    <input class="discussion-id" type="hidden" value=@Model.Id />
+                    <input class="sendMessageButton" type="button" value="Отправить" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

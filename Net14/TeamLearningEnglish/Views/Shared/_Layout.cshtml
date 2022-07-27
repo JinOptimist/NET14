@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TeamLearningEnglish</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css?v=2" />
+    <link rel="stylesheet" href="~/css/layout.css" />
+    <link rel="stylesheet" href="~/css/header.css?v=1" />
+
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/js/site.js"></script>
+    @RenderSection("Scripts", required: false)
+
+</head>
+<body>
+    <header>
+        <div class="work">
+            <div class="left-elements">
+                <div class="name-of-company">
+                    <a href="/Home/Index/">Learning English</a>
+                </div>
+            </div>
+
+            <div class="right-elements">
+                <div class="login">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <div class="log-in">
+                            <a href="/Authentication/Autorization/">Войти</a>
+                        </div>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="log-out">
+                            <a href="/Authentication/SignOut/">Выйти</a>
+                        </div>
+                    }
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="calendar">
+                        <a href="/Account/Calendar/">Your results</a>
+                    </div>
+                    <div class="account">
+                        <a href="/Account/MyAccount/">My account</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </header>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="block-for-services">
+            <div class="dictionary">
+                <a href="/Dictionary/Dictionary/">Словарь</a>
+            </div>
+            <div class="book">
+                <a href="/Home/Books/">Книги</a>
+            </div>
+            <div class="discussions">
+                <a href="/Discussion/AllDiscussions/">Дискуссии</a>
+            </div>
+            <div>
+                <a href="/Tests/ChoiceTest/">Тесты</a>
+            </div>
+        </div>
+    }
+    <div class="container">
+        @RenderBody()
+    </div>
+
+
+</body>
+</html>

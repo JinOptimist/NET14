@@ -1,0 +1,10 @@
+﻿.word{
+    font-size:30px;
+}
+.comments {
+    display: flex;
+    flex-direction: column;
+}
+.add-comment{
+    margin-top: 20px;
+}

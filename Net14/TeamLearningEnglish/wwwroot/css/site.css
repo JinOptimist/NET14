@@ -1,0 +1,16 @@
+﻿body{
+    height:100vh;
+}
+header {
+    height: 16%;
+}
+.container {
+    height: 84%;
+}
+.field-validation-error{
+    color:red;
+}
+a{
+    text-decoration-line:none;
+}
+

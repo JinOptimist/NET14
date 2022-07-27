@@ -1,0 +1,30 @@
+﻿@model UserViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/autorization.css" />
+
+<div class="block">
+    <div class="name">
+        Learning English
+    </div>
+    <div class="autorization">
+        <form action="/Authentication/Autorization" method="post">
+            <div class="email">
+                @Html.ValidationMessageFor(x => x.Email)
+                @Html.TextBoxFor(x => x.Email, new {@class="email-input", placeholder="Электронный адрес"})
+            </div>
+            <div class="password">
+                @Html.ValidationMessageFor(x => x.Password)
+                @Html.PasswordFor(x => x.Password, new {@class="password-input", placeholder="Пароль"})
+            </div>
+            <div class="button-submit">
+                <input type="submit" value="Вход" />
+            </div>
+            <div class="registration">
+                <a href="/Authentication/Authentication/">Зарегистрироваться</a>
+            </div>
+        </form>
+    </div>
+</div>
+

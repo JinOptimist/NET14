@@ -314,12 +314,6 @@ namespace Net14.Web.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CountIssues")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdFolder")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -380,9 +374,6 @@ namespace Net14.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("FolderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdIssue")
                         .HasColumnType("int");
 
                     b.Property<string>("Text")

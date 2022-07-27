@@ -1,0 +1,27 @@
+﻿@model WordViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/showWordComments.css" />
+
+<div class="word">
+    @Model.EnglishWord
+</div>
+<div class="comments">
+    @foreach (string comment in Model.Comments)
+    {
+        <div class="comment">
+            @comment
+        </div>
+    }
+</div>
+<div class="add-comment">
+    <form action="AddWordComment">
+        <input name="wordId" type="hidden" value="@Model.Id" />
+        <div class="holder">
+            Добавить комментарий:
+        </div>
+        <input name="text" type="text" />
+        <input type="submit" placeholder="создать" />
+    </form>
+</div>

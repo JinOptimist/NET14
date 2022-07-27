@@ -22,6 +22,7 @@ using Net14.Web.SignalRHubs;
 using System.Reflection;
 using Net14.Web.Localize;
 using Microsoft.AspNetCore.SignalR;
+using Net14.Web.Models.SocialModels;
 
 namespace Net14.Web
 {
@@ -346,6 +347,8 @@ namespace Net14.Web
                 option.AllowAnyHeader();
                 option.AllowAnyMethod();
             });
+
+            app.UseCors(builder => builder.AllowAnyOrigin());
 
             //Who I am
             app.UseAuthentication();

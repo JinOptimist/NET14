@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { HttpClient} from '@angular/common/http';
+import { IFolder } from 'src/models/IFolder';
 
 @Component({
   selector: 'left-menu',
@@ -7,17 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeftMenuComponent implements OnInit {
 
-  folders: string [];
+  folders: IFolder[] = [];
 
-  constructor() {
 
-    this.folders = [
-      'English',
-      'Coding',
-      'School',
-      'Work',
-      'Have a rest'
-    ];
+  constructor(private http: HttpClient) {
+    http
+      .get<IFolder[]>('http://localhost:42059/api/ToDoList/GetFolders')
+      .subscribe(response => this.folders = response);
   }
 
   ngOnInit(): void {

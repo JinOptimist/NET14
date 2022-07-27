@@ -1,0 +1,11 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/dictionary.css" />
+
+<div class="add-comment">
+    <form asp-controller="Dictionary" asp-action="AddWordComment">
+        <input type="text" value="text" />
+        <input type="submit" value="add" />
+    </form>
+</div>

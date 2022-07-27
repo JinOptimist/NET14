@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IIssue } from 'src/models/IIssue';
+import { HttpClient} from '@angular/common/http';
+import { IFolder } from 'src/models/IFolder';
 
 @Component({
   selector: 'main-content',
@@ -7,17 +10,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainContentComponent implements OnInit {
 
-  issues: string[];
-  constructor() { 
-    this.issues = [
-      'to do my best',
-      'to do',
-      'to do',
-      'have a rest for 4 hours'
-    ];
+  issues: IIssue[] = [];
+  issue!: IIssue;
+  folders: IFolder[] = [];
+  
+  constructor(private http: HttpClient) { 
+    http
+      .get<IIssue[]>('http://localhost:42059/api/ToDoList/GetIssues')
+      .subscribe(response => this.issues = response);
+    http
+      .get<IFolder[]>('http://localhost:42059/api/ToDoList/GetFolders')
+      .subscribe(response => this.folders = response);
   }
 
   ngOnInit(): void {
   }
+
+  parentRemoveIssue(issueId: number){
+    this.issues = this.issues.filter(x => x.id != issueId)
+  }
+  
+
+ 
+
 
 }
