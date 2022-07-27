@@ -32,11 +32,11 @@ body {
 }
 
 .pre-content {
+   
+    align-items:left;
     width: 400px;
-    height: 400px;
-    background: white;
-    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
-    border-radius: 10px;
+    height: 500px;
+    
 }
 
 

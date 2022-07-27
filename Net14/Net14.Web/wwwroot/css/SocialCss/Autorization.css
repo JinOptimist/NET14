@@ -3,7 +3,7 @@
     margin-top: 10px;
     font-size: 22px;
     background: white;
-    width: 400px;
+    width: 250px;
     height: 70px;
     justify-content: center;
     align-items: center;
@@ -18,7 +18,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 400px;
+    width: 250px;
     min-height: 300px;
     max-height: 800px;
     background: white;
@@ -61,8 +61,6 @@
     border: 1px solid grey;
     height: 35px;
     width: 100px;
-    border: 1px solid rgb(22 222 48);
-    color: rgb(22 222 48);
     background: white;
     transition: background 0.3s ease;
     transition: box-shadow 0.3s ease;
