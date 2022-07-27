@@ -137,6 +137,7 @@ namespace Net14.Web
             provider.CreateMap<Basket, ProductViewModel>();
             provider.CreateMap<StoreAddress, StoreAddressViewModel>();
             provider.CreateMap<DeliveryAddress, DeliveryAddressViewModel>();
+            provider.CreateMap<Order, OrderViewModel>();
             provider.CreateMap<AddProductVewModel, Product>()
                 .ForMember(nameof(Product.BrandCategories),
                     opt => opt

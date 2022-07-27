@@ -57,6 +57,7 @@ namespace Net14.Web.Controllers
             var basket = user.Basket ?? new Basket();
             var ProductModel = _mapper.Map<List<ProductViewModel>>(basket.Products);
             var deliveryAdress = _mapper.Map<List<DeliveryAddress>>(user.DeliveryAddress);
+            var orders= _mapper.Map<List<OrderViewModel>>(user.Orders);
             var userAccountModel = new UserAccountViewModel()
             {
                 Id = user.Id,
@@ -67,7 +68,8 @@ namespace Net14.Web.Controllers
                 PhoneNumber = user.PhoneNumber,
                 Products = ProductModel,
                 DeliveryAddress = deliveryAdress,
-                Language = user.Language
+                Language = user.Language,
+                Order=orders,
             };
             return View(userAccountModel);
 
@@ -160,8 +162,9 @@ namespace Net14.Web.Controllers
             var basket = _userService.GetCurrent().Basket;
             basket.Products.Clear();
             _basketRepository.Save(basket);
+            string urlToredirect = "/Store/OrderSent";
 
-            return View();
+            return Redirect(urlToredirect);
         }
 
         public IActionResult Shoes(int id)
@@ -250,6 +253,12 @@ namespace Net14.Web.Controllers
         {
             await HttpContext.SignOutAsync();
             return RedirectToRoute("default", new { controller = "Store", action = "Index" });
+        }
+
+        [Authorize]
+        public IActionResult OrderSent()
+        {
+            return View();
         }
     }
 }

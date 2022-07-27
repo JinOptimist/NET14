@@ -1,0 +1,17 @@
+﻿@using Net14.Web.Localize.Store
+@using Net14.Web.EfStuff.EnumStore
+@{
+    Layout = "/Views/Shared/_LayoutStore.cshtml";
+}
+
+<body>
+    <div class="noBasketItems">
+
+    <h2 class="emptyBasketHeader">The order has been sent</h2>
+    <p id="emptyBasketMessage"></p>
+    <a href="#" id="emptyBasketLink" style="display: none" class="button action"></a>
+    <center>
+        <a class="emptyBasketLink button action" href="/Store/Index">Go to store</a>
+    </center>
+</div>
+</body>

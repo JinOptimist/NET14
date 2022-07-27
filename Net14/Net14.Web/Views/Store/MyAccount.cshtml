@@ -1,55 +1,56 @@
 ﻿@model UserAccountViewModel
 @using Net14.Web.Localize.Store
 @using Net14.Web.Models.store
+@using Net14.Web.EfStuff.EnumStore
 @using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 @{
     Layout = "/Views/Shared/_LayoutStore.cshtml";
 }
 @section Scripts{
-<script src="~/js/StoreJs/Account.js"></script>
+    <script src="~/js/StoreJs/Account.js"></script>
 }
-<div class="myAccountBlock1">
-    <div class="myAccountLitleBlock1">
-        <div class="myAccountLitleName">
-            <img src="~/images/Store/person.svg" class="myAccountLitleLogo" />
-            <div class="myAccountTableName">@MyAccount.Buyer</div>
-        </div>
-        <div>
-            <table class="table tableBorder">
-                <tbody>
-                    <tr>
-                        <td>@MyAccount.Buyer</td>
-                        <td>@Model.FirstName @Model.LastName</td>
-                    </tr>
-                    <tr>
-                        <td>E-mail</td>
-                        <td>@Model.Email</td>
-                    </tr>
-                    <tr>
-                        <td>@MyAccount.PhoneNumber</td>
-                        <td>@Model.PhoneNumber</td>
-                    </tr>
-                    <tr>
-                        <td>@MyAccount.City</td>
-                        <td>@Model.City</td>
-                    </tr>
+    <div class="myAccountBlock1">
+        <div class="myAccountLitleBlock1">
+            <div class="myAccountLitleName">
+                <img src="~/images/Store/person.svg" class="myAccountLitleLogo" />
+                <div class="myAccountTableName">@MyAccount.Buyer</div>
+            </div>
+            <div>
+                <table class="table tableBorder">
+                    <tbody>
+                        <tr>
+                            <td>@MyAccount.Buyer</td>
+                            <td>@Model.FirstName @Model.LastName</td>
+                        </tr>
+                        <tr>
+                            <td>E-mail</td>
+                            <td>@Model.Email</td>
+                        </tr>
+                        <tr>
+                            <td>@MyAccount.PhoneNumber</td>
+                            <td>@Model.PhoneNumber</td>
+                        </tr>
+                        <tr>
+                            <td>@MyAccount.City</td>
+                            <td>@Model.City</td>
+                        </tr>
 
-                </tbody>
-            </table>
-            <a href="#" id="changeMasterData" class="goToBasket">@MyAccount.Change_master_data</a>
-            <a href="#" id="changePassword" class="goToBasket">@MyAccount.Change_password</a>
-            <a href="#" id="addNewAdress" class="goToBasket">@MyAccount.Add_new_adress</a>
-            <a href="/Store/SignOut" class="goToBasket">@MyAccount.Exit</a>
-            <select asp-for="Language" asp-items="Html.GetEnumSelectList<Language>()" id=language1 class="languageDrop"> </select>
+                    </tbody>
+                </table>
+                <a href="#" id="changeMasterData" class="goToBasket">@MyAccount.Change_master_data</a>
+                <a href="#" id="changePassword" class="goToBasket">@MyAccount.Change_password</a>
+                <a href="#" id="addNewAdress" class="goToBasket">@MyAccount.Add_new_adress</a>
+                <a href="/Store/SignOut" class="goToBasket">@MyAccount.Exit</a>
+                <select asp-for="Language" asp-items="Html.GetEnumSelectList<Language>()" id=language1 class="languageDrop"> </select>
+            </div>
         </div>
-    </div>
-    <div class="myAccountLitleBlock1">
-        <div class="myAccountLitleName">
-            <img src="~/images/Store/shopping_bag.svg" class="myAccountLitleLogo" />
-            <div class="myAccountTableName">@MyAccount.Basket</div>
-        </div>
-        <div>
-            @if (Model.Products.Count == 0)
+        <div class="myAccountLitleBlock1">
+            <div class="myAccountLitleName">
+                <img src="~/images/Store/shopping_bag.svg" class="myAccountLitleLogo" />
+                <div class="myAccountTableName">@MyAccount.Basket</div>
+            </div>
+            <div>
+                @if (Model.Products.Count == 0)
             {
                 <table class="table tableBorder">
                     <tbody>
@@ -125,15 +126,40 @@
             <div class="myAccountTableName">@MyAccount.Order_list</div>
         </div>
         <div>
-            <table class="table tableBorder">
-                <tbody>
-                    <tr>
-                        <td>@MyAccount.You_haven_t_made_any_orders_yet</td>
-                    </tr>
-                </tbody>
-            </table>
+            @if (@Model.Order.Count == 0)
+            {
+                <table class="table tableBorder">
+                    <tbody>
+                        <tr>
+                            <td>@MyAccount.You_haven_t_made_any_orders_yet</td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <table class="table tableBorder">
+                    <tbody>
+                        <tr>
+                            <td>Number</td>
+                            <td>Date</td>
+                            <td>Status</td>
+                        </tr>
+                        @foreach (var order in Model.Order)
+                        {
+                            <tr>
+                                <td><a href="#" data-id="@order.Id" class="idOrder">@order.Id</a></td>
+                                <td>@order.OrderDate</td>
+                                <td>@order.StatusOrder</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            }
         </div>
     </div>
+
     <div class="myAccountLitleBlock1">
         <div class="myAccountLitleName">
             <img src="~/images/Store/home_pin.svg" class="myAccountLitleLogo" />
@@ -167,82 +193,158 @@
             }
         </div>
     </div>
-    <div id="popupAccount1" class="popup">
-        <div class="popupBody">
-            <div class="popupContent">
-                <a href="#" class="popupClose">X</a>
-                <div class="popupTitle">@MyAccount.Account</div>
+</div>
+<div id="popupAccount1" class="popup">
+    <div class="popupBody">
+        <div class="popupContent">
+            <a href="#" class="popupClose">X</a>
+            <div class="popupTitle">@MyAccount.Account</div>
 
-                <div class="popupText">
-                    <div>
-                        <div class="popupTextMini">@MyAccount.NameUser:</div>
-                        <div class="popupTextMini">@MyAccount.LastName:</div>
-                        <div class="popupTextMini">E-mail:</div>
-                        <div class="popupTextMini">@MyAccount.PhoneNumber: </div>
-                    </div>
-                    <div>
-                        <div class="popupTextImput"><input id="firstName" name="FirstName" type="text" value=@Model.FirstName /></div>
-                        <div class="popupTextImput"><input id="lastName" name="LastName" type="text" value=@Model.LastName /></div>
-                        <div class="popupTextImput"><input id="email" name="Email" type="text" value=@Model.Email /></div>
-                        <div class="popupTextImput"><input id="phoneNumber" name="PhoneNumber" type="text" value=@Model.PhoneNumber /></div>
-                    </div>
+            <div class="popupText">
+                <div>
+                    <div class="popupTextMini">@MyAccount.NameUser:</div>
+                    <div class="popupTextMini">@MyAccount.LastName:</div>
+                    <div class="popupTextMini">E-mail:</div>
+                    <div class="popupTextMini">@MyAccount.PhoneNumber: </div>
                 </div>
                 <div>
-                    <input type="submit" value="@MyAccount.Refresh" class='update-user' />
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div id="popupAccount2" class="popup">
-        <div class="popupBody">
-            <div class="popupContent">
-                <a href="#" class="popupClose">X</a>
-                <div class="popupTitle">@MyAccount.Change_password</div>
-                <div class="popupText">
-                    <div>
-                        <div class="popupTextMini">@MyAccount.Password:</div>
-                        <div class="popupTextMini">@MyAccount.Confirm:</div>
-                    </div>
-                    <div>
-                        <div class="popupTextImput"><input id="password1" name="password1" type="text" placeholder="@MyAccount.Password" /></div>
-                        <div class="popupTextImput"><input id="password2" name="password2" type="text" placeholder="@MyAccount.Confirm" /></div>
-                    </div>
-                </div>
-                <div>
-                    <input type="submit" value="@MyAccount.Change" class='update-pass' />
+                    <div class="popupTextImput"><input id="firstName" name="FirstName" type="text" value=@Model.FirstName /></div>
+                    <div class="popupTextImput"><input id="lastName" name="LastName" type="text" value=@Model.LastName /></div>
+                    <div class="popupTextImput"><input id="email" name="Email" type="text" value=@Model.Email /></div>
+                    <div class="popupTextImput"><input id="phoneNumber" name="PhoneNumber" type="text" value=@Model.PhoneNumber /></div>
                 </div>
             </div>
+            <div>
+                <input type="submit" value="@MyAccount.Refresh" class='update-user' />
+            </div>
+
         </div>
     </div>
-    <div id="popupAccount3" class="popup">
-        <div class="popupBody">
-            <div class="popupContent">
-                <a href="#" class="popupClose">X</a>
-                <div class="popupTitle">@MyAccount.Delivery_addresses</div>
-
-                <div class="popupText">
-                    <div>
-                        <div class="popupTextMini">@MyAccount.Country:</div>
-                        <div class="popupTextMini">@MyAccount.Post_code:</div>
-                        <div class="popupTextMini">@MyAccount.City:</div>
-                        <div class="popupTextMini">@MyAccount.Street</div>
-                        <div class="popupTextMini">@MyAccount.House:</div>
-                        <div class="popupTextMini">@MyAccount.Room:</div>
-                    </div>
-                    <div>
-                        <div class="popupTextImput"><input id="country" name="Name" type="text" /></div>
-                        <div class="popupTextImput"><input id="postСode" name="Name" type="text" /></div>
-                        <div class="popupTextImput"><input id="city" name="Name" type="text" /></div>
-                        <div class="popupTextImput"><input id="street" name="Name" type="text" /></div>
-                        <div class="popupTextImput"><input id="house" name="Name" type="text" /></div>
-                        <div class="popupTextImput"><input id="room" name="Name" type="text" /></div>
-                    </div>
+</div>
+<div id="popupAccount2" class="popup">
+    <div class="popupBody">
+        <div class="popupContent">
+            <a href="#" class="popupClose">X</a>
+            <div class="popupTitle">@MyAccount.Change_password</div>
+            <div class="popupText">
+                <div>
+                    <div class="popupTextMini">@MyAccount.Password:</div>
+                    <div class="popupTextMini">@MyAccount.Confirm:</div>
                 </div>
                 <div>
-                    <input type="submit" value="@MyAccount.Add" class='add-adress'/>
+                    <div class="popupTextImput"><input id="password1" name="password1" type="text" placeholder="@MyAccount.Password" /></div>
+                    <div class="popupTextImput"><input id="password2" name="password2" type="text" placeholder="@MyAccount.Confirm" /></div>
                 </div>
+            </div>
+            <div>
+                <input type="submit" value="@MyAccount.Change" class='update-pass' />
             </div>
         </div>
     </div>
 </div>
+<div id="popupAccount3" class="popup">
+    <div class="popupBody">
+        <div class="popupContent">
+            <a href="#" class="popupClose">X</a>
+            <div class="popupTitle">@MyAccount.Delivery_addresses</div>
+
+            <div class="popupText">
+                <div>
+                    <div class="popupTextMini">@MyAccount.Country:</div>
+                    <div class="popupTextMini">@MyAccount.Post_code:</div>
+                    <div class="popupTextMini">@MyAccount.City:</div>
+                    <div class="popupTextMini">@MyAccount.Street</div>
+                    <div class="popupTextMini">@MyAccount.House:</div>
+                    <div class="popupTextMini">@MyAccount.Room:</div>
+                </div>
+                <div>
+                    <div class="popupTextImput"><input id="country" name="Name" type="text" /></div>
+                    <div class="popupTextImput"><input id="postСode" name="Name" type="text" /></div>
+                    <div class="popupTextImput"><input id="city" name="Name" type="text" /></div>
+                    <div class="popupTextImput"><input id="street" name="Name" type="text" /></div>
+                    <div class="popupTextImput"><input id="house" name="Name" type="text" /></div>
+                    <div class="popupTextImput"><input id="room" name="Name" type="text" /></div>
+                </div>
+            </div>
+            <div>
+                <input type="submit" value="@MyAccount.Add" class='add-adress' />
+            </div>
+        </div>
+    </div>
+</div>
+@if (@Model.Order.Count == 0)
+{
+
+}
+else
+{
+    @foreach (var order in Model.Order)
+    {
+        <div data-id="@order.Id" class="popup">
+            <div class="popupBody">
+                <div class="popupContent">
+                    <a href="#" class="popupClose">X</a>
+                    <div class="popupTitle">Заказ номер:@order.Id </div>
+
+                    <div class="popupText">
+                        <div>
+                            <table class="table tableBorder">
+                                <tbody>
+                                    <tr>
+                                        <td>@MyAccount.Photo</td>
+                                        <td>@MyAccount.Name</td>
+                                        <td>@MyAccount.Price</td>
+                                    </tr>
+                                    @foreach (var product in order.Products)
+                                    {
+
+                                        <tr class='product-row'>
+                                            <td><a href="/Store/Shoes?id=@product.Id"><img src="@product.Images.FirstOrDefault()" class="imageProductAccount" /></a></td>
+                                            <td><a href="/Store/Shoes?id=@product.Id">@product.BrandCategories @product.Name</a></td>
+                                            <td>@product.Price $</td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                            @if (order.DeliveryOrPickup == @DeliveryOrPickup.Delivery)
+                            {
+                                <div class="popupTextMini">Адресс доставки:</div>
+                                <table class="table tableBorder">
+                                    <tbody>
+                                        <tr>
+                                            <td>@order.DeliveryAddress.Country</td>
+                                            <td>@order.DeliveryAddress.PostСode</td>
+                                            <td>@order.DeliveryAddress.City,@order.DeliveryAddress.Street @order.DeliveryAddress.House-@order.DeliveryAddress.Room</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                <div class="popupTextMini"> Пункт самовывоза:</div>
+                                <table class="table tableBorder">
+                                    <tbody>
+                                        <tr>
+                                            <td>@order.StoreAddress.Country</td>
+                                            <td>@order.StoreAddress.City,@order.StoreAddress.Street @order.StoreAddress.House-@order.StoreAddress.Room</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            }
+                            @if (order.Comment != null)
+                            {
+                                 <div class="popupTextMini"> Ваш комментарий: @order.Comment</div>
+                            }
+                            <div class="popupTextMini"> Дата заказа: @order.OrderDate</div>
+
+                            <div class="popupTextMini"> Cумма: @order.Sum</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+}
+

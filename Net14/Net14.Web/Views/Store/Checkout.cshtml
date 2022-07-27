@@ -105,7 +105,7 @@
             <div class="checkout_finishcost">
                 <div class="checkout_cost">
                     <div class="title_mini">@Checkout.Cost_of_goods:</div>
-                    <div class="title_mini">@Model.Products.Sum(x=>x.Price)$</div>
+                    <div class="title_mini" id="cost12">@Model.Products.Sum(x=>x.Price)<span>$</span></div>
                 </div>
                 <div class="checkout_costdelivery">
                     <div class="title_mini">@Checkout.Cost_of_delivery:</div>
@@ -113,8 +113,9 @@
                 </div>
                 <div class="checkout_allcost">
                     <div class="title_mini">@Checkout.Total_payable:</div>
-                    <div class="title_mini">@Model.Products.Sum(x=>x.Price)$</div>
-                    @Html.Hidden("Sum", @Model.Products.Sum(x=>x.Price))
+                    <div class="title_mini" id="finishCost"></div>
+                    @Html.Hidden("Sum", 1)
+                    
                 </div>
                 <input class="button_checkout" type="submit" value="@Checkout.Send" />
             </div>

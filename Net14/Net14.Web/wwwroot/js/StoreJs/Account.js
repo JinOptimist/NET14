@@ -20,6 +20,10 @@
                 }
             });
     });
+    $('.idOrder').click(function () {
+        var idOrder = $(this).attr('data-id');
+        $(`.popup[data-id='${idOrder}']`).show(800);
+    })
     $('#changeMasterData').click(function () {
         $('#popupAccount1').show(800);
     })
@@ -30,7 +34,7 @@
         $('#popupAccount3').show(800);
     })
     $('.popupClose').click(function () {
-        $('#popupAccount1,#popupAccount2,#popupAccount3').hide(800);
+        $('#popupAccount1,#popupAccount2,#popupAccount3,.popup').hide(800);
     })
 
     $('.update-user').click(function () {

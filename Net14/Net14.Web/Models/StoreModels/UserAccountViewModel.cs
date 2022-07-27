@@ -15,6 +15,7 @@ namespace Net14.Web.Models.store
         public string Email { get; set; }
         public string City { get; set; }
         public List<DeliveryAddress> DeliveryAddress { get; set; }
+        public List<OrderViewModel> Order { get; set; }
         public string PhoneNumber { get; set; }
         public List<ProductViewModel> Products { get; set; }
         public Language Language { get; set; }
