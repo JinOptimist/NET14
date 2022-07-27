@@ -137,7 +137,7 @@ namespace Net14.Web.Controllers
         public async Task<IActionResult> SignOut()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToRoute("default", new { controller = "Social", action = "Index" });
+            return RedirectToRoute("default", new { controller = "SocialAuthentication", action = "Autorization" });
         }
     }
 }
