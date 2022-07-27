@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Net14.Web.EfStuff.DbModel.SocialDbModels;
+using Net14.Web.Models.SocialModels.Enums;
+using System.Linq.Expressions;
+
 using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
 using Net14.Web.Models.SocialModels.DataModels;
 
@@ -71,6 +74,54 @@ namespace Net14.Web.EfStuff.Repositories
             return _webContext.Users.Any(user => user.Id == userId);
         }
 
+        public List<UserSocial> GetAllAndSorted(SortField sortField)
+        {
+            switch (sortField)
+            {
+                case SortField.Id:
+                    return _dbSet.OrderBy(x => x.Id).ToList();
+                case SortField.FirstName:
+                    return _dbSet.OrderBy(x => x.FirstName).ToList();
+                case SortField.LastName:
+                    return _dbSet.OrderBy(x => x.LastName).ToList();
+                case SortField.Age:
+                    return _dbSet.OrderBy(x => x.Age).ToList();
+                case SortField.City:
+                    return _dbSet.OrderBy(x => x.City).ToList();
+                case SortField.Country:
+                    return _dbSet.OrderBy(x => x.Country).ToList();
+                case SortField.Email:
+                    return _dbSet.OrderBy(x => x.Email).ToList();
+                default:
+                    throw new Exception("Uknown enum value");
+            }
+        }
+
+        public List<UserSocial> GetAllAndSortedV2(string fieldName)
+        {
+            // userVarName
+            var userTable = Expression.Parameter(typeof(UserSocial), "userVarName");
+
+            //userVarName.Age
+            var basketExpression = Expression.Property(userTable, fieldName);
+            //var productsExpressionv = Expression.Property(basketExpression, "Products");
+            //var countExpressionv = Expression.Property(productsExpressionv, "Count");
+            //userVarName.Basket.Products.Count
+
+            var objPropertyExpression = 
+                Expression.Convert(basketExpression, typeof(object));
+            //var constExpression = Expression.Constant(3);
+            //var conditionExpression =
+            //    Expression.GreaterThan(objPropertyExpression, constExpression);
+
+            //userVarName => userVarName.Age
+            var orderByEpression = Expression
+                .Lambda<Func<UserSocial, object>>(
+                    objPropertyExpression,
+                    userTable);
+
+            return _dbSet.OrderBy(orderByEpression).ToList();
+        }
         public bool ManageRole(int userId, SiteRole role)
         {
             var user = _webContext.Users.Single(user => user.Id == userId);

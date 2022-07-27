@@ -19,6 +19,7 @@ using Net14.Web.Models.SocialModels.Attributes;
 using System.Reflection;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Net14.Web.Models.SocialModels.Enums;
 
 namespace Net14.Web.Controllers
 {
@@ -350,6 +351,15 @@ namespace Net14.Web.Controllers
                 .OrderByDescending(post => post.Complains.Count);
             var complainsPostsViewModels = _mapper.Map<List<SocialPostViewModel>>(posts);
             return View(complainsPostsViewModels);
+        }
+
+
+        public IActionResult ShowAllUsersForAdmin(string sortFieldName = "Id")
+        {
+            var users = _socialUserRepository.GetAllAndSortedV2(sortFieldName);
+            var viewModels = _mapper
+                .Map<List<SocialUserRecomendationViewModel>>(users);
+            return View(viewModels);
         }
     }
 }
