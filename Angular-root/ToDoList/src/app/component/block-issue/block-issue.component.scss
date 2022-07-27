@@ -1,8 +1,10 @@
+@import "../../scss/variables.scss";
+
 .block-issue{
     height: 60px;
     width: 1145px;
     border-radius: 3px;
-    background-color: #f5f5f5;
+    background-color: $main-background;
     margin-bottom: 3px;
     display: flex;
     align-items: center;

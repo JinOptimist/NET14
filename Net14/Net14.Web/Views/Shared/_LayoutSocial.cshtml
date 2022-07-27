@@ -96,6 +96,7 @@
             @if (User.Identity.IsAuthenticated)
             {
                 <div class="elements-from-hidden" onclick="location.href='/Social/Settings'">@LayoutSocial.User_settings</div>
+                <div class="elements-from-hidden" onclick="location.href='http://localhost:4200/';">To Do</div>
 
             }
             <div class="elements-from-hidden" onclick="location.href='/SocialCurrency/GetCurrency'">@LayoutSocial.Currency</div>
@@ -142,21 +143,21 @@
         <div class="content">
             @RenderBody()
         </div>
-@*        <div class="advertising-container">
+        @*        <div class="advertising-container">
             <div class="advertising">
-                <a href="/Store/Index" class="name-shop">
-                    <img src="/images/Store/LogoGray.png" class="logo-shop">
-                    <span class=shopox>ShopOx</span>
-                </a>
-                @foreach (var product in advertisingService.GetAdvertising())
-                {
-                    <div class="advertising-element" onclick="location.href = '/Store/Shoes?id=@product.Id';">
-                        <img src="@product.Images[2]" class="advertising-images">
-                        <div>@product.Name</div>
-                    </div>
-                }
+            <a href="/Store/Index" class="name-shop">
+            <img src="/images/Store/LogoGray.png" class="logo-shop">
+            <span class=shopox>ShopOx</span>
+            </a>
+            @foreach (var product in advertisingService.GetAdvertising())
+            {
+            <div class="advertising-element" onclick="location.href = '/Store/Shoes?id=@product.Id';">
+            <img src="@product.Images[2]" class="advertising-images">
+            <div>@product.Name</div>
             </div>
-        </div>*@
+            }
+            </div>
+            </div>*@
     </div>
     <div class="notif-div-bottom">
         <div class="notif-div-bottom-content">
