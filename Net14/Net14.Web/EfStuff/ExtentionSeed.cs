@@ -471,7 +471,7 @@ namespace Net14.Web.EfStuff
                     Country = "Russia",
                     Email = "admin",
                     Password = "admin",
-                    UserPhoto = "/images/Social/User.jpg",
+                    UserPhoto = "/images/Social/image-user/pavel.jpg",
                     Role = SiteRole.Admin
                 };
                 userRepository.Save(user0);
@@ -485,7 +485,7 @@ namespace Net14.Web.EfStuff
                     Country = "Belarus",
                     Email = "email",
                     Password = "pass",
-                    UserPhoto = "/images/Social/User.jpg"
+                    UserPhoto = "/images/Social/image-user/guravl.jpg"
                 };
 
                 var message = new SocialMessages()
@@ -508,7 +508,7 @@ namespace Net14.Web.EfStuff
                     Country = "Belarus",
                     Email = "email2",
                     Password = "pass2",
-                    UserPhoto = "/images/Social/User.jpg"
+                    UserPhoto = "/images/Social/image-user/perepech.jpg"
                 };
                 userRepository.Save(user2);
 
@@ -521,7 +521,7 @@ namespace Net14.Web.EfStuff
                     Country = "Russia",
                     Email = "email3",
                     Password = "pass3",
-                    UserPhoto = "/images/Social/User.jpg"
+                    UserPhoto = "/images/Social/image-user/shchur.jpg"
                 };
                 userRepository.Save(user3);
             }
