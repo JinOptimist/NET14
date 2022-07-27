@@ -54,12 +54,6 @@ namespace Net14.Web.EfStuff.Repositories
             _webContext.SaveChanges();
         }
 
-
-        public void Remove(int id)
-        {
-            Remove(Get(id));
-        }
-
         public bool Any()
         {
             return _dbSet.Any();
