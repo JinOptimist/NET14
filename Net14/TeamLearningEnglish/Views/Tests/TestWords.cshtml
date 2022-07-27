@@ -1,0 +1,35 @@
+﻿@model TestWordViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/wordTest.css" />
+
+<div class="test">
+
+    @foreach (var word in Model.Words)
+    {
+        @word.EnglishWord
+        <div class="anwer">
+            <form asp-action="CheckWordResult" asp-controller="Tests">
+                <input type="text" name="text" />
+                <input type="hidden" name="wordId" value=@word.Id />
+                <input type="submit" value="check" />
+            </form>
+        </div>
+    }
+    <div class="answer">
+        @if (Model?.Answer == true)
+        {
+            <div class="correct-answer">
+                Ответ правильный
+            </div>
+        }
+        @if (Model?.Answer == false)
+        {
+            <div class="wrong-answer">
+                Ответ неверный
+            </div>
+        }
+
+    </div>
+</div>

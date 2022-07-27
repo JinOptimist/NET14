@@ -1,5 +1,6 @@
 ﻿@using Net14.Web.Services
 @using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums
+@using Net14.Web.Localize.Store
 @inject UserService userService
 <!DOCTYPE html>
 <html lang="en">
@@ -7,83 +8,95 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Net14.Web</title>
-    <link rel="stylesheet" href="~/css/Store.css?v=4" />
+    <link rel="stylesheet" href="~/css/Store.css?v=3" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/js.cookie.min.js"></script>
     <script src="~/js/site.js"></script>
+    <script src="~/js/StoreJs/Layout.js"></script>
     @RenderSection("Scripts", required: false)
 </head>
-<form>
-    <body>
-        <div>
-            <a href="/Home/Index">home</a>
-           @if (userService.HasRole(SiteRole.StoreAdmin))
+
+<body>
+    <div>
+        <a href="/Home/Index">home</a>
+        @if (userService.HasRole(SiteRole.StoreAdmin))
         {
-            <a href="/Store/Admin">Admin panel</a>
+            <a href="/StoreAdmin/Admin">@LayoutStore.Admin_panel</a>
         }
-        </div>
-        <div>
-            <div class="header">
-                <a href="/Store/Index" class="name">
-                    <img src="/images/Store/LogoGray.png" class="logo">
-                    <span class=shopox>ShopOx </span>
-                </a>
-
-                <div class="search">
-                    <input type="text" placeholder="Search" class="search-field">
-                    <img src="/images/Store/search1.svg" alt="search icon" class="search-icon">
-                </div>
-                <div class="account">
-                    <div>
-                        account
-                    </div>
-                </div>
-                <div class="basket">
-                    <a href="/Store/Basket">
-                        <img src="/images/Store/basket.png" class="basket-icon">
-                    </a>
-                </div>
+    </div>
+    <div>
+        <div class="header">
+            <a href="/Store/Index" class="name">
+                <img src="/images/Store/LogoGray.png" class="logo">
+                <span class=shopox>ShopOx </span>
+            </a>
+            @if (User.Identity.IsAuthenticated)
+            {
+              
+            }
+            else
+            {
+                <div> <select asp-items="Html.GetEnumSelectList<Language>()" id=language2 class="languageDrop"> </select> </div>
+            }
+            <div class="search">
+                <form class="search"> <input type="text" placeholder="@LayoutStore.Search" class="search-field"> </form>
             </div>
-            <div class="second-header">
-                <a href="/Store/Catalog" class="second-header-banner">
-                    Catalog
+            <div class="search-icona">
+                <img src="/images/Store/search1.svg" alt="search icon" class="search-icon">
+            </div>
+
+            <div class="account">
+                <a href="/Store/MyAccount">
+                    @LayoutStore.account
                 </a>
-                <a href="/Store/Catalog?category=Accessories" class="second-header-banner">
-                    Accessories
-                </a>
-                <a href="/Store/Catalog?category=Bags" class="second-header-banner">
-                    Bags
-                </a>
-                <a class="second-header-banner">
-                    Clean
-                </a>
-                <a class="second-header-banner">
-                    Payment and Delivery
-                </a>
-                <a class="second-header-banner">
-                    About us
+            </div>
+            <div class="basket">
+                <a href="/Store/Basket">
+                    <img src="/images/Store/basket.png" class="basket-icon">
                 </a>
             </div>
         </div>
-        <div class="container">
-            @RenderBody()
+        <div class="second-header">
+            <a href="/Store/Catalog" class="second-header-banner">
+                @LayoutStore.Catalog
+            </a>
+            <a href="/Store/Catalog?category=Accessories" class="second-header-banner">
+                @LayoutStore.Accessories
+            </a>
+            <a href="/Store/Catalog?category=Bags" class="second-header-banner">
+                @LayoutStore.Bags
+            </a>
+            <a class="second-header-banner">
+                @LayoutStore.Clean
+            </a>
+            <a class="second-header-banner">
+                @LayoutStore.Payment_and_Delivery
+            </a>
+            <a class="second-header-banner">
+                @LayoutStore.About_us
+            </a>
         </div>
-        <footer class="pagefooter">
+    </div>
+    <div class="container">
+        @RenderBody()
+    </div>
+    <footer class="pagefooter">
 
-            <div class="leftfooter">
-                <div>
-                    <div>© 2022 TMSNET14 </div>
-                    <div>Artem,Mark,Anton,Andrey </div>
-                </div>
-                <div class="adress">
-                    Minsk, Timiryazev street 67 office 601
-                </div>
-                <div class="iconfoot">
-                </div>
+        <div class="leftfooter">
+            <div>
+                <div>© 2022 TMSNET14 </div>
+                <div>Artem,Mark,Anton,Andrey </div>
             </div>
+            <div class="adress">
+                @LayoutStore.Minsk__Timiryazev_street_67_office_601
+            </div>
+            <div class="iconfoot">
+            </div>
+        </div>
 
-        </footer>
+    </footer>
 
 
-    </body>
-</form>
+</body>
+
 </html>

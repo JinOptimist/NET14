@@ -1,0 +1,103 @@
+﻿@using Net14.Web.EfStuff.EnumStore
+@using Net14.Web.Models
+@model AddProductVewModel
+
+@{
+    Layout = "/Views/Shared/_LayoutStore.cshtml";
+}
+@section Scripts{
+<script src="~/js/StoreJs/AddProduct.js"></script>
+}
+<div class=addProductBody>
+    <div class=addProductBlock1>
+        <form action="/StoreAdmin/AddProduct" method="post" enctype="multipart/form-data">
+            <select asp-for="Brand" asp-items="Html.GetEnumSelectList<BrandСategories>()" id=brand1></select>
+            <div class="validationField">
+                Name:<span> @Html.TextBoxFor(x => x.Name , new { id = "addNameProduct" })</span>
+                @Html.ValidationMessageFor(x => x.Name)
+            </div>
+            <div class="validationField">
+                Quantity: @Html.TextBoxFor(x => x.Quantity)
+                @Html.ValidationMessageFor(x => x.Quantity)
+            </div>
+            <div class="validationField">
+                Price: @Html.TextBoxFor(x => x.Price,new { id = "addPrice" })
+                @Html.ValidationMessageFor(x => x.Price)
+            </div>
+            <select asp-for="Category" asp-items="Html.GetEnumSelectList<CoolCategories>()" id=category1> </select>
+            <select asp-for="Color" asp-items="Html.GetEnumSelectList<CoolColors>()" id=color1></select>
+            <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" id=gender1></select>
+            <select asp-for="Material" asp-items="Html.GetEnumSelectList<CoolMaterial>()" id=material1></select>
+            <div>
+                @Html.ValidationMessageFor(x => x.Sizes)
+                @foreach (var size in Model.Sizes)
+                {
+                    <div>
+                        <input name="CheckedSizes" type="checkbox" value="@size" /> @size
+                    </div>
+                }
+            </div>
+            <div>
+                <input type="file" name="ProductImage" />
+            </div>
+            <div>
+                <input type="submit" value="Add Product" />
+            </div>
+        </form>
+    </div>
+    <div class=addProductBlock2>
+        <div class="fotoAddProduct">
+            <div class="menu">
+
+                <div class=iconshoesAddProduct>
+                    <img src="~/images/Store/Black.jpg" class="iconAddProduct" />
+                </div>
+
+                <div class=iconshoesAddProduct>
+                    <img src="~/images/Store/Black.jpg" class="iconAddProduct" />
+                </div>
+
+                <div class=iconshoesAddProduct>
+                    <img src="~/images/Store/Black.jpg" class="iconAddProduct" />
+                </div>
+
+                <div class=iconshoesAddProduct>
+                    <img src="~/images/Store/Black.jpg" class="iconAddProduct" />
+                </div>
+
+            </div>
+
+            <div class="centr">
+                <img src="~/images/Store/Black.jpg" class="icon1AddProduct" />
+            </div>
+
+            <div class="text">
+
+                <div class=brandCategories>*******</div>
+                <div class=addProductName>******</div>
+                <div class="stars">
+                    <span><img src="/images/Store/star_black.png" class="star"></span>
+                    <span><img src="/images/Store/star_black.png" class="star"></span>
+                    <span><img src="/images/Store/star_black.png" class="star"></span>
+                    <span><img src="/images/Store/star_black.png" class="star"></span>
+                    <span><img src="/images/Store/star_black.png" class="star"></span>
+                </div>
+                <span class="cost">******</span><span> $</span>
+                <div class="instock">В наличии</div>
+                <div class="category">
+                    <div>Gender:<span class=gender></span></div>
+                    <div>Material:<span class=coolMaterial></span></div>
+                    <div>Сountry of production: Vietnam</div>
+                    <div>Category:<span class=coolCategories></span></div>
+                    <div>Color:<span class=coolColor></span></div>
+                    <div class="buttonssize">
+                        @*@foreach (var size in Model.Sizes)
+                            {
+                            <a href="#" class="ButtonSize">@size</a>s
+                            }*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

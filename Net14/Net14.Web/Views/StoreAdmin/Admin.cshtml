@@ -1,0 +1,80 @@
+﻿@model List<ProductViewModel>
+@using Net14.Web.Models.store
+@using Net14.Web.Localize.Store
+@{
+    Layout = "/Views/Shared/_LayoutStore.cshtml";
+}
+<div class="bodyAdmin">
+
+
+    <div class="title">
+        @LayoutStore.Admin_panel
+    </div>
+    <a class="title_mini" href="/StoreAdmin/AddProduct">Add product</a>
+    <div>
+
+
+        <table class="tableAdmin">
+            <thead>
+                <tr>
+                    <td>Picture</td>
+
+                    <td>Id</td>
+
+                    <td>Brand</td>
+
+                    <td>Name</td>
+
+                    <td>Category</td>
+
+                    <td>Material</td>
+
+                    <td>Gender</td>
+
+                    <td>Quantity</td>
+
+                    <td>Price</td>
+
+                    <td>Color</td>
+
+                    <td>Size</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td class="firstTD">
+                            <img src="@product.Images.FirstOrDefault()" class="adminPanelImage" />
+                            <div> <a class="title_mini" href="/StoreAdmin/AddImageProduct?id=@product.Id">Add Image</a></div>
+                        </td>
+
+                        <td> @product.Id</td>
+
+                        <td>@product.BrandCategories</td>
+
+                        <td>@product.Name</td>
+
+                        <td>@product.CoolCategories</td>
+
+                        <td>@product.CoolMaterial</td>
+
+                        <td>@product.Gender</td>
+
+                        <td>@product.Quantity</td>
+
+                        <td>@product.Price $</td>
+
+                        <td>@product.CoolColors </td>
+
+                        <td>@foreach (var size in product.Sizes)
+                            {
+                                <span>@size, </span>
+                            } </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

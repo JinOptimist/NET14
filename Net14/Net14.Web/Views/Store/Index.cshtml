@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Net14.Web.Localize.Store
+@{
     Layout = "/Views/Shared/_LayoutStore.cshtml";
 }
 
@@ -7,14 +8,14 @@
         <div class="indexRunMargin">
             <a href="/Store/Catalog?category=Run">
             <img src="/images/Store/IndexRun.jpg" class="indexRun" />
-            <h2 class="titleImageRun">Running shoes</h2>
+            <h2 class="titleImageRun">@IndexR.Running_shoes</h2>
             </a>
         </div>
         <div class="containerIndex2">
             <div class="indexRunMargin">
                 <a href="/Store/Catalog?category=Women">
                 <img src="/images/Store/krossovki-zhenskie.jpg" class="womenSnkrs" />
-                <h2 class="titleImageRun">Women shoes</h2>
+                <h2 class="titleImageRun">@IndexR.Women_shoes</h2>
                 </a>
             </div>
             <div class="containerIndex1">
@@ -25,12 +26,12 @@
                     <div class="accessoriesIndex">
                         <a href="/Store/Catalog?category=Accessories">
                         <img src="/images/Store/Socks.jpg" class="socks" />
-                        <h2 class="miniTitleImageRun">Accessories</h2>
+                        <h2 class="miniTitleImageRun">@IndexR.Accessories</h2>
                         </a>
                     </div>
                     <div class="accessoriesIndex">
                         <img src="/images/Store/Уход.jpg" class="socks" />
-                        <h2 class="miniTitleImageRun">Clean</h2>
+                        <h2 class="miniTitleImageRun">@IndexR.Clean</h2>
                     </div>
 
                 </div>

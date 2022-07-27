@@ -1,8 +1,13 @@
 ﻿@using Net14.Web.Models.store
+@using Net14.Web.Localize.Store
 @model ProductViewModel
 
 @{
     Layout = "/Views/Shared/_LayoutStore.cshtml";
+}
+
+@section Scripts{ 
+    <script src="~/js/StoreJs/Shoes.js"></script>
 }
 
 <body>
@@ -33,13 +38,13 @@
                 <span><img src="/images/Store/star_black.png" class="star"></span>
             </div>
             <div class="cost">@Model.Price $</div>
-            <div class="instock">В наличии</div>
+            <div class="instock">@Shoes.In_stock</div>
             <div class="category">
-                <div>Пол:@Model.Gender</div>
-                <div>Материал: @Model.CoolMaterial</div>
-                <div>Страна производства: Вьетнам</div>
-                <div>Предназначение: @Model.CoolCategories</div>
-                <div>Цвет:@Model.CoolColors</div>
+                <div>@Shoes.Gender:@Model.Gender</div>
+                <div>@Shoes.Material: @Model.CoolMaterial</div>
+                <div>@Shoes.Сountry_of_production:Vietnam </div>
+                <div>@Shoes.Category: @Model.CoolCategories</div>
+                <div>@Shoes.Color:@Model.CoolColors</div>
                 <div class="buttonssize">
                     @foreach (var size in Model.Sizes)
                     {
@@ -47,12 +52,12 @@
                     }
                 </div>
             </div>
-            <a href="#" class="toBasket">В корзину</a>
+            <a href="/Store/AddProductToBasket?productId=@Model.Id" class="toBasket">@Shoes.Add_to_Basket</a>
         </div>
 
     </div>
     <div class="similar">
-        <div class="similartext"> Похожие товары </div>
+        <div class="similartext"> @Shoes.Similar_products </div>
         <div class="similarproducts">
             @foreach (var image in Model.RandomImages)
             {

@@ -39,6 +39,22 @@ namespace Net14.Web.Localize
                         break;
                 }
             }
+            else
+            {
+                var srLang = context.Request.Cookies["SmileLag"];
+                Enum.TryParse(srLang, out Language lang);
+                switch (lang)
+                {
+                    case Language.Eng:
+                        CultureInfo.DefaultThreadCurrentUICulture
+                            = new CultureInfo("en-EN");
+                        break;
+                    case Language.Rus:
+                        CultureInfo.DefaultThreadCurrentUICulture
+                            = new CultureInfo("ru-RU");
+                        break;
+                }
+            }
 
             await _next(context);
         }

@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.SignalR;
 using Net14.Web.SignalRHubs;
 using Net14.Web.Models.SocialModels.Attributes;
 using System.Reflection;
+using Net14.Web.Models.SocialModels.Enums;
 
 namespace Net14.Web.Controllers
 {
@@ -215,7 +216,7 @@ namespace Net14.Web.Controllers
 
         [Authorize]
         [HasRole(SiteRole.Admin)]
-        public IActionResult GetAPIs() 
+        public IActionResult GetAPIs()
         {
             var typeWithAttributes = typeof(SocialAPIAttribute);
             var apis = Assembly
@@ -240,6 +241,14 @@ namespace Net14.Web.Controllers
 
             return View(apis);
         }
-        
+
+
+        public IActionResult ShowAllUsersForAdmin(string sortFieldName = "Id")
+        {
+            var users = _socialUserRepository.GetAllAndSortedV2(sortFieldName);
+            var viewModels = _mapper
+                .Map<List<SocialUserRecomendationViewModel>>(users);
+            return View(viewModels);
+        }
     }
 }

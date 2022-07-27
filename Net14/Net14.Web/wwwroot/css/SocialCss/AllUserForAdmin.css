@@ -1,0 +1,8 @@
+.admin-user tr td {
+    border: 1px solid #ccc;
+}
+
+
+.admin-user tr:nth-child(2n) {
+    background-color: #b1dacb;
+}

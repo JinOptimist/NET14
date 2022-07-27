@@ -8,7 +8,6 @@ using System.Globalization;
 using Calendar.Days;
 using System.Collections.Generic;
 
-
 namespace Net14
 {
     class Menu

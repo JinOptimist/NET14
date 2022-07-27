@@ -55,13 +55,22 @@ namespace Net14.Web.EfStuff.Repositories
         }
 
 
+        public void Remove(int id)
+        {
+            Remove(Get(id));
+        }
+
         public bool Any()
         {
             return _dbSet.Any();
         }
+
         public void SaveList(List<T> models)
             => models.ForEach(Save);
-        
+
+        public int Count()
+        {
+            return _dbSet.Count();
+        }
     }
-    
 }

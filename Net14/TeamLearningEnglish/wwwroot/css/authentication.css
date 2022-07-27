@@ -1,0 +1,113 @@
+﻿.main-word {
+    color: #1c1e21;
+    font-family: SFProDisplay-Bold, Helvetica, Arial, sans-serif;
+    font-size: 32px;
+}
+
+.block {
+    display: flex;
+    justify-content:space-around;
+
+}
+
+.authentication {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: aliceblue;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: #fff;
+    margin-top: 76px;
+    width: 432px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.email-input, .password-input, .birthday-input {
+    width: 100%;
+}
+
+.full-name, .email-input, .password-input, .age {
+    margin-bottom: 10px;
+}
+
+.email-input, .name, .last-name, .password-input, .age {
+    height: 40px;
+    padding-left: 10px;
+    background: #f5f6f7;
+    border: 1px solid #ccd0d5;
+    border-radius: 5px;
+}
+
+.submit {
+    margin-top: 10px;
+}
+
+.level select {
+    width: 100%;
+    height: 40px;
+    padding-left: 10px;
+    background: #f5f6f7;
+    border: 1px solid #ccd0d5;
+    border-radius: 5px;
+}
+
+.button-submit {
+    display: flex;
+    justify-content: center;
+}
+
+    .button-submit input {
+        background-color: #00a400;
+        font-size: 18px;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-top: 35px;
+    }
+.age{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.main-word {
+    display: flex;
+    flex-direction: row;
+}
+
+.empty, .word-registr, .close-button {
+    width: 207px;
+}
+
+.word-registr{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.close-button img {
+    width: 29px;
+    margin-left: 66px;
+    margin-bottom: 27px;
+}
+.block-empty, .validation {
+    width: 432px;
+}
+.validation-for-email {
+    margin-top: 156px;
+}
+.validation-for-name, .validation-for-password, .validation-for-age {
+    margin-top: 20px;
+}
+.validation-for-email, .validation-for-name, .validation-for-password, .validation-for-age {
+    font-size: 20px;
+}
+.validation{
+    margin-left:20px;
+}
+
