@@ -8,7 +8,7 @@
 <div class="hub-blocks">
     <div class="block">
         <div class="birth-your-friends">
-            Birthdays
+            @Indexx.Birthdays
         </div>
         @foreach (SocialUserViewModel friend in Model)
         {
@@ -26,14 +26,14 @@
                     @if (friend.BirthDate.Day == DateTime.Today.Day)
                     {
                         <div class="today">
-                            Today is your friend's birthday
+                            @Indexx.Today
                         </div>
                     }
                     else
                     {
-                        <div class="tomorrow">
-                            Tomorrow is your friend's birthday
-                        </div>
+                <div class="tomorrow">
+                    @Indexx.Tomorrow
+                </div>
                     }
                 </div>
             </div>

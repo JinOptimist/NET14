@@ -328,6 +328,7 @@ namespace Net14.Web.Controllers
         }
         public IActionResult ChangeLanguageToEnglish()
         {
+
             var currentUser = _userService.GetCurrent();
             currentUser.Language = Language.Eng;
             _socialUserRepository.Save(currentUser);

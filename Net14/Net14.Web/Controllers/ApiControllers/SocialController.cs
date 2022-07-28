@@ -151,6 +151,7 @@ namespace Net14.Web.Controllers.ApiControllers
         [Authorize]
         public bool AcceptFriend(int friendId)
         {
+
             var user = _userService.GetCurrent();
             _friendRequestService.Accept(friendId, user.Id);
 

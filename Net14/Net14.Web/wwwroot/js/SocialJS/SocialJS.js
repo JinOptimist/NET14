@@ -304,11 +304,11 @@ $(document).ready(() => {
         }
     });
 
-    $(document).on('click', ".accept-button", function () {
+/*    $(document).on('click', ".accept-button", function () {
         let friendId = String($(this).closest(".notification-container").data("friendid"));
         hubConnection.invoke("SendNotif", "accept", friendId);
 
-    });
+    });*/
 
     $(document).on('click', ".decline-button", function () {
         let friendId = String($(this).closest(".notification-container").data("friendid"));

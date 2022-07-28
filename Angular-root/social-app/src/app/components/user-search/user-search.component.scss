@@ -57,4 +57,9 @@ label {
 #search-component{
     position: relative;
     width: 70%;
+    z-index: 1;
+}
+
+#search-box{
+  z-index: 1;
 }

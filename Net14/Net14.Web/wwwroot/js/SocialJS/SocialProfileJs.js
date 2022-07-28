@@ -24,11 +24,11 @@
         $.get("/api/Social/AddFriend", { friendId: id })
             .done(function () {
                 button.replaceWith(buttonReplace.removeClass("template"));
+                hubConnection.invoke("SendNotif", "requested", id);
+
             });
-
-        hubConnection.invoke("SendNotif", "requested", id);
-
         hubConnection.start();
+
     })
 
     $(document).on("click", ".send-message-profile-pop", function () {
@@ -54,10 +54,10 @@
             dataType: "json",
             contentType: "application/json; charset=utf-8",
         }).done(function () {
+
             hubConnectionMessage.invoke("SendMessage", text, userId.toString());
         });
 
-        hubConnectionMessage.start();
 
     });
 
@@ -101,6 +101,9 @@
                 buttonClicked.replaceWith(buttonToReplace.removeClass("template"));
             });
     });
+
+    hubConnectionMessage.start();
+
 
 });
 

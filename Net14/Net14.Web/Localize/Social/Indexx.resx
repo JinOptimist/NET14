@@ -126,6 +126,9 @@
   <data name="Add_post" xml:space="preserve">
     <value>Добавить пост</value>
   </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>Дни рождения</value>
+  </data>
   <data name="Comment" xml:space="preserve">
     <value>Текст</value>
   </data>
@@ -143,5 +146,11 @@
   </data>
   <data name="Send" xml:space="preserve">
     <value>Отправить</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Сегодня день рождения друга</value>
+  </data>
+  <data name="Tomorrow" xml:space="preserve">
+    <value>Завтра день рождения друга</value>
   </data>
 </root>

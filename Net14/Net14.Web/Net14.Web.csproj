@@ -62,6 +62,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Localize\Social\Indexx.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Indexx.resx</DependentUpon>
+    </Compile>
     <Compile Update="Localize\Store\Basket.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -140,6 +145,10 @@
     <EmbeddedResource Update="Localize\Resource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Social\Indexx.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Indexx.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Store\Basket.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
