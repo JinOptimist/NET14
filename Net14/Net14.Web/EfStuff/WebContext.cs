@@ -14,6 +14,8 @@ namespace Net14.Web.EfStuff
         public DbSet<PostSocial> Posts { get; set; }
         public DbSet<UserSocial> Users { get; set; }
         public DbSet<FileSocial> fileSocial { get; set; }
+        public DbSet<FoldersForToDo> FolderForToDo { get; set; }
+        public DbSet<IssuesForToDo> IssueForToDo { get; set; }
         public DbSet<SocialComment> SocialComments { get; set; }
         public DbSet<GroupSocial> GroupSocial { get; set; }
         public DbSet<ImageComment> ImageComments { get; set; }

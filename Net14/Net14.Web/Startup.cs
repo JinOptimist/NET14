@@ -300,6 +300,22 @@ namespace Net14.Web
 
             provider.CreateMap<SocialMessages, SocialMessageViewModel>();
 
+            provider.CreateMap<IssuesForToDo, IssuesForToDoViewModel> ();
+
+            provider.CreateMap<IssuesForToDoViewModel, IssuesForToDo>();
+
+            provider.CreateMap<FoldersForToDo, FoldersForToDoViewModel>();
+
+            provider.CreateMap<FoldersForToDoViewModel, FoldersForToDo>();
+
+            provider.CreateMap<Product, ProductViewModel>()
+                .ForMember(nameof(ProductViewModel.Images),
+                    product => product
+                        .MapFrom(dbProduct => dbProduct.StoreImages.Select(image => image.Url).ToList()));
+
+
+
+           
             provider.CreateMap<SocialPhoto, SocialPhotoViewModel>();
 
             provider.CreateMap<Product, ProductViewModel>()

@@ -48,10 +48,10 @@ namespace Net14.Web.EfStuff.Repositories
             _dbSet.Remove(model);
             _webContext.SaveChanges();
         }
-
         public void Remove(int id)
         {
             Remove(Get(id));
+            _webContext.SaveChanges();
         }
 
         public bool Any()

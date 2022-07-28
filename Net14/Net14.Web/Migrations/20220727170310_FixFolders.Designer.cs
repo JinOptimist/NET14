@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Net14.Web.EfStuff;
 
 namespace Net14.Web.Migrations
 {
     [DbContext(typeof(WebContext))]
-    partial class WebContextModelSnapshot : ModelSnapshot
+    [Migration("20220727170310_FixFolders")]
+    partial class FixFolders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -253,31 +255,6 @@ namespace Net14.Web.Migrations
                     b.ToTable("Sizes");
                 });
 
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.ComplainsSocial", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("OwnerOfComplainId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ReasonOfComplain")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerOfComplainId");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("ComplainsSocial");
-                });
-
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.FileSocial", b =>
                 {
                     b.Property<int>("Id")
@@ -405,9 +382,6 @@ namespace Net14.Web.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsCheckedForComplains")
-                        .HasColumnType("bit");
-
                     b.Property<string>("TypePost")
                         .HasColumnType("nvarchar(max)");
 
@@ -504,52 +478,6 @@ namespace Net14.Web.Migrations
                     b.ToTable("SocialMessages");
                 });
 
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.SocialPhoto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("OwnerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("SocialPhotos");
-                });
-
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.SocialReport", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UserReportId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserReportId");
-
-                    b.ToTable("Reports");
-                });
-
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserFriendRequest", b =>
                 {
                     b.Property<int>("Id")
@@ -591,9 +519,6 @@ namespace Net14.Web.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
@@ -607,9 +532,6 @@ namespace Net14.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsBlocked")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsOnline")
                         .HasColumnType("bit");
 
                     b.Property<int>("Language")
@@ -773,22 +695,6 @@ namespace Net14.Web.Migrations
                     b.Navigation("Image");
                 });
 
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.ComplainsSocial", b =>
-                {
-                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "OwnerOfComplain")
-                        .WithMany()
-                        .HasForeignKey("OwnerOfComplainId");
-
-                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", "Post")
-                        .WithMany("Complains")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("OwnerOfComplain");
-
-                    b.Navigation("Post");
-                });
-
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.FileSocial", b =>
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "Owner")
@@ -833,8 +739,7 @@ namespace Net14.Web.Migrations
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", "Post")
                         .WithMany("Comments")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PostId");
 
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "User")
                         .WithMany()
@@ -849,8 +754,7 @@ namespace Net14.Web.Migrations
                 {
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.PostSocial", "Post")
                         .WithMany("Likes")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PostId");
 
                     b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "User")
                         .WithMany()
@@ -874,24 +778,6 @@ namespace Net14.Web.Migrations
                     b.Navigation("Reciever");
 
                     b.Navigation("Sender");
-                });
-
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.SocialPhoto", b =>
-                {
-                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "Owner")
-                        .WithMany("Photos")
-                        .HasForeignKey("OwnerId");
-
-                    b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.SocialReport", b =>
-                {
-                    b.HasOne("Net14.Web.EfStuff.DbModel.SocialDbModels.UserSocial", "UserReport")
-                        .WithMany("UsersReports")
-                        .HasForeignKey("UserReportId");
-
-                    b.Navigation("UserReport");
                 });
 
             modelBuilder.Entity("Net14.Web.EfStuff.DbModel.SocialDbModels.UserFriendRequest", b =>
@@ -979,8 +865,6 @@ namespace Net14.Web.Migrations
                 {
                     b.Navigation("Comments");
 
-                    b.Navigation("Complains");
-
                     b.Navigation("Likes");
                 });
 
@@ -996,15 +880,11 @@ namespace Net14.Web.Migrations
 
                     b.Navigation("FriendRequestSent");
 
-                    b.Navigation("Photos");
-
                     b.Navigation("Posts");
 
                     b.Navigation("RecievedMessages");
 
                     b.Navigation("SendMessages");
-
-                    b.Navigation("UsersReports");
                 });
 #pragma warning restore 612, 618
         }
