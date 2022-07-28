@@ -330,8 +330,8 @@ footer
     border-radius: 10px;
     position: absolute;
     flex-direction: column;
-    min-height: 200px;
-    max-height: 330px;
+    min-height: 380px;
+    max-height: 390px;
     width: 170px;
     top: 70px;
     right: 97px;
