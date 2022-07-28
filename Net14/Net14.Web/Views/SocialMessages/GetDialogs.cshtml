@@ -7,13 +7,16 @@
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
 }
 
-
 <div class="dialog-header">@Messages.Dialogs_Header</div>
 @foreach (var dialog in Model)
 {
     <div class="dialog-element" onclick="location.href = '/SocialMessages/GetSingleDialog?dialogFriendId=@dialog.User.Id'">
-        <div class="user-photo">
+        <div class="user-photo dialogs">
             <img src=@dialog.User.UserPhoto>
+            @if (dialog.User.IsOnline) 
+            {
+                <span class="user-online-badge-dialogs"></span>
+            }
         </div>
         <div class="user-information">
             <div class="user-name-dialog">

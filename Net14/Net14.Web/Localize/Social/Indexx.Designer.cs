@@ -88,6 +88,15 @@ namespace Net14.Web.Localize.Social {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Дни рождения.
+        /// </summary>
+        public static string Birthdays {
+            get {
+                return ResourceManager.GetString("Birthdays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Текст.
         /// </summary>
         public static string Comment {
@@ -106,11 +115,11 @@ namespace Net14.Web.Localize.Social {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Горячие новости.
+        ///   Ищет локализованную строку, похожую на Популярное.
         /// </summary>
         public static string Hot_news {
             get {
-                return ResourceManager.GetString("Hot news", resourceCulture);
+                return ResourceManager.GetString("Hot_news", resourceCulture);
             }
         }
         
@@ -138,6 +147,24 @@ namespace Net14.Web.Localize.Social {
         public static string Send {
             get {
                 return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сегодня день рождения друга.
+        /// </summary>
+        public static string Today {
+            get {
+                return ResourceManager.GetString("Today", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Завтра день рождения друга.
+        /// </summary>
+        public static string Tomorrow {
+            get {
+                return ResourceManager.GetString("Tomorrow", resourceCulture);
             }
         }
     }

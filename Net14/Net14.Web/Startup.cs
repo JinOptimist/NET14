@@ -248,18 +248,22 @@ namespace Net14.Web
                     post => post
                         .MapFrom(dbPost =>
                             dbPost.User.Id))
-            .ForMember(nameof(SocialPostViewModel.UserPhoto),
+                .ForMember(nameof(SocialPostViewModel.UserPhoto),
+                        post => post
+                            .MapFrom(dbPost =>
+                                dbPost.User.UserPhoto))
+                .ForMember(nameof(SocialPostViewModel.UserName),
+                        post => post
+                            .MapFrom(dbPost =>
+                                dbPost.User.FirstName + " " + dbPost.User.LastName))
+                .ForMember(nameof(SocialPostViewModel.Likes),
                     post => post
                         .MapFrom(dbPost =>
-                            dbPost.User.UserPhoto))
-            .ForMember(nameof(SocialPostViewModel.UserName),
+                            dbPost.Likes.Count))
+                .ForMember(nameof(SocialPostViewModel.ComplainsCount),
                     post => post
-                        .MapFrom(dbPost =>
-                            dbPost.User.FirstName + " " + dbPost.User.LastName))
-            .ForMember(nameof(SocialPostViewModel.Likes),
-                post => post
-                    .MapFrom(dbPost =>
-                        dbPost.Likes.Count));
+                        .MapFrom(dbpost =>
+                            dbpost.Complains.Count));
 
             provider.CreateMap<GroupSocial, SocialGroupViewModel>()
                 .ForMember(nameof(SocialGroupViewModel.Tags),
@@ -272,7 +276,12 @@ namespace Net14.Web
             provider.CreateMap<UserFriendRequest, FriendRequestViewModel>();
 
 
-            provider.CreateMap<UserSocial, SocialUserViewModel>();
+            provider.CreateMap<UserSocial, SocialUserViewModel>()
+                .ForMember(nameof(SocialUserViewModel.Role),
+                user => user
+                    .MapFrom(dbUser =>
+                        dbUser.Role.ToString()));
+
             provider.CreateMap<SocialComment, SocialCommentViewModel>();
             provider.CreateMap<UserSocial, SocialProfileViewModel>();
             provider.CreateMap<SocialCommentViewModel, SocialUserViewModel>();
@@ -307,6 +316,27 @@ namespace Net14.Web
 
 
            
+            provider.CreateMap<SocialPhoto, SocialPhotoViewModel>();
+
+            provider.CreateMap<Product, ProductViewModel>()
+                .ForMember(nameof(ProductViewModel.Images),
+                    product => product
+                        .MapFrom(dbProduct => dbProduct.StoreImages.Select(image => image.Url).ToList()));
+
+            provider.CreateMap<ComplainsSocial, ComplainViewModel>()
+                .ForMember(nameof(ComplainViewModel.Post),
+                    post => post
+                        .MapFrom(dbpost => dbpost.Post.Id))
+                .ForMember(nameof(ComplainViewModel.OwnerOfComplain),
+                    post => post
+                        .MapFrom(dbpost => dbpost.OwnerOfComplain.Id));
+
+            provider.CreateMap<SocialReport, SocialReportViewModel>()
+                .ForMember(nameof(SocialReportViewModel.CreatingDate),
+                report => report
+                    .MapFrom(dbreport => dbreport.CreatingDate.ToString()));
+
+
             var mapperConfiguration = new MapperConfiguration(provider);
             var mapper = new Mapper(mapperConfiguration);
             services.AddSingleton<IMapper>(x => mapper);
@@ -349,6 +379,7 @@ namespace Net14.Web
                 endpoints.MapHub<ChatHub>("/chat");
                 endpoints.MapHub<NotificationsHub>("/notif");
                 endpoints.MapHub<SocialMessangerHub>("/messages");
+                endpoints.MapHub<ReportHub>("/report");
             });
 
             app.UseEndpoints(endpoints =>

@@ -73,6 +73,7 @@ namespace Net14.Web.Controllers
                 });
 
             }
+            dialogViewModels.Reverse();
 
             return View(dialogViewModels);
         }

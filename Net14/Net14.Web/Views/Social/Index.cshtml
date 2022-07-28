@@ -1,6 +1,7 @@
 ﻿@using Net14.Web.EfStuff.DbModel.SocialDbModels;
 @using Net14.Web.Services;
 @using Net14.Web.Localize.Social
+@inject UserService userService
 @model SocialPostWithTopViewModel
 @{
     Layout = "/Views/Shared/_LayoutSocial.cshtml";
@@ -8,103 +9,147 @@
 
 @section Scripts{
     <script src="~/js/SocialJS/SocialIndexJs.js"></script>
+    <script src="~/js/SocialJS/SocialJS.js"></script>
+
 
 }
+
+
 
 @if (User.Identity.IsAuthenticated)
 {
     <div class="add-post">
-        <div class="add-post-header">@Indexx.Add_post</div>
-
-        <form action="/Social/Index" method="post" id="form-add-post">
-            <div class="textForInput">
-                @Indexx.ImageUrl
+        <div class="form-div">
+            <div class="new-post-photo">
+                <img src=@userService.GetCurrent().UserPhoto>
             </div>
-            <div>
-                <input name="ImageUrl" placeholder="@Indexx.ImageUrl">
+            <form enctype="multipart/form-data" class="add-post-form" action="/Social/Index" method="post" id="myform">
+                <textarea type="text" placeholder="What's new?'" class="post-input" name="CommentOfUser"></textarea>
+                <span class="file-name"></span>
+                <div class="add-image-post">
+                    <div class="add-image">
+                        <label>
+                            <img src="~/images/Social/gallery.png">
+                            <input type="file" class="add-image" name="ImageUrl" id="file1">
+                        </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="block-send">
+            <div class="send-button-container">
+                <input type="submit" value="Send" class="send-post" form="myform" />
             </div>
-            <div class="textForInput">
-                @Indexx.Comment
-            </div>
-            <div>
-                <input name="CommentOfUser" placeholder="@Indexx.Comment">
-            </div>
-            <div>
-                <input type="submit" value="@Indexx.Add" class="button-add-post">
-            </div>
-        </form>
+        </div>
     </div>
+
 }
 
 
 @foreach (SocialPostViewModel post in Model.Posts)
 {
-    <a name="@post.Id" class="anchor"></a>
+    if (!post.IsBlockedByUser)
+    {
 
-    <div class="content-element" data-id=@post.Id>
-        <div class="content-element-card">
-            <div class="user-info">
-                <div class="user-photo">
-                    <img src=@post.UserPhoto class="user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">
-                </div>
-                <div class="user-name">
-                    <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@string.Format(@Indexx.Posted, post.UserName)</p>
-                </div>
-            </div>
-            <div class="block-post-image">
-                <img src=@post.ImageUrl class="post-image">
-            </div>
-            <div class="footer-of-post">
-                @post.CommentOfUser
-            </div>
-            <div class="post-operations">
-                <div class="like-container">
-                    @if (post.IsLikedCurrentUser)
-                    {
-                        <div class="operations like active">
-                            <img src="~/images/Social/heartRed.png">
+        <div class="content-element" data-id=@post.Id>
+            <a name="@post.Id" class="anchor"></a>
+            <div class="content-element-card">
+                <div class="user-info">
+                    <div class="more-and-user">
+                        <div class="user-photo">
+                            <img src=@post.UserPhoto class="user-photo" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">
                         </div>
-                    }
-                    else
-                    {
-                        <div class="operations like" id="disable">
-                            <img src="~/images/Social/heart.png">
+                        <div class="user-name">
+                            <p class="name" onclick="location.href='@Url.Action("ShowPagesProfile", "Social", new {id = post.UserId})'">@string.Format(@Indexx.Posted, post.UserName)</p>
                         </div>
-                    }
-                    <div class="likes-count">@post.Likes</div>
-                </div>
-                <div class="comm-container">
-                    <div class="operations comment">
-                        <img src="~/images/Social/speech-bubble.png">
                     </div>
-                    <div class="comm-count">@post.Comments.Count</div>
-                </div>
-                <div class="operations share">
-                    <img src="~/images/Social/share (1).png">
-                </div>
-            </div>
-            <div class="comments">
-                <div class="comments-elements-container">
-                    <div class="comment-header">@Indexx.Comments</div>
-                    <div class="comment-elements">
-                        <div class="single-comment template">
-                            <div class="comment-owner-info">
-                                <img class="user-photo" id="comment-photo">
-                                <div class="user-name-comment"></div>
-                            </div>
-                            <div class="comment-text">
+                    <div class="more-div">
+                        @if (post.IsByCurrentUser)
+                        {
+                            <div class="delete-post">Delete post</div>
+                        }
+                        else
+                        {
+                            <div class="complane">Complane</div>
+
+                        }
+                    </div>
+                    <div id="complane">
+                        <div id="okno-complane">
+                            <div class="pop-wrapper-complane">
+                                <div class="pop-header-complane">
+                                    <div class="send-header">Make a complane</div>
+                                    <div class="go-and-cancel-complain">
+                                        <img class="close-pop" src="~/images/Social/free-icon-cancel-130887.png">
+                                    </div>
+                                </div>
+                                <div class="make-complane-text" data-postId="@post.Id">
+                                    <textarea placeholder="Reason of complain" class="texarea-complain"></textarea>
+                                    <div class="send-complain">Send</div>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="more-button-container">
+                        <img src="~/images/Social/more.png" class="more-button-icon">
+                    </div>
                 </div>
-                <form class="input-container">
-                    <input name="postId" type="hidden" value="@post.Id" />
-                    <input type="text" class="to-comment" name="text" placeholder="@Indexx.Add_comment" />
-                    <input type="submit" value="@Indexx.Send" class="comm">
-                </form>
+                <div class="block-post-image">
+                    <img src=@post.ImageUrl class="post-image">
+                </div>
+                <div class="footer-of-post">
+                    @post.CommentOfUser
+                </div>
+                <div class="post-operations">
+                    <div class="like-container">
+                        @if (post.IsLikedCurrentUser)
+                        {
+                            <div class="operations like active">
+                                <img src="~/images/Social/heartRed.png">
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="operations like" id="disable">
+                                <img src="~/images/Social/heart.png">
+                            </div>
+                        }
+                        <div class="likes-count">@post.Likes</div>
+                    </div>
+                    <div class="comm-container">
+                        <div class="operations comment">
+                            <img src="~/images/Social/speech-bubble.png">
+                        </div>
+                        <div class="comm-count">@post.Comments.Count</div>
+                    </div>
+                    <div class="operations share">
+                        <img src="~/images/Social/share (1).png">
+                    </div>
+                </div>
+                <div class="comments">
+                    <div class="comments-elements-container">
+                        <div class="comment-header">@Indexx.Comments</div>
+                        <div class="comment-elements">
+                            <div class="single-comment template">
+                                <div class="comment-owner-info">
+                                    <img class="user-photo" id="comment-photo">
+                                    <div class="user-name-comment"></div>
+                                </div>
+                                <div class="comment-text">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="input-container">
+                        <input name="postId" type="hidden" value="@post.Id" />
+                        <input type="text" class="to-comment" name="text" placeholder="@Indexx.Add_comment" />
+                        <input type="submit" value="@Indexx.Send" class="comm">
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    }
 
 }
 
@@ -116,6 +161,8 @@
 <div class="operations like template" id="disable">
     <img src="~/images/Social/heart.png">
 </div>
+
+
 
 @section NavbarRecomendations
 {

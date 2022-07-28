@@ -1,0 +1,23 @@
+.user-container{
+    display: flex;
+    justify-content: center;
+    min-width: 350px;
+    max-width: 650px;
+    flex-wrap: wrap;
+}
+.form-control{
+    max-width: 300px;
+    min-width: 200px;
+    margin-bottom: 30px;
+}
+
+.user-input{
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.find-button{
+    height: 38px;
+}

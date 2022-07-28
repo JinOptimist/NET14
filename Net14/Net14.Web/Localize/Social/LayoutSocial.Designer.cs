@@ -88,7 +88,7 @@ namespace Net14.Web.Localize.Social {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Найти пользователя.
+        ///   Ищет локализованную строку, похожую на Пользователи.
         /// </summary>
         public static string Find_user {
             get {
@@ -133,6 +133,24 @@ namespace Net14.Web.Localize.Social {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Сервисы.
+        /// </summary>
+        public static string Hub {
+            get {
+                return ResourceManager.GetString("Hub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сервисы.
+        /// </summary>
+        public static string Hubs {
+            get {
+                return ResourceManager.GetString("Hubs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Изучение C#.
         /// </summary>
         public static string Learn_C {
@@ -165,6 +183,15 @@ namespace Net14.Web.Localize.Social {
         public static string My_Posted {
             get {
                 return ResourceManager.GetString("My Posted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Новости.
+        /// </summary>
+        public static string News {
+            get {
+                return ResourceManager.GetString("News", resourceCulture);
             }
         }
         
@@ -232,7 +259,7 @@ namespace Net14.Web.Localize.Social {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Настройки пользователя.
+        ///   Ищет локализованную строку, похожую на Настройки аккаунта.
         /// </summary>
         public static string User_settings {
             get {

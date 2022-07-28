@@ -141,6 +141,12 @@
   <data name="Home" xml:space="preserve">
     <value>Домой</value>
   </data>
+  <data name="Hub" xml:space="preserve">
+    <value>Сервисы</value>
+  </data>
+  <data name="Hubs" xml:space="preserve">
+    <value>Сервисы</value>
+  </data>
   <data name="Learn_C" xml:space="preserve">
     <value>Изучение C#</value>
   </data>
@@ -152,6 +158,9 @@
   </data>
   <data name="My Posted" xml:space="preserve">
     <value>Моя страница</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>Новости</value>
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Уведомления</value>

@@ -56,5 +56,12 @@ namespace Net14.Web.EfStuff.Repositories
             group.Members.Remove(user);
             _webContext.SaveChanges();
         }
+
+        public List<GroupSocial> GetUsersGroups(int userId) 
+        {
+            return _webContext.GroupSocial
+                .Where(group => group.Members.Any(user => user.Id == userId))
+                .ToList();
+        }
     }
 }

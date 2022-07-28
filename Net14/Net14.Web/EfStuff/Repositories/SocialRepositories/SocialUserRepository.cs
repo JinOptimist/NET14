@@ -8,6 +8,9 @@ using Net14.Web.EfStuff.DbModel.SocialDbModels;
 using Net14.Web.Models.SocialModels.Enums;
 using System.Linq.Expressions;
 
+using Net14.Web.EfStuff.DbModel.SocialDbModels.SocialEnums;
+using Net14.Web.Models.SocialModels.DataModels;
+
 namespace Net14.Web.EfStuff.Repositories
 {
     public class SocialUserRepository : BaseRepository<UserSocial>
@@ -119,5 +122,102 @@ namespace Net14.Web.EfStuff.Repositories
 
             return _dbSet.OrderBy(orderByEpression).ToList();
         }
+        public bool ManageRole(int userId, SiteRole role)
+        {
+            var user = _webContext.Users.Single(user => user.Id == userId);
+            if (user.Role.HasFlag(role))
+            {
+                user.Role &= ~role;
+                _webContext.SaveChanges();
+                return true;
+
+            }
+
+            user.Role |= role;
+            _webContext.SaveChanges();
+            return true;
+        }
+
+        public List<UserSocial> FindUserbyName(string name)
+        {
+            var users = _webContext.Users.Where(user
+                => user.FirstName.ToLower().Contains(name) ||
+                user.LastName.ToLower().Contains(name)).ToList();
+
+            return users;
+        }
+
+        public bool AddPhoto(SocialPhoto photo, int userId)
+        {
+            var user = _webContext.Users.SingleOrDefault(user => user.Id == userId);
+            if (user == null)
+            {
+                return false;
+            }
+            user.Photos.Add(photo);
+            _webContext.SaveChanges();
+            return true;
+        }
+
+        public bool DeleteFriend(UserSocial currentUser, UserSocial userToDelete) 
+        {
+            currentUser.Friends.Remove(userToDelete);
+            userToDelete.Friends.Remove(currentUser);
+
+            var friendRequest = _webContext.UserFriendRequests.Where(req =>
+            req.Receiver.Id == currentUser.Id && req.Sender.Id == userToDelete.Id
+            || req.Receiver.Id == userToDelete.Id && req.Sender.Id == currentUser.Id);
+
+            _webContext.UserFriendRequests.RemoveRange(friendRequest);
+            _webContext.SaveChanges();
+            return true;
+        }
+
+        public bool MakeUserOnline(UserSocial userSocial) 
+        {
+            userSocial.IsOnline = true;
+            _webContext.SaveChanges();
+            return true;
+        }
+
+        public bool MakeUserNotOnline(UserSocial userSocial) 
+        {
+            userSocial.IsOnline = false;
+            _webContext.SaveChanges();
+            return true;
+        }
+
+        public UserReportModel GetUserToReport(int userId) 
+        {
+            return _webContext
+                .Users
+                .Select(x => new UserReportModel
+                {
+                    Id = x.Id,
+                    City = x.City,
+                    Country = x.Country,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Friends = x.Friends.Select(friend => new ReportFriendModel
+                    {
+                        FirstName = friend.FirstName,
+                        LastName = friend.LastName
+                    }).ToList(),
+                    Files = x.Files.Select(file => new ReportFileModel
+                    {
+                        Name = file.Name,
+                        Url = file.Url
+                    }).ToList(),
+                    Groups = x.Groups.Select(group => new ReportGroupModel
+                    {
+                        MemberCount = group.Members.Count,
+                        Name = group.Name
+                    }).ToList(),
+                    RecievedMessagesCount = x.RecievedMessages.Count,
+                    SentMessagesCount = x.SendMessages.Count
+                })
+                .FirstOrDefault(x => x.Id == userId);
+        }
+
     }
 }

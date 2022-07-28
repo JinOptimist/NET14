@@ -1,0 +1,35 @@
+header{
+    width: 100%;
+    position: fixed;
+    height: 70px;
+    background-color: rgb(84, 84, 217);
+    z-index: 1000;
+}
+
+.header-container{
+    height: 70px;
+}
+
+.navigate{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: white;
+    height: 100%;
+    margin-right: 100px;
+    font-size: 20px;
+
+    li{
+        list-style-type: none;
+
+        a{
+            cursor: pointer;
+            color: white;
+            text-decoration: none;
+        }
+    }
+
+    li:nth-child(2n){
+        margin-left: 50px; 
+    }
+}
