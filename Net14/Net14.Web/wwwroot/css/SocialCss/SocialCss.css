@@ -13,7 +13,7 @@ body {
     display: flex;
     margin: 0 auto;
     height: 60px;
-    background: linear-gradient(to top right, #602CE0, #CD63DF);
+    background: linear-gradient(to top right, #FFFFFF, #D3D3D3);
     justify-content: space-between;
     box-shadow: 0.4em 0.4em 5px rgb(122 122 122 / 50%);
     position: fixed;
@@ -23,9 +23,11 @@ body {
     z-index: 1000;
 }
 
-    .header.out {
-        transform: translateY(-100%);
-    }
+#DCDCDC
+
+.header.out {
+    transform: translateY(-100%);
+}
 
 .content-first {
     display:flex;
@@ -160,9 +162,11 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to top right, #602CE0, #CD63DF);
-    color: White;
+    background: linear-gradient(to top right, #FFFFFF, #D3D3D3);
+    color: Black;
 }
+
+#602CE0, #CD63DF
 
 .footer-of-post {
     min-height: 30px;
@@ -228,8 +232,6 @@ footer {
     height: 100%;
     font-size: 13px;
 }
-
-
 
 .name
 {
@@ -477,7 +479,7 @@ input[type=submit]:hover{
     text-decoration: none;
 }
 a {
-    color: lightgrey;
+    color: black;
 }
 .menu-container {
     display: flex;
