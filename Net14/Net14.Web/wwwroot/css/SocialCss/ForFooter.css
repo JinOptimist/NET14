@@ -18,7 +18,18 @@
     justify-content: center;
     align-content: center;
 }
-.languagee {
+
+.languages-en, .languages-rus {
     margin-right: 10px;
-    cursor:pointer;
+    cursor: pointer;
+}
+
+.languages-en img {
+    width: 30px;
+    height: 30px;
+} 
+
+.languages-rus img {
+    width: 30px;
+    height: 30px;
 }

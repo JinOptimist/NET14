@@ -9,14 +9,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Social</title>
-    <link rel="stylesheet" href="~/css/SocialCss/SocialCss.css?v=1.0" />
-    <link rel="stylesheet" href="~/css/SocialCss/MyFiles.css" />
+    <link rel="stylesheet" href="~/css/SocialCss/SocialCss.css?v=1.1">
+    <link rel="stylesheet" href="~/css/SocialCss/MyFiles.css">
     <link rel="stylesheet" href="~/css/SocialCss/findUsers.css">
     <link rel="stylesheet" href="~/css/SocialCss/SettingsSocialCss.css">
     <link rel="stylesheet" href="~/css/SocialCss/AddPost.css">
     <link rel="stylesheet" href="~/css/Shulte/FindGame.css">
     <link rel="stylesheet" href="~/css/SocialCss/NotificationsCss.css">
-    <link rel="stylesheet" href="~/css/SocialCss/ForFooter.css">
+    <link rel="stylesheet" href="~/css/SocialCss/ForFooter.css?v=1.3">
 
 
     <script language="JavaScript" type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -177,9 +177,14 @@
         <div class="languages">
             @if (User.Identity.IsAuthenticated)
             {
-                <a class="languagee" onclick="location.href='@Url.Action("ChangeLanguageToEnglish", "Social")'">English</a>
-
-                <a class="languagee" onclick="location.href='@Url.Action("ChangeLanguageToRussian", "Social")'">Russian</a>
+                <div class="languages-en">
+                    <a onclick="location.href='@Url.Action("ChangeLanguageToEnglish", "Social")'">
+                        <img src="~/images/Social/localization/english.png" />English |</a>
+                </div>
+                <div class="languages-rus">
+                    <a onclick="location.href='@Url.Action("ChangeLanguageToRussian", "Social")'">
+                        Russian <img src="~/images/Social/localization/russian.png" /></a>
+                </div>
             }
         </div>
     </footer>
